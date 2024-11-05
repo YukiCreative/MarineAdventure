@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "game.h"
 #include "Input.h"
+#include "SceneController.h"
 
 Application& Application::GetInstance()
 {
@@ -40,6 +41,7 @@ bool Application::Init()
 void Application::Run()
 {
 	Input& inputInstance = Input::GetInstance();
+	SceneController& controller = SceneController::GetInstance();
 	// ƒQ[ƒ€ƒ‹[ƒv
 	while (ProcessMessage() == 0)
 	{
@@ -59,6 +61,10 @@ void Application::Run()
 		{
 			printfDx("Z‰Ÿ‚³‚ê‚½uŠÔ");
 		}
+
+		// SceneController‚Ìˆ—
+		controller.Update();
+		controller.Draw();
 
 		// ‰æ–Ê‚ÌØ‚è‘Ö‚í‚è‚ğ‘Ò‚Â
 		ScreenFlip();

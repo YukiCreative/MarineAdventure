@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 // プロトタイプ宣言
 class Scene;
 
@@ -13,12 +15,12 @@ private:
 	SceneController(const SceneController&) = delete;
 	void operator=(const SceneController&) = delete;
 
-	Scene& m_scene;
+	std::shared_ptr<Scene> m_scene;
 public:
-	//static GetInstance();
+	static SceneController& GetInstance();
 
 	void Update();
 	void Draw();
 
-	void ChangeScene(Scene& changeScene);
+	void ChangeScene(std::shared_ptr<Scene> changeScene);
 };
