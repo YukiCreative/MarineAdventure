@@ -150,6 +150,7 @@
     <ClCompile Include="Rigid.cpp" />
     <ClCompile Include="SceneController.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

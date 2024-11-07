@@ -1,5 +1,9 @@
 #pragma once
 #include "Vector2.h"
+#include <memory>
+
+// 物理クラスのプロトタイプ宣言
+class Rigid;
 
 /// <summary>
 /// プレイヤーのクラスです。
@@ -7,8 +11,11 @@
 class Player
 {
 private:
-	Vector2 m_pos;
+	std::shared_ptr<Rigid> m_rigid;
 public:
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	Player();
 
 	/// <summary>

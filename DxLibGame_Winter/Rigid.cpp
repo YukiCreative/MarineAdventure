@@ -1,27 +1,92 @@
 #include "Rigid.h"
+#include "Time.h"
+
+namespace
+{
+	// 重力
+	// とりあえず9.8で
+	constexpr float kGravity = 9.8f;
+	// 空気抵抗
+	constexpr float kAirResistance = 1.0;
+	// 水の抵抗
+	constexpr float kWaterResistance = 0.01f;
+}
 
 Rigid::Rigid() :
-	accel(),
-	position(),
-	weight(0.0f),
-	airResistance(0.0f),
-	waterResistance(0.0f),
-	force()
+	m_accel(),
+	m_position(),
+	m_weight(1.0f),
+	m_force(),
+	m_velocity(),
+	m_updateFunc(&Rigid::WaterUpdate) // テスト
+{
+}
+
+Rigid::Rigid(Vector2 initPos, float weight) :
+	m_accel(),
+	m_position(initPos),
+	m_weight(weight),
+	m_force(),
+	m_velocity(),
+	m_updateFunc(&Rigid::WaterUpdate) // テスト
 {
 }
 
 void Rigid::Update()
 {
-	// 抵抗を考えて移動する
-	// ma - kvってこと？
-	// 加速度を求めたいので、
-	// 力Fを加えてもらって、そこから計算をすることになるかな
+	// 関数ポインタを走らせるんや！
+	(this->*m_updateFunc)();
+}
 
-	// まずFとmから、aを出す
+void Rigid::WaterUpdate()
+{
+	// 重力加速度をFにして加算
+	Vector2 gravityForce = Vector2(0.0f, kGravity);
+	m_force += gravityForce;
+
+	// 抵抗を出す
+	// 水の抵抗で計算
+	Vector2 resistanceForce = m_velocity * kWaterResistance;
+	// 出てきた値でforceを弱める
+	m_force -= resistanceForce;
+
+	// Fとmから、aを出す
 	// F = maより、a = F / m;
 	// 割り算するのかー
-	accel = force / weight;
-	// 次に、抵抗を出す
-	// 自分が今水中にいるのか、地上にいるのかで使う定数を変える
+	m_accel = m_force / m_weight;
 
+	// accelからvelocityに加算する
+	m_velocity += m_accel;
+
+	// 最後に、velocityからpositionを移動
+	m_position += m_velocity * Time::DeltaTime();
+}
+
+void Rigid::GroundUpdate()
+{
+	// 重力加速度をFにして加算
+	Vector2 gravityForce = Vector2(0.0f, kGravity);
+	m_force += gravityForce;
+
+	// 抵抗を出す
+	// 空気抵抗で計算
+	Vector2 resistanceForce = m_velocity * kAirResistance;
+	// 出てきた値でforceを弱める
+	m_force -= resistanceForce;
+
+	// Fとmから、aを出す
+	// F = maより、a = F / m;
+	// 割り算するのかー
+	m_accel = m_force / m_weight;
+
+	// accelからvelocityに加算する
+	m_velocity += m_accel;
+
+	// 最後に、velocityからpositionを移動
+	m_position += m_velocity;
+}
+
+void Rigid::AddForce(Vector2 force)
+{
+	m_force += force;
 }

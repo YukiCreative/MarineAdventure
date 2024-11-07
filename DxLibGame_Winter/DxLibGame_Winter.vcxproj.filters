@@ -25,6 +25,12 @@
     <Filter Include="ソース ファイル\General">
       <UniqueIdentifier>{704cdb6a-c7c2-4ad8-802d-f38aeec29e4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Rigid">
+      <UniqueIdentifier>{7efdd669-9a40-4e58-ba8f-4b3f80241d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Rigid">
+      <UniqueIdentifier>{a239b686-31d6-47b0-8ce8-fb209c56c4a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -46,6 +52,9 @@
       <Filter>ソース ファイル\General</Filter>
     </ClCompile>
     <ClCompile Include="Rigid.cpp">
+      <Filter>ソース ファイル\Rigid</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,6 +84,9 @@
       <Filter>ヘッダー ファイル\General</Filter>
     </ClInclude>
     <ClInclude Include="Rigid.h">
+      <Filter>ヘッダー ファイル\Rigid</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
