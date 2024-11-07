@@ -3,6 +3,7 @@
 #include "game.h"
 #include "Input.h"
 #include "SceneController.h"
+#include "Time.h"
 
 Application& Application::GetInstance()
 {
@@ -42,11 +43,14 @@ void Application::Run()
 {
 	Input& inputInstance = Input::GetInstance();
 	SceneController& controller = SceneController::GetInstance();
+	Time& timeInstance = Time::GetInstance();
 	// ゲームループ
 	while (ProcessMessage() == 0)
 	{
 		// 今回のループが始まった時間を覚えておく
 		LONGLONG time = GetNowHiPerformanceCount();
+		// Timeの更新
+		timeInstance.Update();
 
 		// 画面全体をクリアする
 		ClearDrawScreen();

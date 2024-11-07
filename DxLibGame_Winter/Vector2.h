@@ -78,11 +78,27 @@ public:
 		return result;
 	}
 
+	Vector2 operator+(Vector2 other)
+	{
+		Vector2 result;
+		result.x = x + other.x;
+		result.y = y + other.y;
+		return result;
+	}
+
 	Vector2 operator-(float other)
 	{
 		Vector2 result;
 		result.x = x - other;
 		result.y = y - other;
+		return result;
+	}
+
+	Vector2 operator-(Vector2 other)
+	{
+		Vector2 result;
+		result.x = x - other.x;
+		result.y = y - other.y;
 		return result;
 	}
 };

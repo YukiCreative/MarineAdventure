@@ -1,6 +1,7 @@
 #include "TestScene.h"
 #include <DxLib.h>
 #include "Player.h"
+#include "Time.h"
 
 TestScene::TestScene() :
 	m_frameCount(0)
@@ -24,5 +25,7 @@ void TestScene::Draw()
 
 #if _DEBUG
 	DrawFormatString(0, 0, 0xffffff, "TestScene åªç›%dÉtÉåÅ[ÉÄåoâﬂíÜ", m_frameCount);
+	DrawFormatString(0, 60, 0xffffff, "%fFPS", Time::FPS());
+	DrawFormatString(0, 75, 0xffffff, "deltaTime:%f", Time::DeltaTime());
 #endif
 }

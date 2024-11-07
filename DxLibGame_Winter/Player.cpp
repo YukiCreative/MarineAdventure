@@ -38,6 +38,6 @@ void Player::Draw()
 	Vector2 copyPos = m_rigid->GetPos();
 	DrawCircle(copyPos.x, copyPos.y, 10, 0xff0000);
 #if _DEBUG
-	DrawFormatString(0, 20, 0xffffff, "PlayerPos:x = %f, y = %f", copyPos.x, copyPos.y);
+	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", copyPos.x, copyPos.y);
 #endif
 }
