@@ -21,5 +21,68 @@ public:
 		y = _y;
 	}
 
+	
+	/// <summary>
+	/// 左辺に、右辺を足し算したものを代入
+	/// </summary>
+	/// <param name="right">右辺</param>
+	void operator+=(Vector2 right)
+	{
+		x += right.x;
+		y += right.y;
+	}
 
+	void operator-=(Vector2 right)
+	{
+		x -= right.x;
+		y -= right.y;
+	}
+
+	void operator*=(Vector2 right)
+	{
+		x *= right.x;
+		y *= right.y;
+	}
+
+	void operator/=(Vector2 right)
+	{
+		x /= right.x;
+		y /= right.y;
+	}
+
+	Vector2 operator/(float other)
+	{
+		// 一回でも割り算を減らす
+		// 意味があるのかは知らん！
+		float factor = 1 / other;
+
+		Vector2 result;
+		result.x = x * factor;
+		result.y = y * factor;
+		return result;
+	}
+
+	Vector2 operator*(float other)
+	{
+		Vector2 result;
+		result.x = x * other;
+		result.y = y * other;
+		return result;
+	}
+
+	Vector2 operator+(float other)
+	{
+		Vector2 result;
+		result.x = x + other;
+		result.y = y + other;
+		return result;
+	}
+
+	Vector2 operator-(float other)
+	{
+		Vector2 result;
+		result.x = x - other;
+		result.y = y - other;
+		return result;
+	}
 };

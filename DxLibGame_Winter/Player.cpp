@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <DxLib.h>
+#include "Input.h"
 
 namespace
 {
@@ -14,7 +15,13 @@ Player::Player() :
 
 void Player::Update()
 {
-	++m_pos.x;
+	// “ü—Í‚ğ‚Æ‚Á‚ÄA“®‚­B
+	Input& input = Input::GetInstance();
+
+	if (input.IsPressed(PAD_INPUT_1))
+	{
+
+	}
 }
 
 void Player::Draw()
