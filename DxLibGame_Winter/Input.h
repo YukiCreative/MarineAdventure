@@ -1,4 +1,6 @@
 #pragma once
+#include "Vector2.h"
+
 class Input
 {
 	// “ü—Í‚ð‚Â‚©‚³‚Ç‚éƒNƒ‰ƒX
@@ -11,6 +13,8 @@ private:
 	// “ü—Í‚ð‹L‰¯
 	int m_input;
 	int m_beforeInput;
+
+	Vector2 m_inputAxis;
 
 public:
 	static Input& GetInstance();
@@ -33,5 +37,7 @@ public:
 	/// <param name="id">“ü—Í</param>
 	/// <returns>true:‰Ÿ‚µ‚Ä‚¢‚é false:‰Ÿ‚µ‚Ä‚¢‚È‚¢</returns>
 	bool IsPressed(int id);
+
+	Vector2 GetInputAxis();
 };
 

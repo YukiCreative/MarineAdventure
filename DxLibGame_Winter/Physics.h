@@ -5,27 +5,30 @@
 ///  物理挙動をつかさどりたい
 ///  速度を持っていて、座標も持とうかな
 /// </summary>
-class Rigid
+class Physics
 {
 private:
-	Vector2 m_force;
+	/// <summary>
+	/// 加えられた力
+	/// </summary>
+	Vector2 m_addForce;
 	Vector2 m_accel;
 	Vector2 m_position;
 	Vector2 m_velocity;
 	float m_weight;
 
 	// 関数ポインタ使うか
-	using UpdateFunc_t = void (Rigid::*)();
+	using UpdateFunc_t = void (Physics::*)();
 
 	UpdateFunc_t m_updateFunc;
 
 public:
-	Rigid();
+	Physics();
 	/// <summary>
 	/// 必要な値を初期値に入れたコンストラクタ
 	/// </summary>
 	/// <param name="weight"></param>
-	Rigid(Vector2 initPos, float weight);
+	Physics(Vector2 initPos, float weight);
 
 	/// <summary>
 	/// 物理の更新
@@ -50,4 +53,5 @@ public:
 	/// <returns>Vector2型の座標</returns>
 	Vector2 GetPos() { return m_position; }
 };
+
 

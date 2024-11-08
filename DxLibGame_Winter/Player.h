@@ -3,7 +3,7 @@
 #include <memory>
 
 // 物理クラスのプロトタイプ宣言
-class Rigid;
+class Physics;
 
 /// <summary>
 /// プレイヤーのクラスです。
@@ -11,7 +11,7 @@ class Rigid;
 class Player
 {
 private:
-	std::shared_ptr<Rigid> m_rigid;
+	std::shared_ptr<Physics> m_physics;
 public:
 	/// <summary>
 	/// 初期化

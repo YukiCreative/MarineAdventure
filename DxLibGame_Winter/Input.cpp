@@ -3,7 +3,8 @@
 
 Input::Input() :
     m_input(GetJoypadInputState(DX_INPUT_KEY_PAD1)),
-    m_beforeInput(0)
+    m_beforeInput(0),
+    m_inputAxis()
 {
 
 }
@@ -19,6 +20,11 @@ void Input::Update()
     // 前のフレームのを記憶
     m_beforeInput = m_input;
     m_input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+    // スティックの入力を取得
+    int analogX, analogY;
+    GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
+    m_inputAxis.x = analogX;
+    m_inputAxis.y = analogY;
 }
 
 bool Input::IsTrigger(int id)
@@ -30,4 +36,9 @@ bool Input::IsTrigger(int id)
 bool Input::IsPressed(int id)
 {
     return (m_input & id);
+}
+
+Vector2 Input::GetInputAxis()
+{
+    return m_inputAxis;
 }
