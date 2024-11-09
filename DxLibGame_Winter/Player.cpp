@@ -13,7 +13,7 @@ namespace
 }
 
 Player::Player() :
-	m_physics(std::make_shared<Physics>(Vector2(kInitPosX, kInitPosY), 1.0f))
+	m_physics(std::make_shared<Physics>(Vector2(kInitPosX, kInitPosY), 1.0f, 1.0f))
 {
 }
 
@@ -23,8 +23,16 @@ void Player::Update()
 	Input& input = Input::GetInstance();
 
 	Vector2 axis = input.GetInputAxis();
+
+	// Aボタンでダッシュ
+	if (input.IsPressed(PAD_INPUT_1))
+	{
+		axis *= 1.5f;
+	}
+
+	// 仮
 	DrawFormatString(0, 90, 0xffffff, "axisX:%f,Y:%f", axis.x, axis.y);
-	m_physics->AddForce(axis * 0.1f);
+	m_physics->AddForce(axis * 0.01f);
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 	m_physics->Update();
@@ -34,7 +42,7 @@ void Player::Draw()
 {
 	// Physicsインスタンスから座標をコピーしてくる
 	Vector2 copyPos = m_physics->GetPos();
-	DrawCircle(copyPos.x, copyPos.y, 10, 0xff0000);
+	DrawCircle(static_cast<int>(copyPos.x), static_cast<int>(copyPos.y), 10, 0xff0000);
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", copyPos.x, copyPos.y);
 #endif

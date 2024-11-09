@@ -2,10 +2,12 @@
 #include <DxLib.h>
 #include "Player.h"
 #include "Time.h"
+#include "MapSystem.h"
 
 TestScene::TestScene() :
 	m_frameCount(0)
 {
+	m_map = std::make_shared<MapSystem>();
 	m_player = std::make_shared<Player>();
 }
 
@@ -16,11 +18,13 @@ TestScene::~TestScene()
 void TestScene::Update()
 {
 	++m_frameCount;
+	m_map->Update();
 	m_player->Update();
 }
 
 void TestScene::Draw()
 {
+	m_map->Draw();
 	m_player->Draw();
 
 #if _DEBUG

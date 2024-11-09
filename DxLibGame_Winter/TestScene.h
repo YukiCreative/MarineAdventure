@@ -3,12 +3,14 @@
 #include <memory>
 
 class Player;
+class MapSystem;
 
 // プロトタイプ開発を共にするシーン
 class TestScene : public Scene
 {
 private:
 	int m_frameCount;
+	std::shared_ptr<MapSystem> m_map;
 	std::shared_ptr<Player> m_player;
 public:
 	TestScene();

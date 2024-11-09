@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{dba44deb-2e53-49ae-9aed-67e18a519d9f}</UniqueIdentifier>
     </Filter>
@@ -30,6 +26,22 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Physics">
       <UniqueIdentifier>{a239b686-31d6-47b0-8ce8-fb209c56c4a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Map">
+      <UniqueIdentifier>{1c9920f9-77e2-4320-a988-fcb1e72cc2a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Map">
+      <UniqueIdentifier>{f4194cfe-f78a-4c69-8b2f-fd8d667c98fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject">
+      <UniqueIdentifier>{4b8c5d89-778d-41ed-bb15-f355b027cceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject">
+      <UniqueIdentifier>{d309eb40-18e9-4186-90c9-14fd862ec647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,17 +63,23 @@
     <ClCompile Include="Time.cpp">
       <Filter>ソース ファイル\General</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>ソース ファイル\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="MapSystem.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MapChip.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapImageStore.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
@@ -88,6 +106,18 @@
     </ClInclude>
     <ClInclude Include="Physics.h">
       <Filter>ヘッダー ファイル\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="MapSystem.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MapChip.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapImageStore.h">
+      <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

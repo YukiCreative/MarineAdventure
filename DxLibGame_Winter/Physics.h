@@ -16,6 +16,11 @@ private:
 	Vector2 m_position;
 	Vector2 m_velocity;
 	float m_weight;
+	/// <summary>
+	/// 物体の体積
+	/// これを使って浮力を算出
+	/// </summary>
+	float m_volume;
 
 	// 関数ポインタ使うか
 	using UpdateFunc_t = void (Physics::*)();
@@ -28,7 +33,7 @@ public:
 	/// 必要な値を初期値に入れたコンストラクタ
 	/// </summary>
 	/// <param name="weight"></param>
-	Physics(Vector2 initPos, float weight);
+	Physics(Vector2 initPos, float weight, float volume);
 
 	/// <summary>
 	/// 物理の更新

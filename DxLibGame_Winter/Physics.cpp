@@ -8,27 +8,29 @@ namespace
 	// とりあえず9.8で
 	constexpr float kGravity = 9.8f;
 	// 浮力とかつけちゃって
-	constexpr float kFloatForce = 5.0f;
+	const Vector2 kFloatForce = Vector2(0.0f, -9.5f);
 	// 空気抵抗
 	constexpr float kAirResistance = 0.01f;
 	// 水の抵抗
-	constexpr float kWaterResistance = 0.15f;
+	constexpr float kWaterResistance = 0.05f;
 }
 
 Physics::Physics() :
 	m_accel(),
 	m_position(),
 	m_weight(1.0f),
+	m_volume(1.0f),
 	m_addForce(),
 	m_velocity(),
 	m_updateFunc(&Physics::WaterUpdate) // テスト
 {
 }
 
-Physics::Physics(Vector2 initPos, float weight) :
+Physics::Physics(Vector2 initPos, float weight, float volume) :
 	m_accel(),
 	m_position(initPos),
 	m_weight(weight),
+	m_volume(volume),
 	m_addForce(),
 	m_velocity(),
 	m_updateFunc(&Physics::WaterUpdate) // テスト
@@ -48,9 +50,9 @@ void Physics::WaterUpdate()
 
 	// 抵抗を出す
 	// 水の抵抗で計算
-	Vector2 resistanceForce = m_velocity * kWaterResistance;
+	Vector2 resistanceForce = m_velocity * kWaterResistance * -1;
 	// 出てきた値でforceを計算
-	Vector2 m_force = m_addForce + gravityForce - resistanceForce;
+	Vector2 m_force = m_addForce + gravityForce + resistanceForce + kFloatForce;
 
 	// Fとmから、aを出す
 	// F = maより、a = F / m;
