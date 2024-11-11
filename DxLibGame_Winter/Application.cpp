@@ -16,6 +16,13 @@ Application& Application::GetInstance()
 // このクラスでDxLibの処理を実装する
 bool Application::Init()
 {
+	/*コンソールDebug用*/
+#if _DEBUG
+	AllocConsole();                                     // コンソール
+	FILE* out = 0; freopen_s(&out, "CON", "w", stdout); // stdout
+	FILE* in = 0; freopen_s(&in, "CON", "r", stdin);	// stdin
+#endif
+
 	// フルスクリーンでなく、ウィンドウモードで開くようにする
 	// こういった関数はウィンドウが開く前(DXLib_Init()の前)に処理しておく必要がある
 	ChangeWindowMode(Game::kDefaultWindowMode);
@@ -60,12 +67,6 @@ void Application::Run()
 		// Inputクラスの更新処理
 		inputInstance.Update();
 
-		// Inputのテスト
-		if (inputInstance.IsTrigger(PAD_INPUT_1))
-		{
-			printfDx("Z押された瞬間");
-		}
-
 		// SceneControllerの処理
 		controller.Update();
 		controller.Draw();
@@ -81,4 +82,8 @@ void Application::Run()
 void Application::Exit()
 {
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
+
+#if _DEBUG//コンソールDebug用
+	fclose(out); fclose(in); FreeConsole();//コンソール解放
+#endif
 }

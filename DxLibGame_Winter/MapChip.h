@@ -40,6 +40,9 @@ private:
 	/// </summary>
 	/// <returns>true:‰æ–ÊŠO”»’è‚ð’Ê‚Á‚½ false:‰æ–Ê“à‚Å‚µ‚½</returns>
 	bool LoopScreen();
+
+	bool CheckLoopUpAndLeft();
+	bool CheckLoopDownAndRight();
 public:
 	MapChip();
 

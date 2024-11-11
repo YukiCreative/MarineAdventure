@@ -25,36 +25,41 @@ bool MapChip::LoopScreen()
 {
 	// 自分の座標が特定の範囲外に出てたら
 	// 反対側に瞬間移動
-	
-	// 一周させたか
-	bool isLoop = false;
+	// 上と左方向が優先(でないと1フレームのうちに反復横跳びする)
+	// 短絡評価によって実装している
+	return CheckLoopUpAndLeft() || CheckLoopDownAndRight();
+}
 
+bool MapChip::CheckLoopUpAndLeft()
+{
 	// x座標が動いていなければｘ、ｙならｙの判定をスキップする
-	if (m_movePos.x != 0.0f)
+	bool isLoop = false;
+	if (m_graphPos.x <= -kChipOffset && m_movePos.x != 0.0f)
 	{
-		if (m_graphPos.x <= -kChipOffset)
-		{
-			m_graphPos.x = Game::kScreenWidth + kChipOffset;
-			isLoop = true;
-		}
-		if (m_graphPos.x >= Game::kScreenWidth + kChipOffset)
-		{
-			m_graphPos.x = -kChipOffset;
-			isLoop = true;
-		}
+		m_graphPos.x = Game::kScreenWidth + kChipOffset - m_movePos.x;
+		isLoop = true;
 	}
-	if (m_movePos.y != 0.0f)
+	if (m_graphPos.y <= -kChipOffset && m_movePos.y != 0.0f)
 	{
-		if (m_graphPos.y <= -kChipOffset)
-		{
-			m_graphPos.y = Game::kScreenHeight + kChipOffset;
-			isLoop = true;
-		}
-		if (m_graphPos.y >= Game::kScreenHeight + kChipOffset)
-		{
-			m_graphPos.y = -kChipOffset;
-			isLoop = true;
-		}
+		m_graphPos.y = Game::kScreenHeight + kChipOffset - m_movePos.y;
+		isLoop = true;
+	}
+	return isLoop;
+}
+
+bool MapChip::CheckLoopDownAndRight()
+{
+	// x座標が動いていなければｘ、ｙならｙの判定をスキップするのはこちらも同じ
+	bool isLoop = false;
+	if (m_graphPos.y >= Game::kScreenHeight + kChipOffset && m_movePos.y != 0.0f)
+	{
+		m_graphPos.y = -kChipOffset + m_movePos.y;
+		isLoop = true;
+	}
+	if (m_graphPos.x >= Game::kScreenWidth + kChipOffset && m_movePos.x != 0.0f)
+	{
+		m_graphPos.x = -kChipOffset + m_movePos.x;
+		isLoop = true;
 	}
 	return isLoop;
 }
@@ -75,7 +80,7 @@ void MapChip::Update()
 	if (isLoop)
 	{
 		SetGraph();
-		printfDx("ループ！！");
+		//printfDx("ループ！！");
 	}
 
 	// movePosを0,0でリセット
