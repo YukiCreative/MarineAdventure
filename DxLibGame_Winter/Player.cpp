@@ -2,22 +2,25 @@
 #include <DxLib.h>
 #include "Input.h"
 #include "Physics.h"
+#include "game.h"
+#include "MapSystem.h"
 
 namespace
 {
 	// おテスト
-	int kRaduis = 10;
+	int kRaduis = 20;
 
-	constexpr float kInitPosX = 100;
-	constexpr float kInitPosY = 100;
+	constexpr float kInitPosX = Game::kScreenWidth * 0.5f;
+	constexpr float kInitPosY = Game::kScreenHeight * 0.5f;
 }
 
 Player::Player() :
-	m_physics(std::make_shared<Physics>(Vector2(kInitPosX, kInitPosY), 1.0f, 1.0f))
+	m_physics(std::make_shared<Physics>(1.0f, 1.0f)),
+	m_pos(kInitPosX, kInitPosY)
 {
 }
 
-void Player::Update()
+void Player::Update(std::shared_ptr<MapSystem> map)
 {
 	// 入力をとって、動く。
 	Input& input = Input::GetInstance();
@@ -35,17 +38,20 @@ void Player::Update()
 	m_physics->AddForce(axis * 0.01f);
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
-	m_physics->Update();
 
-	// このプレイヤーにある動きをマップに持っていきたい
+	// ここはマップがこれ以上スクロールしないかどうかを判定して自分が移動するかどうか変えたい
+	m_physics->Update();
 }
 
 void Player::Draw()
 {
-	// Physicsインスタンスから座標をコピーしてくる
-	Vector2 copyPos = m_physics->GetPos();
-	DrawCircle(static_cast<int>(copyPos.x), static_cast<int>(copyPos.y), 10, 0xff0000);
+	DrawCircle(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y), kRaduis, 0xff0000);
 #if _DEBUG
-	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", copyPos.x, copyPos.y);
+	DrawFormatString(0, 15, 0x000000, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 #endif
+}
+
+Vector2 Player::GetVel()
+{
+	return m_physics->GetVel();
 }

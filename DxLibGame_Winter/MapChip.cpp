@@ -18,38 +18,43 @@ void MapChip::SetGraph()
 	// MapImageStoreに問い合わせる
 	MapImageStore& mapImageStore = MapImageStore::GetInstance();
 	// とりあえず今は固定で
-	m_graphHandle = mapImageStore.GetGraph(3);
+	m_graphHandle = mapImageStore.GetGraph(70);
 }
 
 bool MapChip::LoopScreen()
 {
-	// 一ミリも動いていなければ処理しない
-	if (m_movePos.x == 0 && m_movePos.y == 0) return false;
-
 	// 自分の座標が特定の範囲外に出てたら
 	// 反対側に瞬間移動
 	
 	// 一周させたか
 	bool isLoop = false;
-	if (m_graphPos.x <= -kChipOffset)
+
+	// x座標が動いていなければｘ、ｙならｙの判定をスキップする
+	if (m_movePos.x != 0.0f)
 	{
-		m_graphPos.x = Game::kScreenWidth + kChipOffset;
-		isLoop = true;
+		if (m_graphPos.x <= -kChipOffset)
+		{
+			m_graphPos.x = Game::kScreenWidth + kChipOffset;
+			isLoop = true;
+		}
+		if (m_graphPos.x >= Game::kScreenWidth + kChipOffset)
+		{
+			m_graphPos.x = -kChipOffset;
+			isLoop = true;
+		}
 	}
-	if (m_graphPos.x >= Game::kScreenWidth + kChipOffset)
+	if (m_movePos.y != 0.0f)
 	{
-		m_graphPos.x = -kChipOffset;
-		isLoop = true;
-	}
-	if (m_graphPos.y <= -kChipOffset)
-	{
-		m_graphPos.y = Game::kScreenHeight + kChipOffset;
-		isLoop = true;
-	}
-	if (m_graphPos.y >= Game::kScreenHeight + kChipOffset)
-	{
-		m_graphPos.y = -kChipOffset;
-		isLoop = true;
+		if (m_graphPos.y <= -kChipOffset)
+		{
+			m_graphPos.y = Game::kScreenHeight + kChipOffset;
+			isLoop = true;
+		}
+		if (m_graphPos.y >= Game::kScreenHeight + kChipOffset)
+		{
+			m_graphPos.y = -kChipOffset;
+			isLoop = true;
+		}
 	}
 	return isLoop;
 }

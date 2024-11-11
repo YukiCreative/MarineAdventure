@@ -2,8 +2,7 @@
 #include "Vector2.h"
 
 /// <summary>
-///  物理挙動をつかさどりたい
-///  速度を持っていて、座標も持とうかな
+///  物理挙動をつかさどる
 /// </summary>
 class Physics
 {
@@ -13,7 +12,6 @@ private:
 	/// </summary>
 	Vector2 m_addForce;
 	Vector2 m_accel;
-	Vector2 m_position;
 	Vector2 m_velocity;
 	float m_weight;
 	/// <summary>
@@ -23,7 +21,7 @@ private:
 	float m_volume;
 
 	// 関数ポインタ使うか
-	using UpdateFunc_t = void (Physics::*)();
+	using UpdateFunc_t = Vector2 (Physics::*)();
 
 	UpdateFunc_t m_updateFunc;
 
@@ -33,18 +31,18 @@ public:
 	/// 必要な値を初期値に入れたコンストラクタ
 	/// </summary>
 	/// <param name="weight"></param>
-	Physics(Vector2 initPos, float weight, float volume);
+	Physics(float weight, float volume);
 
 	/// <summary>
 	/// 物理の更新
-	/// この関数で、速度に応じて毎フレーム座標を移動させたり、
-	/// その速度を抵抗によって減らしたりする
+	/// この関数で、自分の持っているパラメータと、このフレームに与えられた力から
+	/// 自分の1フレームに動く距離を算出する。
 	/// </summary>
-	void Update();
+	Vector2 Update();
 
 	// 水中時と地上時で関数を切り替える
-	void WaterUpdate();
-	void GroundUpdate();
+	Vector2 WaterUpdate();
+	Vector2 GroundUpdate();
 
 	/// <summary>
 	/// 力を加える
@@ -53,10 +51,10 @@ public:
 	void AddForce(Vector2 force);
 
 	/// <summary>
-	/// 自分の座標を返す
+	/// 文字通り速度を返す
 	/// </summary>
-	/// <returns>Vector2型の座標</returns>
-	Vector2 GetPos() { return m_position; }
+	/// <returns>現在の速度</returns>
+	Vector2 GetVel() { return m_velocity; }
 };
 
 

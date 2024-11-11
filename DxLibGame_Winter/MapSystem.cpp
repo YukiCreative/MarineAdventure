@@ -4,6 +4,7 @@
 #include "game.h"
 #include "MapChip.h"
 #include "MapImageStore.h"
+#include "Player.h"
 
 namespace
 {
@@ -32,8 +33,10 @@ MapSystem::MapSystem()
 	}
 }
 
-void MapSystem::Update()
+void MapSystem::Update(std::shared_ptr<Player> player)
 {
+	MoveMap(player->GetVel());
+
 	for (auto& chip : m_mapChips)
 	{
 		chip->Update();

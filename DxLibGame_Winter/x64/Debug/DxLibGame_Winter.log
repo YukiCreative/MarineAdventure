@@ -1,5 +1,3 @@
 ﻿  Player.cpp
 C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLib\DxLib.h(3964,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\Player.cpp(40,31): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\Player.cpp(40,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   DxLibGame_Winter.vcxproj -> C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\x64\Debug\DxLibGame_Winter.exe

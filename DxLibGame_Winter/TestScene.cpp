@@ -18,8 +18,11 @@ TestScene::~TestScene()
 void TestScene::Update()
 {
 	++m_frameCount;
-	m_map->Update();
-	m_player->Update();
+	// プレイヤーの更新処理で入手した移動量の情報を
+	// マップにぶち込む
+	// 方法だとマップの端に来た時にプレイヤーが代わりに動く処理を実装しづらい
+	m_player->Update(m_map);
+	m_map->Update(m_player);
 }
 
 void TestScene::Draw()

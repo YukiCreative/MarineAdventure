@@ -4,6 +4,7 @@
 #include <array>
 
 class MapChip;
+class Player;
 
 /// <summary>
 /// マップチップを並べる、
@@ -15,22 +16,22 @@ class MapSystem
 {
 private:
 	std::array<std::shared_ptr<MapChip>, 17*10> m_mapChips;
-public:
-	MapSystem();
-
-	/// <summary>
-	/// 現在の描画場所に応じて表示するマップチップを判断
-	/// </summary>
-	void Update();
-	/// <summary>
-	/// マップチップを描画
-	/// </summary>
-	void Draw();
 
 	/// <summary>
 	/// マップチップの表示位置をずらす
 	/// </summary>
 	/// <param name="moveValue">現在の位置からどれだけ移動させるか</param>
 	void MoveMap(Vector2 moveValue);
+public:
+	MapSystem();
+
+	/// <summary>
+	/// 現在の描画場所に応じて表示するマップチップを判断
+	/// </summary>
+	void Update(std::shared_ptr<Player> player);
+	/// <summary>
+	/// マップチップを描画
+	/// </summary>
+	void Draw();
 };
 

@@ -4,6 +4,7 @@
 
 // 物理クラスのプロトタイプ宣言
 class Physics;
+class MapSystem;
 
 /// <summary>
 /// プレイヤーのクラスです。
@@ -12,6 +13,8 @@ class Player
 {
 private:
 	std::shared_ptr<Physics> m_physics;
+	// ざっひょう
+	Vector2 m_pos;
 public:
 	/// <summary>
 	/// 初期化
@@ -19,13 +22,19 @@ public:
 	Player();
 
 	/// <summary>
-	/// 入力を取って移動したり何たり
+	/// 入力をとって移動したり何したり
 	/// </summary>
-	/// <returns></returns>
-	void Update();
+	void Update(const std::shared_ptr<MapSystem> map);
 	/// <summary>
 	/// 描画
 	/// </summary>
 	void Draw();
+
+	/// <summary>
+	/// 自分のPhysicsのvelocityを返す
+	/// いまいちクラス間のデータの受け渡しがわからない
+	/// </summary>
+	/// <returns></returns>
+	Vector2 GetVel();
 };
 
