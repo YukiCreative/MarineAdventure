@@ -36,6 +36,8 @@ void Player::Update()
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 	m_physics->Update();
+
+	// このプレイヤーにある動きをマップに持っていきたい
 }
 
 void Player::Draw()

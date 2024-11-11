@@ -14,22 +14,7 @@ class MapChip;
 class MapSystem
 {
 private:
-	/// <summary>
-	/// 仮ですよ
-	/// いずれはマップの素材を集めたクラスを作成しますよ
-	/// </summary>
-	int m_graphHandle;
-	/// <summary>
-	/// 横のマップチップの数
-	/// このクラスのインスタンス化時に現在の画面サイズを見て決める
-	/// </summary>
-	int m_widthChipNum;
-	/// <summary>
-	/// 縦のマップチップの数
-	/// </summary>
-	int m_heightChipNum;
-	Vector2 m_mapPos;
-	std::array<std::shared_ptr<MapChip>, 16*9> m_mapChips;
+	std::array<std::shared_ptr<MapChip>, 17*10> m_mapChips;
 public:
 	MapSystem();
 

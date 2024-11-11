@@ -19,6 +19,11 @@ private:
 	Vector2 m_graphPos;
 
 	/// <summary>
+	/// 動きを記憶
+	/// </summary>
+	Vector2 m_movePos;
+
+	/// <summary>
 	/// 画像のハンドル
 	/// </summary>
 	int m_graphHandle;
@@ -49,5 +54,11 @@ public:
 	/// これを描画
 	/// </summary>
 	void Draw();
+
+	/// <summary>
+	/// MapSystemから指示を受ける
+	/// </summary>
+	/// <param name="">現在地からどれだけ動かすか</param>
+	void Move(Vector2 moveValue) { m_movePos += moveValue; }
 };
 

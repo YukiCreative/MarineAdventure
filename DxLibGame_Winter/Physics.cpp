@@ -51,7 +51,7 @@ void Physics::WaterUpdate()
 	// 抵抗を出す
 	// 水の抵抗で計算
 	Vector2 resistanceForce = m_velocity * kWaterResistance * -1;
-	// 出てきた値でforceを計算
+	// 出てきた値でforceを計算(浮力を考慮)
 	Vector2 m_force = m_addForce + gravityForce + resistanceForce + kFloatForce;
 
 	// Fとmから、aを出す
@@ -79,7 +79,7 @@ void Physics::GroundUpdate()
 	Vector2 gravityForce = Vector2(0.0f, kGravity * m_weight);
 
 	// 抵抗を出す
-	// 水の抵抗で計算
+	// 空気抵抗で計算
 	Vector2 resistanceForce = m_velocity * kAirResistance;
 	// 出てきた値でforceを弱める
 	Vector2 m_force = m_addForce + gravityForce - resistanceForce;

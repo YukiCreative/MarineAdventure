@@ -21,6 +21,7 @@ public:
 	/// <summary>
 	/// “ü—Í‚ðŽæ‚Á‚ÄˆÚ“®‚µ‚½‚è‰½‚½‚è
 	/// </summary>
+	/// <returns></returns>
 	void Update();
 	/// <summary>
 	/// •`‰æ
