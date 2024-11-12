@@ -18,7 +18,7 @@ void MapChip::SetGraph()
 	// MapImageStoreに問い合わせる
 	MapImageStore& mapImageStore = MapImageStore::GetInstance();
 	// とりあえず今は固定で
-	m_graphHandle = mapImageStore.GetGraph(70);
+	m_graphHandle = mapImageStore.GetGraph(rand() % 150);
 }
 
 bool MapChip::LoopScreen()
@@ -36,12 +36,13 @@ bool MapChip::CheckLoopUpAndLeft()
 	bool isLoop = false;
 	if (m_graphPos.x <= -kChipOffset && m_movePos.x != 0.0f)
 	{
-		m_graphPos.x = Game::kScreenWidth + kChipOffset - m_movePos.x;
+		// ループする際の微妙なずれを直したらこんな計算式に…
+		m_graphPos.x = m_graphPos.x + Game::kScreenWidth + kChipOffset * 2.0f;
 		isLoop = true;
 	}
 	if (m_graphPos.y <= -kChipOffset && m_movePos.y != 0.0f)
 	{
-		m_graphPos.y = Game::kScreenHeight + kChipOffset - m_movePos.y;
+		m_graphPos.y = m_graphPos.y + Game::kScreenHeight + kChipOffset * 2.0f;
 		isLoop = true;
 	}
 	return isLoop;
@@ -53,12 +54,12 @@ bool MapChip::CheckLoopDownAndRight()
 	bool isLoop = false;
 	if (m_graphPos.y >= Game::kScreenHeight + kChipOffset && m_movePos.y != 0.0f)
 	{
-		m_graphPos.y = -kChipOffset + m_movePos.y;
+		m_graphPos.y =  m_graphPos.y - (Game::kScreenHeight + kChipOffset * 2.0f);
 		isLoop = true;
 	}
 	if (m_graphPos.x >= Game::kScreenWidth + kChipOffset && m_movePos.x != 0.0f)
 	{
-		m_graphPos.x = -kChipOffset + m_movePos.x;
+		m_graphPos.x = m_graphPos.x - (Game::kScreenWidth + kChipOffset * 2.0f);
 		isLoop = true;
 	}
 	return isLoop;
@@ -75,12 +76,10 @@ void MapChip::Update()
 	// 処理の順序は移動→ループ判定
 	m_graphPos += m_movePos;
 
-	bool isLoop = LoopScreen();
-	// 瞬間移動が起こったら画像を再取得
-	if (isLoop)
+	// 瞬間移動を試して、起こったら画像を再取得
+	if (LoopScreen())
 	{
 		SetGraph();
-		//printfDx("ループ！！");
 	}
 
 	// movePosを0,0でリセット

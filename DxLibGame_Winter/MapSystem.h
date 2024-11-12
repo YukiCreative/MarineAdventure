@@ -15,7 +15,9 @@ class Player;
 class MapSystem
 {
 private:
-	std::array<std::shared_ptr<MapChip>, 17*10> m_mapChips;
+	using MapArray_t = std::array<std::shared_ptr<MapChip>, 17 * 10>;
+
+	 MapArray_t m_mapChips;
 
 	/// <summary>
 	/// マップチップの表示位置をずらす
@@ -33,5 +35,10 @@ public:
 	/// マップチップを描画
 	/// </summary>
 	void Draw();
+	/// <summary>
+	/// マップチップを見せる
+	/// </summary>
+	/// <returns>マップチップすべて</returns>
+	MapArray_t GetMapCihps() { return m_mapChips; };
 };
 

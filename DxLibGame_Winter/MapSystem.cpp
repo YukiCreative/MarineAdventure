@@ -35,7 +35,8 @@ MapSystem::MapSystem()
 
 void MapSystem::Update(std::shared_ptr<Player> player)
 {
-	MoveMap(player->GetVel());
+	// 相対的にプレイヤーが動いているように見せる
+	MoveMap(player->GetVel() * -1);
 
 	for (auto& chip : m_mapChips)
 	{

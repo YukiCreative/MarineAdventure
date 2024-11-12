@@ -63,5 +63,11 @@ public:
 	/// </summary>
 	/// <param name="">Œ»İ’n‚©‚ç‚Ç‚ê‚¾‚¯“®‚©‚·‚©</param>
 	void Move(Vector2 moveValue) { m_movePos += moveValue; }
+
+	/// <summary>
+	/// À•W•Ô‚·
+	/// </summary>
+	/// <returns>À•W</returns>
+	Vector2 GetPos() { return m_graphPos; }
 };
 

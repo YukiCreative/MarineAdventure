@@ -27,20 +27,30 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 
 	Vector2 axis = input.GetInputAxis();
 
-	// Aボタンでダッシュ
+	// Aボタンでダッシュ状態へ(今後はアタックと同時にできないように)
 	if (input.IsPressed(PAD_INPUT_1))
 	{
 		axis *= 1.5f;
 	}
 
+	// Bボタンでアタック状態
+	if (input.IsTrigger(PAD_INPUT_2))
+	{
+		m_physics->Stop();
+		m_physics->AddForce(axis);
+	}
+
 	// 仮
-	DrawFormatString(0, 90, 0xffffff, "axisX:%f,Y:%f", axis.x, axis.y);
 	m_physics->AddForce(axis * 0.01f);
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 
 	// ここはマップがこれ以上スクロールしないかどうかを判定して自分が移動するかどうか変えたい
 	m_physics->Update();
+	//if (スクロールできない)
+	//{
+	//	m_pos += m_physics->GetVel();
+	//}
 }
 
 void Player::Draw()

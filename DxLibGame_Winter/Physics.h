@@ -1,5 +1,8 @@
 #pragma once
 #include "Vector2.h"
+#include <memory>
+
+class MapChip;
 
 /// <summary>
 ///  •¨—‹““®‚ğ‚Â‚©‚³‚Ç‚é
@@ -54,7 +57,13 @@ public:
 	/// •¶š’Ê‚è‘¬“x‚ğ•Ô‚·
 	/// </summary>
 	/// <returns>Œ»İ‚Ì‘¬“x</returns>
-	Vector2 GetVel() { return m_velocity; }
+	Vector2 GetVel() const { return m_velocity; }
+
+	/// <summary>
+	/// ˆÚ“®‚ğ~‚ß‚é
+	/// ‚±‚êˆÈŠO‚Å’¼Úvelocity‚ğ‚¢‚¶‚é‚Ì‚Í‚Å‚«‚é‚¾‚¯‚â‚ß‚æ‚¤
+	/// </summary>
+	void Stop() { m_velocity = Vector2(); }
 };
 
 

@@ -119,5 +119,8 @@
     <ClInclude Include="MapImageStore.h">
       <Filter>ヘッダー ファイル\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>ヘッダー ファイル\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

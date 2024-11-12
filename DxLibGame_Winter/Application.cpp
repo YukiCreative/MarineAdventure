@@ -5,6 +5,13 @@
 #include "SceneController.h"
 #include "Time.h"
 
+namespace
+{
+	// コンソール用
+	FILE* in = 0;
+	FILE* out = 0;
+}
+
 Application& Application::GetInstance()
 {
 	// ここにstaticをおいておけば一つだけ、
@@ -18,9 +25,9 @@ bool Application::Init()
 {
 	/*コンソールDebug用*/
 #if _DEBUG
-	AllocConsole();                                     // コンソール
-	FILE* out = 0; freopen_s(&out, "CON", "w", stdout); // stdout
-	FILE* in = 0; freopen_s(&in, "CON", "r", stdin);	// stdin
+	AllocConsole();							// コンソール
+	freopen_s(&out, "CON", "w", stdout);	// stdout
+	freopen_s(&in, "CON", "r", stdin);		// stdin
 #endif
 
 	// フルスクリーンでなく、ウィンドウモードで開くようにする
@@ -39,10 +46,6 @@ bool Application::Init()
 	// 描画先を裏画面にする
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	// Inputクラスをインスタンス化
-	// 参照を返しているやつを受け取ってないけど許して
-	Input::GetInstance();
-
 	return true;
 }
 
@@ -56,8 +59,12 @@ void Application::Run()
 	{
 		// 今回のループが始まった時間を覚えておく
 		LONGLONG time = GetNowHiPerformanceCount();
+
 		// Timeの更新
 		timeInstance.Update();
+
+		// printfDxのクリア
+		clsDx();
 
 		// 画面全体をクリアする
 		ClearDrawScreen();

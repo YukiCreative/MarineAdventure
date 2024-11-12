@@ -60,10 +60,6 @@ Vector2 Physics::WaterUpdate()
 	// accelからvelocityに加算する
 	m_velocity += m_accel;
 
-	// ちょっとテストでデバッグ表示
-	DrawFormatString(0, 30, 0xffffff, "accel x = %f, accel y = %f", m_accel.x, m_accel.y);
-	DrawFormatString(0, 45, 0xffffff, "velocity x = %f, velocity y = %f", m_velocity.x, m_velocity.y);
-
 	// m_addForceをリセット
 	m_addForce = Vector2();
 
@@ -80,7 +76,7 @@ Vector2 Physics::GroundUpdate()
 	// 空気抵抗で計算
 	Vector2 resistanceForce = m_velocity * kAirResistance;
 	// 出てきた値でforceを弱める
-	Vector2 m_force = m_addForce + gravityForce - resistanceForce;
+	Vector2 m_force = (m_addForce + gravityForce - resistanceForce)* Time::DeltaTime();
 
 	// Fとmから、aを出す
 	// F = maより、a = F / m;
