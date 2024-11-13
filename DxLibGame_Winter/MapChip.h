@@ -72,7 +72,7 @@ public:
 	/// なんか受け渡しが面倒になってきたな
 	/// </summary>
 	/// <returns>マップチップのコライダー</returns>
-	std::shared_ptr<BoxCollider> Collider() { return m_collider; }
+	std::shared_ptr<BoxCollider> GetCollider() { return m_collider; }
 
 	/// <summary>
 /// 現在のマップのデータを参照して、

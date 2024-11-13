@@ -14,22 +14,25 @@ protected:
 	/// ”¼Œa
 	/// </summary>
 	float m_radius;
+	
 public:
 	CircleCollider(Vector2& pos, float radius);
 
+	float GetRadius() { return m_radius; }
+
+protected:
 	/// <summary>
 	/// “–‚½‚è”»’è‚Ìæ“¾(‘Î‰~Œ`)
 	/// </summary>
 	/// <param name="otherCircle">‰~Œ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	virtual bool CheckHit(std::shared_ptr<CircleCollider> otherCircle) override;
+	virtual bool CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle) override;
 	/// <summary>
 	/// “–‚½‚è”»’è‚Ìæ“¾(‘Î‹éŒ`)
 	/// </summary>
 	/// <param name="otherRect">‹éŒ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	virtual bool CheckHit(std::shared_ptr<BoxCollider> otherRect) override;
+	virtual bool CheckHitBox(std::shared_ptr<BoxCollider> otherRect) override;
 
-	float GetRadius() { return m_radius; }
 };
 

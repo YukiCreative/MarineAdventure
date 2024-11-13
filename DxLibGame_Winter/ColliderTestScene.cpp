@@ -17,7 +17,7 @@ bool ColliderTestScene::HitKansuu()
 	{
 		if (nowCol != col) continue;
 
-		if (nowCol->CheckHit())
+		if (nowCol->CheckHit(col))
 		{
 			printf("“–‚½‚Á‚½");
 			pVec = &boxPos;
