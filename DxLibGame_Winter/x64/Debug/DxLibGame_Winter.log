@@ -60,4 +60,8 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.3110
           [
               _Ty=CircleCollider
           ]
+  SceneController.cpp
+  TestScene.cpp
+C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLib\DxLib.h(3964,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  コードを生成中...
   DxLibGame_Winter.vcxproj -> C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\x64\Debug\DxLibGame_Winter.exe

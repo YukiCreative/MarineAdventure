@@ -22,7 +22,7 @@ private:
 	unsigned int color;
 	Vector2 boxPos = Vector2(500, 300);
 	Vector2 boxPos2 = Vector2(300, 600);
-	Vector2 boxHava = Vector2(64, 64);
+	Vector2 boxHava = Vector2(128, 64);
 	Vector2 circlePos = Vector2();
 	Vector2 circlePos2 = Vector2(800, 100);
 	Vector2* nowMousePos;
