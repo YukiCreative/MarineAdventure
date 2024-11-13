@@ -1,5 +1,8 @@
 #pragma once
 #include "Vector2.h"
+#include <memory>
+
+class BoxCollider;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -12,27 +15,22 @@ private:
 	/// 自分が今マップのどのチップを担当しているかを記憶
 	/// </summary>
 	Vector2 m_mapPos;
-
 	/// <summary>
 	/// 座標
 	/// </summary>
 	Vector2 m_graphPos;
-
 	/// <summary>
 	/// 動きを記憶
 	/// </summary>
 	Vector2 m_movePos;
-
 	/// <summary>
 	/// 画像のハンドル
 	/// </summary>
 	int m_graphHandle;
-
 	/// <summary>
-	/// 現在のマップのデータを参照して、
-	/// 自分の持つグラフデータを決める
+	/// 当たり判定
 	/// </summary>
-	void SetGraph();
+	std::shared_ptr<BoxCollider> m_collider;
 
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、
@@ -40,7 +38,6 @@ private:
 	/// </summary>
 	/// <returns>true:画面外判定を通った false:画面内でした</returns>
 	bool LoopScreen();
-
 	bool CheckLoopUpAndLeft();
 	bool CheckLoopDownAndRight();
 public:
@@ -69,5 +66,18 @@ public:
 	/// </summary>
 	/// <returns>座標</returns>
 	Vector2 GetPos() { return m_graphPos; }
+
+	/// <summary>
+	/// 返すだけ
+	/// なんか受け渡しが面倒になってきたな
+	/// </summary>
+	/// <returns>マップチップのコライダー</returns>
+	std::shared_ptr<BoxCollider> Collider() { return m_collider; }
+
+	/// <summary>
+/// 現在のマップのデータを参照して、
+/// 自分の持つグラフデータを決める
+/// </summary>
+	void SetGraph();
 };
 

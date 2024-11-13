@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include <memory>
 
 class CircleCollider;
 class BoxCollider;
@@ -28,13 +29,13 @@ public:
 	/// </summary>
 	/// <param name="other">‰~Œ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	virtual bool CheckHit(CircleCollider& other) = 0;
+	virtual bool CheckHit(std::shared_ptr<CircleCollider> other) = 0;
 	/// <summary>
 	/// “–‚½‚è”»’è‚Ìæ“¾(‘Î‹éŒ`)
 	/// </summary>
 	/// <param name="other">‹éŒ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	virtual bool CheckHit(BoxCollider& other) = 0;
+	virtual bool CheckHit(std::shared_ptr<BoxCollider> other) = 0;
 
 	void SetOffset(Vector2 value) { m_posOffset = value; }
 	Vector2 GetPos() { return m_pos; }

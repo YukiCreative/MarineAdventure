@@ -4,6 +4,7 @@
 
 // 物理クラスのプロトタイプ宣言
 class Physics;
+class CircleCollider;
 class MapSystem;
 
 /// <summary>
@@ -13,6 +14,7 @@ class Player
 {
 private:
 	std::shared_ptr<Physics> m_physics;
+	std::shared_ptr<CircleCollider> m_collider;
 	// ざっひょう
 	Vector2 m_pos;
 public:
@@ -36,5 +38,11 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Vector2 GetVel();
+
+	/// <summary>
+	/// コライダー返すだけ
+	/// </summary>
+	/// <returns>コライダーのポインタ</returns>
+	std::shared_ptr<CircleCollider> Collider() { return m_collider; }
 };
 

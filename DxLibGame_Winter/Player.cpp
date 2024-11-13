@@ -4,6 +4,8 @@
 #include "Physics.h"
 #include "game.h"
 #include "MapSystem.h"
+#include "CircleCollider.h"
+#include "MapChip.h"
 
 namespace
 {
@@ -18,6 +20,7 @@ Player::Player() :
 	m_physics(std::make_shared<Physics>(1.0f, 1.0f)),
 	m_pos(kInitPosX, kInitPosY)
 {
+	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
 }
 
 void Player::Update(std::shared_ptr<MapSystem> map)
@@ -32,7 +35,8 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 	{
 		axis *= 1.5f;
 	}
-
+	// 仮
+	m_physics->AddForce(axis * 0.01f);
 	// Bボタンでアタック状態
 	if (input.IsTrigger(PAD_INPUT_2))
 	{
@@ -40,8 +44,16 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 		m_physics->AddForce(axis);
 	}
 
-	// 仮
-	m_physics->AddForce(axis * 0.01f);
+	// 当たり判定の処理
+	// マップチップ一つ一つと判定する
+	for (auto& chip : map->GetMapCihps())
+	{
+		if (m_collider->CheckHit(chip->Collider()))
+		{
+			// これは仮で、後でprivateに戻す
+			chip->SetGraph();
+		}
+	}
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 

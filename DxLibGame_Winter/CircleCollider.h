@@ -1,5 +1,8 @@
 #pragma once
 #include "Collider.h"
+#include <memory>
+
+class BoxCollider;
 
 /// <summary>
 /// 円形の当たり判定クラス
@@ -12,20 +15,20 @@ protected:
 	/// </summary>
 	float m_radius;
 public:
-	CircleCollider(Vector2 pos, float radius);
+	CircleCollider(Vector2& pos, float radius);
 
 	/// <summary>
 	/// 当たり判定の取得(対円形)
 	/// </summary>
-	/// <param name="other">円形の当たり判定</param>
+	/// <param name="otherCircle">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHit(CircleCollider& other) override;
+	virtual bool CheckHit(std::shared_ptr<CircleCollider> otherCircle) override;
 	/// <summary>
 	/// 当たり判定の取得(対矩形)
 	/// </summary>
-	/// <param name="other">矩形の当たり判定</param>
+	/// <param name="otherRect">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHit(BoxCollider& other) override;
+	virtual bool CheckHit(std::shared_ptr<BoxCollider> otherRect) override;
 
 	float GetRadius() { return m_radius; }
 };

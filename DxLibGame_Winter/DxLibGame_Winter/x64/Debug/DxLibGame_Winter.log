@@ -1,8 +1,31 @@
-﻿  MapChip.cpp
-  MapImageStore.cpp
-C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp(13,28): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp(91,40): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp(91,26): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  MapSystem.cpp
-  コードを生成中...
+﻿  ColliderTestScene.cpp
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(33,19): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(34,19): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(61,35): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(61,22): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(62,106): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(62,77): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(62,48): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(62,19): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(63,37): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(63,23): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(64,110): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(64,80): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(64,50): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp(64,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(374,75): warning C4244: '引数': '_Ty' から 'float' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(374,75): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(374,75): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(374,75): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(374,75): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(388,82): warning C4244: '引数': '_Ty' から 'float' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(388,82): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(388,82): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(388,82): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(388,82): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(375,90): warning C4244: '引数': '_Ty' から 'float' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(375,90): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(375,90): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(375,90): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(375,90): warning C4244:         ]
   DxLibGame_Winter.vcxproj -> C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\x64\Debug\DxLibGame_Winter.exe

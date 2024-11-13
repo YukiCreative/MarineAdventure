@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "game.h"
 #include "MapImageStore.h"
+#include "BoxCollider.h"
 
 namespace
 {
@@ -68,6 +69,7 @@ bool MapChip::CheckLoopDownAndRight()
 MapChip::MapChip() :
 	m_graphHandle(-1)
 {
+	m_collider = std::make_shared<BoxCollider>(m_graphPos, kChipSize, kChipSize);
 	SetGraph();
 }
 

@@ -1,4 +1,8 @@
 C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\Application.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\Application.obj
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\BoxCollider.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\BoxCollider.obj
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\CircleCollider.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\CircleCollider.obj
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\Collider.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\Collider.obj
+C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\ColliderTestScene.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\ColliderTestScene.obj
 C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\Input.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\Input.obj
 C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\main.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\main.obj
 C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp;C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\DxLibGame_Winter\x64\Debug\MapChip.obj
