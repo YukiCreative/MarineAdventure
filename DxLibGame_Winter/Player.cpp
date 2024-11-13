@@ -51,8 +51,8 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 	{
 		if (m_collider->CheckHit(chip->GetCollider()))
 		{
-			// これは仮で、後でprivateに戻す
-			chip->SetGraph();
+			// マップチップの種類を見たいよね
+			// マップチップと当たっていたら、自分の前回の速度の向きに応じて
 		}
 	}
 

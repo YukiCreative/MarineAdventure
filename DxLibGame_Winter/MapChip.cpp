@@ -19,7 +19,7 @@ void MapChip::SetGraph()
 	// MapImageStoreÇ…ñ‚Ç¢çáÇÌÇπÇÈ
 	MapImageStore& mapImageStore = MapImageStore::GetInstance();
 	// Ç∆ÇËÇ†Ç¶Ç∏ç°ÇÕå≈íËÇ≈
-	m_graphHandle = mapImageStore.GetGraph(rand() % 150);
+	m_graphHandle = mapImageStore.GetGraph(rand() % 2);
 }
 
 bool MapChip::LoopScreen()
