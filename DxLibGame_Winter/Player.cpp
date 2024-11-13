@@ -5,6 +5,7 @@
 #include "game.h"
 #include "MapSystem.h"
 #include "CircleCollider.h"
+#include "BoxCollider.h"
 #include "MapChip.h"
 
 namespace
@@ -48,7 +49,7 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 	// マップチップ一つ一つと判定する
 	for (auto& chip : map->GetMapCihps())
 	{
-		if (m_collider->CheckHit(chip->Collider()))
+		if (m_collider->CheckHit(chip->GetCollider()))
 		{
 			// これは仮で、後でprivateに戻す
 			chip->SetGraph();

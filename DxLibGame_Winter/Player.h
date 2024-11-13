@@ -43,6 +43,6 @@ public:
 	/// コライダー返すだけ
 	/// </summary>
 	/// <returns>コライダーのポインタ</returns>
-	std::shared_ptr<CircleCollider> Collider() { return m_collider; }
+	std::shared_ptr<CircleCollider> GetCollider() { return m_collider; }
 };
 

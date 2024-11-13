@@ -19,23 +19,25 @@ protected:
 public:
 	BoxCollider(Vector2& pos, float w, float h);
 
-	/// <summary>
-	/// 当たり判定の取得(対円形)
-	/// </summary>
-	/// <param name="other">円形の当たり判定</param>
-	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHit(std::shared_ptr<CircleCollider> otherCircle);
-	/// <summary>
-	/// 矩形と矩形の当たり判定
-	/// </summary>
-	/// <param name="other">矩形の当たり判定</param>
-	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHit(std::shared_ptr<BoxCollider> otherRect);
-
 	// それぞれ端の座標を返す
 	float Right();
 	float Left();
 	float Top();
 	float Bottom();
+
+protected:
+	/// <summary>
+	/// 当たり判定の取得(対円形)
+	/// </summary>
+	/// <param name="other">円形の当たり判定</param>
+	/// <returns>接触しているかどうか</returns>
+	bool CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle) override;
+	/// <summary>
+	/// 矩形と矩形の当たり判定
+	/// </summary>
+	/// <param name="other">矩形の当たり判定</param>
+	/// <returns>接触しているかどうか</returns>
+	bool CheckHitBox(std::shared_ptr<BoxCollider> otherRect) override;
+
 };
 

@@ -3,12 +3,12 @@
 #include <algorithm>
 
 CircleCollider::CircleCollider(Vector2& pos, float radius) :
-    Collider(pos),
+    Collider(ColKind::kCircle, pos),
     m_radius(radius)
 {
 }
 
-bool CircleCollider::CheckHit(std::shared_ptr<CircleCollider> otherCircle)
+bool CircleCollider::CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle)
 {
     // 円形と円形の当たり判定
     // 距離と二つの円の合計半径を比べる
@@ -18,7 +18,7 @@ bool CircleCollider::CheckHit(std::shared_ptr<CircleCollider> otherCircle)
     return dist <= radiusLength;
 }
 
-bool CircleCollider::CheckHit(std::shared_ptr<BoxCollider> otherRect)
+bool CircleCollider::CheckHitBox(std::shared_ptr<BoxCollider> otherRect)
 {
     // 矩形の辺で、円の中心座標と一番近い点を出す
     Vector2 nearestPoint;

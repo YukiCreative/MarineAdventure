@@ -4,13 +4,13 @@
 #include <memory>
 
 BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
-	Collider(pos),
+	Collider(ColKind::kBox, pos),
 	m_rectWidth(w),
 	m_rectHeight(h)
 {
 }
 
-bool BoxCollider::CheckHit(std::shared_ptr<CircleCollider> otherCircle)
+bool BoxCollider::CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle)
 {
 	Vector2 circlePos = otherCircle->GetPos();
 	// 矩形の辺で、円の中心座標と一番近い点を出す
@@ -23,7 +23,7 @@ bool BoxCollider::CheckHit(std::shared_ptr<CircleCollider> otherCircle)
 	return distance <= otherCircle->GetRadius() * otherCircle->GetRadius();
 }
 
-bool BoxCollider::CheckHit(std::shared_ptr<BoxCollider> otherRect)
+bool BoxCollider::CheckHitBox(std::shared_ptr<BoxCollider> otherRect)
 {
 	// 自分の右端より相手の左端のほうが右側なら…を繰り返す
 	if (Right() < otherRect->Left()) return false;
