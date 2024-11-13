@@ -24,7 +24,6 @@ public:
 	float Left();
 	float Top();
 	float Bottom();
-
 protected:
 	/// <summary>
 	/// “–‚½‚è”»’è‚ÌŽæ“¾(‘Î‰~Œ`)

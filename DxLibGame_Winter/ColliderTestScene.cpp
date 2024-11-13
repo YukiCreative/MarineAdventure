@@ -6,26 +6,31 @@
 #include "game.h"
 #include "Time.h"
 #include "Input.h"
+#include "TestScene.h"
+#include "SceneController.h"
 
-bool ColliderTestScene::HitKansuu()
+void ColliderTestScene::HitKansuu()
 {
 	Input& input = Input::GetInstance();
 	Vector2* pVec = nowMousePos;
 	std::shared_ptr<Collider> pCol;
-
+	bool atatta = false;
+	color = 0xffffff;
 	for (const auto& col : colArray)
 	{
-		if (nowCol != col) continue;
+		if (nowCol == col) continue;
 
 		if (nowCol->CheckHit(col))
 		{
 			printf("“–‚½‚Á‚½");
-			pVec = &boxPos;
-			pCol = boxCol;
+			atatta = true;
+			pVec = col->GetPVec();
+			pCol = col;
+			color = 0xff0000;
 		}
 	}
 
-	if (input.IsTrigger(PAD_INPUT_1))
+	if (input.IsTrigger(PAD_INPUT_1) && atatta)
 	{
 		nowMousePos = pVec;
 		nowCol = pCol;
@@ -38,6 +43,8 @@ ColliderTestScene::ColliderTestScene() :
 {
 	boxCol = std::make_shared<BoxCollider>(boxPos, boxHava.x, boxHava.y);
 	circleCol = std::make_shared<CircleCollider>(circlePos, 32);
+	circleCol2 = std::make_shared<CircleCollider>(circlePos2, 32);
+	boxCol2 = std::make_shared<BoxCollider>(boxPos2, boxHava.x, boxHava.y);
 	nowCol = circleCol;
 	nowMousePos = &circlePos;
 	colArray[0] = circleCol;
@@ -52,19 +59,19 @@ ColliderTestScene::~ColliderTestScene()
 
 void ColliderTestScene::Update()
 {
+	Input& input = Input::GetInstance();
 	//boxPos.x++;
 	// ‰~‚Íƒ}ƒEƒX‚É‰ˆ‚Á‚ÄˆÚ“®
 	int mouseX, mouseY;
 	GetMousePoint(&mouseX, &mouseY);
 	nowMousePos->x = mouseX;
 	nowMousePos->y = mouseY;
-	if (HitKansuu())
+	HitKansuu();
+
+	if (input.IsTrigger(PAD_INPUT_2))
 	{
-		color = 0xff0000;
-	}
-	else
-	{
-		color = 0xffffff;
+		SceneController::GetInstance().ChangeScene(std::make_shared<TestScene>());
+		return;
 	}
 }
 

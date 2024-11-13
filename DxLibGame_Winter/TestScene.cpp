@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Time.h"
 #include "MapSystem.h"
+#include "Input.h"
+#include "SceneController.h"
+#include "ColliderTestScene.h"
 
 TestScene::TestScene() :
 	m_frameCount(0)
@@ -17,12 +20,20 @@ TestScene::~TestScene()
 
 void TestScene::Update()
 {
+	Input& input = Input::GetInstance();
+
 	++m_frameCount;
 	// プレイヤーの更新処理で入手した移動量の情報を
 	// マップにぶち込む
 	// 方法だとマップの端に来た時にプレイヤーが代わりに動く処理を実装しづらい
 	m_player->Update(m_map);
 	m_map->Update(m_player);
+
+	if (input.IsTrigger(PAD_INPUT_2))
+	{
+		SceneController::GetInstance().ChangeScene(std::make_shared<ColliderTestScene>());
+		return;
+	}
 }
 
 void TestScene::Draw()

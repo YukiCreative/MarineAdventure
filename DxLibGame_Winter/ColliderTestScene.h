@@ -28,7 +28,7 @@ private:
 	Vector2* nowMousePos;
 	std::shared_ptr<Collider> nowCol;
 	std::array<std::shared_ptr<Collider>, 4> colArray;
-	bool HitKansuu();
+	void HitKansuu();
 public:
 	ColliderTestScene();
 	~ColliderTestScene();

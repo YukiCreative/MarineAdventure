@@ -35,6 +35,8 @@ public:
 
 	void SetOffset(Vector2 value) { m_posOffset = value; }
 	Vector2 GetPos() { return m_pos; }
+	// 使うなよ
+	Vector2* GetPVec() { return &m_pos; }
 	ColKind GetKind() { return m_kind; }
 
 	bool CheckHit(std::shared_ptr<Collider> other);
@@ -43,6 +45,7 @@ protected:
 	// ここから先の関数は外部には見せない
 	// 外部からはCheckHit(Collider)呼んでもらって、その中でフラグ使って分岐する
 	// でもこれやると当たり判定の種類が増えるごとにどんどん組み合わせが増えて関数名が増えていくじゃない
+	// でもよく考えたらオーバーロードが増えるのは同じでした
 
 	/// <summary>
 	/// 当たり判定の取得(対円形)
