@@ -36,17 +36,17 @@ bool MapChip::CheckLoopUpAndLeft()
 {
 	// スクリーン座標を計算
 	Vector2 screenPos = m_camera->Capture(m_pos);
-	// x座標が動いていなければｘ、ｙならｙの判定をスキップする
+	// 画面外判定
 	bool isLoop = false;
-	if (screenPos.x <= -kChipOffset && m_movePos.x != 0.0f)
+	if (screenPos.x <= -kChipOffset)
 	{
-		// カメラのおかげでこんなに簡単な式に！
-		m_pos.x += Game::kScreenWidth + kChipOffset;
+		// ループの式ってこんなのになるんだ
+		m_pos.x += Game::kScreenWidth + kChipOffset * 2;
 		isLoop = true;
 	}
-	if (screenPos.y <= -kChipOffset && m_movePos.y != 0.0f)
+	if (screenPos.y <= -kChipOffset)
 	{
-		m_pos.y += Game::kScreenHeight + kChipOffset;
+		m_pos.y += Game::kScreenHeight + kChipOffset * 2;
 		isLoop = true;
 	}
 	return isLoop;
@@ -56,16 +56,15 @@ bool MapChip::CheckLoopDownAndRight()
 {
 	// スクリーン座標を計算
 	Vector2 screenPos = m_camera->Capture(m_pos);
-	// x座標が動いていなければｘ、ｙならｙの判定をスキップするのはこちらも同じ
 	bool isLoop = false;
-	if (screenPos.y >= Game::kScreenHeight + kChipOffset && m_movePos.y != 0.0f)
+	if (screenPos.y >= Game::kScreenHeight + kChipOffset)
 	{
-		m_pos.y -= Game::kScreenHeight + kChipOffset;
+		m_pos.y -= Game::kScreenHeight + kChipOffset * 2;
 		isLoop = true;
 	}
-	if (screenPos.x >= Game::kScreenWidth + kChipOffset && m_movePos.x != 0.0f)
+	if (screenPos.x >= Game::kScreenWidth + kChipOffset)
 	{
-		m_pos.x -= Game::kScreenWidth + kChipOffset;
+		m_pos.x -= Game::kScreenWidth + kChipOffset * 2;
 		isLoop = true;
 	}
 	return isLoop;

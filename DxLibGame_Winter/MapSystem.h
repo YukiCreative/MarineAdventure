@@ -31,7 +31,7 @@ public:
 	/// <summary>
 	/// 現在の描画場所に応じて表示するマップチップを判断
 	/// </summary>
-	void Update(std::shared_ptr<Player> player);
+	void Update();
 	/// <summary>
 	/// マップチップを描画
 	/// </summary>

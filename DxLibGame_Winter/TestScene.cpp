@@ -14,6 +14,7 @@ TestScene::TestScene() :
 	m_camera = std::make_shared<Camera>();
 	m_map = std::make_shared<MapSystem>(m_camera);
 	m_player = std::make_shared<Player>(m_camera);
+	m_camera->SetFollowObject(m_player);
 }
 
 TestScene::~TestScene()
@@ -28,10 +29,13 @@ void TestScene::Update()
 	// プレイヤーの更新処理で入手した移動量の情報を
 	// マップにぶち込む
 	// 方法だとマップの端に来た時にプレイヤーが代わりに動く処理を実装しづらい
+	// ので、シーンに存在するカメラを皆が見て間接的かつ相対的に移動を反映させることにした
+	m_camera->Update();
 	m_player->Update(m_map);
-	m_map->Update(m_player);
+	m_map->Update();
 
-	if (input.IsTrigger(PAD_INPUT_2))
+
+	if (input.IsTrigger(PAD_INPUT_3))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<ColliderTestScene>());
 		return;

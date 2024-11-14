@@ -12,9 +12,8 @@ protected:
 	Vector2 m_pos;
 public:
 	/// <summary>
-	/// 座標の参照を返す
-	/// 見るだけにしてもらえると助かります
+	/// 座標を返す
 	/// </summary>
 	/// <returns>座標の参照</returns>
-	Vector2& GetPosRef() { return m_pos; }
+	Vector2 GetPos() { return m_pos; }
 };

@@ -158,4 +158,32 @@ public:
 		result.y = (y * y) / mag;
 		return result;
 	}
+
+	/// <summary>
+	/// startからendまでrate分進んだベクトルを返す
+	/// </summary>
+	/// <param name="start">初期位置</param>
+	/// <param name="end">ゴール</param>
+	/// <param name="rate">割合0~1</param>
+	/// <returns>startからendにrate分進んだベクトル</returns>
+	static Vector2 Lerp(const Vector2& start, const Vector2& end, const float& rate)
+	{
+		// std::clampを使おうとしたがインクルードが必要なので止めた
+		float clampRate;
+		if (rate < 0)
+		{
+			clampRate = 0;
+		}
+		else if (rate > 1)
+		{
+			clampRate = 1;
+		}
+		else
+		{
+			clampRate = rate;
+		}
+		Vector2 lerp = start;
+		lerp += (end - start) * clampRate;
+		return lerp;
+	}
 };

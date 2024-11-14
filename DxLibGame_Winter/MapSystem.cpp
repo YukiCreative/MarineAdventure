@@ -29,16 +29,13 @@ MapSystem::MapSystem(std::shared_ptr<Camera> camera)
 		for (int x = 0; x < kWidthChipNum; ++x)
 		{
 			m_mapChips[kWidthChipNum * y + x]->
-				Move(Vector2(kChipSpace * x - kChipSpace * 0.5f, kChipSpace * y - kChipSpace * 0.5f));
+				Move(Vector2(kChipSpace * x, kChipSpace * y));
 		}
 	}
 }
 
-void MapSystem::Update(std::shared_ptr<Player> player)
+void MapSystem::Update()
 {
-	// 相対的にプレイヤーが動いているように見せる
-	MoveMap(player->GetVel() * -1);
-
 	for (auto& chip : m_mapChips)
 	{
 		chip->Update();
