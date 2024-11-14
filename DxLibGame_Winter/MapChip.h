@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include <memory>
+#include "GameObject.h"
 
 class BoxCollider;
 
@@ -8,17 +9,13 @@ class BoxCollider;
 /// マップチップ一個分の画像を担当する
 /// MapSystemがこれを固定配列で持つ
 /// </summary>
-class MapChip
+class MapChip : public GameObject
 {
 private:
 	/// <summary>
 	/// 自分が今マップのどのチップを担当しているかを記憶
 	/// </summary>
 	Vector2 m_mapPos;
-	/// <summary>
-	/// 座標
-	/// </summary>
-	Vector2 m_graphPos;
 	/// <summary>
 	/// 動きを記憶
 	/// </summary>
@@ -65,7 +62,7 @@ public:
 	/// 座標返す
 	/// </summary>
 	/// <returns>座標</returns>
-	Vector2 GetPos() { return m_graphPos; }
+	Vector2 GetPos() { return m_pos; }
 
 	/// <summary>
 	/// 返すだけ

@@ -1,22 +1,22 @@
 #pragma once
 #include "Vector2.h"
 #include <memory>
+#include "GameObject.h"
 
 // 物理クラスのプロトタイプ宣言
 class Physics;
 class CircleCollider;
 class MapSystem;
+class Camera;
 
 /// <summary>
 /// プレイヤーのクラスです。
 /// </summary>
-class Player
+class Player : public GameObject
 {
 private:
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
-	// ざっひょう
-	Vector2 m_pos;
 public:
 	/// <summary>
 	/// 初期化
@@ -30,14 +30,14 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw(std::shared_ptr<Camera> camera) const;
 
 	/// <summary>
 	/// 自分のPhysicsのvelocityを返す
 	/// いまいちクラス間のデータの受け渡しがわからない
 	/// </summary>
-	/// <returns></returns>
-	Vector2 GetVel();
+	/// <returns>自分の物理クラスの速度</returns>
+	Vector2 GetVel() const;
 
 	/// <summary>
 	/// コライダー返すだけ

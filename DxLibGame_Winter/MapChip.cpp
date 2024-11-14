@@ -35,15 +35,15 @@ bool MapChip::CheckLoopUpAndLeft()
 {
 	// x座標が動いていなければｘ、ｙならｙの判定をスキップする
 	bool isLoop = false;
-	if (m_graphPos.x <= -kChipOffset && m_movePos.x != 0.0f)
+	if (m_pos.x <= -kChipOffset && m_movePos.x != 0.0f)
 	{
 		// ループする際の微妙なずれを直したらこんな計算式に…
-		m_graphPos.x = m_graphPos.x + Game::kScreenWidth + kChipOffset * 2.0f;
+		m_pos.x = m_pos.x + Game::kScreenWidth + kChipOffset * 2.0f;
 		isLoop = true;
 	}
-	if (m_graphPos.y <= -kChipOffset && m_movePos.y != 0.0f)
+	if (m_pos.y <= -kChipOffset && m_movePos.y != 0.0f)
 	{
-		m_graphPos.y = m_graphPos.y + Game::kScreenHeight + kChipOffset * 2.0f;
+		m_pos.y = m_pos.y + Game::kScreenHeight + kChipOffset * 2.0f;
 		isLoop = true;
 	}
 	return isLoop;
@@ -53,14 +53,14 @@ bool MapChip::CheckLoopDownAndRight()
 {
 	// x座標が動いていなければｘ、ｙならｙの判定をスキップするのはこちらも同じ
 	bool isLoop = false;
-	if (m_graphPos.y >= Game::kScreenHeight + kChipOffset && m_movePos.y != 0.0f)
+	if (m_pos.y >= Game::kScreenHeight + kChipOffset && m_movePos.y != 0.0f)
 	{
-		m_graphPos.y =  m_graphPos.y - (Game::kScreenHeight + kChipOffset * 2.0f);
+		m_pos.y =  m_pos.y - (Game::kScreenHeight + kChipOffset * 2.0f);
 		isLoop = true;
 	}
-	if (m_graphPos.x >= Game::kScreenWidth + kChipOffset && m_movePos.x != 0.0f)
+	if (m_pos.x >= Game::kScreenWidth + kChipOffset && m_movePos.x != 0.0f)
 	{
-		m_graphPos.x = m_graphPos.x - (Game::kScreenWidth + kChipOffset * 2.0f);
+		m_pos.x = m_pos.x - (Game::kScreenWidth + kChipOffset * 2.0f);
 		isLoop = true;
 	}
 	return isLoop;
@@ -69,14 +69,14 @@ bool MapChip::CheckLoopDownAndRight()
 MapChip::MapChip() :
 	m_graphHandle(-1)
 {
-	m_collider = std::make_shared<BoxCollider>(m_graphPos, kChipSize, kChipSize);
+	m_collider = std::make_shared<BoxCollider>(m_pos, kChipSize, kChipSize);
 	SetGraph();
 }
 
 void MapChip::Update()
 {
 	// 処理の順序は移動→ループ判定
-	m_graphPos += m_movePos;
+	m_pos += m_movePos;
 
 	// 瞬間移動を試して、起こったら画像を再取得
 	if (LoopScreen())
@@ -90,5 +90,5 @@ void MapChip::Update()
 
 void MapChip::Draw()
 {
-	DrawRotaGraph(m_graphPos.x, m_graphPos.y, kExRate, 0, m_graphHandle, true);
+	DrawRotaGraph(m_pos.x, m_pos.y, kExRate, 0, m_graphHandle, true);
 }

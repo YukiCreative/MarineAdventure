@@ -5,7 +5,7 @@
 #include "ColliderTestScene.h"
 
 SceneController::SceneController() :
-	m_scene(std::make_shared<ColliderTestScene>())
+	m_scene(std::make_shared<TestScene>())
 {
 }
 

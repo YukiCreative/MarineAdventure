@@ -114,6 +114,15 @@ public:
 		return result;
 	}
 
+	// 増え続けるオーバーロードォ…
+	Vector2 operator-(Vector2 other) const
+	{
+		Vector2 result;
+		result.x = x - other.x;
+		result.y = y - other.y;
+		return result;
+	}
+
 	/// <summary>
 	/// 大きさの二乗を返す
 	/// </summary>
