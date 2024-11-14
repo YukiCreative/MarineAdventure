@@ -5,6 +5,7 @@
 
 class MapChip;
 class Player;
+class Camera;
 
 /// <summary>
 /// マップチップを並べる、
@@ -25,7 +26,7 @@ private:
 	/// <param name="moveValue">現在の位置からどれだけ移動させるか</param>
 	void MoveMap(Vector2 moveValue);
 public:
-	MapSystem();
+	MapSystem(std::shared_ptr<Camera> camera);
 
 	/// <summary>
 	/// 現在の描画場所に応じて表示するマップチップを判断

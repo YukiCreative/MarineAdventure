@@ -15,10 +15,11 @@ namespace
 	int kRaduis = 20;
 }
 
-Player::Player() :
+Player::Player(std::shared_ptr<Camera> camera) :
 	m_physics(std::make_shared<Physics>(1.0f, 1.0f))
 {
 	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
+	m_camera = camera;
 }
 
 void Player::Update(std::shared_ptr<MapSystem> map)
@@ -58,9 +59,9 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 	m_pos += m_physics->Update();
 }
 
-void Player::Draw(std::shared_ptr<Camera> camera) const
+void Player::Draw() const
 {
-	Vector2 screenPos = camera->Capture(m_pos);
+	Vector2 screenPos = m_camera->Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), kRaduis, 0xff0000);
 #if _DEBUG
 	DrawFormatString(0, 15, 0x000000, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);

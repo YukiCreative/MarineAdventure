@@ -17,11 +17,12 @@ class Player : public GameObject
 private:
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
+	std::shared_ptr<Camera> m_camera;
 public:
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
-	Player();
+	Player(std::shared_ptr<Camera> camera);
 
 	/// <summary>
 	/// “ü—Í‚ğ‚Æ‚Á‚ÄˆÚ“®‚µ‚½‚è‰½‚µ‚½‚è
@@ -30,7 +31,7 @@ public:
 	/// <summary>
 	/// •`‰æ
 	/// </summary>
-	void Draw(std::shared_ptr<Camera> camera) const;
+	void Draw() const;
 
 	/// <summary>
 	/// ©•ª‚ÌPhysics‚Ìvelocity‚ğ•Ô‚·

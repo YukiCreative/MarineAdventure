@@ -3,6 +3,7 @@
 #include "game.h"
 #include "MapImageStore.h"
 #include "BoxCollider.h"
+#include "Camera.h"
 
 namespace
 {
@@ -33,17 +34,19 @@ bool MapChip::LoopScreen()
 
 bool MapChip::CheckLoopUpAndLeft()
 {
+	// スクリーン座標を計算
+	Vector2 screenPos = m_camera->Capture(m_pos);
 	// x座標が動いていなければｘ、ｙならｙの判定をスキップする
 	bool isLoop = false;
-	if (m_pos.x <= -kChipOffset && m_movePos.x != 0.0f)
+	if (screenPos.x <= -kChipOffset && m_movePos.x != 0.0f)
 	{
-		// ループする際の微妙なずれを直したらこんな計算式に…
-		m_pos.x = m_pos.x + Game::kScreenWidth + kChipOffset * 2.0f;
+		// カメラのおかげでこんなに簡単な式に！
+		m_pos.x += Game::kScreenWidth + kChipOffset;
 		isLoop = true;
 	}
-	if (m_pos.y <= -kChipOffset && m_movePos.y != 0.0f)
+	if (screenPos.y <= -kChipOffset && m_movePos.y != 0.0f)
 	{
-		m_pos.y = m_pos.y + Game::kScreenHeight + kChipOffset * 2.0f;
+		m_pos.y += Game::kScreenHeight + kChipOffset;
 		isLoop = true;
 	}
 	return isLoop;
@@ -51,24 +54,27 @@ bool MapChip::CheckLoopUpAndLeft()
 
 bool MapChip::CheckLoopDownAndRight()
 {
+	// スクリーン座標を計算
+	Vector2 screenPos = m_camera->Capture(m_pos);
 	// x座標が動いていなければｘ、ｙならｙの判定をスキップするのはこちらも同じ
 	bool isLoop = false;
-	if (m_pos.y >= Game::kScreenHeight + kChipOffset && m_movePos.y != 0.0f)
+	if (screenPos.y >= Game::kScreenHeight + kChipOffset && m_movePos.y != 0.0f)
 	{
-		m_pos.y =  m_pos.y - (Game::kScreenHeight + kChipOffset * 2.0f);
+		m_pos.y -= Game::kScreenHeight + kChipOffset;
 		isLoop = true;
 	}
-	if (m_pos.x >= Game::kScreenWidth + kChipOffset && m_movePos.x != 0.0f)
+	if (screenPos.x >= Game::kScreenWidth + kChipOffset && m_movePos.x != 0.0f)
 	{
-		m_pos.x = m_pos.x - (Game::kScreenWidth + kChipOffset * 2.0f);
+		m_pos.x -= Game::kScreenWidth + kChipOffset;
 		isLoop = true;
 	}
 	return isLoop;
 }
 
-MapChip::MapChip() :
+MapChip::MapChip(std::shared_ptr<Camera> camera) :
 	m_graphHandle(-1)
 {
+	m_camera = camera;
 	m_collider = std::make_shared<BoxCollider>(m_pos, kChipSize, kChipSize);
 	SetGraph();
 }
@@ -82,6 +88,7 @@ void MapChip::Update()
 	if (LoopScreen())
 	{
 		SetGraph();
+		printf("ループ！！");
 	}
 
 	// movePosを0,0でリセット
@@ -90,5 +97,6 @@ void MapChip::Update()
 
 void MapChip::Draw()
 {
-	DrawRotaGraph(m_pos.x, m_pos.y, kExRate, 0, m_graphHandle, true);
+	Vector2 drawPos = m_camera->Capture(m_pos);
+	DrawRotaGraph(drawPos.x, drawPos.y, kExRate, 0, m_graphHandle, true);
 }

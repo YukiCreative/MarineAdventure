@@ -4,6 +4,7 @@
 #include "GameObject.h"
 
 class BoxCollider;
+class Camera;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -28,6 +29,8 @@ private:
 	/// 当たり判定
 	/// </summary>
 	std::shared_ptr<BoxCollider> m_collider;
+	// カメラさん
+	std::shared_ptr<Camera> m_camera;
 
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、
@@ -38,7 +41,7 @@ private:
 	bool CheckLoopUpAndLeft();
 	bool CheckLoopDownAndRight();
 public:
-	MapChip();
+	MapChip(std::shared_ptr<Camera> camera);
 
 	/// <summary>
 	/// 更新処理

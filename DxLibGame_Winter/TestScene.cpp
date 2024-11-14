@@ -11,9 +11,9 @@
 TestScene::TestScene() :
 	m_frameCount(0)
 {
-	m_map = std::make_shared<MapSystem>();
-	m_player = std::make_shared<Player>();
 	m_camera = std::make_shared<Camera>();
+	m_map = std::make_shared<MapSystem>(m_camera);
+	m_player = std::make_shared<Player>(m_camera);
 }
 
 TestScene::~TestScene()
@@ -41,7 +41,7 @@ void TestScene::Update()
 void TestScene::Draw()
 {
 	m_map->Draw();
-	m_player->Draw(m_camera);
+	m_player->Draw();
 
 #if _DEBUG
 	DrawFormatString(0, 0, 0x000000, "TestScene Œ»İ%dƒtƒŒ[ƒ€Œo‰ß’†", m_frameCount);

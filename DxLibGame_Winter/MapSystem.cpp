@@ -5,6 +5,7 @@
 #include "MapChip.h"
 #include "MapImageStore.h"
 #include "Player.h"
+#include "Camera.h"
 
 namespace
 {
@@ -15,12 +16,12 @@ namespace
 	constexpr int kHeightChipNum = 9 + 1;
 }
 
-MapSystem::MapSystem()
+MapSystem::MapSystem(std::shared_ptr<Camera> camera)
 {
 	// マップチップのメモリ確保
 	for (auto& chip : m_mapChips)
 	{
-		chip = std::make_shared<MapChip>();
+		chip = std::make_shared<MapChip>(camera);
 	}
 	// チップを等間隔で配置する
 	for (int y = 0; y < kHeightChipNum; ++y)
