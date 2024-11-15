@@ -29,6 +29,12 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 
 	Vector2 axis = input.GetInputAxis();
 
+	// Bボタンでアタック状態
+	if (input.IsTrigger(PAD_INPUT_2))
+	{
+		m_physics->Stop();
+		m_physics->AddForce(axis);
+	}
 	// Aボタンでダッシュ状態へ(今後はアタックと同時にできないように)
 	if (input.IsPressed(PAD_INPUT_1))
 	{
@@ -36,13 +42,6 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 	}
 	// 仮
 	m_physics->AddForce(axis * 0.01f);
-	// Bボタンでアタック状態
-	if (input.IsTrigger(PAD_INPUT_2))
-	{
-		m_physics->Stop();
-		m_physics->AddForce(axis);
-	}
-
 	// 当たり判定の処理
 	// マップチップ一つ一つと判定する
 	for (auto& chip : map->GetMapCihps())

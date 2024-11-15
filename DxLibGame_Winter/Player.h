@@ -18,6 +18,17 @@ private:
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
 	std::shared_ptr<Camera> m_camera;
+
+	using StateFunc_t = void(Player::*)();
+	// ¡‚ÌƒvƒŒƒCƒ„[‚Ìó‘Ô
+	StateFunc_t m_state;
+
+	void Normal();
+	void Attack();
+	void Damage();
+	void Death();
+	void Move();
+	void Dash();
 public:
 	/// <summary>
 	/// ‰Šú‰»
