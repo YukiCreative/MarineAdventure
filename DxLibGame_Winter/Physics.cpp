@@ -6,13 +6,13 @@ namespace
 {
 	// 重力
 	// とりあえず9.8で
-	constexpr float kGravity = 9.8f;
+	constexpr float kGravity = 1.0f;
 	// 浮力とかつけちゃって
-	Vector2 kFloatForce = Vector2(0.0f, -9.5f);
+	Vector2 kFloatForce = Vector2(0.0f, -1.0f);
 	// 空気抵抗
-	constexpr float kAirResistance = 0.01f;
+	constexpr float kAirResistance = 0.1f;
 	// 水の抵抗
-	constexpr float kWaterResistance = 1.0f;
+	constexpr float kWaterResistance = 0.03f;
 }
 
 Physics::Physics() :
@@ -50,7 +50,7 @@ Vector2 Physics::WaterUpdate()
 	// 水の抵抗で計算
 	Vector2 resistanceForce = m_velocity * kWaterResistance * -1;
 	// 出てきた値でforceを計算(浮力を考慮)
-	Vector2 m_force = (m_addForce + gravityForce + resistanceForce + kFloatForce * m_volume) * Time::DeltaTime();
+	Vector2 m_force = m_addForce + gravityForce + resistanceForce + kFloatForce * m_volume;
 
 	// Fとmから、aを出す
 	// F = maより、a = F / m;
@@ -76,7 +76,7 @@ Vector2 Physics::GroundUpdate()
 	// 空気抵抗で計算
 	Vector2 resistanceForce = m_velocity * kAirResistance;
 	// 出てきた値でforceを弱める
-	Vector2 m_force = (m_addForce + gravityForce - resistanceForce)* Time::DeltaTime();
+	Vector2 m_force = m_addForce + gravityForce - resistanceForce;
 
 	// Fとmから、aを出す
 	// F = maより、a = F / m;
