@@ -5,10 +5,9 @@
 namespace
 {
 	// 重力
-	// とりあえず9.8で
 	constexpr float kGravity = 1.0f;
 	// 浮力とかつけちゃって
-	Vector2 kFloatForce = Vector2(0.0f, -1.0f);
+	Vector2 kFloatForce = Vector2(0.0f, -0.98f);
 	// 空気抵抗
 	constexpr float kAirResistance = 0.1f;
 	// 水の抵抗
@@ -19,6 +18,7 @@ Physics::Physics() :
 	m_accel(),
 	m_weight(1.0f),
 	m_volume(1.0f),
+	m_useConstantForce(true),
 	m_addForce(),
 	m_velocity(),
 	m_updateFunc(&Physics::WaterUpdate) // テスト
@@ -29,6 +29,7 @@ Physics::Physics(float weight, float volume) :
 	m_accel(),
 	m_weight(weight),
 	m_volume(volume),
+	m_useConstantForce(true),
 	m_addForce(),
 	m_velocity(),
 	m_updateFunc(&Physics::WaterUpdate) // テスト
@@ -43,19 +44,27 @@ Vector2 Physics::Update()
 
 Vector2 Physics::WaterUpdate()
 {
-	// 重力加速度を力に加算
-	Vector2 gravityForce = Vector2(0.0f, kGravity * m_weight);
+	// とりま加えられた力で初期化
+	Vector2 force = m_addForce;
+	if (m_useConstantForce)
+	{
+		// 重力加速度を力に加算
+		Vector2 gravityForce = Vector2(0.0f, kGravity * m_weight);
+		// 浮力
+		Vector2 floatForce = kFloatForce * m_volume;
+		force += gravityForce + floatForce;
+	}
 
 	// 抵抗を出す
 	// 水の抵抗で計算
 	Vector2 resistanceForce = m_velocity * kWaterResistance * -1;
 	// 出てきた値でforceを計算(浮力を考慮)
-	Vector2 m_force = m_addForce + gravityForce + resistanceForce + kFloatForce * m_volume;
+	force += resistanceForce;
 
 	// Fとmから、aを出す
 	// F = maより、a = F / m;
 	// 割り算するのかー
-	m_accel = m_force / m_weight;
+	m_accel = force / m_weight;
 
 	// accelからvelocityに加算する
 	m_velocity += m_accel;
@@ -69,19 +78,26 @@ Vector2 Physics::WaterUpdate()
 
 Vector2 Physics::GroundUpdate()
 {
-	// 重力加速度を力に加算
-	Vector2 gravityForce = Vector2(0.0f, kGravity * m_weight);
+	// とりま加えられた力で初期化
+	Vector2 force = m_addForce;
+	// 重力、浮力の処理
+	if (m_useConstantForce)
+	{
+		// 重力加速度を力に加算
+		Vector2 gravityForce = Vector2(0.0f, kGravity * m_weight);
+		force += gravityForce;
+	}
 
 	// 抵抗を出す
 	// 空気抵抗で計算
 	Vector2 resistanceForce = m_velocity * kAirResistance;
 	// 出てきた値でforceを弱める
-	Vector2 m_force = m_addForce + gravityForce - resistanceForce;
+	force += resistanceForce;
 
 	// Fとmから、aを出す
 	// F = maより、a = F / m;
 	// 割り算するのかー
-	m_accel = m_force / m_weight;
+	m_accel = force / m_weight;
 
 	// accelからvelocityに加算する
 	m_velocity += m_accel;

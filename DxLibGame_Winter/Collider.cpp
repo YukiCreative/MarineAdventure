@@ -2,6 +2,7 @@
 #include <cassert>
 #include "CircleCollider.h"
 #include "BoxCollider.h"
+#include <typeinfo>
 
 Collider::Collider(ColKind kind, Vector2& pos) :
 	m_pos(pos),
@@ -11,6 +12,23 @@ Collider::Collider(ColKind kind, Vector2& pos) :
 }
 
 bool Collider::CheckHit(std::shared_ptr<Collider> other)
+{
+	// Œ‹‹Çƒtƒ‰ƒOŠÇ—‚È‚ÌŽc”O‰ß‚¬‚é
+	if (other->GetKind() == ColKind::kCircle)
+	{
+		// ‚±‚±‚ÅŒ^•ÏŠ·‚ð‚·‚é‚±‚Æ‚Å
+		auto circle = std::dynamic_pointer_cast<CircleCollider>(other);
+		// ‚±‚ÌŠÖ”‚ªCircleCollider‚ÌŠÖ”‚Æ‚µ‚ÄŒÄ‚Î‚ê‚é
+		return CheckHitCircle(circle);
+	}
+	else if (other->GetKind() == ColKind::kBox)
+	{
+		auto box = std::dynamic_pointer_cast<BoxCollider>(other);
+		return CheckHitBox(box);
+	}
+}
+
+bool Collider::CheckHit(std::shared_ptr<Collider> other, Vector2& overlapLength)
 {
 	if (other->GetKind() == ColKind::kCircle)
 	{

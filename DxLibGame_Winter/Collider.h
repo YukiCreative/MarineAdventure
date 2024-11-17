@@ -40,6 +40,8 @@ public:
 	ColKind GetKind() { return m_kind; }
 
 	bool CheckHit(std::shared_ptr<Collider> other);
+	// Vector2‚ÌQÆ‚ğ“n‚µ‚Ä‚­‚ê‚ê‚Îd‚È‚Á‚Ä‚¢‚é•”•ª‚ÌŒü‚«‚Æ’·‚³‚ğ•Ô‚µ‚Ü‚·
+	bool CheckHit(std::shared_ptr<Collider> other, Vector2& overlapLength);
 
 protected:
 	// ‚±‚±‚©‚çæ‚ÌŠÖ”‚ÍŠO•”‚É‚ÍŒ©‚¹‚È‚¢

@@ -33,6 +33,5 @@ protected:
 	/// <param name="otherRect">‹éŒ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
 	virtual bool CheckHitBox(std::shared_ptr<BoxCollider> otherRect) override;
-
 };
 

@@ -22,6 +22,7 @@ private:
 	/// これを使って浮力を算出
 	/// </summary>
 	float m_volume;
+	bool m_useConstantForce;
 
 	// 関数ポインタ使うか
 	using UpdateFunc_t = Vector2 (Physics::*)();
@@ -64,6 +65,10 @@ public:
 	/// これ以外で直接velocityをいじるのはできるだけやめよう
 	/// </summary>
 	void Stop() { m_velocity = Vector2(); }
+	/// <summary>
+	/// 重力と浮力のいざこざから離れたいときに
+	/// </summary>
+	void UseConstantForce(bool value) { m_useConstantForce = value; }
 };
 
 

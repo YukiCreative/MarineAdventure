@@ -39,6 +39,8 @@ private:
 	void Damage(Input& input, Vector2& axis);
 	void Death(Input& input, Vector2& axis);
 
+	void SetStateNormal();
+
 public:
 	/// <summary>
 	/// ‰Šú‰»

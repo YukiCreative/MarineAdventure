@@ -11,7 +11,7 @@
 
 namespace
 {
-	// おテスト
+	// プレイヤーの当たり判定に使います
 	int kRaduis = 20;
 	// Axisがでかすぎるんだよ
 	constexpr float kMoveForceFactor = 0.0002f;
@@ -19,7 +19,9 @@ namespace
 	constexpr float kStrongAttackForceFactor = 0.0001f;
 	constexpr int kAttackFrame = 60;
 	constexpr int kInvincibleFrame = 90;
-	constexpr int kStrongAttackForce = 30;
+	constexpr int kStrongAttackForce = 20;
+	// 浮力と釣り合う力
+	constexpr float kReverseFloatForce = 0.98f;
 }
 
 // 何も操作されていない状態。
@@ -29,6 +31,7 @@ void Player::Normal(Input& input, Vector2& axis)
 	if (input.IsTrigger(PAD_INPUT_2))
 	{
 		m_graphic = "A";
+		m_physics->UseConstantForce(false);
 		m_state = &Player::Attack;
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
@@ -37,6 +40,7 @@ void Player::Normal(Input& input, Vector2& axis)
 	if (axis.SqrMagnitude() > 10000)
 	{
 		m_graphic = "M";
+		m_physics->UseConstantForce(false);
 		m_state = &Player::Move;
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
@@ -51,6 +55,7 @@ void Player::Move(Input& input, Vector2& axis)
 	if (input.IsPressed(PAD_INPUT_1))
 	{
 		m_graphic = "D";
+		m_physics->UseConstantForce(false);
 		m_state = &Player::Dash;
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
@@ -58,8 +63,7 @@ void Player::Move(Input& input, Vector2& axis)
 	// 入力がなかったらNomalへ
 	if (axis.SqrMagnitude() < 10000)
 	{
-		m_graphic = "N";
-		m_state = &Player::Normal;
+		SetStateNormal();
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -67,6 +71,7 @@ void Player::Move(Input& input, Vector2& axis)
 	if (input.IsTrigger(PAD_INPUT_2))
 	{
 		m_graphic = "SA";
+		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
 		m_state = &Player::StrongAttack;
@@ -85,6 +90,7 @@ void Player::Dash(Input& input, Vector2& axis)
 	if (!input.IsPressed(PAD_INPUT_1))
 	{
 		m_graphic = "M";
+		m_physics->UseConstantForce(false);
 		m_state = &Player::Move;
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
@@ -93,6 +99,7 @@ void Player::Dash(Input& input, Vector2& axis)
 	if (input.IsTrigger(PAD_INPUT_2))
 	{
 		m_graphic = "SA";
+		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
 		m_state = &Player::StrongAttack;
@@ -102,8 +109,7 @@ void Player::Dash(Input& input, Vector2& axis)
 	// 	// 入力がなかったらNomalへ
 	if (axis.SqrMagnitude() < 10000)
 	{
-		m_graphic = "N";
-		m_state = &Player::Normal;
+		SetStateNormal();
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -119,9 +125,7 @@ void Player::Attack(Input& input, Vector2& axis)
 	++m_stateFrameCount;
 	if (m_stateFrameCount >= kAttackFrame)
 	{
-		m_stateFrameCount = 0;
-		m_graphic = "N";
-		m_state = &Player::Normal;
+		SetStateNormal();
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -135,9 +139,7 @@ void Player::StrongAttack(Input& input, Vector2& axis)
 	++m_stateFrameCount;
 	if (m_stateFrameCount >= kAttackFrame)
 	{
-		m_stateFrameCount = 0;
-		m_graphic = "N";
-		m_state = &Player::Normal;
+		SetStateNormal();
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -153,9 +155,7 @@ void Player::Damage(Input& input, Vector2& axis)
 	++m_stateFrameCount;
 	if (m_stateFrameCount >= kInvincibleFrame)
 	{
-		m_stateFrameCount = 0;
-		m_graphic = "N";
-		m_state = &Player::Normal;
+		SetStateNormal();
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -165,6 +165,15 @@ void Player::Death(Input& input, Vector2& axis)
 {
 	// 死亡モーション
 	// 別のシーンへ
+}
+
+void Player::SetStateNormal()
+{
+	// 状態遷移する処理が重複していたので
+	m_stateFrameCount = 0;
+	m_graphic = "N";
+	m_physics->UseConstantForce(true);
+	m_state = &Player::Normal;
 }
 
 Player::Player(std::shared_ptr<Camera> camera) :
@@ -195,13 +204,9 @@ void Player::Update(std::shared_ptr<MapSystem> map)
 	{
 		if (m_collider->CheckHit(chip->GetCollider()))
 		{
-			// マップチップの種類を見たいよね
-			// 特定のマップチップと当たっていたら、今フレームの移動量をいじりたい
-			// これポリった方が良くね
-			// マップチップにプレイヤーと当たった時の振る舞いを覚えてもらって
-			// チップの関数を実行
-			// チップがプレイヤーの移動量をいじるのはどうなのか
-			// 壁や水流によってプレイヤーの移動が阻害されていると考えればむしろ自然か
+			// 接触したマップチップが侵入不可ブロックだった場合、接触しない位置まで戻す
+			// で　良いのでしょうか
+			// この処理の場合、移動の処理は先に行うことになりそうかな
 		}
 	}
 
@@ -217,9 +222,6 @@ void Player::Draw() const
 #if _DEBUG
 	DrawFormatString(0, 15, 0x000000, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 105, 0x000000, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
-	Input& input = Input::GetInstance();
-	Vector2 axis = input.GetInputAxis();
-	DrawFormatString(0, 30, 0x000000, "InputAxis x:%f,y:%f", axis.x, axis.y);
 #endif
 }
 

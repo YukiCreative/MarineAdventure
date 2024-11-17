@@ -24,7 +24,7 @@ bool CircleCollider::CheckHitBox(std::shared_ptr<BoxCollider> otherRect)
     Vector2 nearestPoint;
     nearestPoint.x = std::clamp(m_pos.x, otherRect->Left(), otherRect->Right());
     nearestPoint.y = std::clamp(m_pos.y, otherRect->Top(), otherRect->Bottom());
-
+    
     // o‚µ‚½“ñ“_‚Ì‹——£‚ªA‰~‚Ì”¼ŒaˆÈ‰º‚È‚ç“–‚½‚Á‚Ä‚¢‚é
     float distance = (m_pos - nearestPoint).SqrMagnitude();
     return distance <= m_radius * m_radius;
