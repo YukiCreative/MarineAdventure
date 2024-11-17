@@ -9,6 +9,7 @@ class Physics;
 class CircleCollider;
 class MapSystem;
 class Camera;
+class Input;
 
 /// <summary>
 /// プレイヤーのクラスです。

@@ -14,11 +14,12 @@ namespace
 	// おテスト
 	int kRaduis = 20;
 	// Axisがでかすぎるんだよ
-	constexpr float kMoveForceFactor = 0.0003f;
-	constexpr float kDashForceFactor = 0.0005f;
-	constexpr float kAttackForceFactor = 0.0002f;
+	constexpr float kMoveForceFactor = 0.0002f;
+	constexpr float kDashForceFactor = 0.0003f;
+	constexpr float kStrongAttackForceFactor = 0.0001f;
 	constexpr int kAttackFrame = 60;
 	constexpr int kInvincibleFrame = 90;
+	constexpr int kStrongAttackForce = 30;
 }
 
 // 何も操作されていない状態。
@@ -62,6 +63,16 @@ void Player::Move(Input& input, Vector2& axis)
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
+	// Bボタンでアタック状態
+	if (input.IsTrigger(PAD_INPUT_2))
+	{
+		m_graphic = "SA";
+		// ここで力を加える
+		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
+		m_state = &Player::StrongAttack;
+		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		return;
+	}
 	// 仮
 	m_physics->AddForce(axis * kMoveForceFactor);
 	// 現在の移動方向によってモーションを変える
@@ -75,6 +86,16 @@ void Player::Dash(Input& input, Vector2& axis)
 	{
 		m_graphic = "M";
 		m_state = &Player::Move;
+		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		return;
+	}
+	// Bボタンでアタック状態
+	if (input.IsTrigger(PAD_INPUT_2))
+	{
+		m_graphic = "SA";
+		// ここで力を加える
+		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
+		m_state = &Player::StrongAttack;
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -104,8 +125,8 @@ void Player::Attack(Input& input, Vector2& axis)
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
-	// ちょっと移動ができる
-	m_physics->AddForce(axis * kAttackForceFactor);
+	// 移動ができる
+	m_physics->AddForce(axis * kMoveForceFactor);
 }
 
 void Player::StrongAttack(Input& input, Vector2& axis)
@@ -121,6 +142,8 @@ void Player::StrongAttack(Input& input, Vector2& axis)
 		return;
 	}
 	// 攻撃判定を持つ
+	// ちょっと移動ができる
+	m_physics->AddForce(axis * kStrongAttackForceFactor);
 }
 
 void Player::Damage(Input& input, Vector2& axis)

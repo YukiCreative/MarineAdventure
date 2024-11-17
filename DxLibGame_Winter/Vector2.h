@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 // このスクリプトには特に、何もincludeしないこと！
 
 /// <summary>
@@ -133,16 +134,25 @@ public:
 	}
 
 	/// <summary>
+	///  大きさ返す
+	/// </summary>
+	/// <returns>大きさ</returns>
+	float Magnitude()
+	{
+		return std::sqrtf(x * x + y * y);
+	}
+
+	/// <summary>
 	/// 自分を単位ベクトルにする
 	/// </summary>
 	void Normalize()
 	{
-		float mag = SqrMagnitude();
+		float mag = Magnitude();
 		// 大きさが0ならreturn
 		if (!mag) return;
 		// 自分の成分を自分の大きさで割る(二乗)
-		x = (x * x) / mag;
-		y = (y * y) / mag;
+		x = x / mag;
+		y = y / mag;
 	}
 
 	/// <summary>
@@ -152,10 +162,10 @@ public:
 	Vector2 GetNormalize()
 	{
 		Vector2 result;
-		float mag = SqrMagnitude();
-		if (!mag) return result;
-		result.x = (x * x) / mag;
-		result.y = (y * y) / mag;
+		float mag = Magnitude();
+		if (!mag) return *this;
+		result.x = x / mag;
+		result.y = y / mag;
 		return result;
 	}
 
