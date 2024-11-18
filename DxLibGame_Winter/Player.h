@@ -58,7 +58,6 @@ public:
 
 	/// <summary>
 	/// 自分のPhysicsのvelocityを返す
-	/// いまいちクラス間のデータの受け渡しがわからない
 	/// </summary>
 	/// <returns>自分の物理クラスの速度</returns>
 	Vector2 GetVel() const;
@@ -66,7 +65,7 @@ public:
 	/// <summary>
 	/// コライダー返すだけ
 	/// </summary>
-	/// <returns>コライダーのポインタ</returns>
+	/// <returns>コライダーの参照</returns>
 	CircleCollider& GetCollider() { return *m_collider; }
 };
 
