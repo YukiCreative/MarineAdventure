@@ -20,6 +20,8 @@ namespace
 	constexpr int kAttackFrame = 60;
 	constexpr int kInvincibleFrame = 90;
 	constexpr int kStrongAttackForce = 20;
+	// 浮力と釣り合う力
+	constexpr float kReverseFloatForce = 0.98f;
 }
 
 // 何も操作されていない状態。
@@ -174,18 +176,18 @@ void Player::SetStateNormal()
 	m_state = &Player::Normal;
 }
 
-Player::Player(Camera& camera) :
-	m_physics(std::make_unique<Physics>(1.0f, 1.0f)),
+Player::Player(std::shared_ptr<Camera> camera) :
+	m_physics(std::make_shared<Physics>(1.0f, 1.0f)),
 	m_state(&Player::Normal),
 	m_graphic("N"),
 	m_stateFrameCount(0),
-	m_hp(0),
-	m_camera(camera)
+	m_hp(0)
 {
-	m_collider = std::make_unique<CircleCollider>(m_pos, kRaduis);
+	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
+	m_camera = camera;
 }
 
-void Player::Update(MapSystem& map)
+void Player::Update(std::shared_ptr<MapSystem> map)
 {
 	// 入力とる
 	Input& input = Input::GetInstance();
@@ -198,7 +200,7 @@ void Player::Update(MapSystem& map)
 
 	// 当たり判定の処理
 	// マップチップ一つ一つと判定する
-	for (auto& chip : map.GetMapCihps())
+	for (auto& chip : map->GetMapCihps())
 	{
 		if (m_collider->CheckHit(chip->GetCollider()))
 		{
@@ -214,7 +216,7 @@ void Player::Update(MapSystem& map)
 
 void Player::Draw() const
 {
-	Vector2 screenPos = m_camera.Capture(m_pos);
+	Vector2 screenPos = m_camera->Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), kRaduis, 0xff0000);
 	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x000000);
 #if _DEBUG
@@ -226,9 +228,4 @@ void Player::Draw() const
 Vector2 Player::GetVel() const
 {
 	return m_physics->GetVel();
-}
-
-CircleCollider& Player::GetCollider()
-{
-	return *m_collider;
 }

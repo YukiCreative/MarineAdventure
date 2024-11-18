@@ -11,24 +11,46 @@ Collider::Collider(ColKind kind, Vector2& pos) :
 {
 }
 
-bool Collider::CheckHit(Collider& other)
+bool Collider::CheckHit(std::shared_ptr<Collider> other)
 {
-	return other.CheckHit(*this);
+	// Œ‹‹Çƒtƒ‰ƒOŠÇ—‚È‚Ìc”O‰ß‚¬‚é
+	if (other->GetKind() == ColKind::kCircle)
+	{
+		// ‚±‚±‚ÅŒ^•ÏŠ·‚ğ‚·‚é‚±‚Æ‚Å
+		auto circle = std::dynamic_pointer_cast<CircleCollider>(other);
+		// ‚±‚ÌŠÖ”‚ªCircleCollider‚ÌŠÖ”‚Æ‚µ‚ÄŒÄ‚Î‚ê‚é
+		return CheckHitCircle(circle);
+	}
+	else if (other->GetKind() == ColKind::kBox)
+	{
+		auto box = std::dynamic_pointer_cast<BoxCollider>(other);
+		return CheckHitBox(box);
+	}
 }
 
-bool Collider::CheckHit(Collider& other, Vector2& overlapLength)
+bool Collider::CheckHit(std::shared_ptr<Collider> other, Vector2& overlapLength)
 {
-	// “VË‚Å‚Í
-	return other.CheckHit(*this);
+	if (other->GetKind() == ColKind::kCircle)
+	{
+		// ‚±‚±‚ÅŒ^•ÏŠ·‚ğ‚·‚é‚±‚Æ‚Å
+		auto circle = std::dynamic_pointer_cast<CircleCollider>(other);
+		// ‚±‚ÌŠÖ”‚ªCircleCollider‚ÌŠÖ”‚Æ‚µ‚ÄŒÄ‚Î‚ê‚é
+		return CheckHitCircle(circle);
+	}
+	else if (other->GetKind() == ColKind::kBox)
+	{
+		auto box = std::dynamic_pointer_cast<BoxCollider>(other);
+		return CheckHitBox(box);
+	}
 }
 
-bool Collider::CheckHit(CircleCollider& other)
+bool Collider::CheckHitCircle(std::shared_ptr<CircleCollider> other)
 {
 	assert(false && "À‘•‚³‚ê‚Ä‚¢‚È‚¢ŠÖ”‚Å‚·");
 	return false;
 }
 
-bool Collider::CheckHit(BoxCollider& other)
+bool Collider::CheckHitBox(std::shared_ptr<BoxCollider> other)
 {
 	assert(false && "À‘•‚³‚ê‚Ä‚¢‚È‚¢ŠÖ”‚Å‚·");
 	return false;

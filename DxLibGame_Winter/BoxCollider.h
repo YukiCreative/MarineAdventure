@@ -24,19 +24,19 @@ public:
 	float Left();
 	float Top();
 	float Bottom();
-
+protected:
 	/// <summary>
 	/// 当たり判定の取得(対円形)
 	/// </summary>
 	/// <param name="other">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	bool CheckHit(CircleCollider& otherCircle) override;
+	bool CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle) override;
 	/// <summary>
 	/// 矩形と矩形の当たり判定
 	/// </summary>
 	/// <param name="other">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	bool CheckHit(BoxCollider& otherRect) override;
+	bool CheckHitBox(std::shared_ptr<BoxCollider> otherRect) override;
 
 };
 
