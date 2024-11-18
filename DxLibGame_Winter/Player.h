@@ -17,9 +17,9 @@ class Input;
 class Player : public GameObject
 {
 private:
-	std::shared_ptr<Physics> m_physics;
-	std::shared_ptr<CircleCollider> m_collider;
-	std::shared_ptr<Camera> m_camera;
+	std::unique_ptr<Physics> m_physics;
+	std::unique_ptr<CircleCollider> m_collider;
+	Camera& m_camera;
 
 	using StateFunc_t = void(Player::*)(Input& input, Vector2& axis);
 	// 今のプレイヤーの状態
@@ -45,12 +45,12 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	Player(std::shared_ptr<Camera> camera);
+	Player(Camera& camera);
 
 	/// <summary>
 	/// 入力をとって移動したり何したり
 	/// </summary>
-	void Update(const std::shared_ptr<MapSystem> map);
+	void Update(MapSystem& map);
 	/// <summary>
 	/// 描画
 	/// </summary>
@@ -67,6 +67,5 @@ public:
 	/// コライダー返すだけ
 	/// </summary>
 	/// <returns>コライダーのポインタ</returns>
-	std::shared_ptr<CircleCollider> GetCollider() { return m_collider; }
+	CircleCollider& GetCollider();
 };
-
