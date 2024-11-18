@@ -7,9 +7,10 @@
 /// <summary>
 /// オブジェクトのワールド座標を描画のスクリーン座標に変換
 /// </summary>
-class Camera : public GameObject
+class Camera
 {
 private:
+	Vector2 m_pos;
 	/// <summary>
 	/// Updateで一括で移動するために一時的に記憶しておく
 	/// </summary>
@@ -38,8 +39,8 @@ public:
 
 	/// <summary>
 	/// 引数に入れられたゲームオブジェクトに追従する
-	/// 次に別のオブジェクトか、nullptrがSetされるまで継続
 	/// </summary>
 	void SetFollowObject(std::weak_ptr<GameObject> obj);
+	void ResetFollowObject() { m_refObj.reset(); };
 };
 

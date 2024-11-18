@@ -23,8 +23,8 @@ void Input::Update()
     // スティックの入力を取得
     int analogX, analogY;
     GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
-    m_inputAxis.x = analogX;
-    m_inputAxis.y = analogY;
+    m_inputAxis.x = static_cast<float>(analogX);
+    m_inputAxis.y = static_cast<float>(analogY);
 }
 
 bool Input::IsTrigger(int id)

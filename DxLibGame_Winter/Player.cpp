@@ -12,7 +12,7 @@
 namespace
 {
 	// プレイヤーの当たり判定に使います
-	int kRaduis = 20;
+	constexpr float kRaduis = 20.0f;
 	// Axisがでかすぎるんだよ
 	constexpr float kMoveForceFactor = 0.0002f;
 	constexpr float kDashForceFactor = 0.0003f;
@@ -215,7 +215,7 @@ void Player::Update(MapSystem& map)
 void Player::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
-	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), kRaduis, 0xff0000);
+	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
 	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x000000);
 #if _DEBUG
 	DrawFormatString(0, 15, 0x000000, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);

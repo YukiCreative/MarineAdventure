@@ -7,12 +7,12 @@
 
 namespace
 {
-	constexpr int kChipSize = 80;
+	constexpr float kChipSize = 80.0f;
 	constexpr int kImageSize = 16;
 	constexpr float kExRate = static_cast<float>(kChipSize) / static_cast<float>(kImageSize);
 	// 現時点でのマップチップの一辺の半分のピクセル
 	// DrawRectGraphは画像の中心が原点なのでこうなる
-	constexpr int kChipOffset = kChipSize * 0.5f;
+	constexpr int kChipOffset = static_cast<int>(kChipSize * 0.5f);
 }
 
 void MapChip::SetGraph()
@@ -97,5 +97,5 @@ void MapChip::Update()
 void MapChip::Draw()
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
-	DrawRotaGraph(drawPos.x, drawPos.y, kExRate, 0, m_graphHandle, true);
+	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), kExRate, 0, m_graphHandle, true);
 }

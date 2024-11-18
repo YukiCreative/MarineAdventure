@@ -26,6 +26,8 @@ bool Collider::CheckHit(Collider& other)
 		auto box = dynamic_cast<BoxCollider&>(other);
 		return CheckHitBox(box);
 	}
+
+	return false;
 }
 
 bool Collider::CheckHit(Collider& other, Vector2& overlapLength)
@@ -42,6 +44,8 @@ bool Collider::CheckHit(Collider& other, Vector2& overlapLength)
 		auto box = dynamic_cast<BoxCollider&>(other);
 		return CheckHitBox(box);
 	}
+
+	return false;
 }
 
 bool Collider::CheckHitCircle(CircleCollider& other)

@@ -29,7 +29,7 @@ MapSystem::MapSystem(Camera& camera)
 		for (int x = 0; x < kWidthChipNum; ++x)
 		{
 			m_mapChips[kWidthChipNum * y + x]->
-				Move(Vector2(kChipSpace * x, kChipSpace * y));
+				Move(Vector2(static_cast<float>(kChipSpace * x), static_cast<float>(kChipSpace * y)));
 		}
 	}
 }

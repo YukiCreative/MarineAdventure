@@ -11,6 +11,7 @@ protected:
 	// 座標　中心座標で頼む
 	Vector2 m_pos;
 public:
+
 	/// <summary>
 	/// 座標を返す
 	/// </summary>

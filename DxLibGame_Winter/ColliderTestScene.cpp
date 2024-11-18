@@ -42,8 +42,8 @@ ColliderTestScene::ColliderTestScene() :
 	color(0xffffff)
 {
 	boxCol = std::make_shared<BoxCollider>(boxPos, boxHava.x, boxHava.y);
-	circleCol = std::make_shared<CircleCollider>(circlePos, 32);
-	circleCol2 = std::make_shared<CircleCollider>(circlePos2, 32);
+	circleCol = std::make_shared<CircleCollider>(circlePos, 32.0f);
+	circleCol2 = std::make_shared<CircleCollider>(circlePos2, 32.0f);
 	boxCol2 = std::make_shared<BoxCollider>(boxPos2, boxHava.x, boxHava.y);
 	nowCol = circleCol;
 	nowMousePos = &circlePos;
@@ -64,8 +64,8 @@ void ColliderTestScene::Update()
 	// 円はマウスに沿って移動
 	int mouseX, mouseY;
 	GetMousePoint(&mouseX, &mouseY);
-	nowMousePos->x = mouseX;
-	nowMousePos->y = mouseY;
+	nowMousePos->x = static_cast<float>(mouseX);
+	nowMousePos->y = static_cast<float>(mouseY);
 	HitKansuu();
 
 	if (input.IsTrigger(PAD_INPUT_2))
@@ -83,8 +83,8 @@ void ColliderTestScene::Draw()
 	DrawFormatString(0, 30, color, "コライダーが見てるBox1の位x%f:y%f", nya.x, nya.y);
 	Vector2 nyai = circleCol->GetPos();
 	DrawFormatString(0, 45, color, "コライダーが見てるCircle1の位置x%f:y%f", nyai.x, nyai.y);
-	DrawCircle(circlePos.x, circlePos.y, 32, color);
-	DrawBox(boxPos.x - boxHava.x * 0.5f, boxPos.y - boxHava.y * 0.5f, boxPos.x + boxHava.x * 0.5f, boxPos.y + boxHava.y * 0.5f, color, true);
-	DrawCircle(circlePos2.x, circlePos2.y, 32, color);
-	DrawBox(boxPos2.x - boxHava.x * 0.5f, boxPos2.y - boxHava.y * 0.5f, boxPos2.x + boxHava.x * 0.5f, boxPos2.y + boxHava.y * 0.5f, color, true);
+	DrawCircle(static_cast<int>(circlePos.x), static_cast<int>(circlePos.y), 32, color);
+	DrawBox(static_cast<int>(boxPos.x - boxHava.x * 0.5f), static_cast<int>(boxPos.y - boxHava.y * 0.5f), static_cast<int>(boxPos.x + boxHava.x * 0.5f), static_cast<int>(boxPos.y + boxHava.y * 0.5f), color, true);
+	DrawCircle(static_cast<int>(circlePos2.x), static_cast<int>(circlePos2.y), 32, color);
+	DrawBox(static_cast<int>(boxPos2.x - boxHava.x * 0.5f), static_cast<int>(boxPos2.y - boxHava.y * 0.5f), static_cast<int>(boxPos2.x + boxHava.x * 0.5f), static_cast<int>(boxPos2.y + boxHava.y * 0.5f), color, true);
 }
