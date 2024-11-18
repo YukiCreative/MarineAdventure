@@ -16,7 +16,7 @@ namespace
 	constexpr int kHeightChipNum = 9 + 1;
 }
 
-MapSystem::MapSystem(std::shared_ptr<Camera> camera)
+MapSystem::MapSystem(Camera& camera)
 {
 	// マップチップのメモリ確保
 	for (auto& chip : m_mapChips)

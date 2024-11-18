@@ -39,9 +39,9 @@ public:
 	Vector2* GetPVec() { return &m_pos; }
 	ColKind GetKind() { return m_kind; }
 
-	bool CheckHit(std::shared_ptr<Collider> other);
+	bool CheckHit(Collider& other);
 	// Vector2の参照を渡してくれれば重なっている部分の向きと長さを返します
-	bool CheckHit(std::shared_ptr<Collider> other, Vector2& overlapLength);
+	bool CheckHit(Collider& other, Vector2& overlapLength);
 
 protected:
 	// ここから先の関数は外部には見せない
@@ -54,12 +54,12 @@ protected:
 	/// </summary>
 	/// <param name="other">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHitCircle(std::shared_ptr<CircleCollider> other);
+	virtual bool CheckHitCircle(CircleCollider& other);
 	/// <summary>
 	/// 当たり判定の取得(対矩形)
 	/// </summary>
 	/// <param name="other">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHitBox(std::shared_ptr<BoxCollider> other);
+	virtual bool CheckHitBox(BoxCollider& other);
 };
 

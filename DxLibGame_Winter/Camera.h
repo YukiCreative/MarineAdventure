@@ -17,7 +17,7 @@ private:
 	/// <summary>
 	/// 参照するゲームオブジェクト
 	/// </summary>
-	std::shared_ptr<GameObject> m_refObj;
+	std::weak_ptr<GameObject> m_refObj;
 public:
 	/// <summary>
 	/// カメラの更新
@@ -40,6 +40,6 @@ public:
 	/// 引数に入れられたゲームオブジェクトに追従する
 	/// 次に別のオブジェクトか、nullptrがSetされるまで継続
 	/// </summary>
-	void SetFollowObject(std::shared_ptr<GameObject> obj);
+	void SetFollowObject(std::weak_ptr<GameObject> obj);
 };
 

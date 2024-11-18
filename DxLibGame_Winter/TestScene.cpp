@@ -12,8 +12,8 @@ TestScene::TestScene() :
 	m_frameCount(0)
 {
 	m_camera = std::make_shared<Camera>();
-	m_map = std::make_shared<MapSystem>(m_camera);
-	m_player = std::make_shared<Player>(m_camera);
+	m_map = std::make_shared<MapSystem>(*m_camera);
+	m_player = std::make_shared<Player>(*m_camera);
 	m_camera->SetFollowObject(m_player);
 }
 
@@ -31,7 +31,7 @@ void TestScene::Update()
 	// 方法だとマップの端に来た時にプレイヤーが代わりに動く処理を実装しづらい
 	// ので、シーンに存在するカメラを皆が見て間接的かつ相対的に移動を反映させることにした
 	m_camera->Update();
-	m_player->Update(m_map);
+	m_player->Update(*m_map);
 	m_map->Update();
 
 

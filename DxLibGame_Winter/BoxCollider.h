@@ -30,13 +30,13 @@ protected:
 	/// </summary>
 	/// <param name="other">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	bool CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle) override;
+	bool CheckHitCircle(CircleCollider& otherCircle) override;
 	/// <summary>
 	/// 矩形と矩形の当たり判定
 	/// </summary>
 	/// <param name="other">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	bool CheckHitBox(std::shared_ptr<BoxCollider> otherRect) override;
+	bool CheckHitBox(BoxCollider& otherRect) override;
 
 };
 

@@ -10,9 +10,9 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
 {
 }
 
-bool BoxCollider::CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle)
+bool BoxCollider::CheckHitCircle(CircleCollider& otherCircle)
 {
-	Vector2 circlePos = otherCircle->GetPos();
+	Vector2 circlePos = otherCircle.GetPos();
 	// 矩形の辺で、円の中心座標と一番近い点を出す
 	Vector2 nearestPoint;
 	nearestPoint.x = std::clamp(circlePos.x, Left(), Right());
@@ -20,16 +20,16 @@ bool BoxCollider::CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle)
 
 	// 出した二点の距離が、円の半径以下なら当たっている
 	float distance = (circlePos - nearestPoint).SqrMagnitude();
-	return distance <= otherCircle->GetRadius() * otherCircle->GetRadius();
+	return distance <= otherCircle.GetRadius() * otherCircle.GetRadius();
 }
 
-bool BoxCollider::CheckHitBox(std::shared_ptr<BoxCollider> otherRect)
+bool BoxCollider::CheckHitBox(BoxCollider& otherRect)
 {
 	// 自分の右端より相手の左端のほうが右側なら…を繰り返す
-	if (Right() < otherRect->Left()) return false;
-	if (Left() > otherRect->Right()) return false;
-	if (Top() > otherRect->Bottom()) return false; 
-	if (Bottom() < otherRect->Top()) return false;
+	if (Right() < otherRect.Left()) return false;
+	if (Left() > otherRect.Right()) return false;
+	if (Top() > otherRect.Bottom()) return false;
+	if (Bottom() < otherRect.Top()) return false;
 	// ここまでくれば当たっている
 	return true;
 }

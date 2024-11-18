@@ -1,40 +1,5 @@
-﻿  MapChip.cpp
+﻿  MapSystem.cpp
 C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLib\DxLib.h(3964,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp(15,28): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
-C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp(101,34): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp(101,23): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(135,72): warning C4244: '引数': 'const int' から 'float' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(134): message : コンパイル対象の関数 テンプレート インスタンス化 '_Ty *std::construct_at<_Ty,Vector2&,const int&,const int&,void>(_Ty *const ,Vector2 &,const int &,const int &) noexcept(<expr>)' のリファレンスを確認してください
-          with
-          [
-              _Ty=BoxCollider
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\memory(2006): message : コンパイル対象の関数 テンプレート インスタンス化 'void std::_Construct_in_place<_Ty,Vector2&,const int&,const int&>(_Ty &,Vector2 &,const int &,const int &) noexcept(false)' のリファレンスを確認してください
-          with
-          [
-              _Ty=BoxCollider
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\memory(2725): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<Vector2&,const int&,const int&>(Vector2 &,const int &,const int &)' のリファレンスを確認してください
-          with
-          [
-              _Ty=BoxCollider
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\memory(2726): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<Vector2&,const int&,const int&>(Vector2 &,const int &,const int &)' のリファレンスを確認してください
-          with
-          [
-              _Ty=BoxCollider
-          ]
-C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapChip.cpp(78): message : コンパイル対象の関数 テンプレート インスタンス化 'std::shared_ptr<BoxCollider> std::make_shared<BoxCollider,Vector2&,const int&,const int&>(Vector2 &,const int &,const int &)' のリファレンスを確認してください
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(149,77): warning C4244: '引数': 'const int' から 'float' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(136,69): warning C4244: '引数': 'const int' から 'float' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(142): message : コンパイル対象の関数 テンプレート インスタンス化 '_Ty *std::construct_at<_Ty,Vector2&,const int&,const int&,void>(_Ty *const ,Vector2 &,const int &,const int &) noexcept(false)' のリファレンスを確認してください
-          with
-          [
-              _Ty=BoxCollider
-          ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\memory(2006): message : コンパイル対象の関数 テンプレート インスタンス化 'void std::_Construct_in_place<_Ty,Vector2&,const int&,const int&>(_Ty &,Vector2 &,const int &,const int &) noexcept(false)' のリファレンスを確認してください
-          with
-          [
-              _Ty=BoxCollider
-          ]
+C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapSystem.cpp(32,45): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\MapSystem.cpp(32,29): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
   DxLibGame_Winter.vcxproj -> C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\x64\Debug\DxLibGame_Winter.exe

@@ -30,7 +30,7 @@ private:
 	/// </summary>
 	std::shared_ptr<BoxCollider> m_collider;
 	// カメラさん
-	std::shared_ptr<Camera> m_camera;
+	Camera& m_camera;
 
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、
@@ -41,7 +41,7 @@ private:
 	bool CheckLoopUpAndLeft();
 	bool CheckLoopDownAndRight();
 public:
-	MapChip(std::shared_ptr<Camera> camera);
+	MapChip(Camera& camera);
 
 	/// <summary>
 	/// 更新処理
@@ -72,7 +72,7 @@ public:
 	/// なんか受け渡しが面倒になってきたな
 	/// </summary>
 	/// <returns>マップチップのコライダー</returns>
-	std::shared_ptr<BoxCollider> GetCollider() { return m_collider; }
+	BoxCollider& GetCollider() { return *m_collider; }
 
 	/// <summary>
 /// 現在のマップのデータを参照して、

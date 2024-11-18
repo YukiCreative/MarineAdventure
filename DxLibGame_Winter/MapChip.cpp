@@ -35,7 +35,7 @@ bool MapChip::LoopScreen()
 bool MapChip::CheckLoopUpAndLeft()
 {
 	// スクリーン座標を計算
-	Vector2 screenPos = m_camera->Capture(m_pos);
+	Vector2 screenPos = m_camera.Capture(m_pos);
 	// 画面外判定
 	bool isLoop = false;
 	if (screenPos.x <= -kChipOffset)
@@ -55,7 +55,7 @@ bool MapChip::CheckLoopUpAndLeft()
 bool MapChip::CheckLoopDownAndRight()
 {
 	// スクリーン座標を計算
-	Vector2 screenPos = m_camera->Capture(m_pos);
+	Vector2 screenPos = m_camera.Capture(m_pos);
 	bool isLoop = false;
 	if (screenPos.y >= Game::kScreenHeight + kChipOffset)
 	{
@@ -70,10 +70,10 @@ bool MapChip::CheckLoopDownAndRight()
 	return isLoop;
 }
 
-MapChip::MapChip(std::shared_ptr<Camera> camera) :
-	m_graphHandle(-1)
+MapChip::MapChip(Camera& camera) :
+	m_graphHandle(-1),
+	m_camera(camera)
 {
-	m_camera = camera;
 	m_collider = std::make_shared<BoxCollider>(m_pos, kChipSize, kChipSize);
 	SetGraph();
 }
@@ -96,6 +96,6 @@ void MapChip::Update()
 
 void MapChip::Draw()
 {
-	Vector2 drawPos = m_camera->Capture(m_pos);
+	Vector2 drawPos = m_camera.Capture(m_pos);
 	DrawRotaGraph(drawPos.x, drawPos.y, kExRate, 0, m_graphHandle, true);
 }

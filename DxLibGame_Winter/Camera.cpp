@@ -6,13 +6,13 @@ void Camera::Update()
 	m_pos += m_velocity;
 	// 移動量リセ
 	m_velocity = Vector2();
-	// nullptrだったらreturn
-	if (!m_refObj) return;
+	// 中身がなかったらreturn
+	if (m_refObj.expired()) return;
 
 	// オブジェクトがカメラの中心から一定値離れたら追尾したい
 	// その際、ゆっくりじんわり追尾する
 	// スピードが早いほどカメラの追尾から逃れ、画面端に位置する
-	m_pos = Vector2::Lerp(m_pos, m_refObj->GetPos(), 0.1f);
+	m_pos = Vector2::Lerp(m_pos, m_refObj.lock()->GetPos(), 0.1f);
 }
 
 Vector2 Camera::Capture(const Vector2& objPos) const
@@ -24,7 +24,7 @@ Vector2 Camera::Capture(const Vector2& objPos) const
 	return screenPos;
 }
 
-void Camera::SetFollowObject(std::shared_ptr<GameObject> obj)
+void Camera::SetFollowObject(std::weak_ptr<GameObject> obj)
 {
 	// nullptrの可能性あり
 	m_refObj = obj;

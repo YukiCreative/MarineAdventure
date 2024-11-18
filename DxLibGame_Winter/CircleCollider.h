@@ -26,12 +26,12 @@ protected:
 	/// </summary>
 	/// <param name="otherCircle">‰~Œ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	virtual bool CheckHitCircle(std::shared_ptr<CircleCollider> otherCircle) override;
+	virtual bool CheckHitCircle(CircleCollider& otherCircle) override;
 	/// <summary>
 	/// “–‚½‚è”»’è‚Ìæ“¾(‘Î‹éŒ`)
 	/// </summary>
 	/// <param name="otherRect">‹éŒ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	virtual bool CheckHitBox(std::shared_ptr<BoxCollider> otherRect) override;
+	virtual bool CheckHitBox(BoxCollider& otherRect) override;
 };
 
