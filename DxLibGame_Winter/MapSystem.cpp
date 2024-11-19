@@ -16,12 +16,12 @@ namespace
 	constexpr int kHeightChipNum = 9 + 1;
 }
 
-MapSystem::MapSystem(Camera& camera)
+MapSystem::MapSystem(Camera& camera, EnemyController& cont)
 {
 	// マップチップのメモリ確保
 	for (auto& chip : m_mapChips)
 	{
-		chip = std::make_shared<MapChip>(camera);
+		chip = std::make_shared<MapChip>(camera, cont);
 	}
 	// チップを等間隔で配置する
 	for (int y = 0; y < kHeightChipNum; ++y)

@@ -3,6 +3,11 @@
 #include <vector>
 #include <cassert>
 
+EnemyController::EnemyController()
+{
+	
+}
+
 void EnemyController::Update()
 {
 	// リストの要素全部Update
@@ -20,7 +25,7 @@ void EnemyController::Draw()
 	}
 }
 
-void EnemyController::SpawnEnemy(std::shared_ptr<Enemy> enemy)
+void EnemyController::SpawnEnemy(EnemyKinds kind)
 {
 	m_enemys.push_back(enemy);
 }

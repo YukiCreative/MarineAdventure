@@ -4,6 +4,8 @@
 #include "MapImageStore.h"
 #include "BoxCollider.h"
 #include "Camera.h"
+#include "EnemyController.h"
+#include "HarmFish.h"
 
 namespace
 {
@@ -21,6 +23,8 @@ void MapChip::SetGraph()
 	MapImageStore& mapImageStore = MapImageStore::GetInstance();
 	// Ç∆ÇËÇ†Ç¶Ç∏ç°ÇÕå≈íËÇ≈
 	m_graphHandle = mapImageStore.GetGraph(rand() % 2);
+	// Ç∆ÇËÇ†Ç¶Ç∏ämó¶Ç≈ìGÇæÇµÇ∆ÇØÇŒÇ¶Ç¶ÇÒÇøÇ·Ç§
+	m_enemys.SpawnEnemy();
 }
 
 bool MapChip::LoopScreen()
@@ -70,9 +74,10 @@ bool MapChip::CheckLoopDownAndRight()
 	return isLoop;
 }
 
-MapChip::MapChip(Camera& camera) :
+MapChip::MapChip(Camera& camera, EnemyController& cont) :
 	m_graphHandle(-1),
-	m_camera(camera)
+	m_camera(camera),
+	m_enemys(cont)
 {
 	m_collider = std::make_shared<BoxCollider>(m_pos, kChipSize, kChipSize);
 	SetGraph();

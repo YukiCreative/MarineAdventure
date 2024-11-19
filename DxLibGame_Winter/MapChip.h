@@ -5,6 +5,7 @@
 
 class BoxCollider;
 class Camera;
+class EnemyController;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -31,6 +32,8 @@ private:
 	std::shared_ptr<BoxCollider> m_collider;
 	// カメラさん
 	Camera& m_camera;
+	// 敵を呼び出す
+	EnemyController& m_enemys;
 
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、
@@ -41,7 +44,7 @@ private:
 	bool CheckLoopUpAndLeft();
 	bool CheckLoopDownAndRight();
 public:
-	MapChip(Camera& camera);
+	MapChip(Camera& camera, EnemyController& cont);
 
 	/// <summary>
 	/// 更新処理

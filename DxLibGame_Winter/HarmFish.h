@@ -16,8 +16,10 @@ private:
 	void Damage();
 	void Death();
 
+	// ‰¼
 	std::string m_graphic;
 	std::shared_ptr<CircleCollider> m_collider;
+	bool m_isDead;
 public:
 	HarmFish(Player& player, Camera& camera, EnemyController& controller);
 	virtual void Update() override;

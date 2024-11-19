@@ -9,7 +9,7 @@
 
 namespace
 {
-	constexpr int kInitHp = 1;
+	constexpr int kInitHp = 2;
 	constexpr int kRadius = 20;
 	constexpr int kDamageMortionFrame = 60;
 }
@@ -42,41 +42,44 @@ void HarmFish::Idle()
 void HarmFish::Damage()
 {
 	++m_stateFrameCount;
+	if (m_hp <= 0)
+	{
+		m_stateFrameCount = 0;
+		printf("ちんだ");
+		m_graphic = "o_o";
+		m_state = &HarmFish::Death;
+		return;
+	}
 	// アニメーションしたい
 	// 0になったらDeath
 	if (m_stateFrameCount > kDamageMortionFrame)
 	{
-		if (m_hp <= 0)
-		{
-			printf("ちんだ");
-			m_graphic = "o_o";
-			m_state = &HarmFish::Death;
-			(this->*m_state)();
-			return;
-		}
-		else
-		{
-			m_graphic = "^_^";
-			m_state = &HarmFish::Idle;
-			(this->*m_state)();
-			return;
-		}
+		m_stateFrameCount = 0;
+		m_graphic = "^_^";
+		m_state = &HarmFish::Idle;
+		(this->*m_state)();
+		return;
 	}
 }
 
 void HarmFish::Death()
 {
-	// 消える
-	// Enemyを管理してるクラスに問い合わせて消してもらう感じにしようかな
-	m_controller.DespawnEnemy(*this);
-	return;
+	++m_stateFrameCount;
+	if (m_stateFrameCount > kDamageMortionFrame)
+	{
+		// 消える
+		// Enemyを管理してるクラスに問い合わせて消してもらう感じにしようかな
+		m_isDead = true;
+		return;
+	}
 }
 
 HarmFish::HarmFish(Player& player, Camera& camera, EnemyController& controller) :
 	Enemy(player, camera, controller),
 	m_state(&HarmFish::Idle),
 	m_stateFrameCount(0),
-	m_graphic("^_^")
+	m_graphic("^_^"),
+	m_isDead(false)
 {
 	// 生焼けになるけど大丈夫かな
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f);
@@ -90,10 +93,14 @@ void HarmFish::Update()
 	// 状態に応じた処理を
 	(this->*m_state)();
 
-	// いけんやろ
-	if (this == nullptr) return;
-
 	m_pos += m_physics->Update();
+
+	// Updateの結果、死んだなら
+	// ここでやらないと中途半端にUpdateの処理が呼ばれてしまってエラる
+	if (m_isDead)
+	{
+		m_controller.DespawnEnemy(*this);
+	}
 }
 
 void HarmFish::Draw()
