@@ -149,7 +149,8 @@
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderTestScene.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyController.cpp" />
+    <ClCompile Include="HarmFish.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChip.cpp" />
@@ -169,8 +170,10 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderTestScene.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyController.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HarmFish.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="MapImageStore.h" />

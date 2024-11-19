@@ -7,6 +7,8 @@
 #include "SceneController.h"
 #include "ColliderTestScene.h"
 #include "Camera.h"
+#include "HarmFish.h"
+#include "EnemyController.h"
 
 TestScene::TestScene() :
 	m_frameCount(0)
@@ -14,7 +16,10 @@ TestScene::TestScene() :
 	m_camera = std::make_shared<Camera>();
 	m_map = std::make_shared<MapSystem>(*m_camera);
 	m_player = std::make_shared<Player>(*m_camera);
+	m_enemys = std::make_shared<EnemyController>(*m_player, *m_camera);
 	m_camera->SetFollowObject(m_player);
+
+	m_enemys->SpawnEnemy(std::make_shared<HarmFish>(*m_camera));
 }
 
 TestScene::~TestScene()
@@ -33,6 +38,7 @@ void TestScene::Update()
 	m_camera->Update();
 	m_player->Update(*m_map);
 	m_map->Update();
+	m_enemys->Update();
 
 
 	if (input.IsTrigger(PAD_INPUT_3))
@@ -46,6 +52,7 @@ void TestScene::Draw()
 {
 	m_map->Draw();
 	m_player->Draw();
+	m_enemys->Draw();
 
 #if _DEBUG
 	DrawFormatString(0, 0, 0x000000, "TestScene Œ»İ%dƒtƒŒ[ƒ€Œo‰ß’†", m_frameCount);

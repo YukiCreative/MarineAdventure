@@ -34,7 +34,8 @@ public:
 	/// <summary>
 	/// 必要な値を初期値に入れたコンストラクタ
 	/// </summary>
-	/// <param name="weight"></param>
+	/// <param name="weight">重さ</param>
+	/// <param name="volume">体積</param>
 	Physics(float weight, float volume);
 
 	/// <summary>

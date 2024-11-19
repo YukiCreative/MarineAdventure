@@ -13,7 +13,7 @@ Collider::Collider(ColKind kind, Vector2& pos) :
 
 bool Collider::CheckHit(Collider& other)
 {
-	// 結局フラグ管理なの残念過ぎる
+	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)
 	{
 		// ここで型変換をすることで
@@ -27,11 +27,13 @@ bool Collider::CheckHit(Collider& other)
 		return CheckHitBox(box);
 	}
 
+	assert(false && "列挙に対する処理なくない？");
 	return false;
 }
 
 bool Collider::CheckHit(Collider& other, Vector2& overlapLength)
 {
+	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)
 	{
 		// ここで型変換をすることで
@@ -45,6 +47,7 @@ bool Collider::CheckHit(Collider& other, Vector2& overlapLength)
 		return CheckHitBox(box);
 	}
 
+	assert(false && "列挙に対する処理なくない？");
 	return false;
 }
 

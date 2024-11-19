@@ -11,6 +11,7 @@ class Camera
 {
 private:
 	Vector2 m_pos;
+	Vector2 m_drawOffset;
 	/// <summary>
 	/// Update‚ÅˆêŠ‡‚ÅˆÚ“®‚·‚é‚½‚ß‚ÉˆêŽž“I‚É‹L‰¯‚µ‚Ä‚¨‚­
 	/// </summary>
