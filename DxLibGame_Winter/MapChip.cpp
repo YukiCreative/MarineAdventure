@@ -87,7 +87,7 @@ void MapChip::Update()
 	if (LoopScreen())
 	{
 		SetGraph();
-		printf("ループ！！");
+		//printf("ループ！！");
 	}
 
 	// movePosを0,0でリセット
@@ -98,5 +98,7 @@ void MapChip::Draw()
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), kExRate, 0, m_graphHandle, true);
+#if _DEBUG
 	DrawCircle(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 1, 0xff0000);
+#endif
 }

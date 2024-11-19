@@ -99,10 +99,10 @@
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="HarmFish.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyController.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="HarmFish.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,13 +164,13 @@
     <ClInclude Include="Camera.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyController.h">
+      <Filter>ヘッダー ファイル\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
+      <Filter>ヘッダー ファイル\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="HarmFish.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyController.h">
       <Filter>ヘッダー ファイル\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

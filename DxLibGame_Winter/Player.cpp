@@ -227,3 +227,35 @@ Vector2 Player::GetVel() const
 {
 	return m_physics->GetVel();
 }
+
+bool Player::CheckState(PlayerState stateID)
+{
+	// —ñ‹“‘Ì‚Æswitch•¶‚ğ–o–Å‚µ‚½‚¢@‚ [
+	switch (stateID)
+	{
+	case PlayerState::kNormal:
+		return m_state == &Player::Normal;
+		break;
+	case PlayerState::kMove:
+		return m_state == &Player::Move;
+		break;
+	case PlayerState::kDash:
+		return m_state == &Player::Dash;
+		break;
+	case PlayerState::kAttack:
+		return m_state == &Player::Attack;
+		break;
+	case PlayerState::kStrongAttack:
+		return m_state == &Player::StrongAttack;
+		break;
+	case PlayerState::kDamage:
+		return m_state == &Player::Damage;
+		break;
+	case PlayerState::kDeath:
+		return m_state == &Player::Death;
+		break;
+	default:
+		return false;
+		break;
+	}
+}

@@ -11,6 +11,17 @@ class MapSystem;
 class Camera;
 class Input;
 
+enum class PlayerState
+{
+	kNormal,
+	kMove,
+	kDash,
+	kAttack,
+	kStrongAttack,
+	kDamage,
+	kDeath
+};
+
 /// <summary>
 /// プレイヤーのクラスです。
 /// </summary>
@@ -67,5 +78,12 @@ public:
 	/// </summary>
 	/// <returns>コライダーの参照</returns>
 	CircleCollider& GetCollider() { return *m_collider; }
+
+	/// <summary>
+	/// 現在の状態を取る
+	/// </summary>
+	/// <param name="stateID"></param>
+	/// <returns></returns>
+	bool CheckState(PlayerState stateID);
 };
 

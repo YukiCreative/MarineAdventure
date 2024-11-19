@@ -1,11 +1,7 @@
 #include "EnemyController.h"
 #include "Enemy.h"
-
-EnemyController::EnemyController(Player& player, Camera& camera) :
-	m_cameraRef(camera),
-	m_playerRef(player)
-{
-}
+#include <vector>
+#include <cassert>
 
 void EnemyController::Update()
 {
@@ -27,4 +23,23 @@ void EnemyController::Draw()
 void EnemyController::SpawnEnemy(std::shared_ptr<Enemy> enemy)
 {
 	m_enemys.push_back(enemy);
+}
+
+void EnemyController::DespawnEnemy(Enemy& deleteEnemy)
+{
+	auto it = m_enemys.begin();
+	for (auto& enemy : m_enemys)
+	{
+		// ‚«‚½‚È‚¢‚¯‚Ç‚ä‚é‚µ‚Ä
+		if (enemy.get() == &deleteEnemy)
+		{
+			m_enemys.erase(it);
+			return;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	assert(false && "‚»‚ñ‚È—v‘f‚Í‚ ‚è‚Ü‚¹‚ñ");
 }

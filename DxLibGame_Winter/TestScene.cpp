@@ -16,10 +16,10 @@ TestScene::TestScene() :
 	m_camera = std::make_shared<Camera>();
 	m_map = std::make_shared<MapSystem>(*m_camera);
 	m_player = std::make_shared<Player>(*m_camera);
-	m_enemys = std::make_shared<EnemyController>(*m_player, *m_camera);
+	m_enemys = std::make_shared<EnemyController>();
 	m_camera->SetFollowObject(m_player);
 
-	m_enemys->SpawnEnemy(std::make_shared<HarmFish>(*m_camera));
+	m_enemys->SpawnEnemy(std::make_shared<HarmFish>(*m_player, *m_camera, *m_enemys));
 }
 
 TestScene::~TestScene()
