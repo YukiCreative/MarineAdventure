@@ -174,7 +174,8 @@ void Player::SetStateNormal()
 	m_state = &Player::Normal;
 }
 
-Player::Player(Camera& camera) :
+Player::Player(Camera& camera, Vector2 spawnPos) :
+	GameObject(spawnPos),
 	m_physics(std::make_shared<Physics>(1.0f, 1.0f)),
 	m_state(&Player::Normal),
 	m_graphic("N"),

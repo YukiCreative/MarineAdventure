@@ -14,12 +14,13 @@ TestScene::TestScene() :
 	m_frameCount(0)
 {
 	m_camera = std::make_shared<Camera>();
-	m_map = std::make_shared<MapSystem>(*m_camera);
-	m_player = std::make_shared<Player>(*m_camera);
-	m_enemys = std::make_shared<EnemyController>();
+	m_player = std::make_shared<Player>(*m_camera, Vector2::Zero());
+	m_enemys = std::make_shared<EnemyController>(*m_player, *m_camera);
+	m_map = std::make_shared<MapSystem>(*m_camera, *m_enemys);
 	m_camera->SetFollowObject(m_player);
 
-	m_enemys->SpawnEnemy(std::make_shared<HarmFish>(*m_player, *m_camera, *m_enemys));
+	m_enemys->SpawnEnemy(std::make_shared<HarmFish>(*m_player, *m_camera, *m_enemys, Vector2::Zero()));
+	m_enemys->SpawnEnemy(EnemyKinds::kHarmFish, Vector2(100, 100));
 }
 
 TestScene::~TestScene()

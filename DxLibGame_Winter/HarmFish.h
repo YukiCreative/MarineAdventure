@@ -21,7 +21,7 @@ private:
 	std::shared_ptr<CircleCollider> m_collider;
 	bool m_isDead;
 public:
-	HarmFish(Player& player, Camera& camera, EnemyController& controller);
+	HarmFish(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos);
 	virtual void Update() override;
 	virtual void Draw() override;
 };

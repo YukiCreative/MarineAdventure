@@ -56,7 +56,7 @@ public:
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
-	Player(Camera& camera);
+	Player(Camera& camera, Vector2 spawnPos);
 
 	/// <summary>
 	/// “ü—Í‚ğ‚Æ‚Á‚ÄˆÚ“®‚µ‚½‚è‰½‚µ‚½‚è

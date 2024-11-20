@@ -74,8 +74,8 @@ void HarmFish::Death()
 	}
 }
 
-HarmFish::HarmFish(Player& player, Camera& camera, EnemyController& controller) :
-	Enemy(player, camera, controller),
+HarmFish::HarmFish(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos) :
+	Enemy(player, camera, controller, spawnPos),
 	m_state(&HarmFish::Idle),
 	m_stateFrameCount(0),
 	m_graphic("^_^"),

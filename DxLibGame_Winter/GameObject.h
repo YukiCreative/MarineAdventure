@@ -11,6 +11,8 @@ protected:
 	// 座標　中心座標で頼む
 	Vector2 m_pos;
 public:
+	GameObject() : m_pos(){}
+	GameObject(Vector2 pos) : m_pos(pos){}
 
 	/// <summary>
 	/// 座標を返す

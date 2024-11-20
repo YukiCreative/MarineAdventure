@@ -196,4 +196,9 @@ public:
 		lerp += (end - start) * clampRate;
 		return lerp;
 	}
+
+	static Vector2 Zero()
+	{
+		return Vector2();
+	}
 };

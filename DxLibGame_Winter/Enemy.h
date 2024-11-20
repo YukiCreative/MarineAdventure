@@ -19,13 +19,14 @@ protected:
 	Player& m_playerRef;
 	EnemyController& m_controller;
 public:
-	Enemy(Player& player, Camera& camera, EnemyController& controller) :
+	Enemy(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos) :
+		GameObject(spawnPos),
 		m_camera(camera),
 		m_hp(0),
-		// この辺は派生クラス側で入れてもらおうかな
-		m_physics(nullptr),
 		m_playerRef(player),
-		m_controller(controller)
+		m_controller(controller),
+		// この辺は派生クラス側で入れてもらおうかな
+		m_physics(nullptr)
 	{
 	}
 
