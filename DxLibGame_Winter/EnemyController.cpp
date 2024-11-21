@@ -49,6 +49,7 @@ void EnemyController::Update()
 	// すべての処理が終わった後に、消える予定の敵を削除する
 	for (const auto& deathEnemy : deathNote)
 	{
+		// 絶対遅いけど仕様追加するのが大事よな
 		auto iterator = std::remove(m_enemys.begin(), m_enemys.end(), deathEnemy);
 		// このイテレータはちょうどremoveした要素を指している。
 		m_enemys.erase(iterator);

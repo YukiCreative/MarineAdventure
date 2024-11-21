@@ -31,7 +31,7 @@ bool Collider::CheckHit(Collider& other)
 	return false;
 }
 
-bool Collider::CheckHit(Collider& other, Vector2& overlapLength)
+bool Collider::CheckHit(Collider& other, Vector2& overlap)
 {
 	// ƒtƒ‰ƒOŠÇ—
 	if (other.GetKind() == ColKind::kCircle)
@@ -48,6 +48,11 @@ bool Collider::CheckHit(Collider& other, Vector2& overlapLength)
 	}
 
 	assert(false && "—ñ‹“‚É‘Î‚·‚éˆ—‚È‚­‚È‚¢H");
+	return false;
+}
+
+bool Collider::CheckHit(Collider& other, Vector2& overlap, const Vector2& velocity)
+{
 	return false;
 }
 

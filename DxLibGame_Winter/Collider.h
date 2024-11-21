@@ -41,7 +41,9 @@ public:
 
 	bool CheckHit(Collider& other);
 	// Vector2の参照を渡してくれれば重なっている部分の向きと長さを返します
-	bool CheckHit(Collider& other, Vector2& overlapLength);
+	bool CheckHit(Collider& other, Vector2& overlap);
+	// 第三引数の値を足したうえで当たり判定をとる
+	bool CheckHit(Collider& other, Vector2& overlap, const Vector2& velocity);
 
 protected:
 	// ここから先の関数は外部には見せない
