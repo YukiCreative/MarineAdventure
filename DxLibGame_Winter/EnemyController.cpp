@@ -33,11 +33,25 @@ void EnemyController::Update()
 			deathNote.push_back(enemy);
 		}
 	}
+	
+	// vectorならこれで一発
+	//for (int i = 0; i < m_enemys.size(); i++)
+	//{
+	//	m_enemys[i]->Update();
+	//	if (m_enemys[i]->IsDead())
+	//	{
+	//		deathNote.push_back(m_enemys[i]);
+	//		m_enemys.erase(m_enemys.begin() + i);
+	//	}
+	//}
+	//m_enemys.shrink_to_fit();
+
 	// すべての処理が終わった後に、消える予定の敵を削除する
 	for (const auto& deathEnemy : deathNote)
 	{
 		auto iterator = std::remove(m_enemys.begin(), m_enemys.end(), deathEnemy);
-		m_enemys.erase(--iterator);
+		// このイテレータはちょうどremoveした要素を指している。
+		m_enemys.erase(iterator);
 	}
 	// ここでEnemyのスマポは参照を失うので消える。はず。
 	deathNote.clear();

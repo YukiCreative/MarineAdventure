@@ -18,7 +18,8 @@ Enemy::Enemy(Player& player, Camera& camera, EnemyController& controller, Vector
 	m_playerRef(player),
 	m_controller(controller),
 	// ‚±‚Ì•Ó‚Í”h¶ƒNƒ‰ƒX‘¤‚Å“ü‚ê‚Ä‚à‚ç‚¨‚¤‚©‚È
-	m_physics(nullptr)
+	m_physics(nullptr),
+	m_isDead(false)
 {
 }
 

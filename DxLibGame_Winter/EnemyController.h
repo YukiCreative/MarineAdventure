@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <list>
 #include <unordered_map>
 #include "Vector2.h"
 
@@ -25,7 +26,7 @@ private:
 	Player& m_playerRef;
 	Camera& m_cameraRef;
 
-	using EnemyList_t = std::vector<std::shared_ptr<Enemy>>;
+	using EnemyList_t = std::list<std::shared_ptr<Enemy>>;
 	EnemyList_t m_enemys;
 
 	// Enemy‚Ì¶¬‚ğ—ñ‹“‘Ì‚©‚ç˜A‘z‚Å‚«‚é‚æ‚¤‚ÉŠÖ”‚ğ•R‚Ã‚¯‚é
