@@ -24,7 +24,10 @@ void MapChip::SetGraph()
 	// Ç∆ÇËÇ†Ç¶Ç∏ç°ÇÕå≈íËÇ≈
 	m_graphHandle = mapImageStore.GetGraph(rand() % 2);
 	// Ç∆ÇËÇ†Ç¶Ç∏ämó¶Ç≈ìGÇæÇµÇ∆ÇØÇŒÇ¶Ç¶ÇÒÇøÇ·Ç§
-	//m_enemys.SpawnEnemy();
+	if (!(rand() % 200))
+	{
+		m_enemys.SpawnEnemy(EnemyKinds::kHarmFish, m_pos);
+	}
 }
 
 bool MapChip::LoopScreen()

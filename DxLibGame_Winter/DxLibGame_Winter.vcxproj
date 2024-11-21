@@ -149,6 +149,7 @@
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderTestScene.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="HarmFish.cpp" />
     <ClCompile Include="Input.cpp" />

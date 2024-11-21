@@ -21,16 +21,26 @@ EnemyController::EnemyController(Player& player, Camera& camera) :
 
 void EnemyController::Update()
 {
+	// 死亡者リストを宣言
+	std::vector<std::shared_ptr<Enemy>> deathNote;
 	// リストの要素全部Update
-	for (int i = 0; i < m_enemys.size(); ++i)
+	for (auto& enemy : m_enemys)
 	{
-		// ここアブナイ
-		// for文中で要素が消えたら良くないよね
-		// 範囲for文だとバグるが、普通にやるとバグらない　なんで？
-		printf("%d要素目", i);
-		m_enemys[i]->Update();
+		enemy->Update();
+		// この敵が死んだら死亡者リストに入れとく
+		if (enemy->IsDead())
+		{
+			deathNote.push_back(enemy);
+		}
 	}
-	// 一回完全に処理を終わらせた後で死んだ奴は消去
+	// すべての処理が終わった後に、消える予定の敵を削除する
+	for (const auto& deathEnemy : deathNote)
+	{
+		auto iterator = std::remove(m_enemys.begin(), m_enemys.end(), deathEnemy);
+		m_enemys.erase(--iterator);
+	}
+	// ここでEnemyのスマポは参照を失うので消える。はず。
+	deathNote.clear();
 }
 
 void EnemyController::Draw()
@@ -51,13 +61,13 @@ void EnemyController::SpawnEnemy(std::shared_ptr<Enemy> enemyInstance)
 	m_enemys.push_back(enemyInstance);
 }
 
-void EnemyController::DespawnEnemy(Enemy& deleteEnemy)
+void EnemyController::DespawnEnemy(Enemy* deleteEnemy)
 {
 	auto it = m_enemys.begin();
 	for (auto& enemy : m_enemys)
 	{
 		// きたないけどゆるして
-		if (enemy.get() == &deleteEnemy)
+		if (enemy.get() == deleteEnemy)
 		{
 			m_enemys.erase(it);
 			return;

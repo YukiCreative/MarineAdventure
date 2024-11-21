@@ -78,8 +78,7 @@ HarmFish::HarmFish(Player& player, Camera& camera, EnemyController& controller, 
 	Enemy(player, camera, controller, spawnPos),
 	m_state(&HarmFish::Idle),
 	m_stateFrameCount(0),
-	m_graphic("^_^"),
-	m_isDead(false)
+	m_graphic("^_^")
 {
 	// 生焼けになるけど大丈夫かな
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f);
@@ -95,11 +94,10 @@ void HarmFish::Update()
 
 	m_pos += m_physics->Update();
 
-	// Updateの結果、死んだなら
-	// ここでやらないと中途半端にUpdateの処理が呼ばれてしまってエラる
-	if (m_isDead)
+	// Updateの結果、画面外に出たら死亡
+	if (CheckScreenOut())
 	{
-		m_controller.DespawnEnemy(*this);
+		m_isDead = true;
 	}
 }
 

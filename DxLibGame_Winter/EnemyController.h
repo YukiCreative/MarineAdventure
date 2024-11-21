@@ -51,6 +51,6 @@ public:
 	/// とはいってもアドレスを知っているのは本人だけだけど
 	/// </summary>
 	/// <param name="deleteEnemy">削除するEnemyのスマポ</param>
-	void DespawnEnemy(Enemy& deleteEnemy);
+	void DespawnEnemy(Enemy* deleteEnemy);
 };
 

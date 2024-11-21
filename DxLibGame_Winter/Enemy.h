@@ -15,21 +15,21 @@ class Enemy : public GameObject
 protected:
 	Camera& m_camera;
 	int m_hp;
+	bool m_isDead;
 	std::shared_ptr<Physics> m_physics;
 	Player& m_playerRef;
 	EnemyController& m_controller;
 public:
-	Enemy(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos) :
-		GameObject(spawnPos),
-		m_camera(camera),
-		m_hp(0),
-		m_playerRef(player),
-		m_controller(controller),
-		// この辺は派生クラス側で入れてもらおうかな
-		m_physics(nullptr)
-	{
-	}
+	Enemy(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos);
 
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
+	/// <summary>
+	/// スクリーンの外かどうか
+	/// </summary>
+	bool CheckScreenOut();
+	/// <summary>
+	/// 死んでるかどうか
+	/// </summary>
+	bool IsDead() { return m_isDead; }
 };
