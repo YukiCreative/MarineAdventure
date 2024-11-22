@@ -23,7 +23,6 @@ CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle) cons
     CollisionStatus result;
     result.isCollide = dist <= radiusLength * radiusLength;
     result.overlap = radiusVec - distVec;
-    result.normal = -distUnit;
 
     return result;
 }
@@ -40,7 +39,6 @@ CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle, cons
     CollisionStatus result;
     result.isCollide = dist <= radiusLength;
     result.overlap = radiusVec - distVec;
-    result.normal = -distUnit;
 
     return result;
 }
@@ -61,20 +59,6 @@ CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect) const
     CollisionStatus result;
     result.isCollide = sqrDist <= m_radius * m_radius;
     result.overlap = radiusVec - distVec;
-    // 自分らの中心同士をつなげたベクトルがどんな向きかで判定
-    // これ上下逆になるよね
-    Vector2 pointDist = m_pos - otherRect.GetPos();
-    float distDeg = std::atan2(pointDist.y, pointDist.x) * Calculation::kRadToDeg;
-    // 範囲を0~360にさせていただく
-    if (distDeg < 0) distDeg += 360;
-    // 四角形の中心から右上の頂点に向かうベクトルの角度
-    // これを元にほかの3方向を出す
-    Vector2 rectVec = Vector2(otherRect.Right(), otherRect.Bottom()) - otherRect.GetPos();
-    float rectDeg = std::atan2(rectVec.y, rectVec.x) * Calculation::kRadToDeg;
-    if (distDeg > rectDeg && distDeg <= 180 - rectDeg) result.normal = Vector2::Down();
-    if (distDeg > 180 - rectDeg && distDeg <= 180 + rectDeg) result.normal = Vector2::Left();
-    if (distDeg > 180 + rectDeg && distDeg <= 360 - rectDeg) result.normal = Vector2::Up();
-    if (distDeg > 360 - rectDeg || distDeg <= rectDeg) result.normal = Vector2::Right();
 
     return result;
 }
@@ -97,23 +81,6 @@ CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect, const Vector
     CollisionStatus result;
     result.isCollide = sqrDist <= m_radius * m_radius;
     result.overlap = radiusVec - distVec;
-    // 自分らの中心同士をつなげたベクトルがどんな向きかで判定
-    // これ上下逆になるよね
-    Vector2 pointDist = correctedPos - otherRect.GetPos();
-    float distDeg = std::atan2(pointDist.x, pointDist.y) * Calculation::kRadToDeg;
-    // 範囲を0~360にさせていただく
-    if (distDeg < 0) distDeg += 360;
-    // 四角形の中心から右上の頂点に向かうベクトルの角度
-    // これを元にほかの3方向を出す
-    Vector2 rectVec = Vector2(otherRect.Right(), otherRect.Bottom()) - otherRect.GetPos();
-    float rectDeg = std::atan2(5, 1) * Calculation::kRadToDeg;
-    printf("rectVec: x=%f,Y=%f\n", rectVec.x, rectVec.y);
-    printf("distDeg=%f\n", distDeg);
-    printf("rectDeg=%f\n", rectDeg);
-    if (distDeg > rectDeg && distDeg <= 180 - rectDeg) result.normal = Vector2::Down();
-    if (distDeg > 180 - rectDeg && distDeg <= 180 + rectDeg) result.normal = Vector2::Left();
-    if (distDeg > 180 + rectDeg && distDeg <= 360 - rectDeg) result.normal = Vector2::Up();
-    if (distDeg > 360 - rectDeg || distDeg <= rectDeg) result.normal = Vector2::Right();
 
     return result;
 }

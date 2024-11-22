@@ -8,10 +8,6 @@ struct CollisionStatus
 {
 	// 当たっているか
 	bool isCollide = false;
-	// めり込んでいるところの一番長い距離
-	// 当たっていれば大きさは正、そうでなければ負
+	// 当たった面に垂直に、どれくらいの向き、大きさでめり込んでいるかを出してくれます
 	Vector2 overlap = Vector2::Zero();
-	// 各自円とか四角形とかで頑張ってずるしながら出す
-	// 単位ベクトル
-	Vector2 normal = Vector2::Zero();
 };

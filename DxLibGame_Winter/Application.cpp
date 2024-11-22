@@ -82,7 +82,13 @@ void Application::Run()
 		ScreenFlip();
 
 		// 60FPSに固定
-		while (GetNowHiPerformanceCount() - time < 16667);
+		unsigned int waitTime = 16667;
+		if (inputInstance.IsPressed(PAD_INPUT_6))
+		{
+			// スローモーション
+			waitTime *= 5;
+		}
+		while (GetNowHiPerformanceCount() - time < waitTime);
 	}
 }
 

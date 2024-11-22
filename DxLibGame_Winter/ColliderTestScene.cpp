@@ -68,7 +68,7 @@ void ColliderTestScene::Update()
 	nowMousePos->y = static_cast<float>(mouseY);
 	HitKansuu();
 
-	if (input.IsTrigger(PAD_INPUT_2))
+	if (input.IsTrigger(PAD_INPUT_3))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<TestScene>());
 		return;

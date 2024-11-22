@@ -44,7 +44,7 @@ CollisionStatus Collider::CheckHit(Collider& other, const Vector2& offset) const
 	else if (other.GetKind() == ColKind::kBox)
 	{
 		auto box = dynamic_cast<BoxCollider&>(other);
-		return CheckHitBox(box);
+		return CheckHitBox(box, offset);
 	}
 
 	assert(false && "—ñ‹“‚É‘Î‚·‚éˆ—‚È‚­‚È‚¢H");
