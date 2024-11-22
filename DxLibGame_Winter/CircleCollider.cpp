@@ -1,6 +1,8 @@
 #include "CircleCollider.h"
 #include "BoxCollider.h"
 #include <algorithm>
+#include <cmath>
+#include "Calculation.h"
 
 CircleCollider::CircleCollider(Vector2& pos, float radius) :
     Collider(ColKind::kCircle, pos),
@@ -8,17 +10,42 @@ CircleCollider::CircleCollider(Vector2& pos, float radius) :
 {
 }
 
-bool CircleCollider::CheckHitCircle(CircleCollider& otherCircle)
+CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle)
 {
     // 円形と円形の当たり判定
     // 距離と二つの円の合計半径を比べる
-    float dist = (m_pos - otherCircle.GetPos()).SqrMagnitude();
-    float radiusLength = (m_radius + otherCircle.GetRadius()) * (m_radius + otherCircle.GetRadius());
+    Vector2 distVec = m_pos - otherCircle.GetPos();
+    float dist = distVec.SqrMagnitude();
+    float radiusLength = m_radius + otherCircle.GetRadius();
+    Vector2 distUnit = distVec.GetNormalize();
+    Vector2 radiusVec =  distUnit * radiusLength;
 
-    return dist <= radiusLength;
+    CollisionStatus result;
+    result.isCollide = dist <= radiusLength;
+    result.overlap = radiusVec - distVec;
+    result.normal = -distUnit;
+
+    return result;
 }
 
-bool CircleCollider::CheckHitBox(BoxCollider& otherRect)
+CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle, Vector2 offset)
+{
+    // 自分の位置を補正込みで考える あとは一緒
+    Vector2 distVec = m_pos - otherCircle.GetPos() + offset;
+    float dist = distVec.SqrMagnitude();
+    float radiusLength = m_radius + otherCircle.GetRadius();
+    Vector2 distUnit = distVec.GetNormalize();
+    Vector2 radiusVec = distUnit * radiusLength;
+
+    CollisionStatus result;
+    result.isCollide = dist <= radiusLength;
+    result.overlap = radiusVec - distVec;
+    result.normal = -distUnit;
+
+    return result;
+}
+
+CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect)
 {
     // 矩形の辺で、円の中心座標と一番近い点を出す
     Vector2 nearestPoint;
@@ -26,6 +53,33 @@ bool CircleCollider::CheckHitBox(BoxCollider& otherRect)
     nearestPoint.y = std::clamp(m_pos.y, otherRect.Top(), otherRect.Bottom());
     
     // 出した二点の距離が、円の半径以下なら当たっている
-    float distance = (m_pos - nearestPoint).SqrMagnitude();
-    return distance <= m_radius * m_radius;
+    Vector2 distVec = m_pos - nearestPoint;
+    float sqrDist = distVec.SqrMagnitude();
+    // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
+    Vector2 radiusVec = distVec.GetNormalize() * m_radius;
+
+    CollisionStatus result;
+    result.isCollide = sqrDist <= m_radius * m_radius;
+    result.overlap = radiusVec - distVec;
+    // 自分らの中心同士をつなげたベクトルがどんな向きかで判定
+    // これ上下逆になるよね
+    Vector2 pointDist = m_pos - otherRect.GetPos();
+    float distDeg = std::atan2(pointDist.x, pointDist.y) * Calculation::kRadToDeg;
+    // 範囲を0~360にさせていただく
+    if (distDeg < 0) distDeg += 360;
+    // 四角形の中心から右上の頂点に向かうベクトルの角度
+    // これを元にほかの3方向を出す
+    Vector2 rectVec = Vector2(otherRect.Right(), otherRect.Bottom()) - otherRect.GetPos();
+    float rectDeg = std::atan2(rectVec.x, rectVec.y) * Calculation::kRadToDeg;
+    if (distDeg > rectDeg && distDeg <= 180 - rectDeg) result.normal = Vector2::Down();
+    if (distDeg > 180 - rectDeg && distDeg <= 180 + rectDeg) result.normal = Vector2::Left();
+    if (distDeg > 180 + rectDeg && distDeg <= 360 - rectDeg) result.normal = Vector2::Up();
+    if (distDeg > 360 - rectDeg || distDeg <= rectDeg) result.normal = Vector2::Right();
+
+    return result;
+}
+
+CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect, Vector2 offset)
+{
+    return CollisionStatus();
 }

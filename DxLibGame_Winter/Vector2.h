@@ -107,6 +107,11 @@ public:
 		return result;
 	}
 
+	Vector2 operator-()
+	{
+		return Vector2(-x, -y);
+	}
+
 	Vector2 operator-(Vector2 other)
 	{
 		Vector2 result;
@@ -150,7 +155,7 @@ public:
 		float mag = Magnitude();
 		// ‘å‚«‚³‚ª0‚È‚çreturn
 		if (!mag) return;
-		// ©•ª‚Ì¬•ª‚ğ©•ª‚Ì‘å‚«‚³‚ÅŠ„‚é(“ñæ)
+		// ©•ª‚Ì¬•ª‚ğ©•ª‚Ì‘å‚«‚³‚ÅŠ„‚é
 		x = x / mag;
 		y = y / mag;
 	}
@@ -197,8 +202,29 @@ public:
 		return lerp;
 	}
 
+	// (0, 0)
 	static Vector2 Zero()
 	{
 		return Vector2();
+	}
+	// (0, -1)
+	static Vector2 Up()
+	{
+		return Vector2(0, -1);
+	}
+	// (0, 1)
+	static Vector2 Down()
+	{
+		return Vector2(0, 1);
+	}
+	// (1, 0)
+	static Vector2 Right()
+	{
+		return Vector2(1, 0);
+	}
+	// (-1, 0)
+	static Vector2 Left()
+	{
+		return Vector2(-1, 0);
 	}
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include <memory>
+#include "CollisionStatus.h"
 
 class CircleCollider;
 class BoxCollider;
@@ -39,11 +40,9 @@ public:
 	Vector2* GetPVec() { return &m_pos; }
 	ColKind GetKind() { return m_kind; }
 
-	bool CheckHit(Collider& other);
-	// Vector2の参照を渡してくれれば重なっている部分の向きと長さを返します
-	bool CheckHit(Collider& other, Vector2& overlap);
-	// 第三引数の値を足したうえで当たり判定をとる
-	bool CheckHit(Collider& other, Vector2& overlap, const Vector2& velocity);
+	CollisionStatus CheckHit(Collider& other);
+	// 補正あり これから加算する移動量を加味するときなどに有効
+	CollisionStatus CheckHit(Collider& other, const Vector2& offset);
 
 protected:
 	// ここから先の関数は外部には見せない
@@ -56,12 +55,14 @@ protected:
 	/// </summary>
 	/// <param name="other">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHitCircle(CircleCollider& other);
+	virtual CollisionStatus CheckHitCircle(CircleCollider& other) = 0;
+	virtual CollisionStatus CheckHitCircle(CircleCollider& other, Vector2 offset) = 0;
 	/// <summary>
 	/// 当たり判定の取得(対矩形)
 	/// </summary>
 	/// <param name="other">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual bool CheckHitBox(BoxCollider& other);
+	virtual CollisionStatus CheckHitBox(BoxCollider& other) = 0;
+	virtual CollisionStatus CheckHitBox(BoxCollider& other, Vector2 offset) = 0;
 };
 

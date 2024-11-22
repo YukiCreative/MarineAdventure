@@ -1,10 +1,4 @@
-﻿  EnemyController.cpp
-  HarmFish.cpp
-C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\HarmFish.cpp(108,66): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\HarmFish.cpp(109,49): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(374,75): warning C4244: '引数': 'const int' から 'float' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(388,82): warning C4244: '引数': 'const int' から 'float' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(375,90): warning C4244: '引数': 'const int' から 'float' への変換です。データが失われる可能性があります。
-  TestScene.cpp
+﻿  BoxCollider.cpp
+  CircleCollider.cpp
   コードを生成中...
   DxLibGame_Winter.vcxproj -> C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\x64\Debug\DxLibGame_Winter.exe

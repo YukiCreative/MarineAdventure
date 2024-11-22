@@ -3,6 +3,7 @@
 #include "CircleCollider.h"
 #include "BoxCollider.h"
 #include <typeinfo>
+#include "CollisionStatus.h"
 
 Collider::Collider(ColKind kind, Vector2& pos) :
 	m_pos(pos),
@@ -11,7 +12,7 @@ Collider::Collider(ColKind kind, Vector2& pos) :
 {
 }
 
-bool Collider::CheckHit(Collider& other)
+CollisionStatus Collider::CheckHit(Collider& other)
 {
 	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)
@@ -28,10 +29,10 @@ bool Collider::CheckHit(Collider& other)
 	}
 
 	assert(false && "列挙に対する処理なくない？");
-	return false;
+	return CollisionStatus();
 }
 
-bool Collider::CheckHit(Collider& other, Vector2& overlap)
+CollisionStatus Collider::CheckHit(Collider& other, const Vector2& offset)
 {
 	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)
@@ -39,7 +40,7 @@ bool Collider::CheckHit(Collider& other, Vector2& overlap)
 		// ここで型変換をすることで
 		auto circle = dynamic_cast<CircleCollider&>(other);
 		// この関数がCircleColliderの関数として呼ばれる
-		return CheckHitCircle(circle);
+		return CheckHitCircle(circle, offset);
 	}
 	else if (other.GetKind() == ColKind::kBox)
 	{
@@ -48,22 +49,5 @@ bool Collider::CheckHit(Collider& other, Vector2& overlap)
 	}
 
 	assert(false && "列挙に対する処理なくない？");
-	return false;
-}
-
-bool Collider::CheckHit(Collider& other, Vector2& overlap, const Vector2& velocity)
-{
-	return false;
-}
-
-bool Collider::CheckHitCircle(CircleCollider& other)
-{
-	assert(false && "実装されていない関数です");
-	return false;
-}
-
-bool Collider::CheckHitBox(BoxCollider& other)
-{
-	assert(false && "実装されていない関数です");
-	return false;
+	return CollisionStatus();
 }

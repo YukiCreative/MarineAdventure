@@ -51,7 +51,7 @@ void EnemyController::Update()
 	{
 		// 絶対遅いけど仕様追加するのが大事よな
 		auto iterator = std::remove(m_enemys.begin(), m_enemys.end(), deathEnemy);
-		// このイテレータはちょうどremoveした要素を指している。
+		// このイテレータはちょうどremoveした要素を指していたのであった…
 		m_enemys.erase(iterator);
 	}
 	// ここでEnemyのスマポは参照を失うので消える。はず。

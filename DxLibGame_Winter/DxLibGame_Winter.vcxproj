@@ -166,10 +166,12 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Calculation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderTestScene.h" />
+    <ClInclude Include="CollisionStatus.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="game.h" />
