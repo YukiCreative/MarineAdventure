@@ -49,13 +49,13 @@ protected:
 	/// <param name="other">‰~Œ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
 	virtual CollisionStatus CheckHitCircle(CircleCollider& other) const = 0;
-	virtual CollisionStatus CheckHitCircle(CircleCollider& other, Vector2 offset) const = 0;
+	virtual CollisionStatus CheckHitCircle(CircleCollider& other, const Vector2& offset) const = 0;
 	/// <summary>
 	/// “–‚½‚è”»’è‚Ìæ“¾(‘Î‹éŒ`)
 	/// </summary>
 	/// <param name="other">‹éŒ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
 	virtual CollisionStatus CheckHitBox(BoxCollider& other) const = 0;
-	virtual CollisionStatus CheckHitBox(BoxCollider& other, Vector2 offset) const = 0;
+	virtual CollisionStatus CheckHitBox(BoxCollider& other, const Vector2& offset) const = 0;
 };
 

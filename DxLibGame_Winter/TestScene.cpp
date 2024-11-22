@@ -19,7 +19,6 @@ TestScene::TestScene() :
 	m_map = std::make_shared<MapSystem>(*m_camera, *m_enemys);
 	m_camera->SetFollowObject(m_player);
 
-	m_enemys->SpawnEnemy(std::make_shared<HarmFish>(*m_player, *m_camera, *m_enemys, Vector2::Zero()));
 	m_enemys->SpawnEnemy(EnemyKinds::kHarmFish, Vector2(100, 100));
 }
 

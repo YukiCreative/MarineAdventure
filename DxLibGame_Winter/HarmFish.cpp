@@ -18,13 +18,15 @@ void HarmFish::Idle()
 {
 	// 待機モーション実行
 	// Playerとの接触判定をする
-	if (m_collider->CheckHit(m_playerRef.GetCollider()).isCollide)
+	CollisionStatus collision = m_collider->CheckHit(m_playerRef.GetCollider());
+	if (collision.isCollide)
 	{
 		// もしPlayerの状態が攻撃状態なら
 		if (m_playerRef.CheckState(PlayerState::kAttack) || m_playerRef.CheckState(PlayerState::kStrongAttack))
 		{
 			// ここでHPを減らす
 			--m_hp;
+			// プレイヤーをぶっ飛ばす
 			printf("HP%dになたよ", m_hp);
 			m_graphic = ">_<";
 			m_state = &HarmFish::Damage;

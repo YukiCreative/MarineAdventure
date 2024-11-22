@@ -20,8 +20,6 @@ namespace
 	constexpr int kAttackFrame = 60;
 	constexpr int kInvincibleFrame = 90;
 	constexpr int kStrongAttackForce = 20;
-
-	CollisionStatus collisionData;
 }
 
 // 何も操作されていない状態。
@@ -198,18 +196,19 @@ void Player::Update(MapSystem& map)
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 	Vector2 vel = m_physics->Update();
-
+	printf("velocity:x=%f,y=%f\n", vel.x, vel.y);
 	// 当たり判定の処理
 	// マップチップ一つ一つと判定する
 	for (auto& chip : map.GetMapCihps())
 	{
-		CollisionStatus temp = m_collider->CheckHit(chip->GetCollider());
-		if (temp.isCollide)
+		CollisionStatus collision = m_collider->CheckHit(chip->GetCollider());
+		if (collision.isCollide)
 		{
-			collisionData = temp;
 			// 移動した後の位置が壁と接触していたら当たった面によって移動量を修正
-			chip->SetDebugGraph();
+			vel += collision.overlap;
 		}
+		printf("overlap:x=%f,y=%f\n", collision.overlap.x, collision.overlap.y);
+		printf("normal:x=%f,y=%f\n", collision.normal.x, collision.normal.y);
 	}
 
 	// 最後に移動
@@ -224,8 +223,6 @@ void Player::Draw() const
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
-	DrawFormatString(0, 120, 0xffffff, "CollisionData:overlap x=%f,y=%f", collisionData.overlap.x, collisionData.overlap.y);
-	DrawFormatString(0, 135, 0xffffff, "CollisionData:normal x=%f,y=%f", collisionData.normal.x, collisionData.normal.y);
 #endif
 }
 

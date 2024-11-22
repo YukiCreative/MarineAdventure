@@ -13,13 +13,14 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
 
 CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
 {
+    Vector2 circlePos = otherCircle.GetPos();
     // 矩形の辺で、円の中心座標と一番近い点を出す
     Vector2 nearestPoint;
-    nearestPoint.x = std::clamp(m_pos.x, Left(), Right());
-    nearestPoint.y = std::clamp(m_pos.y, Top(), Bottom());
+    nearestPoint.x = std::clamp(circlePos.x, Left(), Right());
+    nearestPoint.y = std::clamp(circlePos.y, Top(), Bottom());
 
     // 出した二点の距離が、円の半径以下なら当たっている
-    Vector2 distVec = m_pos - nearestPoint;
+    Vector2 distVec = circlePos - nearestPoint;
     float sqrDist = distVec.SqrMagnitude();
     // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
     Vector2 radiusVec = distVec.GetNormalize() * otherCircle.GetRadius();
@@ -28,14 +29,14 @@ CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
     result.isCollide = sqrDist <= otherCircle.GetRadius() * otherCircle.GetRadius();
     result.overlap = radiusVec - distVec;
     // 自分らの中心同士をつなげたベクトルがどんな向きかで判定
-    Vector2 pointDist = otherCircle.GetPos() - m_pos;
-    float distDeg = std::atan2(pointDist.x, pointDist.y) * Calculation::kRadToDeg;
+    Vector2 pointDist = circlePos - m_pos;
+    float distDeg = std::atan2(pointDist.y, pointDist.x) * Calculation::kRadToDeg;
     // 範囲を0~360にさせていただく
     if (distDeg < 0) distDeg += 360;
     // 四角形の中心から右上の頂点に向かうベクトルの角度
     // これを元にほかの3方向を出す
     Vector2 rectVec = Vector2(Right(), Bottom()) - m_pos;
-    float rectDeg = std::atan2(rectVec.x, rectVec.y) * Calculation::kRadToDeg;
+    float rectDeg = std::atan2(rectVec.y, rectVec.x) * Calculation::kRadToDeg;
     if (distDeg > rectDeg && distDeg <= 180 - rectDeg) result.normal = Vector2::Down();
     if (distDeg > 180 - rectDeg && distDeg <= 180 + rectDeg) result.normal = Vector2::Left();
     if (distDeg > 180 + rectDeg && distDeg <= 360 - rectDeg) result.normal = Vector2::Up();
@@ -44,9 +45,39 @@ CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
     return result;
 }
 
-CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle, Vector2 offset) const
+CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const
 {
-	return CollisionStatus();
+    // めんどくさいから円の方動かしてるってことでいい？
+    Vector2 circlePos = otherCircle.GetPos() - offset;
+    // 矩形の辺で、円の中心座標と一番近い点を出す
+    Vector2 nearestPoint;
+    nearestPoint.x = std::clamp(circlePos.x, Left(), Right());
+    nearestPoint.y = std::clamp(circlePos.y, Top(), Bottom());
+
+    // 出した二点の距離が、円の半径以下なら当たっている
+    Vector2 distVec = circlePos - nearestPoint;
+    float sqrDist = distVec.SqrMagnitude();
+    // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
+    Vector2 radiusVec = distVec.GetNormalize() * otherCircle.GetRadius();
+
+    CollisionStatus result;
+    result.isCollide = sqrDist <= otherCircle.GetRadius() * otherCircle.GetRadius();
+    result.overlap = radiusVec - distVec;
+    // 自分らの中心同士をつなげたベクトルがどんな向きかで判定
+    Vector2 pointDist = circlePos - m_pos;
+    float distDeg = std::atan2(pointDist.y, pointDist.x) * Calculation::kRadToDeg;
+    // 範囲を0~360にさせていただく
+    if (distDeg < 0) distDeg += 360;
+    // 四角形の中心から右上の頂点に向かうベクトルの角度
+    // これを元にほかの3方向を出す
+    Vector2 rectVec = Vector2(Right(), Bottom()) - m_pos;
+    float rectDeg = std::atan2(rectVec.y, rectVec.x) * Calculation::kRadToDeg;
+    if (distDeg > rectDeg && distDeg <= 180 - rectDeg) result.normal = Vector2::Down();
+    if (distDeg > 180 - rectDeg && distDeg <= 180 + rectDeg) result.normal = Vector2::Left();
+    if (distDeg > 180 + rectDeg && distDeg <= 360 - rectDeg) result.normal = Vector2::Up();
+    if (distDeg > 360 - rectDeg || distDeg <= rectDeg) result.normal = Vector2::Right();
+
+    return result;
 }
 
 CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect) const 
@@ -65,9 +96,20 @@ CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect) const
     return result;
 }
 
-CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect, Vector2 offset) const
+CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const
 {
-	return CollisionStatus();
+    CollisionStatus result;
+    // 自分の右端より相手の左端のほうが右側なら…を繰り返す
+    result.isCollide =
+        Right() + offset.x < otherRect.Left() &&
+        Left() + offset.x > otherRect.Right() &&
+        Top() + offset.y > otherRect.Bottom() &&
+        Bottom() + offset.y < otherRect.Top();
+    // めり込みと法線出すの無理じゃね
+    result.overlap = Vector2::Zero();
+    result.normal = Vector2::Zero();
+
+    return result;
 }
 
 float BoxCollider::Right() const
