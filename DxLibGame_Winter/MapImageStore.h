@@ -36,6 +36,6 @@ public:
 	/// </summary>
 	/// <param name="id">マップの通し番号をまとめた列挙体</param>
 	/// <returns>該当するチップの画像のハンドル</returns>
-	int GetGraph(int id);
+	int GetGraph(int id) const;
 };
 

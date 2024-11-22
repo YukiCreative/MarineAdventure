@@ -27,9 +27,9 @@ public:
 	/// <summary>
 	/// スクリーンの外かどうか
 	/// </summary>
-	bool CheckScreenOut();
+	bool CheckScreenOut() const;
 	/// <summary>
 	/// 死んでるかどうか
 	/// </summary>
-	bool IsDead() { return m_isDead; }
+	bool IsDead() const { return m_isDead; }
 };

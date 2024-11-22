@@ -19,12 +19,6 @@ class Collider
 {
 protected:
 	/// <summary>
-	/// コライダーの相対座標
-	/// Drawする座標からずらす感じで使う
-	/// </summary>
-	Vector2 m_posOffset;
-
-	/// <summary>
 	/// 自分がアタッチされているオブジェクトの座標を参照
 	/// </summary>
 	Vector2& m_pos;
@@ -34,15 +28,14 @@ protected:
 public:
 	Collider(ColKind kind, Vector2& pos);
 
-	void SetOffset(Vector2 value) { m_posOffset = value; }
-	Vector2 GetPos() { return m_pos; }
+	Vector2 GetPos() const { return m_pos; }
 	// 使うなよ
-	Vector2* GetPVec() { return &m_pos; }
-	ColKind GetKind() { return m_kind; }
+	Vector2* GetPVec() const { return &m_pos; }
+	ColKind GetKind() const { return m_kind; }
 
-	CollisionStatus CheckHit(Collider& other);
+	CollisionStatus CheckHit(Collider& other) const;
 	// 補正あり これから加算する移動量を加味するときなどに有効
-	CollisionStatus CheckHit(Collider& other, const Vector2& offset);
+	CollisionStatus CheckHit(Collider& other, const Vector2& offset) const;
 
 protected:
 	// ここから先の関数は外部には見せない
@@ -55,14 +48,14 @@ protected:
 	/// </summary>
 	/// <param name="other">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual CollisionStatus CheckHitCircle(CircleCollider& other) = 0;
-	virtual CollisionStatus CheckHitCircle(CircleCollider& other, Vector2 offset) = 0;
+	virtual CollisionStatus CheckHitCircle(CircleCollider& other) const = 0;
+	virtual CollisionStatus CheckHitCircle(CircleCollider& other, Vector2 offset) const = 0;
 	/// <summary>
 	/// 当たり判定の取得(対矩形)
 	/// </summary>
 	/// <param name="other">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual CollisionStatus CheckHitBox(BoxCollider& other) = 0;
-	virtual CollisionStatus CheckHitBox(BoxCollider& other, Vector2 offset) = 0;
+	virtual CollisionStatus CheckHitBox(BoxCollider& other) const = 0;
+	virtual CollisionStatus CheckHitBox(BoxCollider& other, Vector2 offset) const = 0;
 };
 

@@ -23,7 +23,7 @@ Enemy::Enemy(Player& player, Camera& camera, EnemyController& controller, Vector
 {
 }
 
-bool Enemy::CheckScreenOut()
+bool Enemy::CheckScreenOut() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	// ‰æ–Ê‚ÌŠO‚Éo‚½‚ç

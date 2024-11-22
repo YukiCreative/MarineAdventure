@@ -102,11 +102,17 @@ void MapChip::Update()
 	m_movePos = Vector2();
 }
 
-void MapChip::Draw()
+void MapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), kExRate, 0, m_graphHandle, true);
 #if _DEBUG
 	DrawCircle(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 1, 0xff0000);
 #endif
+}
+
+void MapChip::SetDebugGraph()
+{
+	MapImageStore& mapImageStore = MapImageStore::GetInstance();
+	m_graphHandle = m_graphHandle = mapImageStore.GetGraph(18);
 }

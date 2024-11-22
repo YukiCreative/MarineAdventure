@@ -43,6 +43,12 @@ private:
 	bool LoopScreen();
 	bool CheckLoopUpAndLeft();
 	bool CheckLoopDownAndRight();
+
+	/// <summary>
+	/// 現在のマップのデータを参照して、
+	/// 自分の持つグラフデータを決める
+	/// </summary>
+	void SetGraph();
 public:
 	MapChip(Camera& camera, EnemyController& cont);
 
@@ -56,7 +62,7 @@ public:
 	/// <summary>
 	/// これを描画
 	/// </summary>
-	void Draw();
+	void Draw() const;
 
 	/// <summary>
 	/// MapSystemから指示を受ける
@@ -68,19 +74,16 @@ public:
 	/// 座標返す
 	/// </summary>
 	/// <returns>座標</returns>
-	Vector2 GetPos() { return m_pos; }
+	Vector2 GetPos() const { return m_pos; }
 
 	/// <summary>
 	/// 返すだけ
 	/// なんか受け渡しが面倒になってきたな
 	/// </summary>
 	/// <returns>マップチップのコライダー</returns>
-	BoxCollider& GetCollider() { return *m_collider; }
+	BoxCollider& GetCollider() const { return *m_collider; }
 
-	/// <summary>
-/// 現在のマップのデータを参照して、
-/// 自分の持つグラフデータを決める
-/// </summary>
-	void SetGraph();
+	// デバッグ用
+	void SetDebugGraph();
 };
 

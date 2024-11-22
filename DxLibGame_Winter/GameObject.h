@@ -18,5 +18,5 @@ public:
 	/// À•W‚ğ•Ô‚·
 	/// </summary>
 	/// <returns>À•W‚ÌQÆ</returns>
-	Vector2 GetPos() { return m_pos; }
+	Vector2 GetPos() const { return m_pos; }
 };

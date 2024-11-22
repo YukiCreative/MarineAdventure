@@ -7,12 +7,11 @@
 
 Collider::Collider(ColKind kind, Vector2& pos) :
 	m_pos(pos),
-	m_posOffset(),
 	m_kind(kind)
 {
 }
 
-CollisionStatus Collider::CheckHit(Collider& other)
+CollisionStatus Collider::CheckHit(Collider& other) const
 {
 	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)
@@ -32,7 +31,7 @@ CollisionStatus Collider::CheckHit(Collider& other)
 	return CollisionStatus();
 }
 
-CollisionStatus Collider::CheckHit(Collider& other, const Vector2& offset)
+CollisionStatus Collider::CheckHit(Collider& other, const Vector2& offset) const
 {
 	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)

@@ -77,13 +77,13 @@ public:
 	/// コライダー返すだけ
 	/// </summary>
 	/// <returns>コライダーの参照</returns>
-	CircleCollider& GetCollider() { return *m_collider; }
+	CircleCollider& GetCollider() const { return *m_collider; }
 
 	/// <summary>
 	/// 現在の状態を取る
 	/// </summary>
 	/// <param name="stateID"></param>
 	/// <returns></returns>
-	bool CheckState(PlayerState stateID);
+	bool CheckState(PlayerState stateID) const;
 };
 

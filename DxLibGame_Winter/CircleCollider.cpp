@@ -10,7 +10,7 @@ CircleCollider::CircleCollider(Vector2& pos, float radius) :
 {
 }
 
-CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle)
+CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle) const 
 {
     // 円形と円形の当たり判定
     // 距離と二つの円の合計半径を比べる
@@ -21,14 +21,14 @@ CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle)
     Vector2 radiusVec =  distUnit * radiusLength;
 
     CollisionStatus result;
-    result.isCollide = dist <= radiusLength;
+    result.isCollide = dist <= radiusLength * radiusLength;
     result.overlap = radiusVec - distVec;
     result.normal = -distUnit;
 
     return result;
 }
 
-CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle, Vector2 offset)
+CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle, Vector2 offset) const
 {
     // 自分の位置を補正込みで考える あとは一緒
     Vector2 distVec = m_pos - otherCircle.GetPos() + offset;
@@ -45,7 +45,7 @@ CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle, Vect
     return result;
 }
 
-CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect)
+CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect) const
 {
     // 矩形の辺で、円の中心座標と一番近い点を出す
     Vector2 nearestPoint;
@@ -70,7 +70,10 @@ CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect)
     // 四角形の中心から右上の頂点に向かうベクトルの角度
     // これを元にほかの3方向を出す
     Vector2 rectVec = Vector2(otherRect.Right(), otherRect.Bottom()) - otherRect.GetPos();
-    float rectDeg = std::atan2(rectVec.x, rectVec.y) * Calculation::kRadToDeg;
+    float rectDeg = std::atan2(5, 1) * Calculation::kRadToDeg;
+    printf("rectVec: x=%f,Y=%f\n", rectVec.x, rectVec.y);
+    printf("distDeg=%f\n", distDeg);
+    printf("rectDeg=%f\n", rectDeg);
     if (distDeg > rectDeg && distDeg <= 180 - rectDeg) result.normal = Vector2::Down();
     if (distDeg > 180 - rectDeg && distDeg <= 180 + rectDeg) result.normal = Vector2::Left();
     if (distDeg > 180 + rectDeg && distDeg <= 360 - rectDeg) result.normal = Vector2::Up();
@@ -79,7 +82,7 @@ CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect)
     return result;
 }
 
-CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect, Vector2 offset)
+CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect, Vector2 offset) const
 {
     return CollisionStatus();
 }

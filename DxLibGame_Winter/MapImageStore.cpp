@@ -42,7 +42,7 @@ MapImageStore& MapImageStore::GetInstance()
 	return instance;
 }
 
-int MapImageStore::GetGraph(int id)
+int MapImageStore::GetGraph(int id) const
 {
 	return m_imageArray[id];
 }

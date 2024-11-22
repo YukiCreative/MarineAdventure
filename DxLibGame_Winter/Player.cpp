@@ -20,6 +20,8 @@ namespace
 	constexpr int kAttackFrame = 60;
 	constexpr int kInvincibleFrame = 90;
 	constexpr int kStrongAttackForce = 20;
+
+	CollisionStatus collisionData;
 }
 
 // 何も操作されていない状態。
@@ -201,10 +203,12 @@ void Player::Update(MapSystem& map)
 	// マップチップ一つ一つと判定する
 	for (auto& chip : map.GetMapCihps())
 	{
-		if (m_collider->CheckHit(chip->GetCollider()).isCollide)
+		CollisionStatus temp = m_collider->CheckHit(chip->GetCollider());
+		if (temp.isCollide)
 		{
+			collisionData = temp;
 			// 移動した後の位置が壁と接触していたら当たった面によって移動量を修正
-			chip->SetGraph();
+			chip->SetDebugGraph();
 		}
 	}
 
@@ -218,8 +222,10 @@ void Player::Draw() const
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
 	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x000000);
 #if _DEBUG
-	DrawFormatString(0, 15, 0x000000, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
-	DrawFormatString(0, 105, 0x000000, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
+	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
+	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
+	DrawFormatString(0, 120, 0xffffff, "CollisionData:overlap x=%f,y=%f", collisionData.overlap.x, collisionData.overlap.y);
+	DrawFormatString(0, 135, 0xffffff, "CollisionData:normal x=%f,y=%f", collisionData.normal.x, collisionData.normal.y);
 #endif
 }
 
@@ -228,7 +234,7 @@ Vector2 Player::GetVel() const
 	return m_physics->GetVel();
 }
 
-bool Player::CheckState(PlayerState stateID)
+bool Player::CheckState(PlayerState stateID) const
 {
 	// 列挙体とswitch文を撲滅したい　あー
 	switch (stateID)

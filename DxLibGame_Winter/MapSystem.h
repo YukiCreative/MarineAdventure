@@ -17,7 +17,7 @@ class EnemyController;
 class MapSystem
 {
 private:
-	using MapArray_t = std::array<std::shared_ptr<MapChip>, 17 * 10>;
+	using MapArray_t = std::array<std::shared_ptr<MapChip>, 1>;
 
 	MapArray_t m_mapChips;
 
