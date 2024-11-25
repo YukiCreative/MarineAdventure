@@ -4,9 +4,11 @@
 #include <cassert>
 
 Input::Input() :
-    m_padInput(GetJoypadInputState(DX_INPUT_KEY_PAD1)),
+    m_padInput(0),
     m_beforePadInput(0),
-    m_inputAxis()
+    m_inputAxis(),
+    m_keyInput(),
+    m_beforeKeyInput()
 {
     m_inputEvent["Dash"] =
     {
@@ -84,11 +86,11 @@ bool Input::IsTrigger(std::string key)
         {
         case PeripheralType::kKeyboard:
             // キーボードのやり方で入力を取得
-            isTrigger = m_keyInput.state[inputEvent.inputCode] && !m_beforeKeyInput.state[inputEvent.inputCode];
+            isTrigger = isTrigger || m_keyInput.state[inputEvent.inputCode] && !m_beforeKeyInput.state[inputEvent.inputCode];
             break;
         case PeripheralType::kPad:
             // パッド
-            isTrigger = (m_padInput & inputEvent.inputCode) && !(m_beforePadInput & inputEvent.inputCode);
+            isTrigger = isTrigger || (m_padInput & inputEvent.inputCode) && !(m_beforePadInput & inputEvent.inputCode);
             break;
         default:
             assert(false && "列挙体の要素に対して処理が実装されていない");
@@ -108,11 +110,11 @@ bool Input::IsPressed(std::string key)
         {
         case PeripheralType::kKeyboard:
             // キーボードのやり方で入力を取得
-            isPressed = m_keyInput.state[inputEvent.inputCode];
+            isPressed = isPressed || m_keyInput.state[inputEvent.inputCode];
             break;
         case PeripheralType::kPad:
             // パッド
-            isPressed = m_padInput & inputEvent.inputCode;
+            isPressed = isPressed || m_padInput & inputEvent.inputCode;
             break;
         default:
             assert(false && "列挙体の要素に対して処理が実装されていない");
