@@ -30,7 +30,7 @@ void ColliderTestScene::HitKansuu()
 		}
 	}
 
-	if (input.IsTrigger(PAD_INPUT_1) && atatta)
+	if (input.IsTrigger("Dash") && atatta)
 	{
 		nowMousePos = pVec;
 		nowCol = pCol;
@@ -68,7 +68,7 @@ void ColliderTestScene::Update()
 	nowMousePos->y = static_cast<float>(mouseY);
 	HitKansuu();
 
-	if (input.IsTrigger(PAD_INPUT_3))
+	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<TestScene>());
 		return;

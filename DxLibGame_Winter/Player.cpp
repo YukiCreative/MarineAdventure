@@ -26,7 +26,7 @@ namespace
 void Player::Normal(Input& input, Vector2& axis)
 {
 	// Bボタンでアタック状態
-	if (input.IsTrigger(PAD_INPUT_2))
+	if (input.IsTrigger("Attack"))
 	{
 		m_graphic = "A";
 		m_physics->UseConstantForce(false);
@@ -50,7 +50,7 @@ void Player::Normal(Input& input, Vector2& axis)
 void Player::Move(Input& input, Vector2& axis)
 {
 	// ダッシュ押されてたらDashへ
-	if (input.IsPressed(PAD_INPUT_1))
+	if (input.IsPressed("Dash"))
 	{
 		m_graphic = "D";
 		m_physics->UseConstantForce(false);
@@ -66,7 +66,7 @@ void Player::Move(Input& input, Vector2& axis)
 		return;
 	}
 	// Bボタンでアタック状態
-	if (input.IsTrigger(PAD_INPUT_2))
+	if (input.IsTrigger("Attack"))
 	{
 		m_graphic = "SA";
 		m_physics->UseConstantForce(false);
@@ -85,7 +85,7 @@ void Player::Move(Input& input, Vector2& axis)
 void Player::Dash(Input& input, Vector2& axis)
 {
 	// ダッシュ押されてなかったらMoveへ
-	if (!input.IsPressed(PAD_INPUT_1))
+	if (!input.IsPressed("Dash"))
 	{
 		m_graphic = "M";
 		m_physics->UseConstantForce(false);
@@ -94,7 +94,7 @@ void Player::Dash(Input& input, Vector2& axis)
 		return;
 	}
 	// Bボタンでアタック状態
-	if (input.IsTrigger(PAD_INPUT_2))
+	if (input.IsTrigger("Attack"))
 	{
 		m_graphic = "SA";
 		m_physics->UseConstantForce(false);

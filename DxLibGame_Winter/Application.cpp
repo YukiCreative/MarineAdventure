@@ -83,7 +83,7 @@ void Application::Run()
 
 		// 60FPSに固定
 		unsigned int waitTime = 16667;
-		if (inputInstance.IsPressed(PAD_INPUT_6))
+		if (inputInstance.IsPressed("Srow"))
 		{
 			// スローモーション
 			waitTime *= 5;

@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <array>
 
 class Input
 {
@@ -18,6 +19,13 @@ class Input
 		int inputCode;
 	};
 
+	struct KeyInput
+	{
+		char state[256];
+		// これコンストラクタっす
+		KeyInput() = default;
+	};
+
 	// 入力をつかさどるクラス
 	// シングルトン
 private:
@@ -29,7 +37,8 @@ private:
 	int m_padInput;
 	int m_beforePadInput;
 	// キー入力
-	char m_keyInput[256];
+	KeyInput m_keyInput;
+	KeyInput m_beforeKeyInput;
 
 	Vector2 m_inputAxis;
 	// イベントキーと入力値の相対表
@@ -46,16 +55,16 @@ public:
 	/// <summary>
 	/// IDの入力がそのフレームで初めて入力されたかどうか
 	/// </summary>
-	/// <param name="id">入力</param>
+	/// <param name="key">入力</param>
 	/// <returns>true:押した瞬間 false:押してないor押しっぱなし</returns>
-	bool IsTrigger(int id);
+	bool IsTrigger(std::string key);
 
 	/// <summary>
 	/// IDの入力が押されているかどうか
 	/// </summary>
-	/// <param name="id">入力</param>
+	/// <param name="key">入力</param>
 	/// <returns>true:押している false:押していない</returns>
-	bool IsPressed(int id);
+	bool IsPressed(std::string key);
 
 	Vector2 GetInputAxis();
 };

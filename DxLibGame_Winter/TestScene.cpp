@@ -41,7 +41,7 @@ void TestScene::Update()
 	m_enemys->Update();
 
 
-	if (input.IsTrigger(PAD_INPUT_3))
+	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<ColliderTestScene>());
 		return;
