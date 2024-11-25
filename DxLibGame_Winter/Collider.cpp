@@ -2,8 +2,6 @@
 #include <cassert>
 #include "CircleCollider.h"
 #include "BoxCollider.h"
-#include <typeinfo>
-#include "CollisionStatus.h"
 
 Collider::Collider(ColKind kind, Vector2& pos) :
 	m_pos(pos),
@@ -17,13 +15,13 @@ CollisionStatus Collider::CheckHit(Collider& other) const
 	if (other.GetKind() == ColKind::kCircle)
 	{
 		// ‚±‚±‚ÅŒ^•ÏŠ·‚ğ‚·‚é‚±‚Æ‚Å
-		auto circle = dynamic_cast<CircleCollider&>(other);
+		CircleCollider& circle = dynamic_cast<CircleCollider&>(other);
 		// ‚±‚ÌŠÖ”‚ªCircleCollider‚ÌŠÖ”‚Æ‚µ‚ÄŒÄ‚Î‚ê‚é
 		return CheckHitCircle(circle);
 	}
 	else if (other.GetKind() == ColKind::kBox)
 	{
-		auto box = dynamic_cast<BoxCollider&>(other);
+		BoxCollider& box = dynamic_cast<BoxCollider&>(other);
 		return CheckHitBox(box);
 	}
 

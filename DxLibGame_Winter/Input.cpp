@@ -6,7 +6,8 @@ Input::Input() :
     m_beforeInput(0),
     m_inputAxis()
 {
-
+    m_inputEvent["Dash"] = { KEY_INPUT_RSHIFT, PAD_INPUT_1 };
+    m_inputEvent["Attack"]
 }
 
 Input& Input::GetInstance()

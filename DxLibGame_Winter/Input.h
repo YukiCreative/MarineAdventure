@@ -1,8 +1,20 @@
 #pragma once
 #include "Vector2.h"
+#include <map>
+#include <string>
 
 class Input
 {
+	/// <summary>
+	/// 一つのイベントに対応している入力のコード
+	/// 各入力媒体のコードを入れる
+	/// </summary>
+	struct InputCode
+	{
+		int keyInputCode;
+		int controllerInputCode;
+	};
+
 	// 入力をつかさどるクラス
 	// シングルトン
 private:
@@ -15,6 +27,8 @@ private:
 	int m_beforeInput;
 
 	Vector2 m_inputAxis;
+	// イベントキーと入力値の相対表
+	std::map<std::string, InputCode> m_inputEvent;
 
 public:
 	static Input& GetInstance();

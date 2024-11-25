@@ -176,9 +176,6 @@
     <ClInclude Include="HarmFish.h">
       <Filter>ヘッダー ファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionStatus.h">
-      <Filter>ヘッダー ファイル\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Calculation.h">
       <Filter>ヘッダー ファイル\General</Filter>
     </ClInclude>

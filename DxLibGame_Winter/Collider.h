@@ -1,7 +1,6 @@
 #pragma once
 #include "Vector2.h"
 #include <memory>
-#include "CollisionStatus.h"
 
 class CircleCollider;
 class BoxCollider;
@@ -10,6 +9,17 @@ enum class ColKind
 {
 	kCircle,
 	kBox,
+};
+
+/// <summary>
+/// コライダーが計算した後に出てくるいろんな情報をひとまとめにして返したかった
+/// </summary>
+struct CollisionStatus
+{
+	// 当たっているか
+	bool isCollide = false;
+	// 当たった面に垂直に、どれくらいの向き、大きさでめり込んでいるかを出してくれます
+	Vector2 overlap = Vector2::Zero();
 };
 
 /// <summary>

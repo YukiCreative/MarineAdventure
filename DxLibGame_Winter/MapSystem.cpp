@@ -12,8 +12,8 @@ namespace
 	// マップチップ同士の間隔
 	constexpr int kChipSpace = 80;
 	// 今後変数にするかも
-	constexpr int kWidthChipNum = 16 + 1;
-	constexpr int kHeightChipNum = 9 + 1;
+	constexpr int kWidthChipNum = 1;
+	constexpr int kHeightChipNum = 1;
 }
 
 MapSystem::MapSystem(Camera& camera, EnemyController& cont)
@@ -24,9 +24,9 @@ MapSystem::MapSystem(Camera& camera, EnemyController& cont)
 		chip = std::make_shared<MapChip>(camera, cont);
 	}
 	// チップを等間隔で配置する
-	for (int y = 0; y < /*kHeightChipNum*/1; ++y)
+	for (int y = 0; y < kHeightChipNum; ++y)
 	{
-		for (int x = 0; x < /*kWidthChipNum*/1; ++x)
+		for (int x = 0; x < kWidthChipNum; ++x)
 		{
 			m_mapChips[kWidthChipNum * y + x]->
 				Move(Vector2(static_cast<float>(kChipSpace * x) - Game::kScreenWidth * 0.5f,

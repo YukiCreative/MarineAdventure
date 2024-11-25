@@ -199,7 +199,7 @@ void Player::Update(MapSystem& map)
 	// 当たり判定の処理
 	// マップチップ一つ一つと判定する
 	for (auto& chip : map.GetMapCihps())
-	{
+	{ 
 		CollisionStatus collision = m_collider->CheckHit(chip->GetCollider(), vel);
 		if (collision.isCollide)
 		{
