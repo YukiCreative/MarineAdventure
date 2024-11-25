@@ -193,6 +193,7 @@ void Player::Update(MapSystem& map)
 	Vector2 axis = input.GetInputAxis();
 	// 現在の状態の処理
 	(this->*m_state)(input, axis);
+	printf("Axis:x=%f, y=%f\n", axis.x, axis.y);
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 	Vector2 vel = m_physics->Update();

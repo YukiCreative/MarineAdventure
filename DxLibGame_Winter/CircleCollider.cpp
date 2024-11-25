@@ -49,6 +49,8 @@ CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect) const
     Vector2 nearestPoint;
     nearestPoint.x = std::clamp(m_pos.x, otherRect.Left(), otherRect.Right());
     nearestPoint.y = std::clamp(m_pos.y, otherRect.Top(), otherRect.Bottom());
+    // 円の中心が完全にめり込んでいたら、離す方向に行きたい
+
     
     // 出した二点の距離が、円の半径以下なら当たっている
     Vector2 distVec = m_pos - nearestPoint;

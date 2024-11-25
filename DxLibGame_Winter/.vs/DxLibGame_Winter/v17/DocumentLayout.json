@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Time.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Time.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Input.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -11,12 +19,28 @@
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:CircleCollider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\SceneController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:SceneController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Physics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Physics.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:BoxCollider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Vector2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -50,20 +74,12 @@
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:MapSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Collider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Collider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\CircleCollider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:CircleCollider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:BoxCollider.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -78,16 +94,8 @@
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:MapChip.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\HarmFish.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:HarmFish.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Physics.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\TestScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -138,20 +146,12 @@
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\SceneController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:SceneController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\ColliderTestScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:ColliderTestScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Time.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|solutionrelative:Time.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47DE6B7B-40A1-404C-AE36-3F5E69C035FF}|DxLibGame_Winter.vcxproj|C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -178,112 +178,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Player.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.cpp",
-              "RelativeDocumentMoniker": "Player.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.cpp",
-              "RelativeToolTip": "Player.cpp",
-              "ViewState": "AgIAABEAAAAAAAAAAAAiwBwAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-05T14:58:27.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "BoxCollider.h",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.h",
-              "RelativeDocumentMoniker": "BoxCollider.h",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.h",
-              "RelativeToolTip": "BoxCollider.h",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-13T04:50:00.086Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Collider.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.cpp",
-              "RelativeDocumentMoniker": "Collider.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.cpp",
-              "RelativeToolTip": "Collider.cpp",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAA5AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-17T16:16:23.262Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CircleCollider.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\CircleCollider.cpp",
-              "RelativeDocumentMoniker": "CircleCollider.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\CircleCollider.cpp",
-              "RelativeToolTip": "CircleCollider.cpp",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAABcAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-13T01:30:33.532Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "MapSystem.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapSystem.cpp",
-              "RelativeDocumentMoniker": "MapSystem.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapSystem.cpp",
-              "RelativeToolTip": "MapSystem.cpp",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABcAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-09T03:24:58.534Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Input.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.cpp",
-              "RelativeDocumentMoniker": "Input.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.cpp",
-              "RelativeToolTip": "Input.cpp",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAtwFoAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-05T01:55:33.123Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Input.h",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.h",
-              "RelativeDocumentMoniker": "Input.h",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.h",
-              "RelativeToolTip": "Input.h",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABEAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-05T01:49:27.987Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ColliderTestScene.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\ColliderTestScene.cpp",
-              "RelativeDocumentMoniker": "ColliderTestScene.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\ColliderTestScene.cpp",
-              "RelativeToolTip": "ColliderTestScene.cpp",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAtwEYAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-13T06:23:03.135Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "TestScene.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\TestScene.cpp",
               "RelativeDocumentMoniker": "TestScene.cpp",
@@ -296,7 +195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Application.cpp",
               "RelativeDocumentMoniker": "Application.cpp",
@@ -309,7 +208,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "Vector2.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Vector2.h",
               "RelativeDocumentMoniker": "Vector2.h",
@@ -322,20 +221,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Physics.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.cpp",
               "RelativeDocumentMoniker": "Physics.cpp",
               "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.cpp",
               "RelativeToolTip": "Physics.cpp",
-              "ViewState": "AgIAABwAAAAAAAAAAAAiwC0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAiwC0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-08T08:07:39.131Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "CircleCollider.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\CircleCollider.h",
               "RelativeDocumentMoniker": "CircleCollider.h",
@@ -347,7 +246,174 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BoxCollider.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.cpp",
+              "RelativeDocumentMoniker": "BoxCollider.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.cpp",
+              "RelativeToolTip": "BoxCollider.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-13T00:31:32.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Physics.h",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.h",
+              "RelativeDocumentMoniker": "Physics.h",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.h",
+              "RelativeToolTip": "Physics.h",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAEcAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-08T08:06:16.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Collider.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.cpp",
+              "RelativeDocumentMoniker": "Collider.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.cpp",
+              "RelativeToolTip": "Collider.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-17T16:16:23.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SceneController.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\SceneController.cpp",
+              "RelativeDocumentMoniker": "SceneController.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\SceneController.cpp",
+              "RelativeToolTip": "SceneController.cpp",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-05T04:46:26.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Player.h",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.h",
+              "RelativeDocumentMoniker": "Player.h",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.h",
+              "RelativeToolTip": "Player.h",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAvwEkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-05T14:57:53.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Player.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.cpp",
+              "RelativeDocumentMoniker": "Player.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.cpp",
+              "RelativeToolTip": "Player.cpp",
+              "ViewState": "AgIAAMIAAAAAAAAAAAAiwNAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-05T14:58:27.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Input.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.cpp",
+              "RelativeDocumentMoniker": "Input.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.cpp",
+              "RelativeToolTip": "Input.cpp",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAtwEgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-05T01:55:33.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Time.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Time.cpp",
+              "RelativeDocumentMoniker": "Time.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Time.cpp",
+              "RelativeToolTip": "Time.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-07T14:41:09.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CircleCollider.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\CircleCollider.cpp",
+              "RelativeDocumentMoniker": "CircleCollider.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\CircleCollider.cpp",
+              "RelativeToolTip": "CircleCollider.cpp",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAADEAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-13T01:30:33.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 13,
+              "Title": "ColliderTestScene.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\ColliderTestScene.cpp",
+              "RelativeDocumentMoniker": "ColliderTestScene.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\ColliderTestScene.cpp",
+              "RelativeToolTip": "ColliderTestScene.cpp",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAtwEYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-13T06:23:03.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Input.h",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.h",
+              "RelativeDocumentMoniker": "Input.h",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Input.h",
+              "RelativeToolTip": "Input.h",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-05T01:49:27.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "MapSystem.cpp",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapSystem.cpp",
+              "RelativeDocumentMoniker": "MapSystem.cpp",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapSystem.cpp",
+              "RelativeToolTip": "MapSystem.cpp",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABcAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-09T03:24:58.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BoxCollider.h",
+              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.h",
+              "RelativeDocumentMoniker": "BoxCollider.h",
+              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.h",
+              "RelativeToolTip": "BoxCollider.h",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-13T04:50:00.086Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "Collider.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Collider.h",
               "RelativeDocumentMoniker": "Collider.h",
@@ -359,7 +425,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "map",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\map",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\map",
@@ -372,7 +438,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "Time.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Time.h",
               "RelativeDocumentMoniker": "Time.h",
@@ -385,7 +451,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "MapChip.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapChip.h",
               "RelativeDocumentMoniker": "MapChip.h",
@@ -397,31 +463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "BoxCollider.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.cpp",
-              "RelativeDocumentMoniker": "BoxCollider.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\BoxCollider.cpp",
-              "RelativeToolTip": "BoxCollider.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-13T00:31:32.888Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Player.h",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.h",
-              "RelativeDocumentMoniker": "Player.h",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Player.h",
-              "RelativeToolTip": "Player.h",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAvwEkAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-05T14:57:53.941Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "MapChip.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapChip.cpp",
               "RelativeDocumentMoniker": "MapChip.cpp",
@@ -433,7 +475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "HarmFish.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\HarmFish.cpp",
               "RelativeDocumentMoniker": "HarmFish.cpp",
@@ -445,19 +487,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Physics.h",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.h",
-              "RelativeDocumentMoniker": "Physics.h",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Physics.h",
-              "RelativeToolTip": "Physics.h",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-08T08:06:16.594Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "TestScene.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\TestScene.h",
               "RelativeDocumentMoniker": "TestScene.h",
@@ -469,7 +499,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "MapSystem.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapSystem.h",
               "RelativeDocumentMoniker": "MapSystem.h",
@@ -481,7 +511,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "MapImageStore.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapImageStore.h",
               "RelativeDocumentMoniker": "MapImageStore.h",
@@ -493,7 +523,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "MapImageStore.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\MapImageStore.cpp",
               "RelativeDocumentMoniker": "MapImageStore.cpp",
@@ -505,7 +535,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "Calculation.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Calculation.h",
               "RelativeDocumentMoniker": "Calculation.h",
@@ -517,7 +547,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "Application.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Application.h",
               "RelativeDocumentMoniker": "Application.h",
@@ -529,7 +559,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "GameObject.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\GameObject.h",
               "RelativeDocumentMoniker": "GameObject.h",
@@ -541,7 +571,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Camera.h",
               "RelativeDocumentMoniker": "Camera.h",
@@ -553,7 +583,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "HarmFish.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\HarmFish.h",
               "RelativeDocumentMoniker": "HarmFish.h",
@@ -565,7 +595,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "Enemy.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Enemy.h",
               "RelativeDocumentMoniker": "Enemy.h",
@@ -577,7 +607,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 34,
               "Title": "Enemy.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Enemy.cpp",
               "RelativeDocumentMoniker": "Enemy.cpp",
@@ -589,7 +619,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 35,
               "Title": "game.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\game.h",
               "RelativeDocumentMoniker": "game.h",
@@ -601,19 +631,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "SceneController.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\SceneController.cpp",
-              "RelativeDocumentMoniker": "SceneController.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\SceneController.cpp",
-              "RelativeToolTip": "SceneController.cpp",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAgwBoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-05T04:46:26.343Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "Camera.cpp",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Camera.cpp",
               "RelativeDocumentMoniker": "Camera.cpp",
@@ -637,7 +655,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "ColliderTestScene.h",
               "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\ColliderTestScene.h",
               "RelativeDocumentMoniker": "ColliderTestScene.h",
@@ -646,18 +664,6 @@
               "ViewState": "AgIAAA0AAAAAAAAAAABBwB0AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-11-13T06:21:33.224Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "Time.cpp",
-              "DocumentMoniker": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Time.cpp",
-              "RelativeDocumentMoniker": "Time.cpp",
-              "ToolTip": "C:\\Users\\yuki_\\\u3053\u3063\u3061\u304C\u672C\u7269\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\\GitHub\\YukiGame_Winter\\DxLibGame_Winter\\Time.cpp",
-              "RelativeToolTip": "Time.cpp",
-              "ViewState": "AgIAABkAAAAAAAAAAABBwAUAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-07T14:41:09.695Z"
             },
             {
               "$type": "Document",
