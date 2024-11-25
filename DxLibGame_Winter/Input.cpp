@@ -2,12 +2,20 @@
 #include <DxLib.h>
 
 Input::Input() :
-    m_input(GetJoypadInputState(DX_INPUT_KEY_PAD1)),
-    m_beforeInput(0),
+    m_padInput(GetJoypadInputState(DX_INPUT_KEY_PAD1)),
+    m_beforePadInput(0),
     m_inputAxis()
 {
-    m_inputEvent["Dash"] = { KEY_INPUT_RSHIFT, PAD_INPUT_1 };
-    m_inputEvent["Attack"]
+    m_inputEvent["Dash"] =
+    {
+        {PeripheralType::kKeyboard, KEY_INPUT_LSHIFT},
+        {PeripheralType::kPad, PAD_INPUT_1},
+    };
+    m_inputEvent["Attack"] =
+    {
+        {PeripheralType::kKeyboard, KEY_INPUT_E},
+        {PeripheralType::kPad, PAD_INPUT_2},
+    };
 }
 
 Input& Input::GetInstance()
@@ -19,8 +27,8 @@ Input& Input::GetInstance()
 void Input::Update()
 {
     // 前のフレームのを記憶
-    m_beforeInput = m_input;
-    m_input = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+    m_beforePadInput = m_padInput;
+    m_padInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
     // スティックの入力を取得
     int analogX, analogY;
     GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
@@ -31,12 +39,12 @@ void Input::Update()
 bool Input::IsTrigger(int id)
 {
     // こんなにカッコいらないだろ
-    return ((m_input & id) && !(m_beforeInput & id));
+    return ((m_padInput & id) && !(m_beforePadInput & id));
 }
 
 bool Input::IsPressed(int id)
 {
-    return (m_input & id);
+    return (m_padInput & id);
 }
 
 Vector2 Input::GetInputAxis()

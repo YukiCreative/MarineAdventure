@@ -2,17 +2,20 @@
 #include "Vector2.h"
 #include <map>
 #include <string>
+#include <vector>
 
 class Input
 {
-	/// <summary>
-	/// 一つのイベントに対応している入力のコード
-	/// 各入力媒体のコードを入れる
-	/// </summary>
-	struct InputCode
+	enum class PeripheralType
 	{
-		int keyInputCode;
-		int controllerInputCode;
+		kKeyboard,
+		kPad,
+	};
+
+	struct Peripheral
+	{
+		PeripheralType type;
+		int inputCode;
 	};
 
 	// 入力をつかさどるクラス
@@ -23,12 +26,14 @@ private:
 	void operator=(const Input&) = delete;
 
 	// 入力を記憶
-	int m_input;
-	int m_beforeInput;
+	int m_padInput;
+	int m_beforePadInput;
+	// キー入力
+	char m_keyInput[256];
 
 	Vector2 m_inputAxis;
 	// イベントキーと入力値の相対表
-	std::map<std::string, InputCode> m_inputEvent;
+	std::map<std::string, std::vector<Peripheral>> m_inputEvent;
 
 public:
 	static Input& GetInstance();
