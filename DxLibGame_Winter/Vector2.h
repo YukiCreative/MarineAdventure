@@ -22,7 +22,9 @@ public:
 		y = _y;
 	}
 
-	
+	// DxLib‚ÌVECTOR‚Ö‚Ì•ÏŠ·ŠÖ”
+	operator DxLib::VECTOR() const;
+
 	/// <summary>
 	/// ¶•Ó‚ÉA‰E•Ó‚ð‘«‚µŽZ‚µ‚½‚à‚Ì‚ð‘ã“ü
 	/// </summary>

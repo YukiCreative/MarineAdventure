@@ -1,7 +1,16 @@
 #pragma once
+#include <list>
 
 class Scene
 {
+	class ScreenEffect
+	{
+	private:
+		using UpdateFunc_t = void (ScreenEffect::*) ();
+	public:
+		void Update();
+		void Draw();
+	};
 public:
 	/// <summary>
 	/// 明示的にデストラクタをvirtualにしないといけないと聞いて

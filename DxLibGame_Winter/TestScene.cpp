@@ -55,9 +55,9 @@ void TestScene::Draw()
 	m_enemys->Draw();
 
 #if _DEBUG
-	DrawFormatString(0, 0, 0x000000, "TestScene 現在%dフレーム経過中", m_frameCount);
-	DrawFormatString(0, 60, 0x000000, "%fFPS", Time::FPS());
-	DrawFormatString(0, 75, 0x000000, "deltaTime:%f", Time::DeltaTime());
-	DrawFormatString(0, 90, 0x000000, "Cameraのワールド座標:x,%f y,%f", m_camera->GetPos().x, m_camera->GetPos().y);
+	DrawFormatString(0, 0, 0x999999, "TestScene 現在%dフレーム経過中", m_frameCount);
+	DrawFormatString(0, 60, 0x999999, "%fFPS", Time::FPS());
+	DrawFormatString(0, 75, 0x999999, "deltaTime:%f", Time::DeltaTime());
+	DrawFormatString(0, 90, 0x999999, "Cameraのワールド座標:x,%f y,%f", m_camera->GetPos().x, m_camera->GetPos().y);
 #endif
 }
