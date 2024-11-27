@@ -66,7 +66,7 @@ void Input::Update()
     // スティックの入力を取得
     int analogX, analogY;
     GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
-    // キーボードでも取得できるように
+    // キーボードも取得
     if (IsPressed("Up")) analogY = -1000;
     if (IsPressed("Down")) analogY = 1000;
     if (IsPressed("Right")) analogX = 1000;

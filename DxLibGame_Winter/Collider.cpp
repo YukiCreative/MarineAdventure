@@ -9,7 +9,7 @@ Collider::Collider(ColKind kind, Vector2& pos) :
 {
 }
 
-bool Collider::CheckHit(Collider& other) const
+CollisionStatus Collider::CheckHit(Collider& other) const
 {
 	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)
@@ -26,10 +26,10 @@ bool Collider::CheckHit(Collider& other) const
 	}
 
 	assert(false && "列挙に対する処理なくない？");
-	return false;
+	return CollisionStatus();
 }
 
-bool Collider::CheckHit(Collider& other, const Vector2& offset) const
+CollisionStatus Collider::CheckHit(Collider& other, const Vector2& offset) const
 {
 	// フラグ管理
 	if (other.GetKind() == ColKind::kCircle)
@@ -46,5 +46,5 @@ bool Collider::CheckHit(Collider& other, const Vector2& offset) const
 	}
 
 	assert(false && "列挙に対する処理なくない？");
-	return false;
+	return CollisionStatus();
 }

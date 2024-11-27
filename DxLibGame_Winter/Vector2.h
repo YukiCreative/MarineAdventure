@@ -1,6 +1,5 @@
 #pragma once
 #include <cmath>
-#include <DxLib.h>
 // このスクリプトには特に、何もincludeしないこと！
 
 /// <summary>
@@ -11,77 +10,102 @@ struct Vector2
 public:
 	float x, y;
 
-	Vector2() : x(0), y(0)
+	Vector2()
 	{
+		x = 0;
+		y = 0;
 	}
 
-	Vector2(float _x, float _y) : x(_x), y(_y)
+	Vector2(float _x, float _y)
 	{
+		x = _x;
+		y = _y;
 	}
 
-	// 変換コンストラクタ
-	// これがあるおかげでfloatとの演算子オーバーロードをしなくて済む
-	// (Vector2を作るからちょっと遅いらしいけど)
-	Vector2(float value) : x(value), y(value)
-	{
-	}
-
-	// このVecor2が、VECTORをいれる場所に入ったら、暗黙的に変換される
-	// DxLibインクルードしてるけどしょうがない
-	operator VECTOR()
-	{
-		return VGet(x, y, 0.0f);
-	}
+	// DxLibのVECTORへの変換関数
+	operator DxLib::VECTOR() const;
 
 	/// <summary>
 	/// 左辺に、右辺を足し算したものを代入
 	/// </summary>
 	/// <param name="right">右辺</param>
-	void operator+=(const Vector2& right)
+	void operator+=(Vector2 right)
 	{
 		x += right.x;
 		y += right.y;
 	}
 
-	void operator-=(const Vector2& right)
+	void operator-=(Vector2 right)
 	{
 		x -= right.x;
 		y -= right.y;
 	}
 
-	Vector2 operator*(const float& right) const
+	void operator*=(Vector2 right)
 	{
-		Vector2 result;
-		result.x = x * x;
-		result.y = y * y;
-		return result;
+		x *= right.x;
+		y *= right.y;
 	}
 
-	void operator*=(const float& right)
+	void operator*=(float right)
 	{
 		x *= right;
 		y *= right;
 	}
 
-	void operator/=(const float& right)
+	void operator/=(Vector2 right)
+	{
+		x /= right.x;
+		y /= right.y;
+	}
+
+	void operator/=(float right)
 	{
 		x /= right;
 		y /= right;
 	}
 
-	Vector2 operator/(const float& right) const
+	Vector2 operator/(float other)
 	{
+		// 一回でも割り算を減らす
+		// 意味があるのかは知らん！
+		float factor = 1 / other;
+
 		Vector2 result;
-		result.x = x / right;
-		result.y = y / right;
+		result.x = x * factor;
+		result.y = y * factor;
 		return result;
 	}
 
-	Vector2 operator+(const Vector2& other) const
+	Vector2 operator*(float other)
+	{
+		Vector2 result;
+		result.x = x * other;
+		result.y = y * other;
+		return result;
+	}
+
+	Vector2 operator+(float other)
+	{
+		Vector2 result;
+		result.x = x + other;
+		result.y = y + other;
+		return result;
+	}
+
+	Vector2 operator+(Vector2 other)
 	{
 		Vector2 result;
 		result.x = x + other.x;
 		result.y = y + other.y;
+		return result;
+	}
+
+	Vector2 operator-(float other)
+	{
+		Vector2 result;
+		result.x = x - other;
+		result.y = y - other;
 		return result;
 	}
 
@@ -90,8 +114,16 @@ public:
 		return Vector2(-x, -y);
 	}
 
+	Vector2 operator-(Vector2 other)
+	{
+		Vector2 result;
+		result.x = x - other.x;
+		result.y = y - other.y;
+		return result;
+	}
+
 	// 増え続けるオーバーロードォ…
-	Vector2 operator-(const Vector2& other) const
+	Vector2 operator-(Vector2 other) const
 	{
 		Vector2 result;
 		result.x = x - other.x;

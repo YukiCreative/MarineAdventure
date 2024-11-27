@@ -18,7 +18,8 @@ void HarmFish::Idle()
 {
 	// 待機モーション実行
 	// Playerとの接触判定をする
-	if (m_collider->CheckHit(m_playerRef.GetCollider()))
+	CollisionStatus collision = m_collider->CheckHit(m_playerRef.GetCollider());
+	if (collision.isCollide)
 	{
 		// もしPlayerの状態が攻撃状態なら
 		if (m_playerRef.CheckState(PlayerState::kAttack) || m_playerRef.CheckState(PlayerState::kStrongAttack))

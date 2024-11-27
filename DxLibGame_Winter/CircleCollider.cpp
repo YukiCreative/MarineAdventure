@@ -11,32 +11,47 @@ CircleCollider::CircleCollider(Vector2& pos, float radius) :
 {
 }
 
-bool CircleCollider::CheckHitCircle(CircleCollider& otherCircle) const 
+CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle) const 
 {
     // 円形と円形の当たり判定
     // 距離と二つの円の合計半径を比べる
     Vector2 distVec = m_pos - otherCircle.GetPos();
     float dist = distVec.SqrMagnitude();
     float radiusLength = m_radius + otherCircle.GetRadius();
-    return dist <= radiusLength * radiusLength;
+    Vector2 distUnit = distVec.GetNormalize();
+    Vector2 radiusVec =  distUnit * radiusLength;
+
+    CollisionStatus result;
+    result.isCollide = dist <= radiusLength * radiusLength;
+    result.overlap = radiusVec - distVec;
+
+    return result;
 }
 
-bool CircleCollider::CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const
+CollisionStatus CircleCollider::CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const
 {
     // 自分の位置を補正込みで考える あとは一緒
     Vector2 distVec = m_pos - otherCircle.GetPos() + offset;
     float dist = distVec.SqrMagnitude();
     float radiusLength = m_radius + otherCircle.GetRadius();
+    Vector2 distUnit = distVec.GetNormalize();
+    Vector2 radiusVec = distUnit * radiusLength;
 
-    return dist <= radiusLength * radiusLength;
+    CollisionStatus result;
+    result.isCollide = dist <= radiusLength;
+    result.overlap = radiusVec - distVec;
+
+    return result;
 }
 
-bool CircleCollider::CheckHitBox(BoxCollider& otherRect) const
+CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect) const
 {
     // 矩形の辺で、円の中心座標と一番近い点を出す
     Vector2 nearestPoint;
     nearestPoint.x = std::clamp(m_pos.x, otherRect.Left(), otherRect.Right());
     nearestPoint.y = std::clamp(m_pos.y, otherRect.Top(), otherRect.Bottom());
+    // 円の中心が完全にめり込んでいたら、離す方向に行きたい
+    
     
     // 出した二点の距離が、円の半径以下なら当たっている
     Vector2 distVec = m_pos - nearestPoint;
@@ -44,26 +59,41 @@ bool CircleCollider::CheckHitBox(BoxCollider& otherRect) const
     // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
     Vector2 radiusVec = distVec.GetNormalize() * m_radius;
 
-    return sqrDist <= m_radius * m_radius;
+    CollisionStatus result;
+    result.isCollide = sqrDist <= m_radius * m_radius;
+    result.overlap = radiusVec - distVec;
+
+    return result;
 }
 
-bool CircleCollider::CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const
-{   
-    // 自分がBoxでもここだけ変えれば大丈夫
-    CircleCollider circle = *this;
-    BoxCollider box = otherRect;
-    // 円の補正
-    Vector2 futurePos = circle.GetPos() + offset;
-    // 四角形の各頂点をベクトル化
-    Vector2 rVertexTopRight(box.Right(), box.Top());
-    Vector2 rVertexTopLeft(box.Left(), box.Top());
-    Vector2 rVertexBottomRight(box.Right(), box.Bottom());
-    Vector2 rVertexBottomLeft(box.Left(), box.Bottom());
-    // 移動ベクトルが、四角形の辺に当たっているかチェック
-    bool isHit = !Segment_Segment_MinLength(circle.GetPos(), futurePos, rVertexTopLeft, rVertexBottomLeft);
-    isHit &= !Segment_Segment_MinLength(circle.GetPos(), futurePos, rVertexBottomLeft, rVertexBottomRight);
-    isHit &= !Segment_Segment_MinLength(circle.GetPos(), futurePos, rVertexTopLeft, rVertexTopRight);
-    isHit &= !Segment_Segment_MinLength(circle.GetPos(), futurePos, rVertexBottomRight, rVertexTopRight);
+CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const
+{
+    // 補正
+    Vector2 futurePos = m_pos + offset;
+    // 矩形の四隅を変数にしておく
+    float rLeft = otherRect.Left();
+    float rRight = otherRect.Right();
+    float rTop = otherRect.Top();
+    float rBottom = otherRect.Bottom();
+    // 矩形の辺で、今の円の中心座標と一番近い点を出す(現段階で、めり込んでいないことを願う)
+    Vector2 nowNearestPoint;
+    nowNearestPoint.x = std::clamp(m_pos.x, rLeft, rRight);
+    nowNearestPoint.y = std::clamp(m_pos.y, rTop, rBottom);
+    Vector2 futureNearestPoint;
+    futureNearestPoint.x = std::clamp(futurePos.x, rLeft, rRight);
+    futureNearestPoint.y = std::clamp(futurePos.y, rTop, rBottom);
 
-    return isHit;
+    // 出した移動後のと最近傍点の距離が、円の半径以下なら当たっている
+    Vector2 distVec = futurePos - futureNearestPoint;
+    float sqrDist = distVec.SqrMagnitude();
+    // 移動前の最近傍点から移動後の中心へ伸ばしたベクトル
+    Vector2 overlapVec = nowNearestPoint - futurePos;
+    // この向きに円の半径の分を足す
+    overlapVec += overlapVec.GetNormalize() * m_radius;
+
+    CollisionStatus result;
+    result.isCollide = sqrDist <= m_radius * m_radius;
+    result.overlap = overlapVec;
+
+    return result;
 }
