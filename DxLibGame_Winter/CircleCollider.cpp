@@ -88,8 +88,11 @@ CollisionStatus CircleCollider::CheckHitBox(BoxCollider& otherRect, const Vector
     float sqrDist = distVec.SqrMagnitude();
     // 移動前の最近傍点から移動後の中心へ伸ばしたベクトル
     Vector2 overlapVec = nowNearestPoint - futurePos;
+    Vector2 radiusVec = overlapVec.GetNormalize() * m_radius;
+    // 中心から最近傍点
+    Vector2 nowDistVec = m_pos - nowNearestPoint;
     // この向きに円の半径の分を足す
-    overlapVec += overlapVec.GetNormalize() * m_radius;
+    //overlapVec;
 
     CollisionStatus result;
     result.isCollide = sqrDist <= m_radius * m_radius;
