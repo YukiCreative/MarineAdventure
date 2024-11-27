@@ -201,12 +201,9 @@ void Player::Update(MapSystem& map)
 	// マップチップ一つ一つと判定する
 	for (auto& chip : map.GetMapCihps())
 	{ 
-		CollisionStatus collision = m_collider->CheckHit(chip->GetCollider(), vel);
-		if (collision.isCollide)
+		if (m_collider->CheckHit(chip->GetCollider(), vel))
 		{
-			// それぞれのマップチップの種類によってやりたいことが変わってくる
-			// 移動した後の位置が壁と接触していたら当たった面によって移動量を修正
-			vel += collision.overlap;
+			chip->SetDebugGraph();
 		}
 	}
 

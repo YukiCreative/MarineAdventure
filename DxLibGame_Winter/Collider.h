@@ -12,17 +12,6 @@ enum class ColKind
 };
 
 /// <summary>
-/// コライダーが計算した後に出てくるいろんな情報をひとまとめにして返したかった
-/// </summary>
-struct CollisionStatus
-{
-	// 当たっているか
-	bool isCollide = false;
-	// 当たった面に垂直に、どれくらいの向き、大きさでめり込んでいるかを出してくれます
-	Vector2 overlap = Vector2::Zero();
-};
-
-/// <summary>
 /// 当たり判定をつかさどる基底クラス
 /// </summary>
 class Collider
@@ -43,9 +32,10 @@ public:
 	Vector2* GetPVec() const { return &m_pos; }
 	ColKind GetKind() const { return m_kind; }
 
-	CollisionStatus CheckHit(Collider& other) const;
+	bool CheckHit(Collider& other) const;
 	// 補正あり これから加算する移動量を加味するときなどに有効
-	CollisionStatus CheckHit(Collider& other, const Vector2& offset) const;
+	bool CheckHit(Collider& other, const Vector2& offset) const;
+
 
 protected:
 	// ここから先の関数は外部には見せない
@@ -58,14 +48,14 @@ protected:
 	/// </summary>
 	/// <param name="other">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual CollisionStatus CheckHitCircle(CircleCollider& other) const = 0;
-	virtual CollisionStatus CheckHitCircle(CircleCollider& other, const Vector2& offset) const = 0;
+	virtual bool CheckHitCircle(CircleCollider& other) const = 0;
+	virtual bool CheckHitCircle(CircleCollider& other, const Vector2& offset) const = 0;
 	/// <summary>
 	/// 当たり判定の取得(対矩形)
 	/// </summary>
 	/// <param name="other">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual CollisionStatus CheckHitBox(BoxCollider& other) const = 0;
-	virtual CollisionStatus CheckHitBox(BoxCollider& other, const Vector2& offset) const = 0;
+	virtual bool CheckHitBox(BoxCollider& other) const = 0;
+	virtual bool CheckHitBox(BoxCollider& other, const Vector2& offset) const = 0;
 };
 

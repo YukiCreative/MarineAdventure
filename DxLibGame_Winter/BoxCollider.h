@@ -30,14 +30,14 @@ protected:
 	/// </summary>
 	/// <param name="other">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	CollisionStatus CheckHitCircle(CircleCollider& otherCircle) const override;
-	CollisionStatus CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const override;
+	bool CheckHitCircle(CircleCollider& otherCircle) const override;
+	bool CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const override;
 	/// <summary>
 	/// 矩形と矩形の当たり判定
 	/// </summary>
 	/// <param name="other">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	CollisionStatus CheckHitBox(BoxCollider& otherRect) const override;
-	CollisionStatus CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const override;
+	bool CheckHitBox(BoxCollider& otherRect) const override;
+	bool CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const override;
 };
 

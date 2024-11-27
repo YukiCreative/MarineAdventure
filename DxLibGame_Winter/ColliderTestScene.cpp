@@ -20,7 +20,7 @@ void ColliderTestScene::HitKansuu()
 	{
 		if (nowCol == col) continue;
 
-		if (nowCol->CheckHit(*col).isCollide)
+		if (nowCol->CheckHit(*col))
 		{
 			printf("“–‚½‚Á‚½");
 			atatta = true;

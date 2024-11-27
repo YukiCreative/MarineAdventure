@@ -11,7 +11,7 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
 {
 }
 
-CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
+bool BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
 {
     Vector2 circlePos = otherCircle.GetPos();
     // 矩形の辺で、円の中心座標と一番近い点を出す
@@ -25,14 +25,10 @@ CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
     // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
     Vector2 radiusVec = distVec.GetNormalize() * otherCircle.GetRadius();
 
-    CollisionStatus result;
-    result.isCollide = sqrDist <= otherCircle.GetRadius() * otherCircle.GetRadius();
-    result.overlap = radiusVec - distVec;
-
-    return result;
+    return sqrDist <= otherCircle.GetRadius() * otherCircle.GetRadius();
 }
 
-CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const
+bool BoxCollider::CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const
 {
     // めんどくさいから円の方動かしてるってことでいい？
     Vector2 circlePos = otherCircle.GetPos() - offset;
@@ -47,41 +43,25 @@ CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle, const V
     // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
     Vector2 radiusVec = distVec.GetNormalize() * otherCircle.GetRadius();
 
-    CollisionStatus result;
-    result.isCollide = sqrDist <= otherCircle.GetRadius() * otherCircle.GetRadius();
-    result.overlap = radiusVec - distVec;
-
-    return result;
+    return sqrDist <= otherCircle.GetRadius() * otherCircle.GetRadius();
 }
 
-CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect) const 
+bool BoxCollider::CheckHitBox(BoxCollider& otherRect) const 
 {
-    CollisionStatus result;
-	// 自分の右端より相手の左端のほうが右側なら…を繰り返す
-    result.isCollide = 
-        Right() < otherRect.Left() &&
-        Left() > otherRect.Right() &&
-        Top() > otherRect.Bottom() &&
-        Bottom() < otherRect.Top();
-    // めり込み無理じゃね
-    result.overlap = Vector2::Zero();
-
-    return result;
-}
-
-CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const
-{
-    CollisionStatus result;
     // 自分の右端より相手の左端のほうが右側なら…を繰り返す
-    result.isCollide =
-        Right() + offset.x < otherRect.Left() &&
-        Left() + offset.x > otherRect.Right() &&
-        Top() + offset.y > otherRect.Bottom() &&
-        Bottom() + offset.y < otherRect.Top();
-    // めり込み無理じゃね
-    result.overlap = Vector2::Zero();
+    return  Right() < otherRect.Left() &&
+            Left() > otherRect.Right() &&
+            Top() > otherRect.Bottom() &&
+            Bottom() < otherRect.Top();
+}
 
-    return result;
+bool BoxCollider::CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const
+{
+    // 自分の右端より相手の左端のほうが右側なら…を繰り返す
+    return  Right() + offset.x < otherRect.Left() &&
+            Left() + offset.x > otherRect.Right() &&
+            Top() + offset.y > otherRect.Bottom() &&
+            Bottom() + offset.y < otherRect.Top();
 }
 
 float BoxCollider::Right() const
