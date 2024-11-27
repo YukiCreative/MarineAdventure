@@ -175,6 +175,7 @@
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="HarmFish.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MapChip.h" />

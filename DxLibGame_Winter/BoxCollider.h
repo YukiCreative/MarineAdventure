@@ -30,14 +30,14 @@ protected:
 	/// </summary>
 	/// <param name="other">‰~Œ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	CollisionStatus CheckHitCircle(CircleCollider& otherCircle) const override;
-	CollisionStatus CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const override;
+	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle) const override;
+	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle, const Vector2& offset) const override;
 	/// <summary>
 	/// ‹éŒ`‚Æ‹éŒ`‚Ì“–‚½‚è”»’è
 	/// </summary>
 	/// <param name="other">‹éŒ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
-	CollisionStatus CheckHitBox(BoxCollider& otherRect) const override;
-	CollisionStatus CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const override;
+	CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
+	CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
 };
 

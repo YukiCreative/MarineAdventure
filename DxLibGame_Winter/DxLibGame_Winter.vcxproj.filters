@@ -179,5 +179,8 @@
     <ClInclude Include="Calculation.h">
       <Filter>ヘッダー ファイル\General</Filter>
     </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>ヘッダー ファイル\General</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

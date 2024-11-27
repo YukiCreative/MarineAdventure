@@ -16,12 +16,23 @@ public:
 
 	Vector2(float _x, float _y) : x(_x), y(_y)
 	{
+		if (*this)
+		{
+
+		}
 	}
 
 	// floatからの変換コンストラクタ
 	// floatの演算子オーバーロードを省略できる
 	Vector2(float value) : x(value), y(value)
 	{
+	}
+
+	// これが正常なVector2かどうかを示す
+	// 派生クラスのNaVは必ずfalseを返す
+	virtual operator bool()
+	{
+		return true;
 	}
 
 	/// <summary>
@@ -193,5 +204,18 @@ public:
 	static Vector2 Left()
 	{
 		return Vector2(-1, 0);
+	}
+};
+
+/// <summary>
+/// Not a Vector
+/// 違いは、boolとして評価されたら必ずfalseを返すこと
+/// 計算で、返すVectorが解なしになったときとかに渡す
+/// </summary>
+struct NaV : public Vector2
+{
+	operator bool() override
+	{
+		return false;
 	}
 };

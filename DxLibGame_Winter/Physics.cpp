@@ -57,7 +57,7 @@ Vector2 Physics::WaterUpdate()
 
 	// 抵抗を出す
 	// 水の抵抗で計算
-	Vector2 resistanceForce = m_velocity * kWaterResistance * -1;
+	Vector2 resistanceForce = m_velocity * kWaterResistance * -1.0f;
 	// 出てきた値でforceを計算(浮力を考慮)
 	force += resistanceForce;
 

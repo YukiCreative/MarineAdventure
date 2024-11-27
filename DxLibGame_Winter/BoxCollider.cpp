@@ -11,7 +11,7 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
 {
 }
 
-CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
+CollisionStatus BoxCollider::CheckHitCircle(const CircleCollider& otherCircle) const
 {
     Vector2 circlePos = otherCircle.GetPos();
     // 矩形の辺で、円の中心座標と一番近い点を出す
@@ -32,7 +32,7 @@ CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle) const
     return result;
 }
 
-CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle, const Vector2& offset) const
+CollisionStatus BoxCollider::CheckHitCircle(const CircleCollider& otherCircle, const Vector2& offset) const
 {
     // めんどくさいから円の方動かしてるってことでいい？
     Vector2 circlePos = otherCircle.GetPos() - offset;
@@ -54,7 +54,7 @@ CollisionStatus BoxCollider::CheckHitCircle(CircleCollider& otherCircle, const V
     return result;
 }
 
-CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect) const 
+CollisionStatus BoxCollider::CheckHitBox(const BoxCollider& otherRect) const 
 {
     CollisionStatus result;
 	// 自分の右端より相手の左端のほうが右側なら…を繰り返す
@@ -69,7 +69,7 @@ CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect) const
     return result;
 }
 
-CollisionStatus BoxCollider::CheckHitBox(BoxCollider& otherRect, const Vector2& offset) const
+CollisionStatus BoxCollider::CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const
 {
     CollisionStatus result;
     // 自分の右端より相手の左端のほうが右側なら…を繰り返す

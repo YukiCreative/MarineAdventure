@@ -17,9 +17,9 @@ namespace
 	constexpr float kMoveForceFactor = 0.0002f;
 	constexpr float kDashForceFactor = 0.0003f;
 	constexpr float kStrongAttackForceFactor = 0.0001f;
-	constexpr int kAttackFrame = 60;
-	constexpr int kInvincibleFrame = 90;
-	constexpr int kStrongAttackForce = 20;
+	constexpr float kAttackFrame = 60.0f;
+	constexpr float kInvincibleFrame = 90.0f;
+	constexpr float kStrongAttackForce = 20.0f;
 }
 
 // âΩÇ‡ëÄçÏÇ≥ÇÍÇƒÇ¢Ç»Ç¢èÛë‘ÅB
