@@ -39,5 +39,7 @@ protected:
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
+
+	virtual CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const override;
 };
 

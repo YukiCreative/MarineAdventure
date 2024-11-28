@@ -108,6 +108,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="LineCollider.cpp">
+      <Filter>ソース ファイル\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>ヘッダー ファイル\General</Filter>
+    </ClInclude>
+    <ClInclude Include="LineCollider.h">
+      <Filter>ヘッダー ファイル\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

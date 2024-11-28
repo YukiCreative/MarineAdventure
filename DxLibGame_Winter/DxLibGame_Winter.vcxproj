@@ -153,6 +153,7 @@
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="HarmFish.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="MapImageStore.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="HarmFish.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="LineCollider.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="MapImageStore.h" />
     <ClInclude Include="MapSystem.h" />

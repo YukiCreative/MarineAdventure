@@ -84,6 +84,11 @@ CollisionStatus BoxCollider::CheckHitBox(const BoxCollider& otherRect, const Vec
     return result;
 }
 
+CollisionStatus BoxCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const
+{
+    return CollisionStatus();
+}
+
 float BoxCollider::Right() const
 {
 	return m_pos.x + m_rectWidth * 0.5f;

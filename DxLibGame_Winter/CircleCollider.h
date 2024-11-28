@@ -3,6 +3,7 @@
 #include <memory>
 
 class BoxCollider;
+class LineCollider;
 
 /// <summary>
 /// 円形の当たり判定クラス
@@ -26,14 +27,16 @@ protected:
 	/// </summary>
 	/// <param name="otherCircle">円形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual CollisionStatus CheckHitCircle(const CircleCollider& otherCircle) const override;
-	virtual CollisionStatus CheckHitCircle(const CircleCollider& otherCircle, const Vector2& offset) const override;
+	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle) const override;
+	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle, const Vector2& offset) const override;
 	/// <summary>
 	/// 当たり判定の取得(対矩形)
 	/// </summary>
 	/// <param name="otherRect">矩形の当たり判定</param>
 	/// <returns>接触しているかどうか</returns>
-	virtual CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
-	virtual CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
+	CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
+	CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
+
+	CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& velocity) const override;
 };
 

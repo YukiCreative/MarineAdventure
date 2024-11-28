@@ -1,9 +1,11 @@
 #include "CircleCollider.h"
 #include "BoxCollider.h"
+#include "LineCollider.h"
 #include <algorithm>
 #include <cmath>
 #include "Calculation.h"
 #include <DxLib.h>
+#include "Geometry.h"
 
 CircleCollider::CircleCollider(Vector2& pos, float radius) :
     Collider(ColKind::kCircle, pos),
@@ -72,14 +74,47 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
     const CircleCollider& circle = *this;
     const BoxCollider& box = otherRect;
 
-    // 方針としては、
-    // 円の移動量+半径のベクトルを、四角形の各辺と(直線として)交点チェックして、
-    // 出てきた座標が線分の範囲内なら当たっている
-    // もし当たっていたら、その中で最も距離が近い交点を出した辺の傾きにしたがって
-    // 移動量を補正する
-    // のはまた明日　
+    // Geometry？知らんな
+
 
     CollisionStatus result;
 
+    return result;
+}
+
+CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& velocity) const
+{
+    CollisionStatus result;
+    // あえて客観的に自分を操作することで、反対の当たり判定に流用しやすくする
+    const CircleCollider& circle = *this;
+    const LineCollider& line = otherLine;
+
+    // 円の移動量ベクトルと、壁線分が交わるかどうかを調べる
+    float segmentMinLength = Segment_Segment_MinLength(circle.GetPos(), velocity, line.GetFirstPos(), line.GetSecondPos());
+    bool isCross = segmentMinLength == 0.0f;
+
+    Vector2 futurePos = circle.GetPos() + velocity;
+    // 円の未来の位置と線分の最近傍点を出す
+    Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
+
+    // 中心を、移動量から、hutureNearestPos + 半径分戻したい
+    Vector2 overlapTemp = futureNearestPos - futurePos;
+    // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
+    Vector2 radiusVec = overlapTemp.GetNormalize() * circle.GetRadius();
+    overlapTemp += radiusVec;
+
+    // 交わっていれば
+    if (isCross)
+    {
+        result.overlap = overlapTemp;
+    }
+    else
+    {
+        // 反対
+        result.overlap = -overlapTemp;
+    }
+
+    // 当たっているかは、半径を考慮して出す
+    result.isCollide = segmentMinLength <= circle.GetRadius();
     return result;
 }

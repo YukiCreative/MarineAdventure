@@ -4,11 +4,13 @@
 
 class CircleCollider;
 class BoxCollider;
+class LineCollider;
 
 enum class ColKind
 {
 	kCircle,
 	kBox,
+	kLine,
 };
 
 /// <summary>
@@ -67,5 +69,7 @@ protected:
 	/// <returns>ê⁄êGÇµÇƒÇ¢ÇÈÇ©Ç«Ç§Ç©</returns>
 	virtual CollisionStatus CheckHitBox(const BoxCollider& other) const = 0;
 	virtual CollisionStatus CheckHitBox(const BoxCollider& other, const Vector2& offset) const = 0;
+	// Ç±ÇÍÇµÇ©Ç¢ÇÁÇÒÇ‚ÇÎ
+	virtual CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const = 0;
 };
 

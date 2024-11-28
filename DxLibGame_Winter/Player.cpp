@@ -207,6 +207,7 @@ void Player::Update(MapSystem& map)
 			// それぞれのマップチップの種類によってやりたいことが変わってくる
 			// 移動した後の位置が壁と接触していたら当たった面によって移動量を修正
 			vel -= collision.overlap;
+			printf("overlap:x=%f,y=%f\n", collision.overlap.x, collision.overlap.y);
 		}
 	}
 

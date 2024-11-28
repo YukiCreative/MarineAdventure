@@ -3,15 +3,27 @@
 
 /// <summary>
 /// いろんな雑計算を集めて置きたいかな
+/// 11/28注意！ゼロ除算を含む関数があるので、一次関数は使わないでください。これ以上いじらないし
 /// </summary>
 namespace Geometry
 {
+	/// <summary>
+	/// 無限
+	/// 多分要る
+	/// </summary>
+	struct Inf
+	{
+
+	};
+
 	/// <summary>
 	/// 一次関数構造体
 	/// 傾き、切片を持つ
 	/// </summary>
 	struct LinearFunction
 	{
+		const float a = 0.1f;
+
 	public:
 		float slope = 0;
 		float intercept = 0;
@@ -41,6 +53,7 @@ namespace Geometry
 		/// </summary>
 		float Slope(const Vector2& line)
 		{
+			// これｘが0なら何か違うものを返さないと…
 			return line.y / line.x;
 		}
 		/// <summary>
@@ -54,12 +67,33 @@ namespace Geometry
 			const float slopeSub = first.slope - second.intercept;
 			const float slopeSubFactor = 1 / slopeSub;
 			// 平行ならなんか良くない値を返したい
-			if (slopeSub == 0.0f) return NaV();
+			if (slopeSub < 0.000001f) return NaV();
 			intersection.x = second.intercept * slopeSubFactor - first.intercept * slopeSubFactor;
 			intersection.y = second.slope * first.intercept * -slopeSubFactor - first.slope * second.intercept * -slopeSubFactor;
 			return intersection;
 		}
 	};
+
+	// 点と、線分の最近傍点を返す
+	Vector2 GetIntercept(Vector2 pos, Vector2 first, Vector2 second)
+	{
+		Vector2 startToEnd = second - first;
+		// 正規化
+		Vector2 startToEndN = startToEnd.GetNormalize();
+		Vector2 startToPos = pos - first;
+		float t = Vector2::InnerProduct(startToEndN, startToPos);
+		// ベクトルが反対方向に向かっていたら
+		if (t < 0)
+		{
+			return first;
+		}
+		// ベクトルが線分を超えていたら
+		if (t * t > VSquareSize(startToEnd))
+		{
+			return second;
+		}
+		return first + startToEndN * t;
+	}
 }
 
 // 別名を宣言

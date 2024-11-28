@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <DxLib.h>
 // このスクリプトには特に、何もincludeしないこと！
 
 /// <summary>
@@ -16,10 +17,6 @@ public:
 
 	Vector2(float _x, float _y) : x(_x), y(_y)
 	{
-		if (*this)
-		{
-
-		}
 	}
 
 	// floatからの変換コンストラクタ
@@ -28,9 +25,16 @@ public:
 	{
 	}
 
+	// DxLibのVECTORとの変換関数
+	// やむなくDxLibをインクルード
+	operator VECTOR() const
+	{
+		return VGet(x, y, 0.0f);
+	}
+
 	// これが正常なVector2かどうかを示す
 	// 派生クラスのNaVは必ずfalseを返す
-	virtual operator bool()
+	virtual bool IsValid()
 	{
 		return true;
 	}
@@ -205,16 +209,22 @@ public:
 	{
 		return Vector2(-1, 0);
 	}
+
+	// 内積
+	static float InnerProduct(const Vector2& first, const Vector2& second)
+	{
+		return first.x * second.x + first.y * second.y;
+	}
 };
 
 /// <summary>
 /// Not a Vector
-/// 違いは、boolとして評価されたら必ずfalseを返すこと
+/// 違いは、有効かどうか尋ねられたら必ずfalseを返すこと
 /// 計算で、返すVectorが解なしになったときとかに渡す
 /// </summary>
 struct NaV : public Vector2
 {
-	operator bool() override
+	bool IsValid() override
 	{
 		return false;
 	}
