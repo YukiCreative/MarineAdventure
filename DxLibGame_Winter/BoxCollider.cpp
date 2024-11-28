@@ -3,32 +3,25 @@
 #include <algorithm>
 #include <memory>
 #include "Calculation.h"
+#include "LineCollider.h"
+#include <cassert>
 
 BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
 	Collider(ColKind::kBox, pos),
 	m_rectWidth(w),
 	m_rectHeight(h)
 {
+    // 各辺をCollider化
+    m_lines[0] = std::make_shared<LineCollider>(Vector2(Top(), Left()), Vector2(Top(), Right()));
+    m_lines[1] = std::make_shared<LineCollider>(Vector2(Bottom(), Left()), Vector2(Bottom(), Right()));
+    m_lines[2] = std::make_shared<LineCollider>(Vector2(Top(), Right()), Vector2(Bottom(), Right()));
+    m_lines[3] = std::make_shared<LineCollider>(Vector2(Top(), Left()), Vector2(Bottom(), Right()));
 }
 
 CollisionStatus BoxCollider::CheckHitCircle(const CircleCollider& otherCircle) const
 {
-    Vector2 circlePos = otherCircle.GetPos();
-    // 矩形の辺で、円の中心座標と一番近い点を出す
-    Vector2 nearestPoint;
-    nearestPoint.x = std::clamp(circlePos.x, Left(), Right());
-    nearestPoint.y = std::clamp(circlePos.y, Top(), Bottom());
-
-    // 出した二点の距離が、円の半径以下なら当たっている
-    Vector2 distVec = circlePos - nearestPoint;
-    float sqrDist = distVec.SqrMagnitude();
-    // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
-    Vector2 radiusVec = distVec.GetNormalize() * otherCircle.GetRadius();
-
     CollisionStatus result;
-    result.isCollide = sqrDist <= otherCircle.GetRadius() * otherCircle.GetRadius();
-    result.overlap = radiusVec - distVec;
-
+    assert(false && "ごめんよ　実装できてないんだ");
     return result;
 }
 
@@ -86,25 +79,6 @@ CollisionStatus BoxCollider::CheckHitBox(const BoxCollider& otherRect, const Vec
 
 CollisionStatus BoxCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const
 {
+    assert(false && "ごめんよ　実装できてないんだ");
     return CollisionStatus();
-}
-
-float BoxCollider::Right() const
-{
-	return m_pos.x + m_rectWidth * 0.5f;
-}
-
-float BoxCollider::Left() const
-{
-	return m_pos.x - m_rectWidth * 0.5f;
-}
-
-float BoxCollider::Top() const
-{
-	return m_pos.y - m_rectHeight * 0.5f;
-}
-
-float BoxCollider::Bottom() const 
-{
-	return m_pos.y + m_rectHeight * 0.5f;
 }

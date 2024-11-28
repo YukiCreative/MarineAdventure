@@ -70,14 +70,15 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect) const
 
 CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const
 {
-    // Boxの時はこれを逆にしたらいいので変数化は大事
+    // 線分四つとの当たり判定
+    // コストよんばい！
     const CircleCollider& circle = *this;
     const BoxCollider& box = otherRect;
 
-    // Geometry？知らんな
-
+    for (const auto& )
 
     CollisionStatus result;
+    
 
     return result;
 }

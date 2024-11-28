@@ -1,12 +1,14 @@
 #pragma once
 #include "Collider.h"
 #include <memory>
+#include <array>
 
 class CircleCollider;
+class LineCollider;
 
 class BoxCollider : public Collider
 {
-protected:
+private:
 	/// <summary>
 	/// 矩形の横の大きさ
 	/// </summary>
@@ -16,14 +18,19 @@ protected:
 	/// </summary>
 	float m_rectHeight;
 
+	// LineColliderを持ってみる
+	// 円と矩形の当たり判定に使用する
+	// 矩形と矩形はそのまま自分の幅と高さで判定する
+	std::array<std::shared_ptr<LineCollider>, 4> m_lines;
+
 public:
 	BoxCollider(Vector2& pos, float w, float h);
 
 	// それぞれ端の座標を返す
-	float Right() const;
-	float Left() const;
-	float Top() const;
-	float Bottom() const;
+	float Right() const { return m_pos.x + m_rectWidth * 0.5f; };
+	float Left() const { return m_pos.x - m_rectWidth * 0.5f; };
+	float Top() const { return m_pos.y - m_rectHeight * 0.5f; };
+	float Bottom() const { return m_pos.y + m_rectHeight * 0.5f; };
 protected:
 	/// <summary>
 	/// 当たり判定の取得(対円形)
