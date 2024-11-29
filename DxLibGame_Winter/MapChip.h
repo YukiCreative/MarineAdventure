@@ -48,7 +48,7 @@ private:
 	/// 現在のマップのデータを参照して、
 	/// 自分の持つグラフデータを決める
 	/// </summary>
-	void SetGraph();
+	void ResetMapData();
 public:
 	MapChip(Camera& camera, EnemyController& cont);
 

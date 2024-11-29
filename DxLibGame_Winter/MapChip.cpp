@@ -7,7 +7,7 @@
 #include "EnemyController.h"
 #include "HarmFish.h"
 
-namespace
+namespace MapConstants
 {
 	constexpr float kChipSize = 80.0f;
 	constexpr int kImageSize = 16;
@@ -17,7 +17,7 @@ namespace
 	constexpr int kChipOffset = static_cast<int>(kChipSize * 0.5f);
 }
 
-void MapChip::SetGraph()
+void MapChip::ResetMapData()
 {
 	// MapImageStoreに問い合わせる
 	MapImageStore& mapImageStore = MapImageStore::GetInstance();
@@ -28,6 +28,14 @@ void MapChip::SetGraph()
 	//{
 	//	m_enemys.SpawnEnemy(EnemyKinds::kHarmFish, m_pos);
 	//}
+
+	// 今後、ここにマップデータに問い合わせてマップ情報をもらう形にする
+	// もらうのは、
+	// 1.マップチップのスプライト
+	// 2.当たり判定を持っているかどうか
+	// 3.敵のスポーンポイントかどうか、どの敵を出すのか　
+	// これを実現するために、platinumで各レイヤーの3つの配列を持ってきて、
+	// 自分のmapPosで参照する
 }
 
 bool MapChip::LoopScreen()
@@ -36,7 +44,7 @@ bool MapChip::LoopScreen()
 	// 反対側に瞬間移動
 	// 上と左方向が優先(でないと1フレームのうちに反復横跳びする)
 	// 短絡評価によって実装している
-	return CheckLoopUpAndLeft() || CheckLoopDownAndRight();
+	return CheckLoopUpAndLeft() || CheckLoopDownAndRight(); // Checkとか名前付いてるけどがっつりメンバ変数いじってます。ごめんなさい。
 }
 
 bool MapChip::CheckLoopUpAndLeft()
@@ -45,15 +53,16 @@ bool MapChip::CheckLoopUpAndLeft()
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	// 画面外判定
 	bool isLoop = false;
-	if (screenPos.x <= -kChipOffset)
+	if (screenPos.x <= -MapConstants::kChipOffset) // 左から右へ
 	{
 		// ループの式ってこんなのになるんだ
-		m_pos.x += Game::kScreenWidth + kChipOffset * 2;
+		m_pos.x += Game::kScreenWidth + MapConstants::kChipOffset * 2;
+		m_mapPos.x += 
 		isLoop = true;
 	}
-	if (screenPos.y <= -kChipOffset)
+	if (screenPos.y <= -MapConstants::kChipOffset) // 上から下へ
 	{
-		m_pos.y += Game::kScreenHeight + kChipOffset * 2;
+		m_pos.y += Game::kScreenHeight + MapConstants::kChipOffset * 2;
 		isLoop = true;
 	}
 	return isLoop;
@@ -64,14 +73,14 @@ bool MapChip::CheckLoopDownAndRight()
 	// スクリーン座標を計算
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	bool isLoop = false;
-	if (screenPos.y >= Game::kScreenHeight + kChipOffset)
+	if (screenPos.y >= Game::kScreenHeight + MapConstants::kChipOffset) // 下から上へ
 	{
-		m_pos.y -= Game::kScreenHeight + kChipOffset * 2;
+		m_pos.y -= Game::kScreenHeight + MapConstants::kChipOffset * 2;
 		isLoop = true;
 	}
-	if (screenPos.x >= Game::kScreenWidth + kChipOffset)
+	if (screenPos.x >= Game::kScreenWidth + MapConstants::kChipOffset) // 右端から左端へ
 	{
-		m_pos.x -= Game::kScreenWidth + kChipOffset * 2;
+		m_pos.x -= Game::kScreenWidth + MapConstants::kChipOffset * 2;
 		isLoop = true;
 	}
 	return isLoop;
@@ -82,8 +91,8 @@ MapChip::MapChip(Camera& camera, EnemyController& cont) :
 	m_camera(camera),
 	m_enemys(cont)
 {
-	m_collider = std::make_shared<BoxCollider>(m_pos, kChipSize, kChipSize);
-	SetGraph();
+	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
+	ResetMapData();
 }
 
 void MapChip::Update()
@@ -94,7 +103,7 @@ void MapChip::Update()
 	// 瞬間移動を試して、起こったら画像を再取得
 	if (LoopScreen())
 	{
-		SetGraph();
+		ResetMapData();
 		//printf("ループ！！");
 	}
 
@@ -105,7 +114,7 @@ void MapChip::Update()
 void MapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
-	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), kExRate, 0, m_graphHandle, true);
+	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), MapConstants::kExRate, 0, m_graphHandle, true);
 #if _DEBUG
 	DrawCircle(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 1, 0xff0000);
 #endif
