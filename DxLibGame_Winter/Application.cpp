@@ -5,12 +5,14 @@
 #include "SceneController.h"
 #include "Time.h"
 
+#if _DEBUG
 namespace
 {
 	// コンソール用
 	FILE* in = 0;
 	FILE* out = 0;
 }
+#endif
 
 Application& Application::GetInstance()
 {

@@ -229,3 +229,45 @@ struct NaV : public Vector2
 		return false;
 	}
 };
+
+/// <summary>
+/// int型として使うデータ、でも二つ一緒にして扱いたい…！
+/// そんなあなたに
+/// 基本的な算術演算子のみ対応
+/// 決して浮動小数点にはならず、切り捨てられるので注意
+/// </summary>
+struct Vector2Int
+{
+	int x;
+	int y;
+
+	Vector2Int() : x(0), y(0) {}
+
+	Vector2Int(int _x, int _y) : x(_x), y(_y) {}
+
+	Vector2Int(int value) : x(value), y(value) {}
+
+	void operator+=(Vector2Int right)
+	{
+		x += right.x;
+		y += right.y;
+	}
+
+	void operator-=(Vector2Int right)
+	{
+		x -= right.x;
+		y -= right.y;
+	}
+
+	Vector2Int operator*=(int right)
+	{
+		x *= right;
+		y *= right;
+	}
+
+	Vector2Int operator/=(int right)
+	{
+		x /= right;
+		y /= right;
+	}
+};

@@ -1,10 +1,2 @@
-﻿  BoxCollider.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(374,54): error C2665: 'LineCollider::LineCollider': オーバーロードされた関数ですべての引数の型を変換できませんでした
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(388,61): error C2665: 'LineCollider::LineCollider': オーバーロードされた関数ですべての引数の型を変換できませんでした
-  CircleCollider.cpp
-C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\CircleCollider.cpp(78,22): error C2059: 構文エラー: ')'
-C:\Users\fko2447007\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\CircleCollider.cpp(83,12): error C2065: 'result': 定義されていない識別子です。
-  MapChip.cpp
-  MapSystem.cpp
-  TestScene.cpp
-  コードを生成中...
+﻿  MapDataStore.cpp
+  DxLibGame_Winter.vcxproj -> C:\Users\yuki_\こっちが本物のドキュメント\GitHub\YukiGame_Winter\DxLibGame_Winter\x64\Debug\DxLibGame_Winter.exe

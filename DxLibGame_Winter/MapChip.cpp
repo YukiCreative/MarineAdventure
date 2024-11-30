@@ -4,18 +4,8 @@
 #include "MapImageStore.h"
 #include "BoxCollider.h"
 #include "Camera.h"
-#include "EnemyController.h"
-#include "HarmFish.h"
-
-namespace MapConstants
-{
-	constexpr float kChipSize = 80.0f;
-	constexpr int kImageSize = 16;
-	constexpr float kExRate = static_cast<float>(kChipSize) / static_cast<float>(kImageSize);
-	// 現時点でのマップチップの一辺の半分のピクセル
-	// DrawRectGraphは画像の中心が原点なのでこうなる
-	constexpr int kChipOffset = static_cast<int>(kChipSize * 0.5f);
-}
+#include "MapConstants.h"
+#include "ObjectsController.h"
 
 void MapChip::ResetMapData()
 {
@@ -26,7 +16,7 @@ void MapChip::ResetMapData()
 	// とりあえず確率で敵だしとけばええんちゃう
 	//if (!(rand() % 200))
 	//{
-	//	m_enemys.SpawnEnemy(EnemyKinds::kHarmFish, m_pos);
+	//	m_objectsController.SpawnEnemy(ObjectKinds::kHarmFish, m_pos);
 	//}
 
 	// 今後、ここにマップデータに問い合わせてマップ情報をもらう形にする
@@ -57,12 +47,13 @@ bool MapChip::CheckLoopUpAndLeft()
 	{
 		// ループの式ってこんなのになるんだ
 		m_pos.x += Game::kScreenWidth + MapConstants::kChipOffset * 2;
-		m_mapPos.x += 
+		m_mapPos.x += MapConstants::kWidthChipNum;
 		isLoop = true;
 	}
 	if (screenPos.y <= -MapConstants::kChipOffset) // 上から下へ
 	{
 		m_pos.y += Game::kScreenHeight + MapConstants::kChipOffset * 2;
+		m_mapPos.y += MapConstants::kHeightChipNum;
 		isLoop = true;
 	}
 	return isLoop;
@@ -76,20 +67,24 @@ bool MapChip::CheckLoopDownAndRight()
 	if (screenPos.y >= Game::kScreenHeight + MapConstants::kChipOffset) // 下から上へ
 	{
 		m_pos.y -= Game::kScreenHeight + MapConstants::kChipOffset * 2;
+		m_mapPos.y -= MapConstants::kHeightChipNum;
 		isLoop = true;
 	}
 	if (screenPos.x >= Game::kScreenWidth + MapConstants::kChipOffset) // 右端から左端へ
 	{
 		m_pos.x -= Game::kScreenWidth + MapConstants::kChipOffset * 2;
+		m_mapPos.x -= MapConstants::kWidthChipNum;
 		isLoop = true;
 	}
 	return isLoop;
 }
 
-MapChip::MapChip(Camera& camera, EnemyController& cont) :
+MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos) :
+	GameObject(initPos),
 	m_graphHandle(-1),
 	m_camera(camera),
-	m_enemys(cont)
+	m_objectsController(cont),
+	m_mapPos(initMapPos)
 {
 	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
 	ResetMapData();
@@ -109,6 +104,7 @@ void MapChip::Update()
 
 	// movePosを0,0でリセット
 	m_movePos = Vector2();
+	printf("MapPos:x=%d,y=%d\n", m_mapPos.x, m_mapPos.y);
 }
 
 void MapChip::Draw() const

@@ -5,7 +5,7 @@
 
 class BoxCollider;
 class Camera;
-class EnemyController;
+class ObjectsController;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -17,7 +17,7 @@ private:
 	/// <summary>
 	/// 自分が今マップのどのチップを担当しているかを記憶
 	/// </summary>
-	Vector2 m_mapPos;
+	Vector2Int m_mapPos;
 	/// <summary>
 	/// 動きを記憶
 	/// </summary>
@@ -33,7 +33,7 @@ private:
 	// カメラさん
 	Camera& m_camera;
 	// 敵を呼び出す
-	EnemyController& m_enemys;
+	ObjectsController& m_objectsController;
 
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、
@@ -50,19 +50,19 @@ private:
 	/// </summary>
 	void ResetMapData();
 public:
-	MapChip(Camera& camera, EnemyController& cont);
+	MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos);
 
 	/// <summary>
 	/// 更新処理
 	/// 画面外に出たら一周して戻ってきて
 	/// 新しい画像を取得する
 	/// </summary>
-	void Update();
+	void Update() override;
 
 	/// <summary>
 	/// これを描画
 	/// </summary>
-	void Draw() const;
+	void Draw() const override;
 
 	/// <summary>
 	/// MapSystemから指示を受ける

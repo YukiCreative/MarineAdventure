@@ -75,7 +75,7 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
     const CircleCollider& circle = *this;
     const BoxCollider& box = otherRect;
 
-    for (const auto& )
+    //for (const auto& )
 
     CollisionStatus result;
     

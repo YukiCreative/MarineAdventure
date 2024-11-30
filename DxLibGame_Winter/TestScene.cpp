@@ -8,18 +8,19 @@
 #include "ColliderTestScene.h"
 #include "Camera.h"
 #include "HarmFish.h"
-#include "EnemyController.h"
+#include "ObjectsController.h"
+#include "ObjectKind.h"
 
 TestScene::TestScene() :
 	m_frameCount(0)
 {
 	m_camera = std::make_shared<Camera>();
 	m_player = std::make_shared<Player>(*m_camera, Vector2::Zero());
-	m_enemys = std::make_shared<EnemyController>(*m_player, *m_camera);
-	m_map = std::make_shared<MapSystem>(*m_camera, *m_enemys);
+	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
+	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont);
 	m_camera->SetFollowObject(m_player);
 
-	m_enemys->SpawnEnemy(EnemyKinds::kHarmFish, Vector2(100, 100));
+	m_objectCont->SpawnEnemy(ObjectKind::kHarmFish, Vector2(100, 100));
 }
 
 TestScene::~TestScene()
@@ -35,10 +36,11 @@ void TestScene::Update()
 	// マップにぶち込む
 	// 方法だとマップの端に来た時にプレイヤーが代わりに動く処理を実装しづらい
 	// ので、シーンに存在するカメラを皆が見て間接的かつ相対的に移動を反映させることにした
+	// カメラ作ってもスクロール止めるのはむずいよ
 	m_camera->Update();
-	m_player->Update(*m_map);
+	m_player->Update();
 	m_map->Update();
-	m_enemys->Update();
+	m_objectCont->Update();
 
 
 	if (input.IsTrigger("ChangeScene_Debug"))
@@ -52,7 +54,7 @@ void TestScene::Draw()
 {
 	m_map->Draw();
 	m_player->Draw();
-	m_enemys->Draw();
+	m_objectCont->Draw();
 
 #if _DEBUG
 	DrawFormatString(0, 0, 0x999999, "TestScene 現在%dフレーム経過中", m_frameCount);

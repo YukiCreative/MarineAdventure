@@ -2,11 +2,12 @@
 #include "Vector2.h"
 #include <memory>
 #include <array>
+#include "MapConstants.h"
 
 class MapChip;
 class Player;
 class Camera;
-class EnemyController;
+class ObjectsController;
 
 /// <summary>
 /// マップチップを並べる、
@@ -17,7 +18,7 @@ class EnemyController;
 class MapSystem
 {
 private:
-	using MapArray_t = std::array<std::shared_ptr<MapChip>, 1>;
+	using MapArray_t = std::array<std::shared_ptr<MapChip>, MapConstants::kWidthChipNum * MapConstants::kHeightChipNum>;
 
 	MapArray_t m_mapChips;
 
@@ -27,7 +28,7 @@ private:
 	/// <param name="moveValue">現在の位置からどれだけ移動させるか</param>
 	void MoveMap(Vector2 moveValue);
 public:
-	MapSystem(Camera& camera, EnemyController& cont);
+	MapSystem(Camera& camera, ObjectsController& cont);
 
 	/// <summary>
 	/// 現在の描画場所に応じて表示するマップチップを判断
