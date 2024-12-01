@@ -10,6 +10,7 @@
 #include "HarmFish.h"
 #include "ObjectsController.h"
 #include "ObjectKind.h"
+#include "MapDataStore.h"
 
 TestScene::TestScene() :
 	m_frameCount(0)
@@ -18,6 +19,7 @@ TestScene::TestScene() :
 	m_player = std::make_shared<Player>(*m_camera, Vector2::Zero());
 	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
 	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont);
+	m_mapDataStore
 	m_camera->SetFollowObject(m_player);
 
 	m_objectCont->SpawnEnemy(ObjectKind::kHarmFish, Vector2(100, 100));

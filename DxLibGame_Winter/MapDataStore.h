@@ -6,10 +6,10 @@
 #include "ObjectKind.h"
 
 // マップのいろいろをまとめる
+// 内部では使わないかも
 struct MapChipData
 {
 	int graphHandle;
-	bool isCollidable;
 	// 敵、ギミックなどオブジェクトの有無と種類を指し示す列挙体
 	ObjectKind objKind;
 };
@@ -39,9 +39,10 @@ private:
 	Header m_fmfHeader;
 
 	// なげえ
-	using MapVector_t = std::shared_ptr<std::vector<MapChipData>>;
+	using MapVector_t = std::shared_ptr<std::vector<std::vector<uint8_t>>>;
 	MapVector_t m_mapData;
 public:
+	MapDataStore(std::string pass);
 
 	// 文字通り
 	// 古いマップデータはスマポで破棄される
@@ -52,5 +53,7 @@ public:
 	/// </summary>
 	/// <param name="id"></param>
 	MapChipData GetMapData(Vector2Int mapPos);
+
+	Vector2Int GetMapSize() const { return Vector2Int(m_fmfHeader.mapWidth, m_fmfHeader.mapHeight); }
 };
 
