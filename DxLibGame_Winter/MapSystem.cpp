@@ -6,31 +6,23 @@
 #include "MapImageStore.h"
 #include "Player.h"
 #include "Camera.h"
+#include "MapConstants.h"
+#include "ObjectsController.h"
 
-namespace
-{
-	// マップチップ同士の間隔
-	constexpr int kChipSpace = 80;
-	// 今後変数にするかも
-	constexpr int kWidthChipNum = 1;
-	constexpr int kHeightChipNum = 1;
-}
-
-MapSystem::MapSystem(Camera& camera, EnemyController& cont)
+MapSystem::MapSystem(Camera& camera, ObjectsController& cont)
 {
 	// マップチップのメモリ確保
-	for (auto& chip : m_mapChips)
+	// マップの初期位置を設定
+	for (int y = 0; y < MapConstants::kHeightChipNum; ++y)
 	{
-		chip = std::make_shared<MapChip>(camera, cont);
-	}
-	// チップを等間隔で配置する
-	for (int y = 0; y < kHeightChipNum; ++y)
-	{
-		for (int x = 0; x < kWidthChipNum; ++x)
+		for (int x = 0; x < MapConstants::kWidthChipNum; ++x)
 		{
-			m_mapChips[kWidthChipNum * y + x]->
-				Move(Vector2(static_cast<float>(kChipSpace * x) - Game::kScreenWidth * 0.5f,
-					static_cast<float>(kChipSpace * y) - Game::kScreenHeight * 0.5f));
+			auto& chip = m_mapChips[MapConstants::kWidthChipNum * y + x];
+			chip = std::make_shared<MapChip>(camera, cont,
+				Vector2(MapConstants::kChipSize * x - Game::kScreenWidth * 0.5f,
+						MapConstants::kChipSize * y - Game::kScreenHeight * 0.5f),
+				Vector2Int(x -  MapConstants::kWidthChipNum,
+						   y -  MapConstants::kHeightChipNum));
 		}
 	}
 }

@@ -5,7 +5,6 @@
 #include "Physics.h"
 #include "Player.h"
 #include "CircleCollider.h"
-#include "EnemyController.h"
 
 namespace
 {
@@ -70,14 +69,13 @@ void HarmFish::Death()
 	if (m_stateFrameCount > kDamageMortionFrame)
 	{
 		// 消える
-		// Enemyを管理してるクラスに問い合わせて消してもらう感じにしようかな
-		m_isDead = true;
+		m_isDeleted = true;
 		return;
 	}
 }
 
-HarmFish::HarmFish(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos) :
-	Enemy(player, camera, controller, spawnPos),
+HarmFish::HarmFish(Player& player, Camera& camera, Vector2 spawnPos) :
+	Enemy(player, camera, spawnPos),
 	m_state(&HarmFish::Idle),
 	m_stateFrameCount(0),
 	m_graphic("^_^")
@@ -99,14 +97,14 @@ void HarmFish::Update()
 	// Updateの結果、画面外に出たら死亡
 	if (CheckScreenOut())
 	{
-		m_isDead = true;
+		m_isDeleted = true;
 	}
 }
 
-void HarmFish::Draw()
+void HarmFish::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), kRadius, 0x0000ff);
 	int width = GetDrawStringWidth(m_graphic.c_str(), m_graphic.size());
-	DrawFormatString(static_cast<int>(screenPos.x) - width * 0.5f, static_cast<int>(screenPos.y) - 5, 0xffffff, m_graphic.c_str());
+	DrawFormatString(static_cast<int>(screenPos.x - width * 0.5f), static_cast<int>(screenPos.y) - 5, 0xffffff, m_graphic.c_str());
 }

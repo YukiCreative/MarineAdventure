@@ -11,11 +11,16 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
 	m_rectWidth(w),
 	m_rectHeight(h)
 {
+    // íÜêSÇ©ÇÁÇÃëäëŒãóó£ÇèoÇµÇƒÇ‹Ç∑
+    Vector2 topLeft = m_pos - Vector2(Left(), Top());
+    Vector2 bottomLeft = m_pos = Vector2(Left(), Bottom());
+    Vector2 topRight = m_pos = Vector2(Right(), Top());
+    Vector2 bottomRight = m_pos - Vector2(Right(), Bottom());
     // äeï”ÇColliderâª
-    m_lines[0] = std::make_shared<LineCollider>(Vector2(Top(), Left()), Vector2(Top(), Right()));
-    m_lines[1] = std::make_shared<LineCollider>(Vector2(Bottom(), Left()), Vector2(Bottom(), Right()));
-    m_lines[2] = std::make_shared<LineCollider>(Vector2(Top(), Right()), Vector2(Bottom(), Right()));
-    m_lines[3] = std::make_shared<LineCollider>(Vector2(Top(), Left()), Vector2(Bottom(), Right()));
+    m_lines[0] = std::make_shared<LineCollider>(m_pos, topLeft, topRight);
+    m_lines[1] = std::make_shared<LineCollider>(m_pos, topLeft, bottomLeft);
+    m_lines[2] = std::make_shared<LineCollider>(m_pos, topRight, bottomRight);
+    m_lines[3] = std::make_shared<LineCollider>(m_pos, bottomLeft, bottomRight);
 }
 
 CollisionStatus BoxCollider::CheckHitCircle(const CircleCollider& otherCircle) const

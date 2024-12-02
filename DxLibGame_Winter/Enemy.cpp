@@ -2,7 +2,6 @@
 #include "Camera.h"
 #include "Vector2.h"
 #include "game.h"
-#include "EnemyController.h"
 
 namespace
 {
@@ -11,15 +10,13 @@ namespace
 	constexpr int kOffset = 40;
 }
 
-Enemy::Enemy(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos) :
+Enemy::Enemy(Player& player, Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
 	m_camera(camera),
 	m_hp(0),
 	m_playerRef(player),
-	m_controller(controller),
 	// Ç±ÇÃï”ÇÕîhê∂ÉNÉâÉXë§Ç≈ì¸ÇÍÇƒÇ‡ÇÁÇ®Ç§Ç©Ç»
-	m_physics(nullptr),
-	m_isDead(false)
+	m_physics(nullptr)
 {
 }
 

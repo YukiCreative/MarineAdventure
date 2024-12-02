@@ -89,8 +89,6 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
         }
     }
 
-
-
     CollisionStatus result;
     
 

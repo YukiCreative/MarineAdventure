@@ -150,14 +150,15 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderTestScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="HarmFish.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChip.cpp" />
+    <ClCompile Include="MapDataStore.cpp" />
     <ClCompile Include="MapImageStore.cpp" />
     <ClCompile Include="MapSystem.cpp" />
+    <ClCompile Include="ObjectsController.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneController.cpp" />
@@ -173,7 +174,6 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderTestScene.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyController.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Geometry.h" />
@@ -181,8 +181,12 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="LineCollider.h" />
     <ClInclude Include="MapChip.h" />
+    <ClInclude Include="MapConstants.h" />
+    <ClInclude Include="MapDataStore.h" />
     <ClInclude Include="MapImageStore.h" />
     <ClInclude Include="MapSystem.h" />
+    <ClInclude Include="ObjectKind.h" />
+    <ClInclude Include="ObjectsController.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />

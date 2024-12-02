@@ -7,7 +7,6 @@
 // プロトタイプ宣言
 class Physics;
 class CircleCollider;
-class MapSystem;
 class Camera;
 class Input;
 
@@ -61,11 +60,11 @@ public:
 	/// <summary>
 	/// 入力をとって移動したり何したり
 	/// </summary>
-	void Update(MapSystem& map);
+	void Update() override;
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw() const;
+	void Draw() const override;
 
 	/// <summary>
 	/// 自分のPhysicsのvelocityを返す
