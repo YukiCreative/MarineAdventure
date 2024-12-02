@@ -1,5 +1,6 @@
 #include "MapImageStore.h"
 #include <DxLib.h>
+#include <cassert>
 
 namespace
 {
@@ -13,7 +14,8 @@ MapImageStore::MapImageStore()
 {
 	// マップチップの画像を読んで、それを16x16に分割したやつも作る
 	// 作ったハンドルは配列に入れる
-	m_sourceHandle = LoadGraph("Image/Water+.png");
+	m_sourceHandle = LoadGraph("Data/Image/MapTip.jpg");
+	assert(m_sourceHandle != -1);
 	for (int y = 0; y < kHeightChipNum; ++y)
 	{
 		for (int x = 0; x < kWidthChipNum; ++x)

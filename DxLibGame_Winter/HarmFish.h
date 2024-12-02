@@ -4,7 +4,6 @@
 #include <string>
 
 class CircleCollider;
-class EnemyController;
 
 class HarmFish : public Enemy
 {
@@ -20,8 +19,8 @@ private:
 	std::string m_graphic;
 	std::shared_ptr<CircleCollider> m_collider;
 public:
-	HarmFish(Player& player, Camera& camera, EnemyController& controller, Vector2 spawnPos);
+	HarmFish(Player& player, Camera& camera, Vector2 spawnPos);
 	virtual void Update() override;
-	virtual void Draw() override;
+	virtual void Draw() const override;
 };
 
