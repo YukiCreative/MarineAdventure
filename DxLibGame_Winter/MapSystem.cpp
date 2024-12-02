@@ -46,6 +46,13 @@ void MapSystem::Draw()
 	}
 }
 
+void MapSystem::GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind)
+{
+	MapChipData tempData = m_mapData->GetMapData(mapPos);
+	handle = tempData.graphHandle;
+	kind = tempData.objKind;
+}
+
 void MapSystem::MoveMap(Vector2 moveValue)
 {
 	// ‘Sˆõ‚ÌÀ•W‚ğ“™‚µ‚­‚¸‚ç‚µ‚Ä‚ ‚°‚é

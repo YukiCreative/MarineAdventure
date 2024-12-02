@@ -4,6 +4,7 @@
 #include <array>
 #include "MapConstants.h"
 #include "MapDataStore.h"
+#include "ObjectKind.h"
 
 class MapChip;
 class Player;
@@ -46,5 +47,7 @@ public:
 	/// </summary>
 	/// <returns>マップチップすべて</returns>
 	MapArray_t& GetMapCihps() { return m_mapChips; };
+
+	void GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind);
 };
 

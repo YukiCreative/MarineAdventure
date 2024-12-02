@@ -2,10 +2,12 @@
 #include "Vector2.h"
 #include <memory>
 #include "GameObject.h"
+#include "ObjectKind.h"
 
 class BoxCollider;
 class Camera;
 class ObjectsController;
+class MapSystem;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -23,7 +25,7 @@ private:
 	/// </summary>
 	Vector2 m_movePos;
 	/// <summary>
-	/// 画像のハンドル
+	/// 画像
 	/// </summary>
 	int m_graphHandle;
 	/// <summary>
@@ -34,7 +36,7 @@ private:
 	Camera& m_camera;
 	// 敵を呼び出す
 	ObjectsController& m_objectsController;
-
+	MapSystem& m_system;
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、
 	/// そうならば一周するかのように座標を移動させる
@@ -50,7 +52,7 @@ private:
 	/// </summary>
 	void ResetMapData();
 public:
-	MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos);
+	MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system);
 
 	/// <summary>
 	/// 更新処理

@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "MapConstants.h"
 #include "ObjectsController.h"
+#include "MapSystem.h"
 
 void MapChip::ResetMapData()
 {
@@ -13,19 +14,9 @@ void MapChip::ResetMapData()
 	MapImageStore& mapImageStore = MapImageStore::GetInstance();
 	// とりあえず今は固定で
 	m_graphHandle = mapImageStore.GetGraph(rand() % 2);
-	// とりあえず確率で敵だしとけばええんちゃう
-	//if (!(rand() % 200))
-	//{
-	//	m_objectsController.SpawnEnemy(ObjectKinds::kHarmFish, m_pos);
-	//}
-
 	// 今後、ここにマップデータに問い合わせてマップ情報をもらう形にする
-	// もらうのは、
-	// 1.マップチップのスプライト
-	// 2.当たり判定を持っているかどうか
-	// 3.敵のスポーンポイントかどうか、どの敵を出すのか　
-	// これを実現するために、platinumで各レイヤーの3つの配列を持ってきて、
-	// 自分のmapPosで参照する
+	ObjectKind objKind;
+	m_system.GetMapChipData(m_mapPos, m_graphHandle, objKind);
 }
 
 bool MapChip::LoopScreen()
@@ -79,12 +70,13 @@ bool MapChip::CheckLoopDownAndRight()
 	return isLoop;
 }
 
-MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos) :
+MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
 	GameObject(initPos),
 	m_graphHandle(-1),
 	m_camera(camera),
 	m_objectsController(cont),
-	m_mapPos(initMapPos)
+	m_mapPos(initMapPos),
+	m_system(system)
 {
 	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
 	ResetMapData();
