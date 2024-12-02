@@ -1,7 +1,6 @@
 #include "MapChip.h"
 #include <DxLib.h>
 #include "game.h"
-#include "MapImageStore.h"
 #include "BoxCollider.h"
 #include "Camera.h"
 #include "MapConstants.h"
@@ -10,13 +9,10 @@
 
 void MapChip::ResetMapData()
 {
-	// MapImageStoreに問い合わせる
-	MapImageStore& mapImageStore = MapImageStore::GetInstance();
-	// とりあえず今は固定で
-	m_graphHandle = mapImageStore.GetGraph(rand() % 2);
-	// 今後、ここにマップデータに問い合わせてマップ情報をもらう形にする
+	// マップデータに問い合わせてマップ情報をもらう
 	ObjectKind objKind;
 	m_system.GetMapChipData(m_mapPos, m_graphHandle, objKind);
+	m_objectsController.SpawnObject(objKind, m_pos);
 }
 
 bool MapChip::LoopScreen()
@@ -110,6 +106,5 @@ void MapChip::Draw() const
 
 void MapChip::SetDebugGraph()
 {
-	MapImageStore& mapImageStore = MapImageStore::GetInstance();
-	m_graphHandle = m_graphHandle = mapImageStore.GetGraph(18);
+	
 }

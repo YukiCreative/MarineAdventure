@@ -55,12 +55,12 @@ void ObjectsController::Draw()
 	}
 }
 
-void ObjectsController::SpawnEnemy(ObjectKind kind, Vector2 spawnPos)
+void ObjectsController::SpawnObject(ObjectKind kind, Vector2 spawnPos)
 {
 	m_objects.push_back((this->*m_factoryMap[kind])(spawnPos));
 }
 
-void ObjectsController::SpawnEnemy(std::shared_ptr<GameObject> objectInstance)
+void ObjectsController::SpawnObject(std::shared_ptr<GameObject> objectInstance)
 {
 	m_objects.push_back(objectInstance);
 }

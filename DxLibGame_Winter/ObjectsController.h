@@ -38,11 +38,11 @@ public:
 	/// <summary>
 	/// 種類と位置を指定してくれればこちらで生成いたします
 	/// </summary>
-	void SpawnEnemy(ObjectKind kind, Vector2 spawnPos);
+	void SpawnObject(ObjectKind kind, Vector2 spawnPos);
 	/// <summary>
 	/// インスタンス渡してもいいよ
 	/// </summary>
-	void SpawnEnemy(std::shared_ptr<GameObject> objectInstance);
+	void SpawnObject(std::shared_ptr<GameObject> objectInstance);
 	/// <summary>
 	/// 配列にある敵を削除する
 	/// とはいってもアドレスを知っているのは本人だけだけど
