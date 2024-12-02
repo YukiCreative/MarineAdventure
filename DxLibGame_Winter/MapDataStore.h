@@ -39,7 +39,8 @@ private:
 	Header m_fmfHeader;
 
 	// なげえ
-	using MapVector_t = std::shared_ptr<std::vector<std::vector<uint8_t>>>;
+	// めんどいからスタックに入れていい？
+	using MapVector_t = std::vector<std::vector<uint8_t>>;
 	MapVector_t m_mapData;
 public:
 	MapDataStore(std::string pass);

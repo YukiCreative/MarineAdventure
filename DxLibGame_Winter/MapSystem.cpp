@@ -4,13 +4,16 @@
 #include "game.h"
 #include "MapChip.h"
 #include "MapImageStore.h"
-#include "Player.h"
 #include "Camera.h"
 #include "MapConstants.h"
 #include "ObjectsController.h"
+#include "MapDataStore.h"
 
 MapSystem::MapSystem(Camera& camera, ObjectsController& cont)
 {
+	// マップデータを初期化
+	m_mapData = std::make_shared<MapDataStore>("Data/MapData/TestMapData.fmf");
+
 	// マップチップのメモリ確保
 	// マップの初期位置を設定
 	for (int y = 0; y < MapConstants::kHeightChipNum; ++y)

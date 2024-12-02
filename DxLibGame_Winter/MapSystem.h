@@ -3,6 +3,7 @@
 #include <memory>
 #include <array>
 #include "MapConstants.h"
+#include "MapDataStore.h"
 
 class MapChip;
 class Player;
@@ -21,6 +22,8 @@ private:
 	using MapArray_t = std::array<std::shared_ptr<MapChip>, MapConstants::kWidthChipNum * MapConstants::kHeightChipNum>;
 
 	MapArray_t m_mapChips;
+	// 今マップのデータをMapSystemが持つようにしようか考え中
+	std::shared_ptr<MapDataStore> m_mapData;
 
 	/// <summary>
 	/// マップチップの表示位置をずらす
