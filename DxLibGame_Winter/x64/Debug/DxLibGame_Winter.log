@@ -1,3 +1,31 @@
-﻿  CircleCollider.cpp
+﻿  BoxCollider.cpp
 C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  DxLibGame_Winter.vcxproj -> C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\x64\Debug\DxLibGame_Winter.exe
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(145,14): error C2672: 'std::construct_at': 一致するオーバーロードされた関数が見つかりませんでした。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\memory(2006): message : コンパイル対象の関数 テンプレート インスタンス化 'void std::_Construct_in_place<_Ty,Vector2,Vector2>(_Ty &,Vector2 &&,Vector2 &&) noexcept(false)' のリファレンスを確認してください
+          with
+          [
+              _Ty=LineCollider
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\memory(2725): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<Vector2,Vector2>(Vector2 &&,Vector2 &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=LineCollider
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\memory(2726): message : コンパイル対象の関数 テンプレート インスタンス化 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<Vector2,Vector2>(Vector2 &&,Vector2 &&)' のリファレンスを確認してください
+          with
+          [
+              _Ty=LineCollider
+          ]
+C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\BoxCollider.cpp(15): message : コンパイル対象の関数 テンプレート インスタンス化 'std::shared_ptr<LineCollider> std::make_shared<LineCollider,Vector2,Vector2>(Vector2 &&,Vector2 &&)' のリファレンスを確認してください
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(145,14): error C2783: '_Ty *std::construct_at(_Ty *const ,_Types &&...) noexcept(<expr>)': テンプレート 引数を '<unnamed-symbol>' に対して推測できませんでした
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(134): message : 'std::construct_at' の宣言を確認してください
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(149,56): error C2664: 'LineCollider::LineCollider(Vector2 &,const Vector2 &)': 引数 1 を '_Ty' から 'Vector2 &' へ変換できません。
+          with
+          [
+              _Ty=Vector2
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\xutility(149,77): message : 非定数の参照は左辺値へのみバインドされます。
+C:\Users\中平　悠希\Documents\GitHub\YukiGame_Winter\DxLibGame_Winter\LineCollider.h(13,2): message : 'LineCollider::LineCollider' の宣言を確認してください
+  TestScene.cpp
+C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  コードを生成中...

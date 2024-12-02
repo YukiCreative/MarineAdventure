@@ -6,6 +6,7 @@
 #include "Calculation.h"
 #include <DxLib.h>
 #include "Geometry.h"
+#include <vector>
 
 CircleCollider::CircleCollider(Vector2& pos, float radius) :
     Collider(ColKind::kCircle, pos),
@@ -75,7 +76,20 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
     const CircleCollider& circle = *this;
     const BoxCollider& box = otherRect;
 
-    for (const auto& )
+    bool isHit = false;
+    std::vector<Vector2> lineColOverlap;
+    for (const auto& line : otherRect.GetLineCol())
+    {
+        CollisionStatus lineColResult = circle.CheckHit(*line);
+        if (lineColResult.isCollide)
+        {
+            // 当たっていたら、
+            isHit = true;
+            lineColOverlap.push_back(lineColResult.overlap);
+        }
+    }
+
+
 
     CollisionStatus result;
     
@@ -83,7 +97,7 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
     return result;
 }
 
-CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& velocity) const
+CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& velocity, Vector2& crossPos) const
 {
     CollisionStatus result;
     // あえて客観的に自分を操作することで、反対の当たり判定に流用しやすくする
@@ -108,11 +122,15 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     if (isCross)
     {
         result.overlap = overlapTemp;
+        // 交点を返してあげる
+        crossPos = futureNearestPos;
     }
     else
     {
         // 反対
         result.overlap = -overlapTemp;
+        // 交わらなかった
+        crossPos = NaV();
     }
 
     // 当たっているかは、半径を考慮して出す
