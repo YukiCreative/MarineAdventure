@@ -33,7 +33,7 @@ CollisionStatus LineCollider::CheckHitBox(const BoxCollider& otherRect, const Ve
 	return CollisionStatus();
 }
 
-CollisionStatus LineCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const
+CollisionStatus LineCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& offset, Vector2& crossPos) const
 {
 	assert(false && "‚²‚ß‚ñ‚æ@À‘•‚Å‚«‚Ä‚È‚¢‚ñ‚¾");
 	return CollisionStatus();

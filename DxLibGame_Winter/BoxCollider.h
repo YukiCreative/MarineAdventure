@@ -21,7 +21,8 @@ private:
 	// LineColliderを持ってみる
 	// 円と矩形の当たり判定に使用する
 	// 矩形と矩形はそのまま自分の幅と高さで判定する
-	std::array<std::shared_ptr<LineCollider>, 4> m_lines;
+	using LineArray_t = std::array<std::shared_ptr<LineCollider>, 4>;
+	LineArray_t m_lines;
 
 public:
 	BoxCollider(Vector2& pos, float w, float h);
@@ -31,6 +32,8 @@ public:
 	float Left() const { return m_pos.x - m_rectWidth * 0.5f; };
 	float Top() const { return m_pos.y - m_rectHeight * 0.5f; };
 	float Bottom() const { return m_pos.y + m_rectHeight * 0.5f; };
+
+	const LineArray_t& GetLineCol() const { return m_lines; };
 protected:
 	/// <summary>
 	/// 当たり判定の取得(対円形)
@@ -47,6 +50,6 @@ protected:
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
 
-	virtual CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const override;
+	virtual CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset, Vector2& crossPos) const override;
 };
 

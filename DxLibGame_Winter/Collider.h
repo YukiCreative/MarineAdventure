@@ -70,6 +70,6 @@ protected:
 	virtual CollisionStatus CheckHitBox(const BoxCollider& other) const = 0;
 	virtual CollisionStatus CheckHitBox(const BoxCollider& other, const Vector2& offset) const = 0;
 	// ‚±‚ê‚µ‚©‚¢‚ç‚ñ‚â‚ë
-	virtual CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const = 0;
+	virtual CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset, Vector2& crossPos) const = 0;
 };
 
