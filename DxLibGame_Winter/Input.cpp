@@ -72,8 +72,16 @@ void Input::Update()
     if (IsPressed("Right")) analogX = 1000;
     if (IsPressed("Left")) analogX = -1000;
 
-    m_inputAxis.x = static_cast<float>(analogX);
-    m_inputAxis.y = static_cast<float>(analogY);
+    // ƒAƒiƒƒO“ü—Í‚Ì‘å‚«‚³‚ð1000‚Ü‚Å‚É§ŒÀ‚·‚é
+    Vector2 inputAxis(analogX, analogY);
+    if (inputAxis.SqrMagnitude() > 1000 * 1000)
+    {
+        inputAxis.Normalize();
+        inputAxis *= 1000;
+    }
+
+    m_inputAxis.x = static_cast<float>(inputAxis.x);
+    m_inputAxis.y = static_cast<float>(inputAxis.y);
 }
 
 bool Input::IsTrigger(std::string key)

@@ -1,26 +1,67 @@
 #include "Camera.h"
+#include "MapConstants.h"
+
+namespace
+{
+	constexpr int kScreenHalfWidth = Game::kScreenWidth / 2;
+	constexpr int kScreenHalfHeight = Game::kScreenHeight / 2;
+}
 
 void Camera::Update()
 {
-	// Move分を消費
-	m_pos += m_velocity;
-	// 移動量リセ
-	m_velocity = Vector2();
+	// 今回のフレームの移動後の座標
+	Vector2 velocity;
 	// 追尾する対象があれば
 	if (!m_refObj.expired())
 	{
 		// オブジェクトがカメラの中心から一定値離れたら追尾したい
 		// その際、ゆっくりじんわり追尾する
 		// スピードが早いほどカメラの追尾から逃れ、画面端に位置する
-		m_pos = Vector2::Lerp(m_pos, m_refObj.lock()->GetPos(), 0.1f);
+		velocity = Vector2::Lerp(m_pos, m_refObj.lock()->GetPos(), 0.1f);
 	}
-	// drawOffsetを作る
-	m_drawOffset.x = m_pos.x - Game::kScreenWidth * 0.5f;
-	m_drawOffset.y = m_pos.y - Game::kScreenHeight * 0.5f;
-
+	// Move分を消費
+	velocity += m_velocity;
+	// 移動量リセ
+	m_velocity = Vector2();
 	// カメラのposから見えている画面端のX.Yをだして、それがマップの範囲を超えている時、
 	// その向きにカメラが移動しなくなる
 	// でもカメラにマップの参照を持たせたくない
+	if (m_pos.x - kScreenHalfWidth < 0)
+	{
+		if (velocity.x < 0)
+		{
+			velocity.x = 0;
+		}
+	}
+	if (m_pos.y - kScreenHalfHeight < 0)
+	{
+		if (velocity.y < 0)
+		{
+			velocity.y = 0;
+		}
+	}
+	// 画面端
+	if (m_pos.x - MapConstants::kChipSize * m_mapSize.x > 0)
+	{
+		if (velocity.x > 0)
+		{
+			velocity.x = 0;
+		}
+	}
+	if (m_pos.y - MapConstants::kChipSize * m_mapSize.y > 0)
+	{
+		if (velocity.y > 0)
+		{
+			velocity.y = 0;
+		}
+	}
+
+	// 最後に運動
+	m_pos += velocity;
+
+	// drawOffsetを作る
+	m_drawOffset.x = m_pos.x - kScreenHalfWidth;
+	m_drawOffset.y = m_pos.y - kScreenHalfHeight;
 }
 
 Vector2 Camera::Capture(const Vector2& objPos) const

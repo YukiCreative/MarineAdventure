@@ -14,7 +14,7 @@ MapImageStore::MapImageStore()
 {
 	// マップチップの画像を読んで、それを16x16に分割したやつも作る
 	// 作ったハンドルは配列に入れる
-	m_sourceHandle = LoadGraph("Data/Image/MapTip.jpg");
+	m_sourceHandle = LoadGraph("Data/Image/MapChip.png");
 	assert(m_sourceHandle != -1);
 	for (int y = 0; y < kHeightChipNum; ++y)
 	{

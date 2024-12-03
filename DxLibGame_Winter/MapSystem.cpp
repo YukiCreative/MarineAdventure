@@ -52,6 +52,12 @@ void MapSystem::GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind
 	kind = tempData.objKind;
 }
 
+Vector2Int MapSystem::GetMapSize()
+{
+	// ‰E‚©‚ç¶‚Öó‚¯—¬‚·
+	return m_mapData->GetMapSize();
+}
+
 void MapSystem::MoveMap(Vector2 moveValue)
 {
 	// ‘Sˆõ‚ÌÀ•W‚ğ“™‚µ‚­‚¸‚ç‚µ‚Ä‚ ‚°‚é

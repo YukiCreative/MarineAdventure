@@ -49,5 +49,6 @@ public:
 	MapArray_t& GetMapCihps() { return m_mapChips; };
 
 	void GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind);
+	Vector2Int GetMapSize();
 };
 

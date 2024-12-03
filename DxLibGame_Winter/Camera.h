@@ -4,6 +4,8 @@
 #include <memory>
 #include "GameObject.h"
 
+class MapSystem;
+
 /// <summary>
 /// オブジェクトのワールド座標を描画のスクリーン座標に変換
 /// </summary>
@@ -11,6 +13,8 @@ class Camera
 {
 private:
 	Vector2 m_pos;
+	// マップのチップ数を知っておきたい
+	Vector2Int m_mapSize;
 	Vector2 m_drawOffset;
 	/// <summary>
 	/// Updateで一括で移動するために一時的に記憶しておく
@@ -21,6 +25,10 @@ private:
 	/// </summary>
 	std::weak_ptr<GameObject> m_refObj;
 public:
+	Camera() = default;
+	// カメラの初期位置だけ入れられるようにする
+	Camera(Vector2 initPos) : m_pos(initPos) {}
+
 	/// <summary>
 	/// カメラの更新
 	/// </summary>
@@ -35,6 +43,8 @@ public:
 	/// カメラの移動
 	/// </summary>
 	void Move(Vector2 moveValue) { m_pos += moveValue; }
+
+	void SetMapSize(Vector2Int mapSize) { m_mapSize = mapSize; };
 
 	Vector2 GetPos() const { return m_pos; };
 
