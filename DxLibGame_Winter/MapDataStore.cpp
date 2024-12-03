@@ -3,6 +3,13 @@
 #include "MapImageStore.h"
 #include "ObjectKind.h"
 #include <vector>
+#include "MapConstants.h"
+
+namespace
+{
+	constexpr int kLayerCount = 2;
+	constexpr int kBitCount = 8;
+}
 
 MapDataStore::MapDataStore(std::string pass)
 {
@@ -14,8 +21,8 @@ void MapDataStore::LoadMapData(std::string pass)
 	int mapHandle = FileRead_open(pass.c_str());
 	// きまったバイト数を読み込む　これは変わらない
 	FileRead_read(&m_fmfHeader, sizeof(m_fmfHeader), mapHandle);
-	assert(m_fmfHeader.bitCount == 8 && "ビットカウントは8しか対応できませぬ");
-	assert(m_fmfHeader.layerCount == 2 && "レイヤーは二層しかありませぬ");
+	assert(m_fmfHeader.bitCount == kBitCount && "ビットカウントは8しか対応できませぬ");
+	assert(m_fmfHeader.layerCount == kLayerCount && "レイヤーは二層でございます");
 
 	// FMF_ってのをstrIDにぶち込んでる
 	std::string strId;
@@ -50,9 +57,23 @@ MapChipData MapDataStore::GetMapData(Vector2Int mapPos)
 {
 	// ここでハンドルや列挙体など、使える形にしてしまう
 	MapChipData result;
-	int chipIndex = mapPos.y * m_fmfHeader.mapWidth + mapPos.x;
 	MapImageStore& imgStore = MapImageStore::GetInstance();
-	result.graphHandle = imgStore.GetGraph(static_cast<int>((m_mapData)[0][chipIndex]));
-	result.objKind = static_cast<ObjectKind>((m_mapData)[1][chipIndex]);
+	// マップの存在する範囲外ならば
+	if (mapPos.x < 0 ||
+		mapPos.y < 0 ||
+		mapPos.x >= m_fmfHeader.mapWidth ||
+		mapPos.y >= m_fmfHeader.mapHeight)
+	{
+		// 何も画像を入れない->透明
+		result.graphHandle = -1;
+		// 何もスポーンしない
+		result.objKind = ObjectKind::kEmpty;
+	}
+	else
+	{
+		const int chipIndex = mapPos.y * m_fmfHeader.mapWidth + mapPos.x;
+		result.graphHandle = imgStore.GetGraph(static_cast<int>((m_mapData)[0][chipIndex]));
+		result.objKind = static_cast<ObjectKind>((m_mapData)[1][chipIndex]);
+	}
 	return result;
 }

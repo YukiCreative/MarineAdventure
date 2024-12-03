@@ -9,10 +9,10 @@
 #include "ObjectsController.h"
 #include "MapDataStore.h"
 
-MapSystem::MapSystem(Camera& camera, ObjectsController& cont)
+MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string pass)
 {
 	// マップデータを初期化
-	m_mapData = std::make_shared<MapDataStore>("Data/MapData/TestMapData.fmf");
+	m_mapData = std::make_shared<MapDataStore>(pass.c_str());
 
 	// マップチップのメモリ確保
 	// マップの初期位置を設定
@@ -24,8 +24,7 @@ MapSystem::MapSystem(Camera& camera, ObjectsController& cont)
 			chip = std::make_shared<MapChip>(camera, cont,
 				Vector2(MapConstants::kChipSize * x - Game::kScreenWidth * 0.5f,
 						MapConstants::kChipSize * y - Game::kScreenHeight * 0.5f),
-				Vector2Int(x -  MapConstants::kWidthChipNum,
-						   y -  MapConstants::kHeightChipNum));
+				Vector2Int(x,y), *this);
 		}
 	}
 }

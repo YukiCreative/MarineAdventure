@@ -11,6 +11,6 @@ namespace MapConstants
 	// DrawRectGraph‚Í‰æ‘œ‚Ì’†S‚ªŒ´“_‚È‚Ì‚Å‚±‚¤‚È‚é
 	constexpr int kChipOffset = static_cast<int>(kChipSize * 0.5f);
 	// w17,h10‚®‚ç‚¢‚ª‚¿‚å‚¤‚Ç‚¢‚¢‚ñ‚·‚í
-	constexpr int kWidthChipNum = 1;
-	constexpr int kHeightChipNum = 1;
+	constexpr int kWidthChipNum = 16+1;
+	constexpr int kHeightChipNum = 9+1;
 }

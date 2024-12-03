@@ -57,6 +57,7 @@ void ObjectsController::Draw()
 
 void ObjectsController::SpawnObject(ObjectKind kind, Vector2 spawnPos)
 {
+	if (kind == ObjectKind::kEmpty) return;
 	m_objects.push_back((this->*m_factoryMap[kind])(spawnPos));
 }
 
