@@ -41,23 +41,23 @@ void Camera::Update()
 		}
 	}
 	// ‰æ–Ê’[
-	if (m_pos.x - MapConstants::kChipSize * m_mapSize.x > 0)
-	{
-		if (velocity.x > 0)
-		{
-			velocity.x = 0;
-		}
-	}
-	if (m_pos.y - MapConstants::kChipSize * m_mapSize.y > 0)
-	{
-		if (velocity.y > 0)
-		{
-			velocity.y = 0;
-		}
-	}
+	//if (m_pos.x - MapConstants::kChipSize * m_mapSize.x > 0)
+	//{
+	//	if (velocity.x > 0)
+	//	{
+	//		velocity.x = 0;
+	//	}
+	//}
+	//if (m_pos.y - MapConstants::kChipSize * m_mapSize.y > 0)
+	//{
+	//	if (velocity.y > 0)
+	//	{
+	//		velocity.y = 0;
+	//	}
+	//}
 
 	// ÅŒã‚É‰^“®
-	m_pos += velocity;
+	m_pos = velocity;
 
 	// drawOffset‚ğì‚é
 	m_drawOffset.x = m_pos.x - kScreenHalfWidth;
