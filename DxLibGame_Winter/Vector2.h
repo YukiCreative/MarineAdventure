@@ -184,6 +184,29 @@ public:
 		return lerp;
 	}
 
+	/// <summary>
+	/// 補完した後のベクトルを返すのではなく、
+	/// startに足したら補完になるベクトルを返す
+	/// </summary>
+	static Vector2 LerpValue(const Vector2& start, const Vector2& end, const float& rate)
+	{
+		// std::clampを使おうとしたがインクルードが必要なので止めた
+		float clampRate;
+		if (rate < 0)
+		{
+			clampRate = 0;
+		}
+		else if (rate > 1)
+		{
+			clampRate = 1;
+		}
+		else
+		{
+			clampRate = rate;
+		}
+		return (end - start) * clampRate;
+	}
+
 	// (0, 0)
 	static Vector2 Zero()
 	{
