@@ -19,8 +19,6 @@ TestScene::TestScene() :
 	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
 	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont, "Data/MapData/TestMapData2.fmf");
 	m_camera->SetFollowObject(m_player);
-
-	m_objectCont->SpawnObject(ObjectKind::kHarmFish, Vector2(100, 100));
 }
 
 TestScene::~TestScene()

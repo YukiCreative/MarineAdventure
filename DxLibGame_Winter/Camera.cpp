@@ -17,6 +17,10 @@ void Camera::Update()
 	// drawOffsetを作る
 	m_drawOffset.x = m_pos.x - Game::kScreenWidth * 0.5f;
 	m_drawOffset.y = m_pos.y - Game::kScreenHeight * 0.5f;
+
+	// カメラのposから見えている画面端のX.Yをだして、それがマップの範囲を超えている時、
+	// その向きにカメラが移動しなくなる
+	// でもカメラにマップの参照を持たせたくない
 }
 
 Vector2 Camera::Capture(const Vector2& objPos) const
@@ -26,6 +30,5 @@ Vector2 Camera::Capture(const Vector2& objPos) const
 
 void Camera::SetFollowObject(std::weak_ptr<GameObject> obj)
 {
-	// nullptrの可能性あり
 	m_refObj = obj;
 }

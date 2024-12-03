@@ -87,24 +87,6 @@ void MapChip::Update()
 	if (LoopScreen())
 	{
 		ResetMapData();
-		if (m_mapPos.x < 0)
-		{
-			// マイナスX方向へのマップスクロールを禁止する
-			// ためにCameraと連動する　カメラの参照は持っている
-
-		}
-		if (m_mapPos.x > MapConstants::kWidthChipNum)
-		{
-			// プラスX方向への以下同文
-		}
-		if (m_mapPos.y > MapConstants::kHeightChipNum)
-		{
-			// マイナスY方向
-		}
-		if (m_mapPos.x > MapConstants::kWidthChipNum)
-		{
-			// プラスY方向
-		}
 		//printf("ループ！！");
 		printf("MapPos:x=%d,y=%d\n", m_mapPos.x, m_mapPos.y);
 	}
