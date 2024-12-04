@@ -43,19 +43,19 @@ void Camera::Update()
 		}
 	}
 	// ‰æ–Ê’[s
-	if (m_pos.x >= MapConstants::kChipSize * (m_mapSize.x - 17))
+	if (m_pos.x >= MapConstants::kChipSize * (m_mapSize.x - MapConstants::kWidthChipNum))
 	{
 		if (velocity.x > 0)
 		{
-			m_pos.x = MapConstants::kChipSize * (m_mapSize.x - 17);
+			m_pos.x = MapConstants::kChipSize * (m_mapSize.x - MapConstants::kWidthChipNum);
 			velocity.x = 0;
 		}
 	}
-	if (m_pos.y >= MapConstants::kChipSize * (m_mapSize.y - 10))
+	if (m_pos.y >= MapConstants::kChipSize * (m_mapSize.y - MapConstants::kHeightChipNum))
 	{
 		if (velocity.y > 0)
 		{
-			m_pos.y = MapConstants::kChipSize * (m_mapSize.y - 10);
+			m_pos.y = MapConstants::kChipSize * (m_mapSize.y - MapConstants::kHeightChipNum);
 			velocity.y = 0;
 		}
 	}
@@ -71,9 +71,4 @@ void Camera::Update()
 Vector2 Camera::Capture(const Vector2& objPos) const
 {
 	return objPos - m_drawOffset;
-}
-
-void Camera::SetFollowObject(std::weak_ptr<GameObject> obj)
-{
-	m_refObj = obj;
 }

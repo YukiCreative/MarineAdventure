@@ -20,13 +20,15 @@ void ColliderTestScene::HitKansuu()
 	{
 		if (nowCol == col) continue;
 
-		if (nowCol->CheckHit(*col).isCollide)
+		CollisionStatus result = nowCol->CheckHit(*col);
+		if (result.isCollide)
 		{
 			printf("“–‚½‚Á‚½");
 			atatta = true;
 			pVec = col->GetPVec();
 			pCol = col;
 			color = 0xff0000;
+			overLap = result.overlap;
 		}
 	}
 

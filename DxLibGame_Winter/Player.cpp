@@ -8,6 +8,7 @@
 #include "BoxCollider.h"
 #include "MapChip.h"
 #include "Camera.h"
+#include <cassert>
 
 namespace
 {
@@ -197,20 +198,16 @@ void Player::Update()
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 	Vector2 vel = m_physics->Update();
-	// 当たり判定の処理
-	// マップチップ一つ一つと判定する
-	// これは今後マップチップ側に映すのでプレイヤーはマップの参照を持たない
-	//for (auto& chip : m_map.GetMapCihps())
-	//{ 
-	//	CollisionStatus collision = m_collider->CheckHit(chip->GetCollider(), vel);
-	//	if (collision.isCollide)
-	//	{
-	//		// それぞれのマップチップの種類によってやりたいことが変わってくる
-	//		// 移動した後の位置が壁と接触していたら当たった面によって移動量を修正
-	//		vel -= collision.overlap;
-	//		printf("overlap:x=%f,y=%f\n", collision.overlap.x, collision.overlap.y);
-	//	}
-	//}
+
+	// ここでマップの壁との当たり判定
+	for (const auto& chip : m_map.lock()->GetMapCihps())
+	{
+		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), vel);
+		if (!col.isCollide) continue;
+		if (!chip->CanCollide()) continue;
+
+		vel -= col.overlap;
+	}
 
 	// 最後に移動
 	m_pos += vel;

@@ -14,11 +14,13 @@
 TestScene::TestScene() :
 	m_frameCount(0)
 {
-	Vector2 initPlayerPos(500, 500);
+	Vector2 initPlayerPos(400, 450);
 	m_camera = std::make_shared<Camera>(initPlayerPos);
 	m_player = std::make_shared<Player>(*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
 	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont, "Data/MapData/TestMapData.fmf");
+
+	m_player->Init(m_map);
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 }

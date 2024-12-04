@@ -7,6 +7,13 @@
 #include <DxLib.h>
 #include "Geometry.h"
 #include <vector>
+#include <cassert>
+#include <typeinfo>
+
+namespace
+{
+    constexpr int kLineColNum = 4;
+}
 
 CircleCollider::CircleCollider(Vector2& pos, float radius) :
     Collider(ColKind::kCircle, pos),
@@ -72,26 +79,44 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect) const
 CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const
 {
     // 線分四つとの当たり判定
-    // コストよんばい！
     const CircleCollider& circle = *this;
     const BoxCollider& box = otherRect;
 
+    // CollisionStatusと交点をまとめる
+    using LineColStatus = std::pair<CollisionStatus, Vector2>;
+    std::array<LineColStatus, kLineColNum> lineColStatus{};
     bool isHit = false;
-    std::vector<Vector2> lineColOverlap;
-    for (const auto& line : otherRect.GetLineCol())
+    for (int i = 0; i < kLineColNum; ++i)
     {
-        CollisionStatus lineColResult = circle.CheckHit(*line);
-        if (lineColResult.isCollide)
-        {
-            // 当たっていたら、
-            isHit = true;
-            lineColOverlap.push_back(lineColResult.overlap);
-        }
+        // ポリモーフィズム化したい
+        lineColStatus[i].first = circle.CheckHitLine(*box.GetLineCol()[0], offset, lineColStatus[i].second);
+        // 判定は一つでも当たっていたらOK
+        isHit |= lineColStatus[i].first.isCollide;
     }
 
     CollisionStatus result;
-    
-
+    result.isCollide = isHit;
+    // 当たった線分で、交点が最も現在位置に近い線分のめり込みを採用する
+    // どれも交わっていないときは、当たった線分は一つだけ　のはずなのでそれを使う
+    if (isHit)
+    {
+        LineColStatus nearestLine = lineColStatus[0];
+        for (int i = 1; i < kLineColNum; ++i)
+        {
+            // ※NaVの大きさは-1
+            // と思ったが適用されてなさそう
+            // 安全にダウンキャストしたい
+            if (nearestLine.second.SqrMagnitude() < lineColStatus[i].second.SqrMagnitude())
+            {
+                nearestLine = lineColStatus[i];
+            }
+        }
+        result.overlap = nearestLine.first.overlap;
+    }
+    else
+    {
+        result.overlap = Vector2::Zero();
+    }
     return result;
 }
 
@@ -110,7 +135,7 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     // 円の未来の位置と線分の最近傍点を出す
     Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
 
-    // 中心を、移動量から、hutureNearestPos + 半径分戻したい
+    // 中心を、移動量から、futureNearestPos + 半径分戻したい
     Vector2 overlapTemp = futureNearestPos - futurePos;
     // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
     Vector2 radiusVec = overlapTemp.GetNormalize() * circle.GetRadius();

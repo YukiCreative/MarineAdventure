@@ -31,6 +31,7 @@ protected:
 	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle, const Vector2& offset) const override;
 	/// <summary>
 	/// “–‚½‚è”»’è‚Ìæ“¾(‘Î‹éŒ`)
+	/// ü•ªl‚Â‚Ì“–‚½‚è”»’è
 	/// </summary>
 	/// <param name="otherRect">‹éŒ`‚Ì“–‚½‚è”»’è</param>
 	/// <returns>ÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>

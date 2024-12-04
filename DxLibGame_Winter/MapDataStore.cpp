@@ -9,6 +9,7 @@ namespace
 {
 	constexpr int kLayerCount = 2;
 	constexpr int kBitCount = 8;
+	constexpr int kGraphInvisible = 159;
 }
 
 MapDataStore::MapDataStore(std::string pass)
@@ -72,7 +73,18 @@ MapChipData MapDataStore::GetMapData(Vector2Int mapPos)
 	else
 	{
 		const int chipIndex = mapPos.y * m_fmfHeader.mapWidth + mapPos.x;
-		result.graphHandle = imgStore.GetGraph(static_cast<int>((m_mapData)[0][chipIndex]));
+		const int graphNum = static_cast<int>((m_mapData)[0][chipIndex]);
+		if (graphNum != kGraphInvisible)
+		{
+			result.graphHandle = imgStore.GetGraph(static_cast<int>((m_mapData)[0][chipIndex]));
+		}
+		else
+		{
+			// 画像番号0は特殊
+			// 透明な画像ハンドルでもいいが、一意の値にしないと
+			// チップ側で透明かどうかわからないという欠陥仕様
+			result.graphHandle = -1;
+		}
 		result.objKind = static_cast<ObjectKind>((m_mapData)[1][chipIndex]);
 	}
 	return result;

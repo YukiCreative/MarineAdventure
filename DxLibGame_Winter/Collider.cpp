@@ -2,6 +2,7 @@
 #include <cassert>
 #include "CircleCollider.h"
 #include "BoxCollider.h"
+#include "LineCollider.h"
 
 Collider::Collider(ColKind kind, Vector2& pos) :
 	m_pos(pos),
@@ -24,6 +25,11 @@ CollisionStatus Collider::CheckHit(Collider& other) const
 		BoxCollider& box = dynamic_cast<BoxCollider&>(other);
 		return CheckHitBox(box);
 	}
+	//else if (other.GetKind() == ColKind::kLine)
+	//{
+	//	LineCollider& line = dynamic_cast<LineCollider&>(other);
+	//	return CheckHitLine(line);
+	//}
 
 	assert(false && "—ñ‹“‚É‘Î‚·‚éˆ—‚È‚­‚È‚¢H");
 	return CollisionStatus();
@@ -44,6 +50,11 @@ CollisionStatus Collider::CheckHit(Collider& other, const Vector2& offset) const
 		auto box = dynamic_cast<BoxCollider&>(other);
 		return CheckHitBox(box, offset);
 	}
+	//else if (other.GetKind() == ColKind::kLine)
+	//{
+	//	LineCollider& line = dynamic_cast<LineCollider&>(other);
+	//	return CheckHitLine(line, offset);
+	//}
 
 	assert(false && "—ñ‹“‚É‘Î‚·‚éˆ—‚È‚­‚È‚¢H");
 	return CollisionStatus();

@@ -29,6 +29,7 @@ private:
 	std::shared_ptr<Collider> nowCol;
 	std::array<std::shared_ptr<Collider>, 4> colArray;
 	void HitKansuu();
+	Vector2 overLap;
 public:
 	ColliderTestScene();
 	~ColliderTestScene();

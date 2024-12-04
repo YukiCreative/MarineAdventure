@@ -6,6 +6,7 @@
 #include "MapConstants.h"
 #include "ObjectsController.h"
 #include "MapSystem.h"
+#include "Player.h"
 
 void MapChip::ResetMapData()
 {
@@ -104,7 +105,7 @@ void MapChip::Draw() const
 #endif
 }
 
-void MapChip::SetDebugGraph()
+bool MapChip::CanCollide() const
 {
-	
+	return m_graphHandle != -1;
 }

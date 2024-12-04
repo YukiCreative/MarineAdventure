@@ -115,7 +115,7 @@ public:
 	/// ‘å‚«‚³‚Ì“ñæ‚ğ•Ô‚·
 	/// </summary>
 	/// <returns>ƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚Ì“ñæ</returns>
-	float SqrMagnitude()
+	virtual float SqrMagnitude()
 	{
 		return x * x + y * y;
 	}
@@ -234,7 +234,7 @@ public:
 	}
 
 	// “àÏ
-	static float InnerProduct(const Vector2& first, const Vector2& second)
+	static float Dot(const Vector2& first, const Vector2& second)
 	{
 		return first.x * second.x + first.y * second.y;
 	}
@@ -250,6 +250,11 @@ struct NaV : public Vector2
 	bool IsValid() override
 	{
 		return false;
+	}
+
+	float SqrMagnitude() override
+	{
+		return -1;
 	}
 };
 

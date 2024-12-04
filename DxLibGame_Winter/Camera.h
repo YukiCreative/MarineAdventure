@@ -51,7 +51,7 @@ public:
 	/// <summary>
 	/// 引数に入れられたゲームオブジェクトに追従する
 	/// </summary>
-	void SetFollowObject(std::weak_ptr<GameObject> obj);
+	void SetFollowObject(std::weak_ptr<GameObject> obj) { m_refObj = obj; }
 	void ResetFollowObject() { m_refObj.reset(); };
 };
 

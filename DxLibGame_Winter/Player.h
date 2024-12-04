@@ -9,6 +9,7 @@ class Physics;
 class CircleCollider;
 class Camera;
 class Input;
+class MapSystem;
 
 enum class PlayerState
 {
@@ -29,6 +30,8 @@ class Player : public GameObject
 private:
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
+
+	std::weak_ptr<MapSystem> m_map;
 	Camera& m_camera;
 
 	using StateFunc_t = void(Player::*)(Input& input, Vector2& axis);
@@ -56,6 +59,9 @@ public:
 	/// 初期化
 	/// </summary>
 	Player(Camera& camera, Vector2 spawnPos);
+
+	// コンストラクタでは取得しきれないものを取得
+	void Init(std::weak_ptr<MapSystem> map) { m_map = map; }
 
 	/// <summary>
 	/// 入力をとって移動したり何したり

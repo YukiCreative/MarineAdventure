@@ -8,6 +8,7 @@ class BoxCollider;
 class Camera;
 class ObjectsController;
 class MapSystem;
+class Player;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -52,6 +53,7 @@ private:
 	/// </summary>
 	void ResetMapData();
 public:
+	// 引数がすんごい
 	MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system);
 
 	/// <summary>
@@ -85,7 +87,6 @@ public:
 	/// <returns>マップチップのコライダー</returns>
 	BoxCollider& GetCollider() const { return *m_collider; }
 
-	// デバッグ用
-	void SetDebugGraph();
+	bool CanCollide() const;
 };
 

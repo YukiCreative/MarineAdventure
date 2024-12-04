@@ -81,18 +81,19 @@ namespace Geometry
 		// 正規化
 		Vector2 startToEndN = startToEnd.GetNormalize();
 		Vector2 startToPos = pos - first;
-		float t = Vector2::InnerProduct(startToEndN, startToPos);
-		// ベクトルが反対方向に向かっていたら
-		if (t < 0)
+		Vector2 endToPos = pos - second;
+		float startDot = Vector2::Dot(startToEndN, startToPos);
+		// 始点からposの内積が鈍角なら、最近傍点は始点
+		if (startDot < 0)
 		{
 			return first;
 		}
-		// ベクトルが線分を超えていたら
-		if (t * t > VSquareSize(startToEnd))
+		// 終点からのが鋭角の時、最近傍点は終点
+		else if (Vector2::Dot(startToEndN, endToPos) > 0)
 		{
 			return second;
 		}
-		return first + startToEndN * t;
+		return first + startToEndN * startDot;
 	}
 }
 
