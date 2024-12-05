@@ -11,6 +11,9 @@ class Player;
 class Camera;
 class ObjectsController;
 
+using MapArray_t = std::array<std::shared_ptr<MapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;
+using MapVector_t = std::vector<std::shared_ptr<MapChip>>;
+
 /// <summary>
 /// マップチップを並べる、
 /// マップチップを動かす、
@@ -20,8 +23,9 @@ class ObjectsController;
 class MapSystem
 {
 private:
-	using MapArray_t = std::array<std::shared_ptr<MapChip>, MapConstants::kWidthChipNum * MapConstants::kHeightChipNum>;
 	MapArray_t m_mapChips;
+	// 左辺値が必要とのこと
+	MapVector_t m_collidableMapChips;
 	// 今マップのデータをMapSystemが持つようにしようか考え中
 	std::shared_ptr<MapDataStore> m_mapData;
 
@@ -45,7 +49,10 @@ public:
 	/// マップチップを見せる
 	/// </summary>
 	/// <returns>マップチップすべて</returns>
-	MapArray_t& GetMapCihps() { return m_mapChips; };
+	MapArray_t& GetAllMapChips() { return m_mapChips; }
+
+	// マップチップの中から、壁になってる奴だけ取得
+	MapVector_t& GetCollidableMapChips();
 
 	void GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind);
 	Vector2Int GetMapSize();

@@ -62,8 +62,8 @@ MapChipData MapDataStore::GetMapData(Vector2Int mapPos)
 	// マップの存在する範囲外ならば
 	if (mapPos.x < 0 ||
 		mapPos.y < 0 ||
-		mapPos.x >= m_fmfHeader.mapWidth ||
-		mapPos.y >= m_fmfHeader.mapHeight)
+		mapPos.x >= static_cast<int>(m_fmfHeader.mapWidth) ||
+		mapPos.y >= static_cast<int>(m_fmfHeader.mapHeight))
 	{
 		// 何も画像を入れない->透明
 		result.graphHandle = -1;

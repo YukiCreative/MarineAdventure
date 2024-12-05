@@ -198,17 +198,17 @@ void Player::Update()
 	Vector2 axis = input.GetInputAxis();
 	// 現在の状態の処理
 	(this->*m_state)(input, axis);
-	printf("Axis:x=%f, y=%f\n", axis.x, axis.y);
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 	Vector2 vel = m_physics->Update();
 
 	// ここでマップの壁との当たり判定
-	for (const auto& chip : m_map.lock()->GetMapCihps())
+	auto& collidableMapChips = m_map.lock()->GetCollidableMapChips();
+	for (const auto& chip : collidableMapChips)
 	{
 		for (int i = 0; i < 4; ++i)
 		{
-			//// がっつりデバッグ表示してるので後で消そうね
+			// がっつりデバッグ表示してるので後で消そうね
 			//Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
 			//Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
 			//firstPos = m_camera.Capture(firstPos);
@@ -221,10 +221,16 @@ void Player::Update()
 
 		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), vel);
 		if (!col.isCollide) continue;
-		if (!chip->CanCollide()) continue;
+		//if (!chip->CanCollide()) continue;
 
 		// 色を変えてみる
 		chip->ChangeGraph_Debug();
+
+		// これで終わるとスタックするし、そうでなくても壁に吸い付くような挙動になって違和感があるので
+		// 力を加える
+		Vector2 overlapN = col.overlap.GetNormalize();
+		Vector2 addforce(vel.x * std::abs(overlapN.x), vel.y * std::abs(overlapN.y));
+		m_physics->AddForce(-addforce * 1.5f);
 
 		vel -= col.overlap;
 	}
@@ -237,7 +243,7 @@ void Player::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
-	//DrawRotaGraph(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), 0.1, 0.0, m_graphHandle, true);
+	DrawRotaGraph(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), 0.1, 0.0, m_graphHandle, true);
 	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x00ff00);
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);

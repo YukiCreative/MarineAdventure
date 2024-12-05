@@ -25,6 +25,10 @@ public:
 	{
 	}
 
+	Vector2(int _x, int _y) : x(static_cast<float>(_x)), y(static_cast<float>(_y)), isValid(true)
+	{
+	}
+
 	// floatからの変換コンストラクタ
 	// floatの演算子オーバーロードを省略できる
 	Vector2(float value) : x(value), y(value), isValid(true)

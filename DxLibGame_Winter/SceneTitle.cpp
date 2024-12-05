@@ -30,6 +30,7 @@ void SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
-	DrawRotaGraph(Game::kScreenWidth * 0.5f, Game::kScreenHeight * 0.5f, 2.5, 0.0, m_titleHandle, false);
-	DrawString(300, Game::kScreenHeight * 0.5f, "Title", 0x000000);
+	DrawRotaGraph(static_cast<int>(Game::kScreenWidth * 0.5f),
+		static_cast<int>(Game::kScreenHeight * 0.5f), 2.5, 0.0, m_titleHandle, false);
+	DrawString(300, static_cast<int>(Game::kScreenHeight * 0.5f), "Title", 0x000000);
 }

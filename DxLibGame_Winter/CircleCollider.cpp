@@ -61,7 +61,6 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect) const
     nearestPoint.y = std::clamp(m_pos.y, otherRect.Top(), otherRect.Bottom());
     // 円の中心が完全にめり込んでいたら、離す方向に行きたい
     
-    
     // 出した二点の距離が、円の半径以下なら当たっている
     Vector2 distVec = m_pos - nearestPoint;
     float sqrDist = distVec.SqrMagnitude();
@@ -114,36 +113,34 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     float segmentMinLength = Segment_Segment_MinLength(circle.GetPos(), futurePos, line.GetFirstPos(), line.GetSecondPos());
     bool isCross = (segmentMinLength == 0.0f);
 
-
-
     // 交わっていれば
     if (isCross)
     {
         // 円の未来の位置と線分の最近傍点を出す
         Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
         // 中心を、移動量から、futureNearestPos + 半径分戻したい
-        Vector2 nextToClosest = futureNearestPos - futurePos;
+        Vector2 closestToNext = futurePos - futureNearestPos;
         // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
-        Vector2 nextToClosestN = nextToClosest.GetNormalize();
-        Vector2 radiusVec = nextToClosestN * circle.GetRadius();
-        Vector2 overlap = radiusVec - nextToClosest;
-        result.overlap = -overlap;
+        Vector2 closestToNextN = closestToNext.GetNormalize();
+        Vector2 radiusVec = closestToNextN * circle.GetRadius();
+        Vector2 overlap = radiusVec + closestToNext;
+        result.overlap = overlap;
     }
     else
     {
         // 反対
         // 円の未来の位置と線分の最近傍点を出す
         Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
-        // 中心を、移動量から、futureNearestPos + 半径分戻したい
+        // この場合中心を、移動量から半径 - futureNearestPosだけ戻したい
         Vector2 nextToClosest = futureNearestPos - futurePos;
         // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
         Vector2 nextToClosestN = nextToClosest.GetNormalize();
-        Vector2 radiusVec = nextToClosestN * circle.GetRadius() * 1.1f;
+        Vector2 radiusVec = nextToClosestN * circle.GetRadius();
         Vector2 overlap = radiusVec - nextToClosest;
         result.overlap = overlap;
     }
 
     // 当たっているかは、半径を考慮して出す
-    result.isCollide = (segmentMinLength <= circle.GetRadius());
+    result.isCollide = (segmentMinLength < circle.GetRadius());
     return result;
 }

@@ -9,7 +9,7 @@
 namespace
 {
 	constexpr int kInitHp = 2;
-	constexpr int kRadius = 20;
+	constexpr float kRadius = 20.0f;
 	constexpr int kDamageMortionFrame = 60;
 }
 
@@ -104,7 +104,7 @@ void HarmFish::Update()
 void HarmFish::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
-	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), kRadius, 0x0000ff);
-	int width = GetDrawStringWidth(m_graphic.c_str(), m_graphic.size());
+	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRadius), 0x0000ff);
+	int width = GetDrawStringWidth(m_graphic.c_str(), static_cast<int>(m_graphic.size()));
 	DrawFormatString(static_cast<int>(screenPos.x - width * 0.5f), static_cast<int>(screenPos.y) - 5, 0xffffff, m_graphic.c_str());
 }
