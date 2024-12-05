@@ -15,6 +15,8 @@ public:
 
 	Vector2 GetFirstPos() const { return m_pos + m_firstPosOffset; }
 	Vector2 GetSecondPos() const { return m_pos + m_secondPosOffset; }
+	// 中点返す
+	Vector2 SegmentMidPoint()const { return (GetFirstPos() + GetSecondPos()) * 0.5f; };
 protected:
 	// 当たり判定のパターン増えていく問題
 	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle) const override;
@@ -23,6 +25,6 @@ protected:
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
 
-	CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& velocity, Vector2& crossPos) const override;
+	CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& velocity) const override;
 };
 

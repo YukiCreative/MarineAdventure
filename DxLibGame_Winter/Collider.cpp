@@ -25,6 +25,7 @@ CollisionStatus Collider::CheckHit(Collider& other) const
 		BoxCollider& box = dynamic_cast<BoxCollider&>(other);
 		return CheckHitBox(box);
 	}
+	// 列挙に対する処理　必要になったら作ってね
 	//else if (other.GetKind() == ColKind::kLine)
 	//{
 	//	LineCollider& line = dynamic_cast<LineCollider&>(other);
@@ -50,11 +51,11 @@ CollisionStatus Collider::CheckHit(Collider& other, const Vector2& offset) const
 		auto box = dynamic_cast<BoxCollider&>(other);
 		return CheckHitBox(box, offset);
 	}
-	//else if (other.GetKind() == ColKind::kLine)
-	//{
-	//	LineCollider& line = dynamic_cast<LineCollider&>(other);
-	//	return CheckHitLine(line, offset);
-	//}
+	else if (other.GetKind() == ColKind::kLine)
+	{
+		LineCollider& line = dynamic_cast<LineCollider&>(other);
+		return CheckHitLine(line, offset);
+	}
 
 	assert(false && "列挙に対する処理なくない？");
 	return CollisionStatus();

@@ -14,7 +14,7 @@
 TestScene::TestScene() :
 	m_frameCount(0)
 {
-	Vector2 initPlayerPos(400, 450);
+	Vector2 initPlayerPos(400, 500);
 	m_camera = std::make_shared<Camera>(initPlayerPos);
 	m_player = std::make_shared<Player>(*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);

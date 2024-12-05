@@ -43,6 +43,7 @@ private:
 	int m_stateFrameCount;
 	// ‘Ì—Í
 	int m_hp;
+	int m_graphHandle;
 
 	void Normal(Input& input, Vector2& axis);
 	void Move(Input& input, Vector2& axis);

@@ -12,15 +12,15 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
 	m_rectHeight(h)
 {
     // 中心からの相対距離を出してます
-    Vector2 topLeft = m_pos - Vector2(Left(), Top());
-    Vector2 bottomLeft = m_pos = Vector2(Left(), Bottom());
-    Vector2 topRight = m_pos = Vector2(Right(), Top());
-    Vector2 bottomRight = m_pos - Vector2(Right(), Bottom());
+    Vector2 topLeft =  Vector2(Left(), Top()) - m_pos;
+    Vector2 bottomLeft =  Vector2(Left(), Bottom()) - m_pos;
+    Vector2 topRight = Vector2(Right(), Top()) - m_pos;
+    Vector2 bottomRight = Vector2(Right(), Bottom()) - m_pos;
     // 各辺をCollider化
     m_lines[0] = std::make_shared<LineCollider>(m_pos, topLeft, topRight);
     m_lines[1] = std::make_shared<LineCollider>(m_pos, topLeft, bottomLeft);
-    m_lines[2] = std::make_shared<LineCollider>(m_pos, topRight, bottomRight);
-    m_lines[3] = std::make_shared<LineCollider>(m_pos, bottomLeft, bottomRight);
+    m_lines[2] = std::make_shared<LineCollider>(m_pos, bottomRight, topRight);
+    m_lines[3] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft);
 }
 
 CollisionStatus BoxCollider::CheckHitCircle(const CircleCollider& otherCircle) const
@@ -82,7 +82,7 @@ CollisionStatus BoxCollider::CheckHitBox(const BoxCollider& otherRect, const Vec
     return result;
 }
 
-CollisionStatus BoxCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& offset, Vector2& crossPos) const
+CollisionStatus BoxCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const
 {
     assert(false && "ごめんよ　実装できてないんだ");
     return CollisionStatus();

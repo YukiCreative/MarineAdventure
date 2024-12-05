@@ -8,7 +8,6 @@
 #include "Geometry.h"
 #include <vector>
 #include <cassert>
-#include <typeinfo>
 
 namespace
 {
@@ -78,48 +77,32 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect) const
 
 CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const
 {
-    // 線分四つとの当たり判定
     const CircleCollider& circle = *this;
     const BoxCollider& box = otherRect;
 
-    // CollisionStatusと交点をまとめる
-    using LineColStatus = std::pair<CollisionStatus, Vector2>;
-    std::array<LineColStatus, kLineColNum> lineColStatus{};
-    bool isHit = false;
+    CollisionStatus result;
+    Vector2 nearestCrossPos;
+    bool isCross = false;
+    std::array<float, kLineColNum> lineDist;
+    std::array<CollisionStatus, kLineColNum> lineColStatus;
+    // ラインコライダー四回分回す
     for (int i = 0; i < kLineColNum; ++i)
     {
-        // ポリモーフィズム化したい
-        lineColStatus[i].first = circle.CheckHitLine(*box.GetLineCol()[0], offset, lineColStatus[i].second);
-        // 判定は一つでも当たっていたらOK
-        isHit |= lineColStatus[i].first.isCollide;
+        // ポリモーフィズム化
+        lineColStatus[i] = circle.CheckHit(*box.GetLineCol()[i], offset);
+        result.isCollide |= lineColStatus[i].isCollide;
+        // ここで、overlapを取得するために、現在地点から一番近い線分を出したい
+        // 現在地点から、それぞれの線分の中心へ向かうベクトルの大きさを比べる
+        lineDist[i] = (circle.GetPos() - box.GetLineCol()[i]->SegmentMidPoint()).SqrMagnitude();
     }
-
-    CollisionStatus result;
-    result.isCollide = isHit;
-    // 当たった線分で、交点が最も現在位置に近い線分のめり込みを採用する
-    // どれも交わっていないときは、当たった線分は一つだけ　のはずなのでそれを使う
-    if (isHit)
-    {
-        LineColStatus nearestLine = lineColStatus[0];
-        for (int i = 0; i < kLineColNum; ++i)
-        {
-            if (!lineColStatus[i].first.isCollide) continue;
-            if (typeid(lineColStatus[i].second) == typeid(NaV)) continue;
-            if (nearestLine.second.SqrMagnitude() > lineColStatus[i].second.SqrMagnitude())
-            {
-                nearestLine = lineColStatus[i];
-            }
-        }
-        result.overlap = nearestLine.first.overlap;
-    }
-    else
-    {
-        result.overlap = Vector2::Zero();
-    }
+    // 一番近い線のoverlapを採用
+    auto it = std::min_element(lineDist.begin(), lineDist.end());
+    size_t index = std::distance(lineDist.begin(), it);
+    result.overlap = lineColStatus[index].overlap;
     return result;
 }
 
-CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& velocity, Vector2& crossPos) const
+CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, const Vector2& velocity) const
 {
     CollisionStatus result;
     // あえて客観的に自分を操作することで、反対の当たり判定に流用しやすくする
@@ -131,30 +114,36 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     float segmentMinLength = Segment_Segment_MinLength(circle.GetPos(), futurePos, line.GetFirstPos(), line.GetSecondPos());
     bool isCross = (segmentMinLength == 0.0f);
 
-    // 円の未来の位置と線分の最近傍点を出す
-    Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
-    // 中心を、移動量から、futureNearestPos + 半径分戻したい
-    Vector2 overlapTemp = futureNearestPos - futurePos;
-    // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
-    Vector2 radiusVec = overlapTemp.GetNormalize() * circle.GetRadius();
-    overlapTemp += radiusVec;
+
 
     // 交わっていれば
     if (isCross)
     {
-        result.overlap = overlapTemp;
-        // 交点を返してあげる
-        crossPos = futureNearestPos;
+        // 円の未来の位置と線分の最近傍点を出す
+        Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
+        // 中心を、移動量から、futureNearestPos + 半径分戻したい
+        Vector2 nextToClosest = futureNearestPos - futurePos;
+        // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
+        Vector2 nextToClosestN = nextToClosest.GetNormalize();
+        Vector2 radiusVec = nextToClosestN * circle.GetRadius();
+        Vector2 overlap = radiusVec - nextToClosest;
+        result.overlap = -overlap;
     }
     else
     {
         // 反対
-        result.overlap = -overlapTemp;
-        // 交わらなかった
-        crossPos = NaV();
+        // 円の未来の位置と線分の最近傍点を出す
+        Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
+        // 中心を、移動量から、futureNearestPos + 半径分戻したい
+        Vector2 nextToClosest = futureNearestPos - futurePos;
+        // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
+        Vector2 nextToClosestN = nextToClosest.GetNormalize();
+        Vector2 radiusVec = nextToClosestN * circle.GetRadius() * 1.1f;
+        Vector2 overlap = radiusVec - nextToClosest;
+        result.overlap = overlap;
     }
 
     // 当たっているかは、半径を考慮して出す
-    result.isCollide = segmentMinLength <= circle.GetRadius();
+    result.isCollide = (segmentMinLength <= circle.GetRadius());
     return result;
 }

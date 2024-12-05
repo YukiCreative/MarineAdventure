@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <DxLib.h>
+#include <limits>
 // このスクリプトには特に、何もincludeしないこと！
 
 /// <summary>
@@ -8,20 +9,25 @@
 /// </summary>
 struct Vector2
 {
+protected:
+	// NaV用
+	Vector2(bool valid) : x(0), y(0), isValid(valid) {}
+
 public:
 	float x, y;
+	bool isValid;
 
-	Vector2() : x(0), y(0)
+	Vector2() : x(0), y(0), isValid(true)
 	{
 	}
 
-	Vector2(float _x, float _y) : x(_x), y(_y)
+	Vector2(float _x, float _y) : x(_x), y(_y), isValid(true)
 	{
 	}
 
 	// floatからの変換コンストラクタ
 	// floatの演算子オーバーロードを省略できる
-	Vector2(float value) : x(value), y(value)
+	Vector2(float value) : x(value), y(value), isValid(true)
 	{
 	}
 
@@ -30,13 +36,6 @@ public:
 	operator VECTOR() const
 	{
 		return VGet(x, y, 0.0f);
-	}
-
-	// これが正常なVector2かどうかを示す
-	// 派生クラスのNaVは必ずfalseを返す
-	virtual bool IsValid()
-	{
-		return true;
 	}
 
 	/// <summary>
@@ -247,14 +246,14 @@ public:
 /// </summary>
 struct NaV : public Vector2
 {
-	bool IsValid() override
-	{
-		return false;
-	}
+	NaV() : Vector2(false){}
+
+	// ダウンキャスト用
+	explicit NaV(Vector2) : Vector2(false) {};
 
 	float SqrMagnitude() override
 	{
-		return -1;
+		return std::numeric_limits<float>::quiet_NaN();
 	}
 };
 

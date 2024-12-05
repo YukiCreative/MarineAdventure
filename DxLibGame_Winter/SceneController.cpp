@@ -2,10 +2,11 @@
 #include "Scene.h"
 #include <memory>
 #include "TestScene.h"
+#include "SceneTitle.h"
 #include "ColliderTestScene.h"
 
 SceneController::SceneController() :
-	m_scene(std::make_shared<TestScene>())
+	m_scene(std::make_shared<SceneTitle>())
 {
 }
 

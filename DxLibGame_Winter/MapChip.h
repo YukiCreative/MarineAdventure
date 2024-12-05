@@ -54,6 +54,7 @@ private:
 	void ResetMapData();
 public:
 	// ˆø”‚ª‚·‚ñ‚²‚¢
+	// ‚¢‚ë‚¢‚ë‚â‚ç‚¹‚·‚¬‚©‚à
 	MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system);
 
 	/// <summary>

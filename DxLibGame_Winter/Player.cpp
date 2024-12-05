@@ -19,7 +19,7 @@ namespace
 	// Axisがでかすぎるんだよ
 	constexpr float kMoveForceFactor = 0.0002f;
 	constexpr float kDashForceFactor = 0.0003f;
-	constexpr float kStrongAttackForceFactor = 0.0001f;
+	constexpr float kStrongAttackMoveFactor = 0.0001f;
 	constexpr float kAttackFrame = 60.0f;
 	constexpr float kInvincibleFrame = 90.0f;
 	constexpr float kStrongAttackForce = 20.0f;
@@ -146,7 +146,7 @@ void Player::StrongAttack(Input& input, Vector2& axis)
 	}
 	// 攻撃判定を持つ
 	// ちょっと移動ができる
-	m_physics->AddForce(axis * kStrongAttackForceFactor);
+	m_physics->AddForce(axis * kStrongAttackMoveFactor);
 }
 
 void Player::Damage(Input& input, Vector2& axis)
@@ -187,6 +187,8 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 	m_camera(camera)
 {
 	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
+	m_graphHandle = LoadGraph("Data/Image/Penguin.png");
+	assert(m_graphHandle != -1);
 }
 
 void Player::Update()
@@ -206,23 +208,25 @@ void Player::Update()
 	{
 		for (int i = 0; i < 4; ++i)
 		{
-			Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
-			Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
+			//// がっつりデバッグ表示してるので後で消そうね
+			//Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
+			//Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
 			//firstPos = m_camera.Capture(firstPos);
 			//secondPos = m_camera.Capture(secondPos);
 			//DrawLine(firstPos.x, firstPos.y, secondPos.x, secondPos.y, 0x00ff00);
-			Vector2 pos = m_camera.Capture(Vector2(chip->GetCollider().Top(), chip->GetCollider().Left()));
-			DrawPixel(pos.x, pos.y, 0xff00ff);
+			//Vector2 midPoint = chip->GetCollider().GetLineCol()[i]->SegmentMidPoint();
+			//midPoint = m_camera.Capture(midPoint);
+			//DrawPixel(midPoint.x, midPoint.y, 0xff00ff);
 		}
 
 		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), vel);
 		if (!col.isCollide) continue;
-		//if (!chip->CanCollide()) continue;
+		if (!chip->CanCollide()) continue;
 
 		// 色を変えてみる
 		chip->ChangeGraph_Debug();
 
-		//vel -= col.overlap;
+		vel -= col.overlap;
 	}
 
 	// 最後に移動
@@ -233,7 +237,8 @@ void Player::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
-	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x000000);
+	//DrawRotaGraph(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), 0.1, 0.0, m_graphHandle, true);
+	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x00ff00);
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);

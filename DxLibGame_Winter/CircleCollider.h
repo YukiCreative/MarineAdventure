@@ -38,6 +38,6 @@ protected:
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
 
-	CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& velocity, Vector2& crossPos) const override;
+	CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& velocity) const override;
 };
 

@@ -102,7 +102,7 @@ void MapChip::Draw() const
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), MapConstants::kExRate, 0, m_graphHandle, true);
 #if _DEBUG
-	DrawCircle(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 1, 0xff0000);
+	//DrawPixel(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 0xff0000);
 #endif
 }
 

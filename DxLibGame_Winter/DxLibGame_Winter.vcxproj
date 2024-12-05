@@ -163,6 +163,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneController.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
@@ -193,6 +194,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneController.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
