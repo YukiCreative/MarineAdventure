@@ -21,6 +21,11 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
     m_lines[1] = std::make_shared<LineCollider>(m_pos, topLeft, bottomLeft);
     m_lines[2] = std::make_shared<LineCollider>(m_pos, bottomRight, topRight);
     m_lines[3] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft);
+    
+    for (auto& isValid : m_validLineCol)
+    {
+        isValid = true;
+    }
 }
 
 CollisionStatus BoxCollider::CheckHitCircle(const CircleCollider& otherCircle) const

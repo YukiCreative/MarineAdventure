@@ -84,9 +84,10 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
     bool isCross = false;
     std::array<float, kLineColNum> lineDist;
     std::array<CollisionStatus, kLineColNum> lineColStatus;
-    // ラインコライダー四回分回す
+    // 現在有効なラインコライダーとの接触判定
     for (int i = 0; i < kLineColNum; ++i)
     {
+        if (!box.GetIsLineValid(i)) continue;
         // ポリモーフィズム化
         lineColStatus[i] = circle.CheckHit(*box.GetLineCol()[i], offset);
         result.isCollide |= lineColStatus[i].isCollide;

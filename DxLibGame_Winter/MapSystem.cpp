@@ -45,12 +45,10 @@ void MapSystem::Draw()
 	}
 }
 
-MapVector_t& MapSystem::GetCollidableMapChips()
+MapList_t& MapSystem::GetCollidableMapChips()
 {
 	// 壁として有効なチップだけピックする
 	m_collidableMapChips.clear();
-	// 配列の引っ越しを減らす
-	m_collidableMapChips.reserve(m_mapChips.size());
 	for (const auto& chip : m_mapChips)
 	{
 		if (chip->CanCollide())
@@ -58,11 +56,17 @@ MapVector_t& MapSystem::GetCollidableMapChips()
 			m_collidableMapChips.push_back(chip);
 		}
 	}
-	m_collidableMapChips.shrink_to_fit();
 
 	printf("%d\n", static_cast<int>(m_collidableMapChips.size()));
 
 	return m_collidableMapChips;
+}
+
+std::array<bool, 4> MapSystem::GetMapChipCollidable(const Vector2Int& mapPos)
+{
+	std::array<bool, 4> result;
+	// 右
+	result[0] = m_mapData->GetMapData(Vector2Int(mapPos.x+1, mapPos.y)).graphHandle;
 }
 
 void MapSystem::GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind)

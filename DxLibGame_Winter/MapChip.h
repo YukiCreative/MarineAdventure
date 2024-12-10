@@ -17,21 +17,13 @@ class Player;
 class MapChip : public GameObject
 {
 private:
-	/// <summary>
-	/// 自分が今マップのどのチップを担当しているかを記憶
-	/// </summary>
+	// 自分が今マップのどのチップを担当しているかを記憶
 	Vector2Int m_mapPos;
-	/// <summary>
-	/// 動きを記憶
-	/// </summary>
+	// 動きを記憶
 	Vector2 m_movePos;
-	/// <summary>
-	/// 画像
-	/// </summary>
+	// 画像
 	int m_graphHandle;
-	/// <summary>
-	/// 当たり判定
-	/// </summary>
+	// 当たり判定
 	std::shared_ptr<BoxCollider> m_collider;
 	// カメラさん
 	Camera& m_camera;

@@ -209,14 +209,14 @@ void Player::Update()
 		for (int i = 0; i < 4; ++i)
 		{
 			// がっつりデバッグ表示してるので後で消そうね
-			//Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
-			//Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
-			//firstPos = m_camera.Capture(firstPos);
-			//secondPos = m_camera.Capture(secondPos);
-			//DrawLine(firstPos.x, firstPos.y, secondPos.x, secondPos.y, 0x00ff00);
-			//Vector2 midPoint = chip->GetCollider().GetLineCol()[i]->SegmentMidPoint();
-			//midPoint = m_camera.Capture(midPoint);
-			//DrawPixel(midPoint.x, midPoint.y, 0xff00ff);
+			Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
+			Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
+			firstPos = m_camera.Capture(firstPos);
+			secondPos = m_camera.Capture(secondPos);
+			DrawLine(firstPos.x, firstPos.y, secondPos.x, secondPos.y, 0x00ff00);
+			Vector2 midPoint = chip->GetCollider().GetLineCol()[i]->SegmentMidPoint();
+			midPoint = m_camera.Capture(midPoint);
+			DrawPixel(midPoint.x, midPoint.y, 0xff00ff);
 		}
 
 		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), vel);

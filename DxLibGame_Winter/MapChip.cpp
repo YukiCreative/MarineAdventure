@@ -108,6 +108,7 @@ void MapChip::Draw() const
 
 bool MapChip::CanCollide() const
 {
+	// ‚±‚ê•Ï‚¦‚½‚¢‚È
 	return m_graphHandle != -1;
 }
 

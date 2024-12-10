@@ -2,6 +2,7 @@
 #include "Vector2.h"
 #include <memory>
 #include <array>
+#include <list>
 #include "MapConstants.h"
 #include "MapDataStore.h"
 #include "ObjectKind.h"
@@ -12,7 +13,7 @@ class Camera;
 class ObjectsController;
 
 using MapArray_t = std::array<std::shared_ptr<MapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;
-using MapVector_t = std::vector<std::shared_ptr<MapChip>>;
+using MapList_t = std::list<std::shared_ptr<MapChip>>;
 
 /// <summary>
 /// マップチップを並べる、
@@ -25,7 +26,7 @@ class MapSystem
 private:
 	MapArray_t m_mapChips;
 	// 左辺値が必要とのこと
-	MapVector_t m_collidableMapChips;
+	MapList_t m_collidableMapChips;
 	// 今マップのデータをMapSystemが持つようにしようか考え中
 	std::shared_ptr<MapDataStore> m_mapData;
 
@@ -52,7 +53,10 @@ public:
 	MapArray_t& GetAllMapChips() { return m_mapChips; }
 
 	// マップチップの中から、壁になってる奴だけ取得
-	MapVector_t& GetCollidableMapChips();
+	MapList_t& GetCollidableMapChips();
+
+	// 与えられたマップ座標の上下左右が壁かどうかを返す
+	std::array<bool, 4> GetMapChipCollidable(const Vector2Int& mapPos);
 
 	void GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind);
 	Vector2Int GetMapSize();
