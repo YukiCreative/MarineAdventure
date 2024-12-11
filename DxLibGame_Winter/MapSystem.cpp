@@ -45,7 +45,7 @@ void MapSystem::Draw()
 	}
 }
 
-MapList_t& MapSystem::GetCollidableMapChips()
+MapVector_t& MapSystem::GetCollidableMapChips()
 {
 	// 壁として有効なチップだけピックする
 	m_collidableMapChips.clear();

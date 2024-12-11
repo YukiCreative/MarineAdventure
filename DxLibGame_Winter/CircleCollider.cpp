@@ -98,7 +98,14 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
     // 一番近い線のoverlapを採用
     auto it = std::min_element(lineDist.begin(), lineDist.end());
     size_t index = std::distance(lineDist.begin(), it);
-    result.overlap = lineColStatus[index].overlap;
+    if (lineColStatus.size() == 0)
+    {
+        result.overlap = Vector2::Zero();
+    }
+    else
+    {
+        result.overlap = lineColStatus[index].overlap;
+    }
     return result;
 }
 
@@ -114,11 +121,21 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     float segmentMinLength = Segment_Segment_MinLength(circle.GetPos(), futurePos, line.GetFirstPos(), line.GetSecondPos());
     bool isCross = (segmentMinLength == 0.0f);
 
+    // 当たっているかは、半径を考慮して出す
+    result.isCollide = (segmentMinLength < circle.GetRadius());
+
+    // 円の未来の位置と線分の最近傍点を出す
+    Vector2 futureNearestPos = geo::GetIntercept(futurePos, line.GetFirstPos(), line.GetSecondPos());
+    // もしこれが線分の端ならめり込まなかったことに
+    if (futureNearestPos == line.GetFirstPos() || futureNearestPos == line.GetSecondPos())
+    {
+        result.overlap = Vector2::Zero();
+        return result;
+    }
+
     // 交わっていれば
     if (isCross)
     {
-        // 円の未来の位置と線分の最近傍点を出す
-        Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
         // 中心を、移動量から、futureNearestPos + 半径分戻したい
         Vector2 closestToNext = futurePos - futureNearestPos;
         // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
@@ -129,9 +146,6 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     }
     else
     {
-        // 反対
-        // 円の未来の位置と線分の最近傍点を出す
-        Vector2 futureNearestPos = geo::GetIntercept(circle.GetPos(), line.GetFirstPos(), line.GetSecondPos());
         // この場合中心を、移動量から半径 - futureNearestPosだけ戻したい
         Vector2 nextToClosest = futureNearestPos - futurePos;
         // 円の半径の長さの、中心→最近傍点の向きのベクトルを作成
@@ -139,14 +153,6 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
         Vector2 radiusVec = nextToClosestN * circle.GetRadius();
         Vector2 overlap = radiusVec - nextToClosest;
         result.overlap = overlap;
-    }
-
-    // 当たっているかは、半径を考慮して出す
-    result.isCollide = (segmentMinLength < circle.GetRadius());
-    if (result.isCollide)
-    {
-        // ああ
-        printf("当たった");
     }
     return result;
 }

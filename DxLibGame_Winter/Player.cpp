@@ -226,13 +226,13 @@ void Player::Update()
 		//if (!chip->CanCollide()) continue;
 
 		// 色を変えてみる
-		chip->ChangeGraph_Debug();
+		//chip->ChangeGraph_Debug();
 
-		// これで終わるとスタックするし、そうでなくても壁に吸い付くような挙動になって違和感があるので
-		// 力を加える
+		// 壁に吸い付くような挙動になって違和感があるので力を加える
 		Vector2 overlapN = col.overlap.GetNormalize();
+		// 現在の速度の分、当たっている壁の向きだけ力を加える
 		Vector2 addforce(vel.x * std::abs(overlapN.x), vel.y * std::abs(overlapN.y));
-		m_physics->AddForce(-addforce * 1.5f);
+		m_physics->AddForce(-addforce);
 
 		vel -= col.overlap;
 

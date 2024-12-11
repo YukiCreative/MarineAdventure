@@ -42,6 +42,12 @@ public:
 		return VGet(x, y, 0.0f);
 	}
 
+	bool operator==(Vector2& right) const
+	{
+		// X‚ÆY‚Ç‚¿‚ç‚à“¯‚¶’l‚È‚çtrue‚ğ•Ô‚·
+		return (x == right.x && y == right.y);
+	}
+
 	/// <summary>
 	/// ¶•Ó‚ÉA‰E•Ó‚ğ‘«‚µZ‚µ‚½‚à‚Ì‚ğ‘ã“ü
 	/// </summary>
