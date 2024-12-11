@@ -35,7 +35,7 @@ void HarmFish::Idle()
 		else
 		{
 			// ここでプレイヤーにダメージを教えてあげる
-			//m_playerRef.
+			m_playerRef.OnDamage();
 		}
 	}
 }

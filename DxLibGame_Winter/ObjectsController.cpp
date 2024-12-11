@@ -31,6 +31,7 @@ void ObjectsController::Update()
 		// この敵が死んだら死亡者リストに入れとく
 		if (object->IsDead())
 		{
+			// ポインタをコピー
 			deathNote.push_back(object);
 		}
 	}
@@ -40,7 +41,7 @@ void ObjectsController::Update()
 	{
 		// 絶対遅いけど仕様追加するのが大事よな
 		auto iterator = std::remove(m_objects.begin(), m_objects.end(), deathObject);
-		// このイテレータはちょうどremoveした要素を指していたのであった…
+		// このイテレータはちょうどremoveした要素を指している
 		m_objects.erase(iterator);
 	}
 	// ここでEnemyのスマポは参照を失うので消える。はず。
@@ -64,23 +65,4 @@ void ObjectsController::SpawnObject(ObjectKind kind, Vector2 spawnPos)
 void ObjectsController::SpawnObject(std::shared_ptr<GameObject> objectInstance)
 {
 	m_objects.push_back(objectInstance);
-}
-
-void ObjectsController::DespawnEnemy(GameObject* deleteEnemy)
-{
-	auto it = m_objects.begin();
-	for (auto& enemy : m_objects)
-	{
-		// きたないけどゆるして
-		if (enemy.get() == deleteEnemy)
-		{
-			m_objects.erase(it);
-			return;
-		}
-		else
-		{
-			++it;
-		}
-	}
-	assert(false && "そんな要素はありません");
 }

@@ -60,6 +60,7 @@ public:
 	/// 初期化
 	/// </summary>
 	Player(Camera& camera, Vector2 spawnPos);
+	~Player();
 
 	// コンストラクタでは取得しきれないものを取得
 	void Init(std::weak_ptr<MapSystem> map) { m_map = map; }
@@ -74,12 +75,6 @@ public:
 	void Draw() const override;
 
 	/// <summary>
-	/// 自分のPhysicsのvelocityを返す
-	/// </summary>
-	/// <returns>自分の物理クラスの速度</returns>
-	Vector2 GetVel() const;
-
-	/// <summary>
 	/// コライダー返すだけ
 	/// </summary>
 	/// <returns>コライダーの参照</returns>
@@ -91,5 +86,6 @@ public:
 	/// <param name="stateID"></param>
 	/// <returns></returns>
 	bool CheckState(PlayerState stateID) const;
+	// ダメージを与えたいときに流してもらう
+	void OnDamage(int damage = 1);
 };
-

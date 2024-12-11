@@ -181,6 +181,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="HarmFish.h" />
+    <ClInclude Include="HPUI.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LineCollider.h" />
     <ClInclude Include="MapChip.h" />

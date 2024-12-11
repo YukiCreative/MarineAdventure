@@ -57,7 +57,8 @@ MapVector_t& MapSystem::GetCollidableMapChips()
 		}
 	}
 
-	printf("%d\n", static_cast<int>(m_collidableMapChips.size()));
+	// Œ»İ‚Ì‰æ–Ê“à‚Ì•Ç‚Ì”
+	//printf("%d\n", static_cast<int>(m_collidableMapChips.size()));
 
 	return m_collidableMapChips;
 }

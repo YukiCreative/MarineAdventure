@@ -49,6 +49,12 @@
     <Filter Include="ヘッダー ファイル\Enemy">
       <UniqueIdentifier>{fcc19ca9-2206-47ee-b929-80c35f2dd73c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{3f8a90d3-16eb-4dfb-9add-a140de6207b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI">
+      <UniqueIdentifier>{a79e94fd-100b-407c-97f0-af5906787d2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneController.cpp">
@@ -211,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="SceneTitle.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="HPUI.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

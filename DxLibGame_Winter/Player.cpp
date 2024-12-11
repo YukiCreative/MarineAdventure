@@ -16,6 +16,7 @@ namespace
 {
 	// プレイヤーの当たり判定に使います
 	constexpr float kRaduis = 20.0f;
+	constexpr int kMaxHp = 5;
 	// Axisがでかすぎるんだよ
 	constexpr float kMoveForceFactor = 0.0002f;
 	constexpr float kDashForceFactor = 0.0003f;
@@ -185,12 +186,17 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 	m_state(&Player::Normal),
 	m_graphic("N"),
 	m_stateFrameCount(0),
-	m_hp(0),
+	m_hp(kMaxHp),
 	m_camera(camera)
 {
 	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
 	m_graphHandle = LoadGraph("Data/Image/Penguin.png");
 	assert(m_graphHandle != -1);
+}
+
+Player::~Player()
+{
+	DeleteGraph(m_graphHandle);
 }
 
 void Player::Update()
@@ -208,18 +214,18 @@ void Player::Update()
 	auto& collidableMapChips = m_map.lock()->GetCollidableMapChips();
 	for (const auto& chip : collidableMapChips)
 	{
-		for (int i = 0; i < 4; ++i)
-		{
-			// がっつりデバッグ表示してるので後で消そうね
-			Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
-			Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
-			firstPos = m_camera.Capture(firstPos);
-			secondPos = m_camera.Capture(secondPos);
-			DrawLine(firstPos.x, firstPos.y, secondPos.x, secondPos.y, 0x00ff00);
-			Vector2 midPoint = chip->GetCollider().GetLineCol()[i]->SegmentMidPoint();
-			midPoint = m_camera.Capture(midPoint);
-			DrawPixel(midPoint.x, midPoint.y, 0xff00ff);
-		}
+		//for (int i = 0; i < 4; ++i)
+		//{
+		//	// がっつりデバッグ表示してるので後で消そうね
+		//	Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
+		//	Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
+		//	firstPos = m_camera.Capture(firstPos);
+		//	secondPos = m_camera.Capture(secondPos);
+		//	DrawLine(firstPos.x, firstPos.y, secondPos.x, secondPos.y, 0x00ff00);
+		//	Vector2 midPoint = chip->GetCollider().GetLineCol()[i]->SegmentMidPoint();
+		//	midPoint = m_camera.Capture(midPoint);
+		//	DrawPixel(midPoint.x, midPoint.y, 0xff00ff);
+		//}
 
 		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), vel);
 		if (!col.isCollide) continue;
@@ -232,7 +238,7 @@ void Player::Update()
 		Vector2 overlapN = col.overlap.GetNormalize();
 		// 現在の速度の分、当たっている壁の向きだけ力を加える
 		Vector2 addforce(vel.x * std::abs(overlapN.x), vel.y * std::abs(overlapN.y));
-		m_physics->AddForce(-addforce);
+		m_physics->AddForce(-addforce * 1.5f);
 
 		vel -= col.overlap;
 
@@ -254,11 +260,6 @@ void Player::Draw() const
 	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
 	DrawFormatString(0, 120, 0xffffff, "とあるoverlapX=%f,Y=%f", tempOverLapDraw.x, tempOverLapDraw.y);
 #endif
-}
-
-Vector2 Player::GetVel() const
-{
-	return m_physics->GetVel();
 }
 
 bool Player::CheckState(PlayerState stateID) const
@@ -290,5 +291,20 @@ bool Player::CheckState(PlayerState stateID) const
 	default:
 		return false;
 		break;
+	}
+}
+
+void Player::OnDamage(int damage)
+{
+	// こんなのでいいんでしょうか
+	m_hp -= damage;
+	printf("Playerの体力%d\n", m_hp);
+	if (m_hp < 0)
+	{
+		m_state = &Player::Death;
+	}
+	else
+	{
+		m_state = &Player::Damage;
 	}
 }

@@ -43,10 +43,4 @@ public:
 	/// インスタンス渡してもいいよ
 	/// </summary>
 	void SpawnObject(std::shared_ptr<GameObject> objectInstance);
-	/// <summary>
-	/// 配列にある敵を削除する
-	/// とはいってもアドレスを知っているのは本人だけだけど
-	/// </summary>
-	/// <param name="deleteEnemy">削除するEnemyのスマポ</param>
-	void DespawnEnemy(GameObject* deleteEnemy);
 };
