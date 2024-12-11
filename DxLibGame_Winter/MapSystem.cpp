@@ -62,11 +62,19 @@ MapList_t& MapSystem::GetCollidableMapChips()
 	return m_collidableMapChips;
 }
 
-std::array<bool, 4> MapSystem::GetMapChipCollidable(const Vector2Int& mapPos)
+bool MapSystem::GetMapChipNotCollidable(const Vector2Int& mapPos) const
 {
-	std::array<bool, 4> result;
-	// 右
-	result[0] = m_mapData->GetMapData(Vector2Int(mapPos.x+1, mapPos.y)).graphHandle;
+	// こちら側でマップの端ではfalseを返すように気を遣う
+	// MapData持ってるのはこのクラスだし
+	Vector2Int mapsize = m_mapData->GetMapSize();
+	if (mapPos.x < 0 ||
+		mapPos.y < 0 ||
+		mapPos.x > mapsize.x ||
+		mapPos.y > mapsize.y)
+	{
+		return false;
+	}
+	return m_mapData->GetMapData(mapPos).graphHandle == -1;
 }
 
 void MapSystem::GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind)

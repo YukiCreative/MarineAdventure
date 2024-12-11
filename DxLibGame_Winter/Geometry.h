@@ -80,6 +80,7 @@ namespace Geometry
 		Vector2 startToEnd = second - first;
 		// 正規化
 		Vector2 startToEndN = startToEnd.GetNormalize();
+		Vector2 endToStartN = Vector2(first - second).GetNormalize();
 		Vector2 startToPos = pos - first;
 		Vector2 endToPos = pos - second;
 		// 始点からposの内積が鈍角なら、最近傍点は始点
@@ -87,8 +88,8 @@ namespace Geometry
 		{
 			return first;
 		}
-		// 終点からのが鋭角の時、最近傍点は終点
-		else if (Vector2::Dot(startToEndN, endToPos) > 0)
+		// 終点からposが鈍角の時、最近傍点は終点
+		else if (Vector2::Dot(endToStartN, endToPos) < 0)
 		{
 			return second;
 		}

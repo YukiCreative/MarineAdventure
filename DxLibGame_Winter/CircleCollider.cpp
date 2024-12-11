@@ -82,18 +82,18 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
     CollisionStatus result;
     Vector2 nearestCrossPos;
     bool isCross = false;
-    std::array<float, kLineColNum> lineDist;
-    std::array<CollisionStatus, kLineColNum> lineColStatus;
+    std::vector<float> lineDist;
+    std::vector<CollisionStatus> lineColStatus;
     // 現在有効なラインコライダーとの接触判定
     for (int i = 0; i < kLineColNum; ++i)
     {
-        if (!box.GetIsLineValid(i)) continue;
+        if (!box.GetIsLineValid(static_cast<LineDir>(i))) continue;
         // ポリモーフィズム化
-        lineColStatus[i] = circle.CheckHit(*box.GetLineCol()[i], offset);
-        result.isCollide |= lineColStatus[i].isCollide;
+        lineColStatus.push_back(circle.CheckHit(*box.GetLineCol()[i], offset));
+        result.isCollide |= lineColStatus.back().isCollide; // 今追加したやつ
         // ここで、overlapを取得するために、現在地点から一番近い線分を出したい
         // 現在地点から、それぞれの線分の中心へ向かうベクトルの大きさを比べる
-        lineDist[i] = (circle.GetPos() - box.GetLineCol()[i]->SegmentMidPoint()).SqrMagnitude();
+        lineDist.push_back((circle.GetPos() - box.GetLineCol()[i]->SegmentMidPoint()).SqrMagnitude());
     }
     // 一番近い線のoverlapを採用
     auto it = std::min_element(lineDist.begin(), lineDist.end());
@@ -143,5 +143,10 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
 
     // 当たっているかは、半径を考慮して出す
     result.isCollide = (segmentMinLength < circle.GetRadius());
+    if (result.isCollide)
+    {
+        // ああ
+        printf("当たった");
+    }
     return result;
 }

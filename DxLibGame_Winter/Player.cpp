@@ -23,6 +23,8 @@ namespace
 	constexpr float kAttackFrame = 60.0f;
 	constexpr float kInvincibleFrame = 90.0f;
 	constexpr float kStrongAttackForce = 20.0f;
+
+	Vector2 tempOverLapDraw;
 }
 
 // âΩÇ‡ëÄçÏÇ≥ÇÍÇƒÇ¢Ç»Ç¢èÛë‘ÅB
@@ -233,6 +235,8 @@ void Player::Update()
 		m_physics->AddForce(-addforce * 1.5f);
 
 		vel -= col.overlap;
+
+		tempOverLapDraw = col.overlap;
 	}
 
 	// ç≈å„Ç…à⁄ìÆ
@@ -248,6 +252,7 @@ void Player::Draw() const
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
+	DrawFormatString(0, 120, 0xffffff, "Ç∆Ç†ÇÈoverlapX=%f,Y=%f", tempOverLapDraw.x, tempOverLapDraw.y);
 #endif
 }
 

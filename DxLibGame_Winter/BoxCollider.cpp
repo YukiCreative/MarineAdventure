@@ -17,10 +17,10 @@ BoxCollider::BoxCollider(Vector2& pos, float w, float h) :
     Vector2 topRight = Vector2(Right(), Top()) - m_pos;
     Vector2 bottomRight = Vector2(Right(), Bottom()) - m_pos;
     // äeï”ÇColliderâª
-    m_lines[0] = std::make_shared<LineCollider>(m_pos, topLeft, topRight);
-    m_lines[1] = std::make_shared<LineCollider>(m_pos, topLeft, bottomLeft);
-    m_lines[2] = std::make_shared<LineCollider>(m_pos, bottomRight, topRight);
-    m_lines[3] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft);
+    m_lines[static_cast<int>(LineDir::Top)] = std::make_shared<LineCollider>(m_pos, topLeft, topRight); // è„
+    m_lines[static_cast<int>(LineDir::Left)] = std::make_shared<LineCollider>(m_pos, topLeft, bottomLeft); // ç∂
+    m_lines[static_cast<int>(LineDir::Right)] = std::make_shared<LineCollider>(m_pos, bottomRight, topRight); // âE
+    m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft); // â∫
     
     for (auto& isValid : m_validLineCol)
     {

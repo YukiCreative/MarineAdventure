@@ -6,6 +6,14 @@
 class CircleCollider;
 class LineCollider;
 
+enum class LineDir
+{
+	Top,
+	Left,
+	Right,
+	Bottom,
+};
+
 class BoxCollider : public Collider
 {
 private:
@@ -35,7 +43,9 @@ public:
 	float Bottom() const { return m_pos.y + m_rectHeight * 0.5f; };
 	// 参照を返す関数で、メンバ変数を編集しない意思を示すには戻り値もconst化しないといけない
 	const LineArray_t& GetLineCol() const { return m_lines; };
-	bool GetIsLineValid(int index) const { return m_validLineCol[index]; }
+	// 線分の有効判定関係
+	bool GetIsLineValid(const LineDir& dir) const { return m_validLineCol[static_cast<int>(dir)]; }
+	void SetIsLineValid(const LineDir& dir, const bool& value) { m_validLineCol[static_cast<int>(dir)] = value; }
 protected:
 	/// <summary>
 	/// 当たり判定の取得(対円形)
@@ -52,6 +62,6 @@ protected:
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect) const override;
 	CollisionStatus CheckHitBox(const BoxCollider& otherRect, const Vector2& offset) const override;
 
-	virtual CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const override;
+	CollisionStatus CheckHitLine(const LineCollider& otherLine, const Vector2& offset) const override;
 };
 

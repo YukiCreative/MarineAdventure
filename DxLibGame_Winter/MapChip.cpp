@@ -15,6 +15,15 @@ void MapChip::ResetMapData()
 	ObjectKind objKind;
 	m_system.GetMapChipData(m_mapPos, m_graphHandle, objKind);
 	m_objectsController.SpawnObject(objKind, m_pos);
+	// ü•ª‚Ì“–‚½‚è”»’è‚ðÝ’è‚·‚é
+	bool isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x, m_mapPos.y - 1)); // ã
+	m_collider->SetIsLineValid(LineDir::Top, isLineValid);
+	isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x, m_mapPos.y + 1)); // ‰º
+	m_collider->SetIsLineValid(LineDir::Bottom, isLineValid);
+	isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x - 1, m_mapPos.y)); // ¶
+	m_collider->SetIsLineValid(LineDir::Left, isLineValid);
+	isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x + 1, m_mapPos.y)); // ‰E
+	m_collider->SetIsLineValid(LineDir::Right, isLineValid);
 }
 
 bool MapChip::LoopScreen()
@@ -77,7 +86,7 @@ MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos,
 	m_system(system)
 {
 	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
-	ResetMapData();
+	//ResetMapData();
 }
 
 void MapChip::Update()

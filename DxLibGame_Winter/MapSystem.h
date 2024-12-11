@@ -55,8 +55,8 @@ public:
 	// マップチップの中から、壁になってる奴だけ取得
 	MapList_t& GetCollidableMapChips();
 
-	// 与えられたマップ座標の上下左右が壁かどうかを返す
-	std::array<bool, 4> GetMapChipCollidable(const Vector2Int& mapPos);
+	// 与えられたマップ座標が壁かどうかを返す
+	bool GetMapChipNotCollidable(const Vector2Int& mapPos) const;
 
 	void GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind);
 	Vector2Int GetMapSize();
