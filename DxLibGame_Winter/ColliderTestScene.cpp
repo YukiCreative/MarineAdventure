@@ -77,7 +77,7 @@ void ColliderTestScene::Update()
 	}
 }
 
-void ColliderTestScene::Draw()
+void ColliderTestScene::Draw() const
 {
 	DrawFormatString(0, 0, color, "FPS=%f", Time::GetInstance().FPS());
 	DrawString(0, 15, "ColliderTestScene", color);

@@ -52,7 +52,7 @@ void TestScene::Update()
 	}
 }
 
-void TestScene::Draw()
+void TestScene::Draw() const
 {
 	m_map->Draw();
 	m_player->Draw();

@@ -11,6 +11,6 @@ public:
 	~SceneTitle();
 
 	void Update() override;
-	void Draw() override;
+	void Draw() const override;
 };
 

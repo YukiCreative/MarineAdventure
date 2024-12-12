@@ -3,7 +3,8 @@
 
 /// <summary>
 /// 座標を持つ
-/// カメラの追尾に使う
+/// カメラの追尾に使ったり
+/// 基底クラスでまとめてUpdateしたり
 /// </summary>
 class GameObject
 {
@@ -25,7 +26,8 @@ public:
 	Vector2 GetPos() const { return m_pos; }
 
 	/// <summary>
-	/// 死んでるかどうか
+	/// 消えたかどうか
+	/// これを見てControllerが削除する
 	/// </summary>
-	bool IsDead() const { return m_isDeleted; }
+	bool IsDeleted() const { return m_isDeleted; }
 };

@@ -28,7 +28,7 @@ void SceneTitle::Update()
 	}
 }
 
-void SceneTitle::Draw()
+void SceneTitle::Draw() const
 {
 	DrawRotaGraph(static_cast<int>(Game::kScreenWidth * 0.5f),
 		static_cast<int>(Game::kScreenHeight * 0.5f), 2.5, 0.0, m_titleHandle, false);

@@ -23,17 +23,16 @@ protected:
 
 	class ScreenFade : public ScreenEffect
 	{
-	protected:
+	private:
 		// どれだけ時間かけるか
 		int m_lifeFrame;
 		// 最終的に到達する透明度
 		float m_percent;
 		unsigned int m_color;
-
-		void Update() override;
-		void Draw() const override;
 	public:
 		ScreenFade(int frame, float fadePercent, unsigned int color);
+		void Update() override;
+		void Draw() const override;
 	};
 
 	// list第一層：スクリーン効果のキュー。終わらないと次に行かない
@@ -52,22 +51,13 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	virtual void Draw() = 0;
+	virtual void Draw() const = 0;
 
 	void UpdateScreenEffect()
-	{
-		for (auto& effect : m_screenEffects.front())
-		{
-			effect->Update();
-		}
-	}
-
-	void DrawScreenEffect()
 	{
 		bool isFinished = true;
 		for (auto& effect : m_screenEffects.front())
 		{
-			effect->Draw();
 			isFinished &= effect->IsFinished();
 		}
 		// 今のキューのすべての画像効果が終わったら
@@ -75,6 +65,19 @@ public:
 		{
 			// 取り出す
 			m_screenEffects.pop_front();
+		}
+		// 気を取り直してUpdate
+		for (auto& effect : m_screenEffects.front())
+		{
+			effect->Update();
+		}
+	}
+
+	void DrawScreenEffect() const
+	{
+		for (auto& effect : m_screenEffects.front())
+		{
+			effect->Draw();
 		}
 	}
 };

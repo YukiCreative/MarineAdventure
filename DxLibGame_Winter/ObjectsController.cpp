@@ -29,7 +29,7 @@ void ObjectsController::Update()
 	{
 		object->Update();
 		// この敵が死んだら死亡者リストに入れとく
-		if (object->IsDead())
+		if (object->IsDeleted())
 		{
 			// ポインタをコピー
 			deathNote.push_back(object);
