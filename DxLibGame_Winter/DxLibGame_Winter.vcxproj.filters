@@ -55,6 +55,12 @@
     <Filter Include="ヘッダー ファイル\UI">
       <UniqueIdentifier>{a79e94fd-100b-407c-97f0-af5906787d2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Image">
+      <UniqueIdentifier>{1e0bf95d-4369-423f-9cc9-c55216e26d26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Image">
+      <UniqueIdentifier>{449710fd-f323-4926-9bed-6bf4fd911f28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneController.cpp">
@@ -129,8 +135,11 @@
     <ClCompile Include="Scene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>ソース ファイル\Image</Filter>
+    </ClCompile>
     <ClCompile Include="BackGround.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
+      <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,8 +236,11 @@
     <ClInclude Include="SceneGameover.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>ヘッダー ファイル\Image</Filter>
+    </ClInclude>
     <ClInclude Include="BackGround.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
+      <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

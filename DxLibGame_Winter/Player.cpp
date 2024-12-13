@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include <cassert>
 #include "SceneController.h"
+#include "Image.h"
 
 namespace
 {
@@ -191,13 +192,11 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 	m_camera(camera)
 {
 	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
-	m_graphHandle = LoadGraph("Data/Image/Penguin.png");
-	assert(m_graphHandle != -1);
+	m_image = std::make_shared<Image>("Data/Image/Penguin.png");
 }
 
 Player::~Player()
 {
-	DeleteGraph(m_graphHandle);
 }
 
 void Player::Update()
@@ -240,7 +239,7 @@ void Player::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
-	DrawRotaGraph(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), 0.1, 0.0, m_graphHandle, true);
+	m_image->Draw(screenPos);
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);

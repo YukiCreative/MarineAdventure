@@ -1,23 +1,26 @@
 #pragma once
 #include "GameObject.h"
+#include <memory>
 #include <string>
+#include "Vector2.h"
 
-/// <summary>
-/// 背景画像を表示したい
-/// 遠景なので手前(マップチップ、プレイヤー)よりゆっくり動かしたい
-/// </summary>
+class Image;
+class Camera;
+
+// 背景画像を表示したい
 class BackGround : public GameObject
 {
 private:
-	int m_graphHandle;
+	std::shared_ptr<Image> m_image;
+	Camera& m_camera;
+	// 1フレームの中で移動量を記憶
+	Vector2 m_velocity;
 public:
-	BackGround(const std::string& pass);
-	~BackGround();
+	BackGround(Camera& camera, const Vector2& initPos, const std::string& pass);
 
 	void Update() override;
 	void Draw() const override;
 
-	void SetGraph(const int& handle) { m_graphHandle = handle; }
-	void SetGraph(const std::string&);
+	void Move(Vector2 amount) { m_velocity += amount; };
 };
 

@@ -152,6 +152,7 @@
     <ClCompile Include="ColliderTestScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HarmFish.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="main.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="HarmFish.h" />
     <ClInclude Include="HPUI.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LineCollider.h" />
     <ClInclude Include="MapChip.h" />

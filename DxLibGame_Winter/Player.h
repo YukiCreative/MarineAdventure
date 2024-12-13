@@ -10,6 +10,7 @@ class CircleCollider;
 class Camera;
 class Input;
 class MapSystem;
+class Image;
 
 enum class PlayerState
 {
@@ -28,8 +29,10 @@ enum class PlayerState
 class Player : public GameObject
 {
 private:
+	// コンポーネント
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
+	std::shared_ptr<Image> m_image;
 
 	std::weak_ptr<MapSystem> m_map;
 	Camera& m_camera;
@@ -43,7 +46,6 @@ private:
 	int m_stateFrameCount;
 	// 体力
 	int m_hp;
-	int m_graphHandle;
 
 	void Normal(Input& input, Vector2& axis);
 	void Move(Input& input, Vector2& axis);

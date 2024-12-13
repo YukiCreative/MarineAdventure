@@ -3,12 +3,13 @@
 #include <memory>
 
 class BackGround;
+class Camera;
 
 class SceneGameover : public Scene
 {
 private:
-	// îwåi
-	std::shared_ptr<BackGround> m_gameoverBack;
+	std::shared_ptr<BackGround> m_backGround;
+	std::shared_ptr<Camera> m_camera;
 public:
 	SceneGameover();
 
