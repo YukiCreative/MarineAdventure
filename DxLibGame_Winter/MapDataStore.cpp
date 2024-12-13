@@ -4,6 +4,7 @@
 #include "ObjectKind.h"
 #include <vector>
 #include "MapConstants.h"
+#include <Dxlib.h>
 
 namespace
 {

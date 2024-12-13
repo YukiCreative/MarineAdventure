@@ -22,7 +22,7 @@ SceneTitle::~SceneTitle()
 void SceneTitle::Update()
 {
 	Input& input = Input::GetInstance();
-	if (input.IsPressed("ChangeScene_Debug"))
+	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<TestScene>());
 	}

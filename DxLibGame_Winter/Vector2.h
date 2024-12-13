@@ -1,7 +1,7 @@
 #pragma once
 #include <cmath>
-#include <DxLib.h>
 #include <limits>
+#include <DxLib.h>
 // このスクリプトには特に、何もincludeしないこと！
 
 /// <summary>
@@ -36,7 +36,7 @@ public:
 	}
 
 	// DxLibのVECTORとの変換関数
-	// やむなくDxLibをインクルード
+	// cppで実装できなかった
 	operator VECTOR() const
 	{
 		return VGet(x, y, 0.0f);

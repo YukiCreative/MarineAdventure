@@ -55,6 +55,8 @@ public:
 
 	void UpdateScreenEffect()
 	{
+		if (m_screenEffects.empty()) return;
+
 		bool isFinished = true;
 		for (auto& effect : m_screenEffects.front())
 		{
@@ -75,6 +77,7 @@ public:
 
 	void DrawScreenEffect() const
 	{
+		if (m_screenEffects.empty()) return;
 		for (auto& effect : m_screenEffects.front())
 		{
 			effect->Draw();

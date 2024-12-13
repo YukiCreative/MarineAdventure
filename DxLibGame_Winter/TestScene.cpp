@@ -10,6 +10,7 @@
 #include "HarmFish.h"
 #include "ObjectsController.h"
 #include "ObjectKind.h"
+#include "SceneGameover.h"
 
 TestScene::TestScene() :
 	m_frameCount(0)
@@ -34,20 +35,19 @@ void TestScene::Update()
 	Input& input = Input::GetInstance();
 
 	++m_frameCount;
-	// プレイヤーの更新処理で入手した移動量の情報を
-	// マップにぶち込む
-	// 方法だとマップの端に来た時にプレイヤーが代わりに動く処理を実装しづらい
-	// ので、シーンに存在するカメラを皆が見て間接的かつ相対的に移動を反映させることにした
-	// カメラ作ってもスクロール止めるのはむずいよ
 	m_camera->Update();
 	m_player->Update();
 	m_map->Update();
 	m_objectCont->Update();
 
-
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		SceneController::GetInstance().ChangeScene(std::make_shared<ColliderTestScene>());
+		return;
+	}
+	if (m_player->IsDeleted())
+	{
+		SceneController::GetInstance().ChangeScene(std::make_shared<SceneGameover>());
 		return;
 	}
 }

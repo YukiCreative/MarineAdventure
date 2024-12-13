@@ -9,8 +9,7 @@
 #include "MapChip.h"
 #include "Camera.h"
 #include <cassert>
-
-#include "LineCollider.h"
+#include "SceneController.h"
 
 namespace
 {
@@ -169,6 +168,8 @@ void Player::Death(Input& input, Vector2& axis)
 {
 	// 死亡モーション
 	// 別のシーンへ
+	// こいつが生きているかどうかをシーンが毎フレームチェック
+	m_isDeleted = true;
 }
 
 void Player::SetStateNormal()
@@ -214,22 +215,8 @@ void Player::Update()
 	auto& collidableMapChips = m_map.lock()->GetCollidableMapChips();
 	for (const auto& chip : collidableMapChips)
 	{
-		//for (int i = 0; i < 4; ++i)
-		//{
-		//	// がっつりデバッグ表示してるので後で消そうね
-		//	Vector2 firstPos = chip->GetCollider().GetLineCol()[i]->GetFirstPos();
-		//	Vector2 secondPos = chip->GetCollider().GetLineCol()[i]->GetSecondPos();
-		//	firstPos = m_camera.Capture(firstPos);
-		//	secondPos = m_camera.Capture(secondPos);
-		//	DrawLine(firstPos.x, firstPos.y, secondPos.x, secondPos.y, 0x00ff00);
-		//	Vector2 midPoint = chip->GetCollider().GetLineCol()[i]->SegmentMidPoint();
-		//	midPoint = m_camera.Capture(midPoint);
-		//	DrawPixel(midPoint.x, midPoint.y, 0xff00ff);
-		//}
-
 		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), vel);
 		if (!col.isCollide) continue;
-		//if (!chip->CanCollide()) continue;
 
 		// 色を変えてみる
 		//chip->ChangeGraph_Debug();
@@ -254,11 +241,10 @@ void Player::Draw() const
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
 	DrawRotaGraph(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), 0.1, 0.0, m_graphHandle, true);
-	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x00ff00);
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
-	DrawFormatString(0, 120, 0xffffff, "とあるoverlapX=%f,Y=%f", tempOverLapDraw.x, tempOverLapDraw.y);
+	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x00ff00);
 #endif
 }
 

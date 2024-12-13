@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include <string>
 
 /// <summary>
 /// ”wŒi‰æ‘œ‚ð•\Ž¦‚µ‚½‚¢
@@ -10,9 +11,13 @@ class BackGround : public GameObject
 private:
 	int m_graphHandle;
 public:
-	BackGround();
+	BackGround(const std::string& pass);
+	~BackGround();
 
 	void Update() override;
 	void Draw() const override;
+
+	void SetGraph(const int& handle) { m_graphHandle = handle; }
+	void SetGraph(const std::string&);
 };
 
