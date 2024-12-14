@@ -4,19 +4,27 @@
 #include "SceneController.h"
 #include <cassert>
 #include "game.h"
+#include <memory>
+#include "BackGround.h"
+#include "Camera.h"
 
 #include "TestScene.h"
 
+namespace
+{
+	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
+}
+
 SceneTitle::SceneTitle()
 {
+	m_camera = std::make_shared<Camera>();
 	// ƒ^ƒCƒgƒ‹‰æ‘œ‚ğƒ[ƒh
-	m_titleHandle = LoadGraph("Data/Image/ŠC”wŒi.jpg");
-	assert(m_titleHandle != -1 && "‰æ‘œ");
+	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenMiddlePoint, "Data/Image/ŠC”wŒi.jpg");
+	m_backGround->ExpandGtaph(2.2f);
 }
 
 SceneTitle::~SceneTitle()
 {
-	DeleteGraph(m_titleHandle);
 }
 
 void SceneTitle::Update()
@@ -30,7 +38,6 @@ void SceneTitle::Update()
 
 void SceneTitle::Draw() const
 {
-	DrawRotaGraph(static_cast<int>(Game::kScreenWidth * 0.5f),
-		static_cast<int>(Game::kScreenHeight * 0.5f), 2.5, 0.0, m_titleHandle, false);
+	m_backGround->Draw();
 	DrawString(300, static_cast<int>(Game::kScreenHeight * 0.5f), "Title", 0x000000);
 }

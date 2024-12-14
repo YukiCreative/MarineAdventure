@@ -16,10 +16,10 @@ private:
 	// マップのチップ数を知っておきたい
 	Vector2Int m_mapSize;
 	Vector2 m_drawOffset;
-	/// <summary>
-	/// Updateで一括で移動するために一時的に記憶しておく
-	/// </summary>
+	// 今回のフレームの移動量を記憶しておく
 	Vector2 m_velocity;
+	// Moveの移動量記憶用
+	Vector2 m_moveAmount;
 	/// <summary>
 	/// 参照するゲームオブジェクト
 	/// </summary>
@@ -42,7 +42,7 @@ public:
 	/// <summary>
 	/// カメラの移動
 	/// </summary>
-	void Move(Vector2 moveValue) { m_pos += moveValue; }
+	void Move(Vector2 moveValue) { m_moveAmount += moveValue; }
 
 	void SetMapSize(Vector2Int mapSize) { m_mapSize = mapSize; };
 
@@ -53,5 +53,6 @@ public:
 	/// </summary>
 	void SetFollowObject(std::weak_ptr<GameObject> obj) { m_refObj = obj; }
 	void ResetFollowObject() { m_refObj.reset(); };
+	Vector2 GetVel() { return m_velocity; }
 };
 

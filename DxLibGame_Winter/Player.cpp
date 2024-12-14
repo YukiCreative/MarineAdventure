@@ -163,6 +163,7 @@ void Player::Damage(Input& input, Vector2& axis)
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
+
 }
 
 void Player::Death(Input& input, Vector2& axis)
@@ -281,15 +282,20 @@ bool Player::CheckState(PlayerState stateID) const
 
 void Player::OnDamage(int damage)
 {
+	// ダメージ状態なら食らわない
+	if (CheckState(PlayerState::kDamage)) return;
+
 	// こんなのでいいんでしょうか
 	m_hp -= damage;
 	printf("Playerの体力%d\n", m_hp);
-	if (m_hp < 0)
+	if (m_hp <= 0)
 	{
 		m_state = &Player::Death;
+		m_graphic = "Death";
 	}
 	else
 	{
 		m_state = &Player::Damage;
+		m_graphic = "Damage";
 	}
 }

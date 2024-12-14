@@ -10,5 +10,8 @@ namespace Game
 	constexpr int kScreenHeight = 720; // æ¶ŒÂl“I‚É„§
 	constexpr int kColorBitNum = 32;
 
+	constexpr int kScreenHalfWidth = Game::kScreenWidth >> 1;
+	constexpr int kScreenHalfHeight = Game::kScreenHeight >> 1;
+
 	constexpr bool kDefaultWindowMode = true;
 }

@@ -132,13 +132,13 @@
     <ClCompile Include="SceneGameover.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Image.cpp">
       <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
+      <Filter>ソース ファイル\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenEffectController.cpp">
       <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
   </ItemGroup>
@@ -240,6 +240,9 @@
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
     <ClInclude Include="BackGround.h">
+      <Filter>ヘッダー ファイル\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenEffectController.h">
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
   </ItemGroup>

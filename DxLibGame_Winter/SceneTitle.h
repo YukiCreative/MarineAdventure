@@ -1,11 +1,16 @@
 #pragma once
 #include "Scene.h"
+#include <memory>
+
+class BackGround;
+class Camera;
 
 // 一番最初に表示されるシーン
 class SceneTitle : public Scene
 {
 private:
-	int m_titleHandle; // 後でクラス化しようね
+	std::shared_ptr<Camera> m_camera;
+	std::shared_ptr<BackGround> m_backGround;
 public:
 	SceneTitle();
 	~SceneTitle();

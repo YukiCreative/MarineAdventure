@@ -10,15 +10,14 @@
 
 namespace
 {
-	constexpr int kScreenHalfWidth = Game::kScreenWidth >> 1;
-	constexpr int kScreenHalfHeight = Game::kScreenHeight >> 1;
-	const Vector2 kScreenMiddlePoint(kScreenHalfWidth, kScreenHalfHeight);
+	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 }
 
 SceneGameover::SceneGameover()
 {
 	m_camera = std::make_shared<Camera>();
 	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenMiddlePoint, "Data/Image/GAMEOVER_Test.jpg");
+	m_backGround->ExpandGtaph(3.0f);
 }
 
 void SceneGameover::Update()
@@ -32,8 +31,6 @@ void SceneGameover::Update()
 		SceneController::GetInstance().ChangeScene(std::make_shared<SceneTitle>());
 		return;
 	}
-
-	UpdateScreenEffect();
 }
 
 void SceneGameover::Draw() const
@@ -41,6 +38,4 @@ void SceneGameover::Draw() const
 	m_backGround->Draw();
 
 	DrawString(static_cast<int>(Game::kScreenWidth * 0.5f), static_cast<int>(Game::kScreenHeight * 0.5f), "GameoverScene", 0xffffff);
-
-	DrawScreenEffect();
 }
