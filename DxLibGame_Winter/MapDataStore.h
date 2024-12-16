@@ -40,8 +40,8 @@ private:
 
 	// なげえ
 	// めんどいからスタックに入れていい？
-	using MapVector_t = std::vector<std::vector<uint8_t>>;
-	MapVector_t m_mapData;
+	using MapList_t = std::vector<std::vector<uint8_t>>;
+	MapList_t m_mapData;
 public:
 	MapDataStore(std::string pass);
 

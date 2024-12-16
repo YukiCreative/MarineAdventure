@@ -13,6 +13,7 @@
 #include "SceneGameover.h"
 #include "BackGround.h"
 #include "game.h"
+#include "ScreenFade.h"
 
 namespace
 {
@@ -20,7 +21,8 @@ namespace
 }
 
 TestScene::TestScene() :
-	m_frameCount(0)
+	m_frameCount(0),
+	m_fade(ScreenFade::Getinstance())
 {
 	Vector2 initPlayerPos(400, 500);
 	m_camera = std::make_shared<Camera>(initPlayerPos);
@@ -33,6 +35,8 @@ TestScene::TestScene() :
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_backGround->ExpandGtaph(3.0f);
+	// フェードイン
+	m_fade.Fade(120, 100);
 }
 
 TestScene::~TestScene()
@@ -45,6 +49,7 @@ void TestScene::Update()
 
 	++m_frameCount;
 	m_camera->Update();
+	m_fade.Update();
 
 	m_map->Update();
 	m_objectCont->Update();
@@ -73,6 +78,7 @@ void TestScene::Draw() const
 	m_map->Draw();
 	m_player->Draw();
 	m_objectCont->Draw();
+	m_fade.Draw();
 
 #if _DEBUG
 	DrawFormatString(0, 0, 0x999999, "TestScene 現在%dフレーム経過中", m_frameCount);

@@ -138,7 +138,7 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenEffectController.cpp">
+    <ClCompile Include="ScreenFade.cpp">
       <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
   </ItemGroup>
@@ -242,7 +242,7 @@
     <ClInclude Include="BackGround.h">
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenEffectController.h">
+    <ClInclude Include="ScreenFade.h">
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
   </ItemGroup>

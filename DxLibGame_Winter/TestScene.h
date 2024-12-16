@@ -9,6 +9,7 @@ class HarmFish;
 class ObjectsController;
 class MapDataStore;
 class BackGround;
+class ScreenFade;
 
 // プロトタイプ開発を共にするシーン
 class TestScene : public Scene
@@ -21,6 +22,7 @@ private:
 	std::shared_ptr<ObjectsController> m_objectCont;
 	std::shared_ptr<MapDataStore> m_mapDataStore;
 	std::shared_ptr<BackGround> m_backGround;
+	ScreenFade& m_fade;
 public:
 	TestScene();
 	~TestScene();
