@@ -5,7 +5,8 @@
 
 namespace
 {
-	constexpr float kAlphaMax = 255;
+	constexpr float kAlphaMax = 255.0f;
+	constexpr float kPercentToAlpha = 255.0f / 100.0f;
 }
 
 ScreenFade::ScreenFade() :
@@ -30,9 +31,10 @@ void ScreenFade::Update()
 
 void ScreenFade::FadeInUpdate()
 {
-	// 終了条件が 現在透明度 > 最終透明度
+	// 透明度を下げる
+	// 終了条件が 現在透明度 < 最終透明度
 	m_alpha += m_transParFrame;
-	if (m_alpha > m_targetAlpha)
+	if (m_alpha < m_targetAlpha)
 	{
 		m_alpha = m_targetAlpha;
 		m_updateState = &ScreenFade::NormalUpdate;
@@ -42,9 +44,10 @@ void ScreenFade::FadeInUpdate()
 
 void ScreenFade::FadeOutUpdate()
 {
-	// 終了条件が 現在透明度 < 最終透明度
+	// 透明度を上げる
+	// 終了条件が 現在透明度 > 最終透明度
 	m_alpha += m_transParFrame;
-	if (m_alpha < m_targetAlpha)
+	if (m_alpha > m_targetAlpha)
 	{
 		m_alpha = m_targetAlpha;
 		m_updateState = &ScreenFade::NormalUpdate;
@@ -69,7 +72,8 @@ void ScreenFade::Fade(int totalFrame, int targetPercent)
 {
 	// 0フレームなら怒る
 	assert(totalFrame && "0フレームのフェード　意味ないよ");
-	m_targetAlpha = targetPercent / kAlphaMax;
+	// 百分率で入ってくる透明度を0～255に変換
+	m_targetAlpha = targetPercent * kPercentToAlpha;
 	// m_transPerFrameを割り出す
 	m_transParFrame = (m_alpha - m_targetAlpha) / totalFrame;
 	// 現在の状態がフェードインかアウトか見る

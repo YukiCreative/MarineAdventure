@@ -65,9 +65,6 @@ void Application::Run()
 		// Timeの更新
 		timeInstance.Update();
 
-		// printfDxのクリア
-		clsDx();
-
 		// 画面全体をクリアする
 		ClearDrawScreen();
 

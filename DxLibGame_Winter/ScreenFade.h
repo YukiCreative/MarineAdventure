@@ -18,11 +18,11 @@ struct Alpha
 	void operator=(const Alpha& right) { value = right.value; }
 	// 完全に見た目floatに(いいかどうかは分からない)
 	operator float() { return value; }
-	void operator+=(Alpha& right)
+	void operator+=(const float& right)
 	{
 		*this = *this + right;
 	}
-	void operator-=(Alpha& right)
+	void operator-=(const float& right)
 	{
 		*this = *this - right;
 	}
@@ -34,7 +34,7 @@ private:
 	// どれだけ時間かけるか
 	int m_fadeFrame;
 	// 1フレームにどれだけ透明度を変えるか
-	Alpha m_transParFrame;
+	float m_transParFrame;
 	// 描画の今の透明度 0~255
 	Alpha m_alpha;
 	// 目指す透明度
