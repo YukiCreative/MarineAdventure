@@ -24,6 +24,7 @@ namespace
 	constexpr float kStrongAttackMoveFactor = 0.0001f;
 	constexpr float kAttackFrame = 60.0f;
 	constexpr float kInvincibleFrame = 90.0f;
+	constexpr float kAttackedRigidFrame = 30.0f;
 	constexpr float kStrongAttackForce = 20.0f;
 	constexpr float kBounceFactor = 1.2f;
 
@@ -176,6 +177,18 @@ void Player::Death(Input& input, Vector2& axis)
 	m_isDeleted = true;
 }
 
+void Player::Attacked(Input& input, Vector2& axis)
+{
+	// d’¼‚È‚Ì‚Åƒ‚[ƒVƒ‡ƒ“ˆÈŠO‰½‚à‚µ‚È‚¢
+	++m_stateFrameCount;
+	if (m_stateFrameCount >= kAttackedRigidFrame)
+	{
+		SetStateNormal();
+		(this->*m_state)(input, axis);
+		return;
+	}
+}
+
 void Player::SetStateNormal()
 {
 	// ó‘Ô‘JˆÚ‚·‚éˆ—‚ªd•¡‚µ‚Ä‚¢‚½‚Ì‚Å
@@ -304,4 +317,26 @@ void Player::OnDamage(int damage)
 		m_state = &Player::Damage;
 		m_graphic = "Damage";
 	}
+}
+
+void Player::AddForce(const Vector2& force)
+{
+	m_physics->AddForce(force);
+}
+
+void Player::Stop()
+{
+	m_physics->Stop();
+}
+
+void Player::OnAttack()
+{
+	// UŒ‚ƒ‚[ƒVƒ‡ƒ“‚ÉØ‚è‘Ö‚¦
+	m_stateFrameCount = 0;
+	m_state = &Player::Attacked;
+	Input& input = Input::GetInstance();
+	Vector2 axis = input.GetInputAxis();
+	m_graphic = "‚â‚Á‚½‚ºB";
+	(this->*m_state)(input, axis);
+	return;
 }

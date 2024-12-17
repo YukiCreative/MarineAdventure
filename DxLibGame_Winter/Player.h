@@ -55,6 +55,8 @@ private:
 	void StrongAttack(Input& input, Vector2& axis);
 	void Damage(Input& input, Vector2& axis);
 	void Death(Input& input, Vector2& axis);
+	// 敵にダメージを与えた後の硬直
+	void Attacked(Input& input, Vector2& axis);
 
 	void SetStateNormal();
 
@@ -91,4 +93,9 @@ public:
 	bool CheckState(PlayerState stateID) const;
 	// ダメージを与えたいときに流してもらう
 	void OnDamage(int damage = 1);
+	// physicsのオーバーラップ
+	void AddForce(const Vector2& force);
+	void Stop();
+	// 攻撃時の振る舞い
+	void OnAttack();
 };

@@ -25,18 +25,20 @@ void HarmFish::Idle()
 		{
 			// ここでHPを減らす
 			--m_hp;
-			// プレイヤーをぶっ飛ばす
 			printf("HP%dになたよ", m_hp);
 			m_graphic = ">_<";
 			m_state = &HarmFish::Damage;
-			(this->*m_state)();
-			return;
+			// プレイヤーに「攻撃した」と教える
+			m_playerRef.OnAttack();
 		}
 		else
 		{
 			// ここでプレイヤーにダメージを教えてあげる
 			m_playerRef.OnDamage();
 		}
+		// プレイヤーをぶっ飛ばす
+		m_playerRef.Stop();
+		m_playerRef.AddForce(-collision.overlap.GetNormalize());
 	}
 }
 
