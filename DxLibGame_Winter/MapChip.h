@@ -22,7 +22,7 @@ private:
 	// “®‚«‚ğ‹L‰¯
 	Vector2 m_movePos;
 	// ‰æ‘œ
-	int m_graphHandle;
+	int m_sourceHandle;
 	// “–‚½‚è”»’è
 	std::shared_ptr<BoxCollider> m_collider;
 	// ƒJƒƒ‰‚³‚ñ

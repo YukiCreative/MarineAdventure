@@ -29,14 +29,14 @@ TestScene::TestScene() :
 	m_player = std::make_shared<Player>(*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
 	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont, "Data/MapData/TestMapData32x16.fmf");
-	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenModdlePos, "Data/Image/海背景.jpg");
+	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenModdlePos, "Data/Image/Marine.jpg");
 
 	m_player->Init(m_map);
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_backGround->ExpandGtaph(3.0f);
-	// フェードイン
-	m_fade.Fade(120, 100);
+	// フェードパネルを表示
+	m_fade.Fade(60, 0);
 }
 
 TestScene::~TestScene()

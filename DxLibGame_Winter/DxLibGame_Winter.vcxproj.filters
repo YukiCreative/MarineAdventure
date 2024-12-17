@@ -141,6 +141,12 @@
     <ClCompile Include="ScreenFade.cpp">
       <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
+    <ClCompile Include="ImageStore.cpp">
+      <Filter>ソース ファイル\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>ソース ファイル\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -243,6 +249,12 @@
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
     <ClInclude Include="ScreenFade.h">
+      <Filter>ヘッダー ファイル\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageStore.h">
+      <Filter>ヘッダー ファイル\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
   </ItemGroup>

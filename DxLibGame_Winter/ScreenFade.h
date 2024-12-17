@@ -3,11 +3,11 @@
 #include <memory>
 #include <algorithm>
 
-// 0~255に制限されたただのfloat
+// 0~100に制限されたただのfloat
 struct Alpha
 {
 	const float kMinValue = 0;
-	const float kMaxValue = 255;
+	const float kMaxValue = 100;
 	float value;
 	Alpha() : value(0) {}
 	Alpha(float _value)
@@ -35,7 +35,7 @@ private:
 	int m_fadeFrame;
 	// 1フレームにどれだけ透明度を変えるか
 	float m_transParFrame;
-	// 描画の今の透明度 0~255
+	// 描画の今の透明度 0~100%
 	Alpha m_alpha;
 	// 目指す透明度
 	Alpha m_targetAlpha;
@@ -61,7 +61,7 @@ public:
 	/// </summary>
 	/// <param name="totalFrame">フェードに要する時間</param>
 	/// <param name="percent">最終的な透明度(百分率)</param>
-	void Fade(int totalFrame, int percent);
+	void Fade(const int& totalFrame, const float& percent);
 	void SetColor(const unsigned int& value) { m_color = value; }
 };
 

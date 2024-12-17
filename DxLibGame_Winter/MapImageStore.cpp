@@ -1,6 +1,7 @@
 #include "MapImageStore.h"
 #include <DxLib.h>
 #include <cassert>
+#include "ImageStore.h"
 
 namespace
 {
@@ -14,7 +15,7 @@ MapImageStore::MapImageStore()
 {
 	// マップチップの画像を読んで、それを16x16に分割したやつも作る
 	// 作ったハンドルは配列に入れる
-	m_sourceHandle = LoadGraph("Data/Image/MapChip.png");
+	m_sourceHandle = ImageStore::GetInstance().GetGraph("Data/Image/MapChip.png");
 	assert(m_sourceHandle != -1);
 	for (int y = 0; y < kHeightChipNum; ++y)
 	{
@@ -30,7 +31,6 @@ MapImageStore::MapImageStore()
 MapImageStore::~MapImageStore()
 {
 	// 画像の消去
-	DeleteGraph(m_sourceHandle);
 	for (const auto& handle : m_imageArray)
 	{
 		// これでいけるはず

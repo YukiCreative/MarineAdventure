@@ -36,7 +36,7 @@ private:
 	/// <param name="moveValue">現在の位置からどれだけ移動させるか</param>
 	void MoveMap(Vector2 moveValue);
 public:
-	MapSystem(Camera& camera, ObjectsController& cont, std::string pass);
+	MapSystem(Camera& camera, ObjectsController& cont, std::string path);
 
 	/// <summary>
 	/// 現在の描画場所に応じて表示するマップチップを判断

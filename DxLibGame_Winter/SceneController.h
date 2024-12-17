@@ -16,6 +16,7 @@ private:
 	void operator=(const SceneController&) = delete;
 
 	std::shared_ptr<Scene> m_scene;
+	bool m_changedSceneInThisFrame;
 public:
 	static SceneController& GetInstance();
 

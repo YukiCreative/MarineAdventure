@@ -7,19 +7,19 @@
 class Image
 {
 private:
-	int m_graphHandle;
+	int m_sourceHandle;
 	float m_expandRate;
 	float m_angle;
 	int m_blendMode;
 	uint8_t m_blendPal;
 public:
-	Image(const std::string& pass);
-	~Image();
+	Image(const int& handle);
+	Image(const std::string& path);
 
-	void Draw(Vector2 pos) const;
+	void Draw(const Vector2& pos) const;
 
-	void SetGraph(const int& handle) { m_graphHandle = handle; }
-	void SetGraph(const std::string& pass);
+	void SetGraph(const int& handle) { m_sourceHandle = handle; }
+	void SetGraph(const std::string& path);
 
 	// åªç›ÇÃâΩî{ÇÃëÂÇ´Ç≥Ç…Ç∑ÇÈÇ©
 	void ExpandGraph(const float& exRate) { m_expandRate *= exRate; }
@@ -37,5 +37,6 @@ public:
 	}
 	void SetImageBlendMode(const int& blendMode) { m_blendMode = blendMode; }
 	void SetImageBlendPal(const int& pal) { m_blendPal = pal; }
+	int GraphHandle() const { return m_sourceHandle; }
 };
 

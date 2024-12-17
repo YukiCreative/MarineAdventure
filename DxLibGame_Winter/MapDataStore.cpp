@@ -13,14 +13,14 @@ namespace
 	constexpr int kGraphInvisible = 159;
 }
 
-MapDataStore::MapDataStore(std::string pass)
+MapDataStore::MapDataStore(std::string path)
 {
-	LoadMapData(pass);
+	LoadMapData(path);
 }
 
-void MapDataStore::LoadMapData(std::string pass)
+void MapDataStore::LoadMapData(std::string path)
 {
-	int mapHandle = FileRead_open(pass.c_str());
+	int mapHandle = FileRead_open(path.c_str());
 	// きまったバイト数を読み込む　これは変わらない
 	FileRead_read(&m_fmfHeader, sizeof(m_fmfHeader), mapHandle);
 	assert(m_fmfHeader.bitCount == kBitCount && "ビットカウントは8しか対応できませぬ");

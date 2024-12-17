@@ -13,7 +13,7 @@ void MapChip::ResetMapData()
 {
 	// マップデータに問い合わせてマップ情報をもらう
 	ObjectKind objKind;
-	m_system.GetMapChipData(m_mapPos, m_graphHandle, objKind);
+	m_system.GetMapChipData(m_mapPos, m_sourceHandle, objKind);
 	m_objectsController.SpawnObject(objKind, m_pos);
 	// 線分の当たり判定を設定する
 	bool isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x, m_mapPos.y - 1)); // 上
@@ -79,7 +79,7 @@ bool MapChip::CheckLoopDownAndRight()
 
 MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
 	GameObject(initPos),
-	m_graphHandle(-1),
+	m_sourceHandle(-1),
 	m_camera(camera),
 	m_objectsController(cont),
 	m_mapPos(initMapPos),
@@ -109,7 +109,7 @@ void MapChip::Update()
 void MapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
-	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), MapConstants::kExRate, 0, m_graphHandle, true);
+	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), MapConstants::kExRate, 0, m_sourceHandle, true);
 #if _DEBUG
 	//DrawPixel(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 0xff0000);
 #endif
@@ -118,10 +118,10 @@ void MapChip::Draw() const
 bool MapChip::CanCollide() const
 {
 	// これ変えたいな
-	return m_graphHandle != -1;
+	return m_sourceHandle != -1;
 }
 
 void MapChip::ChangeGraph_Debug()
 {
-	m_graphHandle = MapImageStore::GetInstance().GetGraph(158);
+	m_sourceHandle = MapImageStore::GetInstance().GetGraph(158);
 }

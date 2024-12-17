@@ -16,7 +16,7 @@ private:
 	// 1ƒtƒŒ[ƒ€‚Ì’†‚ÅˆÚ“®—Ê‚ğ‹L‰¯
 	Vector2 m_velocity;
 public:
-	BackGround(Camera& camera, const Vector2& initPos, const std::string& pass);
+	BackGround(Camera& camera, const Vector2& initPos, const std::string& path);
 
 	void Update() override;
 	void Draw() const override;
@@ -24,7 +24,7 @@ public:
 	void Move(Vector2 amount) { m_velocity += amount; };
 	// Image‚ÌŠÖ”‚ğ‚»‚Ì‚Ü‚Üˆø‚«Œp‚®
 	void SetGraph(const int& handle);
-	void SetGraph(const std::string& pass);
+	void SetGraph(const std::string& path);
 	void ExpandGtaph(const float& exRate);
 	void SetExRate(const float& value);
 	void RotateGraph(const float& deg);

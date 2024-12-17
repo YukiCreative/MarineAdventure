@@ -10,7 +10,7 @@ class CircleCollider;
 class Camera;
 class Input;
 class MapSystem;
-class Image;
+class Animation;
 
 enum class PlayerState
 {
@@ -32,7 +32,8 @@ private:
 	// コンポーネント
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
-	std::shared_ptr<Image> m_image;
+	std::shared_ptr<Animation> m_nowAnim;
+	std::shared_ptr<Animation> m_idleAnim;
 
 	std::weak_ptr<MapSystem> m_map;
 	Camera& m_camera;

@@ -10,7 +10,8 @@
 #include "Camera.h"
 #include <cassert>
 #include "SceneController.h"
-#include "Image.h"
+#include "Animation.h"
+#include "ImageStore.h"
 
 namespace
 {
@@ -185,15 +186,19 @@ void Player::SetStateNormal()
 
 Player::Player(Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
-	m_physics(std::make_shared<Physics>(1.0f, 1.0f)),
+	
 	m_state(&Player::Normal),
 	m_graphic("N"),
 	m_stateFrameCount(0),
 	m_hp(kMaxHp),
 	m_camera(camera)
 {
+	ImageStore& imageStore = ImageStore::GetInstance();
+	m_physics = std::make_shared<Physics>(1.0f, 1.0f),
 	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
-	m_image = std::make_shared<Image>("Data/Image/Penguin.png");
+	m_idleAnim = std::make_shared<Animation>();
+	m_idleAnim->Init("Data/Image/Idle (32x32).png", 32, 2);
+	m_nowAnim = m_idleAnim;
 }
 
 Player::~Player()
@@ -234,13 +239,15 @@ void Player::Update()
 
 	// ÅŒã‚ÉˆÚ“®
 	m_pos += vel;
+
+	m_nowAnim->Update();
 }
 
 void Player::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
-	m_image->Draw(screenPos);
+	m_nowAnim->Draw(screenPos);
 #if _DEBUG
 	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);

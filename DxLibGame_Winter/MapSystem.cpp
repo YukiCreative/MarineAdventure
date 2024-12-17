@@ -9,10 +9,10 @@
 #include "ObjectsController.h"
 #include "MapDataStore.h"
 
-MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string pass)
+MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string path)
 {
 	// マップデータを初期化
-	m_mapData = std::make_shared<MapDataStore>(pass.c_str());
+	m_mapData = std::make_shared<MapDataStore>(path.c_str());
 
 	// マップチップのメモリ確保
 	// マップの初期位置を設定

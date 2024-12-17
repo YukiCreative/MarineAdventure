@@ -43,11 +43,11 @@ private:
 	using MapList_t = std::vector<std::vector<uint8_t>>;
 	MapList_t m_mapData;
 public:
-	MapDataStore(std::string pass);
+	MapDataStore(std::string path);
 
 	// 文字通り
 	// 古いマップデータはスマポで破棄される
-	void LoadMapData(std::string pass);
+	void LoadMapData(std::string path);
 
 	/// <summary>
 	/// マップ座標からお目当てのマップチップのデータを返す

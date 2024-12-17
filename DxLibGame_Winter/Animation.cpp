@@ -1,0 +1,49 @@
+#include "Animation.h"
+#include "Image.h"
+#include <memory>
+#include "Vector2.h"
+#include <cassert>
+#include "ImageStore.h"
+
+void Animation::Init(const std::string& path, const int& oneFrameSize, const int& playSpeed)
+{
+	m_oneAnimTime = playSpeed;
+	// Imageを初期化
+	m_image = std::make_shared<Image>(-1);
+	m_sourceHandle = ImageStore::GetInstance().GetGraph(path);
+	// 画像サイズが、oneFrameSizeで割り切れるか調べる
+	Vector2Int graphSize;
+	GetGraphSize(m_sourceHandle, &graphSize.x, &graphSize.y);
+	assert(!(graphSize.x % oneFrameSize) && "与えられたサイズで横分割してみたけど余りが出たよ");
+	// コマ数の分だけ画像を記憶できるようにする
+	m_frameHandle.resize(graphSize.x / oneFrameSize);
+	for (int x = 0; auto& graph : m_frameHandle)
+	{
+		graph = DerivationGraph(x * oneFrameSize, 0, oneFrameSize, oneFrameSize, m_sourceHandle);
+		++x;
+	}
+	// こんなんでいいや
+	m_allAnimNum = m_frameHandle.size();
+	// 全体フレーム
+	m_allFrame = m_oneAnimTime * m_allAnimNum;
+}
+
+void Animation::Update()
+{
+	// フレームを進める
+	++m_frameCount;
+	if (m_frameCount >= m_allFrame)
+	{
+		m_frameCount = 0;
+	}
+
+	// 現在の画像の番号を求める
+	m_nowAnimNum = m_frameCount / m_oneAnimTime;
+}
+
+void Animation::Draw(const Vector2& pos) const
+{
+	// 現在の画像番号によって画像を切り替える
+	m_image->SetGraph(m_frameHandle[m_nowAnimNum]);
+	m_image->Draw(pos);
+}

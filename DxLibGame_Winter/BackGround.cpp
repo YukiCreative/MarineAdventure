@@ -5,11 +5,11 @@
 #include <string>
 #include "Camera.h"
 
-BackGround::BackGround(Camera& camera, const Vector2& initPos, const std::string& graphPass) :
+BackGround::BackGround(Camera& camera, const Vector2& initPos, const std::string& graphPath) :
 	GameObject(initPos),
 	m_camera(camera)
 {
-	m_image = std::make_shared<Image>(graphPass);
+	m_image = std::make_shared<Image>(graphPath);
 }
 
 void BackGround::Update()
@@ -30,9 +30,9 @@ void BackGround::SetGraph(const int& handle)
 	m_image->SetGraph(handle);
 }
 
-void BackGround::SetGraph(const std::string& pass)
+void BackGround::SetGraph(const std::string& path)
 {
-	m_image->SetGraph(pass);
+	m_image->SetGraph(path);
 }
 
 void BackGround::ExpandGtaph(const float& exRate)
