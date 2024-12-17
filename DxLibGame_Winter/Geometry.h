@@ -7,7 +7,7 @@
 namespace Geometry
 {
 	// 点と、線分の最近傍点を返す
-	Vector2 GetIntercept(Vector2 pos, Vector2 first, Vector2 second)
+	Vector2 GetSegmentIntercept(Vector2 pos, Vector2 first, Vector2 second)
 	{
 		Vector2 startToEnd = second - first;
 		// 正規化
@@ -29,6 +29,15 @@ namespace Geometry
 		{
 			return first + startToEndN * Vector2::Dot(startToEndN, startToPos);
 		}
+	}
+
+	// 点と、二点を通る直線の最近傍点を返す
+	Vector2 GetLineIntercept(Vector2 pos, Vector2 first, Vector2 second)
+	{
+		// 正規化
+		Vector2 startToEndN = (second - first).GetNormalize();
+		Vector2 startToPos = pos - first;
+		return first + startToEndN * Vector2::Dot(startToEndN, startToPos);
 	}
 }
 

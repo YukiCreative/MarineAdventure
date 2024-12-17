@@ -23,8 +23,6 @@ void MapDataStore::LoadMapData(std::string path)
 	int mapHandle = FileRead_open(path.c_str());
 	// きまったバイト数を読み込む　これは変わらない
 	FileRead_read(&m_fmfHeader, sizeof(m_fmfHeader), mapHandle);
-	assert(m_fmfHeader.bitCount == kBitCount && "ビットカウントは8しか対応できませぬ");
-	assert(m_fmfHeader.layerCount == kLayerCount && "レイヤーは二層でございます");
 
 	// FMF_ってのをstrIDにぶち込んでる
 	std::string strId;
@@ -33,9 +31,9 @@ void MapDataStore::LoadMapData(std::string path)
 	// わざわざstringに写すのは、
 	// 終端文字問題と、
 	// エディタの警告を黙らせるためだと推測
-	if (strId != "FMF_") {
-		assert(false && "「なにこのファイル」って言ってる。多分");
-	}
+	assert(strId == "FMF_" && "ファイル形式が不明です");
+	assert(m_fmfHeader.bitCount == kBitCount && "ビットカウントは8しか対応できませぬ");
+	assert(m_fmfHeader.layerCount == kLayerCount && "レイヤーは二層でございます");
 
 	// 一つのレイヤーのバイト(=チップ)数を取得
 	int layerDataSize = m_fmfHeader.mapWidth * m_fmfHeader.mapHeight * (m_fmfHeader.bitCount / 8);

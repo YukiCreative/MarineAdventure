@@ -5,7 +5,7 @@
 #include <cassert>
 #include "ImageStore.h"
 
-void Animation::Init(const std::string& path, const int& oneFrameSize, const int& playSpeed)
+void Animation::Init(const std::string& path, const Vector2Int& oneFrameSize, const int& playSpeed)
 {
 	m_oneAnimTime = playSpeed;
 	// Imageを初期化
@@ -14,12 +14,12 @@ void Animation::Init(const std::string& path, const int& oneFrameSize, const int
 	// 画像サイズが、oneFrameSizeで割り切れるか調べる
 	Vector2Int graphSize;
 	GetGraphSize(m_sourceHandle, &graphSize.x, &graphSize.y);
-	assert(!(graphSize.x % oneFrameSize) && "与えられたサイズで横分割してみたけど余りが出たよ");
+	assert(!(graphSize.x % oneFrameSize.x) && "与えられたサイズで横分割してみたけど余りが出たよ");
 	// コマ数の分だけ画像を記憶できるようにする
-	m_frameHandle.resize(graphSize.x / oneFrameSize);
+	m_frameHandle.resize(graphSize.x / oneFrameSize.x);
 	for (int x = 0; auto& graph : m_frameHandle)
 	{
-		graph = DerivationGraph(x * oneFrameSize, 0, oneFrameSize, oneFrameSize, m_sourceHandle);
+		graph = DerivationGraph(x * oneFrameSize.x, 0, oneFrameSize.x, oneFrameSize.y, m_sourceHandle);
 		++x;
 	}
 	// こんなんでいいや

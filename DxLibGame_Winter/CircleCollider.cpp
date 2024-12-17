@@ -124,8 +124,8 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     // 当たっているかは、半径を考慮して出す
     result.isCollide = (segmentMinLength < circle.GetRadius());
 
-    // 円の未来の位置と線分の最近傍点を出す
-    Vector2 futureNearestPos = geo::GetIntercept(futurePos, line.GetFirstPos(), line.GetSecondPos());
+    // 円の未来の位置と「直線」の最近傍点を出す
+    Vector2 futureNearestPos = geo::GetSegmentIntercept(futurePos, line.GetFirstPos(), line.GetSecondPos());
     // もしこれが線分の端ならめり込まなかったことに
     if (futureNearestPos == line.GetFirstPos() || futureNearestPos == line.GetSecondPos())
     {

@@ -25,8 +25,9 @@ namespace
 	constexpr float kAttackFrame = 60.0f;
 	constexpr float kInvincibleFrame = 90.0f;
 	constexpr float kStrongAttackForce = 20.0f;
+	constexpr float kBounceFactor = 1.2f;
 
-	Vector2 tempOverLapDraw;
+	const Vector2Int kPlayerGraphSize(32, 32);
 }
 
 // 何も操作されていない状態。
@@ -186,7 +187,6 @@ void Player::SetStateNormal()
 
 Player::Player(Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
-	
 	m_state(&Player::Normal),
 	m_graphic("N"),
 	m_stateFrameCount(0),
@@ -196,8 +196,9 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 	ImageStore& imageStore = ImageStore::GetInstance();
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f),
 	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
+	// ここからアニメーションの初期化
 	m_idleAnim = std::make_shared<Animation>();
-	m_idleAnim->Init("Data/Image/Idle (32x32).png", 32, 2);
+	m_idleAnim->Init("Data/Image/Idle (32x32).png", kPlayerGraphSize, 2);
 	m_nowAnim = m_idleAnim;
 }
 
@@ -230,11 +231,9 @@ void Player::Update()
 		Vector2 overlapN = col.overlap.GetNormalize();
 		// 現在の速度の分、当たっている壁の向きだけ力を加える
 		Vector2 addforce(vel.x * std::abs(overlapN.x), vel.y * std::abs(overlapN.y));
-		m_physics->AddForce(-addforce * 1.5f);
+		m_physics->AddForce(-addforce * kBounceFactor);
 
 		vel -= col.overlap;
-
-		tempOverLapDraw = col.overlap;
 	}
 
 	// 最後に移動

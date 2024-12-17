@@ -22,7 +22,7 @@ ImageStore::ImageStore()
         std::string path = file.path().string();
         m_store[path] = LoadGraph(path.c_str());
         printf("%d\n", m_store[path]);
-        assert(m_store[path] != -1 && "何かがおかしい");
+        assert(m_store[path] != -1 && "画像ではないファイル形式が混入している可能性があります");
         printf("%s\n", path.c_str());
     }
     for (const auto& pair : m_store)
@@ -31,7 +31,6 @@ ImageStore::ImageStore()
         printf("%d\n", pair.second);
     }
 }
-
 
 ImageStore::~ImageStore()
 {

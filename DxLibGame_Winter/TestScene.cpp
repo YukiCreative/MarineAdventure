@@ -17,24 +17,24 @@
 
 namespace
 {
-	const Vector2 kScreenModdlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
+	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
+	const 	Vector2 initPlayerPos(0, 0);
 }
 
 TestScene::TestScene() :
 	m_frameCount(0),
 	m_fade(ScreenFade::Getinstance())
 {
-	Vector2 initPlayerPos(400, 500);
 	m_camera = std::make_shared<Camera>(initPlayerPos);
 	m_player = std::make_shared<Player>(*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
 	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont, "Data/MapData/TestMapData32x16.fmf");
-	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenModdlePos, "Data/Image/Marine.jpg");
+	m_backGround = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), "Data/Image/Marine.jpg");
 
 	m_player->Init(m_map);
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
-	m_backGround->ExpandGtaph(3.0f);
+	m_backGround->ExpandGtaph(2.0f);
 	// フェードパネルを表示
 	m_fade.Fade(60, 0);
 }
