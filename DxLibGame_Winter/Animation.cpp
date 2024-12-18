@@ -23,7 +23,7 @@ void Animation::Init(const std::string& path, const Vector2Int& oneFrameSize, co
 		++x;
 	}
 	// ‚±‚ñ‚È‚ñ‚Å‚¢‚¢‚â
-	m_allAnimNum = m_frameHandle.size();
+	m_allAnimNum = static_cast<int>(m_frameHandle.size());
 	// ‘S‘ÌƒtƒŒ[ƒ€
 	m_allFrame = m_oneAnimTime * m_allAnimNum;
 }

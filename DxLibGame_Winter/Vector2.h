@@ -21,17 +21,17 @@ public:
 	{
 	}
 
-	Vector2(float _x, float _y) : x(_x), y(_y), isValid(true)
+	Vector2(const float& _x, const float& _y) : x(_x), y(_y), isValid(true)
 	{
 	}
 
-	Vector2(int _x, int _y) : x(static_cast<float>(_x)), y(static_cast<float>(_y)), isValid(true)
+	Vector2(const int& _x, const int& _y) : x(static_cast<float>(_x)), y(static_cast<float>(_y)), isValid(true)
 	{
 	}
 
 	// floatからの変換コンストラクタ
 	// floatの演算子オーバーロードを省略できる
-	Vector2(float value) : x(value), y(value), isValid(true)
+	Vector2(const float& value) : x(value), y(value), isValid(true)
 	{
 	}
 
@@ -124,7 +124,7 @@ public:
 	/// 大きさの二乗を返す
 	/// </summary>
 	/// <returns>ベクトルの大きさの二乗</returns>
-	virtual float SqrMagnitude()
+	virtual float SqrMagnitude() const
 	{
 		return x * x + y * y;
 	}
@@ -133,7 +133,7 @@ public:
 	///  大きさ返す
 	/// </summary>
 	/// <returns>大きさ</returns>
-	float Magnitude()
+	float Magnitude() const
 	{
 		return std::sqrtf(x * x + y * y);
 	}
@@ -155,7 +155,7 @@ public:
 	/// 単位ベクトルにしたコピーを返す
 	/// </summary>
 	/// <returns>単位ベクトル(コピー)</returns>
-	Vector2 GetNormalize()
+	Vector2 GetNormalize() const
 	{
 		Vector2 result;
 		float mag = Magnitude();
@@ -261,7 +261,7 @@ struct NaV : public Vector2
 	// ダウンキャスト用
 	explicit NaV(Vector2) : Vector2(false) {};
 
-	float SqrMagnitude() override
+	float SqrMagnitude() const override
 	{
 		return std::numeric_limits<float>::quiet_NaN();
 	}
@@ -280,31 +280,47 @@ struct Vector2Int
 
 	Vector2Int() : x(0), y(0) {}
 
-	Vector2Int(int _x, int _y) : x(_x), y(_y) {}
+	Vector2Int(const int& _x, const int& _y) : x(_x), y(_y) {}
 
-	Vector2Int(int value) : x(value), y(value) {}
+	Vector2Int(const int& value) : x(value), y(value) {}
 
-	void operator+=(Vector2Int right)
+	// Vector2への変換関数
+	operator Vector2()
+	{
+		return Vector2(static_cast<float>(x), static_cast<float>(y));
+	}
+
+	void operator+=(const Vector2Int& right)
 	{
 		x += right.x;
 		y += right.y;
 	}
 
-	void operator-=(Vector2Int right)
+	void operator-=(const Vector2Int& right)
 	{
 		x -= right.x;
 		y -= right.y;
 	}
 
-	Vector2Int operator*=(int right)
+	void operator*=(const int& right)
 	{
 		x *= right;
 		y *= right;
 	}
 
-	Vector2Int operator/=(int right)
+	Vector2Int operator*(const int& right)
+	{
+		return Vector2Int(x * right, y * right);
+	}
+
+	void operator/=(int right)
 	{
 		x /= right;
 		y /= right;
+	}
+
+	Vector2Int operator/(const int& right)
+	{
+		return Vector2Int(x / right, y / right);
 	}
 };

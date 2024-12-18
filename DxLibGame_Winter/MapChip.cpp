@@ -8,13 +8,16 @@
 #include "MapSystem.h"
 #include "Player.h"
 #include "MapImageStore.h"
+#include "Image.h"
 
 void MapChip::ResetMapData()
 {
 	// マップデータに問い合わせてマップ情報をもらう
-	ObjectKind objKind;
-	m_system.GetMapChipData(m_mapPos, m_sourceHandle, objKind);
-	m_objectsController.SpawnObject(objKind, m_pos);
+	MapChipData chipData = m_system.GetMapChipData(m_mapPos);
+	// 画像
+	m_chipImage->SetGraph(chipData.graphHandle);
+	m_backImage->SetGraph(chipData.backGraphHandle);
+	m_objectsController.SpawnObject(chipData.objKind, m_pos);
 	// 線分の当たり判定を設定する
 	bool isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x, m_mapPos.y - 1)); // 上
 	m_collider->SetIsLineValid(LineDir::Top, isLineValid);
@@ -79,13 +82,16 @@ bool MapChip::CheckLoopDownAndRight()
 
 MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
 	GameObject(initPos),
-	m_sourceHandle(-1),
 	m_camera(camera),
 	m_objectsController(cont),
 	m_mapPos(initMapPos),
 	m_system(system)
 {
 	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
+	m_chipImage = std::make_shared<Image>(-1);
+	m_chipImage->SetExRate(2.0f);
+	m_backImage = std::make_shared<Image>(-1);
+	m_backImage->SetExRate(2.0f);
 	ResetMapData();
 }
 
@@ -109,7 +115,8 @@ void MapChip::Update()
 void MapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
-	DrawRotaGraph(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), MapConstants::kExRate, 0, m_sourceHandle, true);
+	m_backImage->Draw(drawPos);
+	m_chipImage->Draw(drawPos);
 #if _DEBUG
 	DrawPixel(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 0xff0000);
 	DrawFormatString(static_cast<int>(drawPos.x) - 20, static_cast<int>(drawPos.y), 0xff0000, "X;%d\nY:%d", m_mapPos.x, m_mapPos.y);
@@ -119,10 +126,10 @@ void MapChip::Draw() const
 bool MapChip::CanCollide() const
 {
 	// これ変えたいな
-	return m_sourceHandle != -1;
+	return m_chipImage->GraphHandle() != -1;
 }
 
 void MapChip::ChangeGraph_Debug()
 {
-	m_sourceHandle = MapImageStore::GetInstance().GetGraph(158);
+	m_chipImage->SetGraph(MapImageStore::GetInstance().GetGraph(158));
 }

@@ -8,13 +8,14 @@
 
 namespace
 {
-	constexpr int kLayerCount = 2;
+	constexpr int kLayerCount = 4;
 	constexpr int kBitCount = 8;
-	constexpr int kGraphInvisible = 159;
+	constexpr int kGraphInvisible = 0;
 }
 
 MapDataStore::MapDataStore(std::string path)
 {
+	m_mapData = std::make_unique<MapList_t>();
 	LoadMapData(path);
 }
 
@@ -33,14 +34,15 @@ void MapDataStore::LoadMapData(std::string path)
 	// エディタの警告を黙らせるためだと推測
 	assert(strId == "FMF_" && "ファイル形式が不明です");
 	assert(m_fmfHeader.bitCount == kBitCount && "ビットカウントは8しか対応できませぬ");
-	assert(m_fmfHeader.layerCount == kLayerCount && "レイヤーは二層でございます");
+	assert(m_fmfHeader.layerCount == kLayerCount && "レイヤーは4層になりました");
 
 	// 一つのレイヤーのバイト(=チップ)数を取得
 	int layerDataSize = m_fmfHeader.mapWidth * m_fmfHeader.mapHeight * (m_fmfHeader.bitCount / 8);
 	
 	// レイヤー数*チップ数の要素を持たせる
-	m_mapData.resize(m_fmfHeader.layerCount);
-	for (auto& tempLayerData : m_mapData)
+	m_mapData->clear();
+	m_mapData->resize(m_fmfHeader.layerCount);
+	for (auto& tempLayerData : *m_mapData)
 	{
 		// 要素数を確保しーの
 		tempLayerData.resize(layerDataSize);
@@ -53,7 +55,7 @@ void MapDataStore::LoadMapData(std::string path)
 	FileRead_close(mapHandle);
 }
 
-MapChipData MapDataStore::GetMapData(Vector2Int mapPos)
+MapChipData MapDataStore::GetMapData(Vector2Int mapPos) const
 {
 	// ここでハンドルや列挙体など、使える形にしてしまう
 	MapChipData result;
@@ -66,25 +68,34 @@ MapChipData MapDataStore::GetMapData(Vector2Int mapPos)
 	{
 		// 何も画像を入れない->透明
 		result.graphHandle = -1;
+		result.backGraphHandle = -1;
 		// 何もスポーンしない
 		result.objKind = ObjectKind::kEmpty;
+		// 一応水で
+		result.environment = Environment::kWater;
 	}
 	else
 	{
 		const int chipIndex = mapPos.y * m_fmfHeader.mapWidth + mapPos.x;
-		const int graphNum = static_cast<int>((m_mapData)[0][chipIndex]);
+		const int graphNum = static_cast<int>((*m_mapData)[0][chipIndex]);
+		// 環境
+		result.environment = static_cast<Environment>((*m_mapData)[0][chipIndex]);
+		// 背景画像
+		result.backGraphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[1][chipIndex]));
 		if (graphNum != kGraphInvisible)
 		{
-			result.graphHandle = imgStore.GetGraph(static_cast<int>((m_mapData)[0][chipIndex]));
+			result.graphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[2][chipIndex]));
 		}
 		else
 		{
-			// 画像番号0は特殊
+			// 画像番号kGraphInvisibleは特殊
 			// 透明な画像ハンドルでもいいが、一意の値にしないと
 			// チップ側で透明かどうかわからないという欠陥仕様
+			// bool値でも持たせようかな
 			result.graphHandle = -1;
 		}
-		result.objKind = static_cast<ObjectKind>((m_mapData)[1][chipIndex]);
+		// 出現するオブジェクト
+		result.objKind = static_cast<ObjectKind>((*m_mapData)[3][chipIndex]);
 	}
 	return result;
 }

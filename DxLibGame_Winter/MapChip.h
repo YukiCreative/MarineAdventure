@@ -9,6 +9,7 @@ class Camera;
 class ObjectsController;
 class MapSystem;
 class Player;
+class Image;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -22,7 +23,8 @@ private:
 	// 動きを記憶
 	Vector2 m_movePos;
 	// 画像
-	int m_sourceHandle;
+	std::shared_ptr<Image> m_chipImage;
+	std::shared_ptr<Image> m_backImage;
 	// 当たり判定
 	std::shared_ptr<BoxCollider> m_collider;
 	// カメラさん

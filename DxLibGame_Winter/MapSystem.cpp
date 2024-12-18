@@ -78,11 +78,9 @@ bool MapSystem::GetMapChipNotCollidable(const Vector2Int& mapPos) const
 	return m_mapData->GetMapData(mapPos).graphHandle == -1;
 }
 
-void MapSystem::GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind)
+MapChipData MapSystem::GetMapChipData(const Vector2Int& mapPos) const
 {
-	MapChipData tempData = m_mapData->GetMapData(mapPos);
-	handle = tempData.graphHandle;
-	kind = tempData.objKind;
+	return  m_mapData->GetMapData(mapPos);
 }
 
 Vector2Int MapSystem::GetMapSize()

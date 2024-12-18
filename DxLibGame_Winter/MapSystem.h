@@ -58,7 +58,7 @@ public:
 	// 与えられたマップ座標が壁かどうかを返す
 	bool GetMapChipNotCollidable(const Vector2Int& mapPos) const;
 
-	void GetMapChipData(const Vector2Int& mapPos, int& handle, ObjectKind& kind);
+	MapChipData GetMapChipData(const Vector2Int& mapPos) const;
 	Vector2Int GetMapSize();
 };
 

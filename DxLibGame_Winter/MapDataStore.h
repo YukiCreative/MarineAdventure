@@ -5,13 +5,23 @@
 #include <memory>
 #include "ObjectKind.h"
 
+// 地上か水中か
+enum class Environment
+{
+	kWater,
+	kGround,
+};
+
 // マップのいろいろをまとめる
-// 内部では使わないかも
+// 外部に渡す用
 struct MapChipData
 {
 	int graphHandle;
+	int backGraphHandle;
 	// 敵、ギミックなどオブジェクトの有無と種類を指し示す列挙体
 	ObjectKind objKind;
+	// 地上or水中
+	Environment environment;
 };
 
 /// <summary>
@@ -40,8 +50,9 @@ private:
 
 	// なげえ
 	// めんどいからスタックに入れていい？
+	// だめ
 	using MapList_t = std::vector<std::vector<uint8_t>>;
-	MapList_t m_mapData;
+	std::unique_ptr<MapList_t> m_mapData;
 public:
 	MapDataStore(std::string path);
 
@@ -53,7 +64,7 @@ public:
 	/// マップ座標からお目当てのマップチップのデータを返す
 	/// </summary>
 	/// <param name="id"></param>
-	MapChipData GetMapData(Vector2Int mapPos);
+	MapChipData GetMapData(Vector2Int mapPos) const;
 
 	Vector2Int GetMapSize() const { return Vector2Int(m_fmfHeader.mapWidth, m_fmfHeader.mapHeight); }
 };
