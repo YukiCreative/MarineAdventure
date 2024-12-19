@@ -189,6 +189,30 @@ void Player::Attacked(Input& input, Vector2& axis)
 	}
 }
 
+void Player::GNormal(Input& input, Vector2& axis)
+{
+}
+
+void Player::GMove(Input& input, Vector2& axis)
+{
+
+}
+
+void Player::GDash(Input& input, Vector2& axis)
+{
+	// 腹滑りでもする？ペンギンだし
+}
+
+void Player::Jump(Input& input, Vector2& axis)
+{
+	// 何もしない
+}
+
+void Player::GAttack(Input& input, Vector2& axis)
+{
+	// 突進はない
+}
+
 void Player::SetStateNormal()
 {
 	// 状態遷移する処理が重複していたので
