@@ -72,19 +72,19 @@ MapChipData MapDataStore::GetMapData(Vector2Int mapPos) const
 		// 何もスポーンしない
 		result.objKind = ObjectKind::kEmpty;
 		// 一応水で
-		result.environment = Environment::kWater;
+		result.environment = MapConstants::Environment::kWater;
 	}
 	else
 	{
 		const int chipIndex = mapPos.y * m_fmfHeader.mapWidth + mapPos.x;
-		const int graphNum = static_cast<int>((*m_mapData)[0][chipIndex]);
+		const int graphNum = static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kMapChip)][chipIndex]);
 		// 環境
-		result.environment = static_cast<Environment>((*m_mapData)[0][chipIndex]);
+		result.environment = static_cast<MapConstants::Environment>((*m_mapData)[static_cast<int>(MapLayerAttribute::Environment)][chipIndex]);
 		// 背景画像
-		result.backGraphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[1][chipIndex]));
+		result.backGraphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kBackImage)][chipIndex]));
 		if (graphNum != kGraphInvisible)
 		{
-			result.graphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[2][chipIndex]));
+			result.graphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kMapChip)][chipIndex]));
 		}
 		else
 		{
@@ -95,7 +95,7 @@ MapChipData MapDataStore::GetMapData(Vector2Int mapPos) const
 			result.graphHandle = -1;
 		}
 		// 出現するオブジェクト
-		result.objKind = static_cast<ObjectKind>((*m_mapData)[3][chipIndex]);
+		result.objKind = static_cast<ObjectKind>((*m_mapData)[static_cast<int>(MapLayerAttribute::kObjects)][chipIndex]);
 	}
 	return result;
 }

@@ -10,7 +10,7 @@
 #include "MapImageStore.h"
 #include "Image.h"
 
-void MapChip::ResetMapData()
+void kMapChip::ResetMapData()
 {
 	// マップデータに問い合わせてマップ情報をもらう
 	MapChipData chipData = m_system.GetMapChipData(m_mapPos);
@@ -29,7 +29,7 @@ void MapChip::ResetMapData()
 	m_collider->SetIsLineValid(LineDir::Right, isLineValid);
 }
 
-bool MapChip::LoopScreen()
+bool kMapChip::LoopScreen()
 {
 	// 自分の座標が特定の範囲外に出てたら
 	// 反対側に瞬間移動
@@ -38,7 +38,7 @@ bool MapChip::LoopScreen()
 	return CheckLoopUpAndLeft() || CheckLoopDownAndRight(); // Checkとか名前付いてるけどがっつりメンバ変数いじってます。ごめんなさい。
 }
 
-bool MapChip::CheckLoopUpAndLeft()
+bool kMapChip::CheckLoopUpAndLeft()
 {
 	// スクリーン座標を計算
 	Vector2 screenPos = m_camera.Capture(m_pos);
@@ -60,7 +60,7 @@ bool MapChip::CheckLoopUpAndLeft()
 	return isLoop;
 }
 
-bool MapChip::CheckLoopDownAndRight()
+bool kMapChip::CheckLoopDownAndRight()
 {
 	// スクリーン座標を計算
 	Vector2 screenPos = m_camera.Capture(m_pos);
@@ -80,7 +80,7 @@ bool MapChip::CheckLoopDownAndRight()
 	return isLoop;
 }
 
-MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
+kMapChip::kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
 	GameObject(initPos),
 	m_camera(camera),
 	m_objectsController(cont),
@@ -89,13 +89,13 @@ MapChip::MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos,
 {
 	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
 	m_chipImage = std::make_shared<Image>(-1);
-	m_chipImage->SetExRate(2.0f);
+	m_chipImage->SetExRate(5.0f);
 	m_backImage = std::make_shared<Image>(-1);
-	m_backImage->SetExRate(2.0f);
+	m_backImage->SetExRate(5.0f);
 	ResetMapData();
 }
 
-void MapChip::Update()
+void kMapChip::Update()
 {
 	// 処理の順序は移動→ループ判定
 	m_pos += m_movePos;
@@ -112,7 +112,7 @@ void MapChip::Update()
 	m_movePos = Vector2();
 }
 
-void MapChip::Draw() const
+void kMapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	m_backImage->Draw(drawPos);
@@ -123,13 +123,18 @@ void MapChip::Draw() const
 #endif
 }
 
-bool MapChip::CanCollide() const
+bool kMapChip::CanCollide() const
 {
 	// これ変えたいな
 	return m_chipImage->GraphHandle() != -1;
 }
 
-void MapChip::ChangeGraph_Debug()
+MapChipData kMapChip::GetMapChipData() const
+{
+	return m_system.GetMapChipData(m_mapPos);
+}
+
+void kMapChip::ChangeGraph_Debug()
 {
 	m_chipImage->SetGraph(MapImageStore::GetInstance().GetGraph(158));
 }

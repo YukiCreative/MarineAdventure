@@ -21,7 +21,7 @@ MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string path)
 		for (int x = 0; x < MapConstants::kWidthChipNum; ++x)
 		{
 			auto& chip = m_mapChips[MapConstants::kWidthChipNum * y + x];
-			chip = std::make_shared<MapChip>(camera, cont,
+			chip = std::make_shared<kMapChip>(camera, cont,
 				Vector2(MapConstants::kChipSize * x - Game::kScreenWidth * 0.5f,
 						MapConstants::kChipSize * y - Game::kScreenHeight * 0.5f),
 				Vector2Int(x,y), *this);

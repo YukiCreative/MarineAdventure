@@ -7,13 +7,13 @@
 #include "MapDataStore.h"
 #include "ObjectKind.h"
 
-class MapChip;
+class kMapChip;
 class Player;
 class Camera;
 class ObjectsController;
 
-using MapArray_t = std::array<std::shared_ptr<MapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;
-using MapList_t = std::list<std::shared_ptr<MapChip>>;
+using MapArray_t = std::array<std::shared_ptr<kMapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;
+using MapList_t = std::list<std::shared_ptr<kMapChip>>;
 
 /// <summary>
 /// マップチップを並べる、

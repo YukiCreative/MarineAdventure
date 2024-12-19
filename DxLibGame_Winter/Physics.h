@@ -1,8 +1,10 @@
 #pragma once
 #include "Vector2.h"
 #include <memory>
+#include "MapConstants.h"
+#include <array>
 
-class MapChip;
+class kMapChip;
 
 /// <summary>
 ///  物理挙動をつかさどる
@@ -25,10 +27,13 @@ private:
 	bool m_useConstantForce;
 
 	// 関数ポインタ使うか
-	using UpdateFunc_t = Vector2 (Physics::*)();
-
-	UpdateFunc_t m_updateFunc;
-
+	using UpdateState_t = Vector2 (Physics::*)();
+	UpdateState_t m_updateState;
+	std::array<UpdateState_t, static_cast<int>(MapConstants::Environment::kEnvNum)> m_stateArray = 
+	{
+		&Physics::WaterUpdate,
+		&Physics::GroundUpdate,
+	};;
 public:
 	Physics();
 	/// <summary>
@@ -70,6 +75,11 @@ public:
 	/// 重力と浮力のいざこざから離れたいときに
 	/// </summary>
 	void UseConstantForce(bool value) { m_useConstantForce = value; }
+
+	// 与えられた列挙に対応した状態かどうかを返す
+	bool CheckState(const MapConstants::Environment&);
+	void ChangeState(const MapConstants::Environment&);
+	void InvertState();
 };
 
 

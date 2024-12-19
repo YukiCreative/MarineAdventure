@@ -10,12 +10,13 @@ class ObjectsController;
 class MapSystem;
 class Player;
 class Image;
+struct MapChipData;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
 /// MapSystemがこれを固定配列で持つ
 /// </summary>
-class MapChip : public GameObject
+class kMapChip : public GameObject
 {
 private:
 	// 自分が今マップのどのチップを担当しているかを記憶
@@ -49,7 +50,7 @@ private:
 public:
 	// 引数がすんごい
 	// いろいろやらせすぎかも
-	MapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system);
+	kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system);
 
 	/// <summary>
 	/// 更新処理
@@ -83,7 +84,7 @@ public:
 	BoxCollider& GetCollider() const { return *m_collider; }
 
 	bool CanCollide() const;
-
+	MapChipData GetMapChipData() const;
 	void ChangeGraph_Debug();
 };
 

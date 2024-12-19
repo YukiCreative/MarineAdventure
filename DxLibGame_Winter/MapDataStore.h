@@ -4,13 +4,7 @@
 #include <vector>
 #include <memory>
 #include "ObjectKind.h"
-
-// 地上か水中か
-enum class Environment
-{
-	kWater,
-	kGround,
-};
+#include "MapConstants.h"
 
 // マップのいろいろをまとめる
 // 外部に渡す用
@@ -21,7 +15,17 @@ struct MapChipData
 	// 敵、ギミックなどオブジェクトの有無と種類を指し示す列挙体
 	ObjectKind objKind;
 	// 地上or水中
-	Environment environment;
+	MapConstants::Environment environment;
+};
+
+// どんなレイヤーがどんな順番であるか
+enum class MapLayerAttribute
+{
+	Environment,
+	kBackImage,
+	kMapChip,
+	kObjects,
+	kAttributeNum,
 };
 
 /// <summary>

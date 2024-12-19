@@ -5,11 +5,11 @@
 namespace
 {
 	// 重力
-	constexpr float kGravity = 1.0f;
+	constexpr float kGravity = 0.5f;
 	// 浮力とかつけちゃって
-	Vector2 kFloatForce = Vector2(0.0f, -0.98f);
+	Vector2 kFloatForce = Vector2(0.0f, -0.52f);
 	// 空気抵抗
-	constexpr float kAirResistance = 0.1f;
+	constexpr float kAirResistance = 0.005f;
 	// 水の抵抗
 	constexpr float kWaterResistance = 0.03f;
 }
@@ -21,7 +21,7 @@ Physics::Physics() :
 	m_useConstantForce(true),
 	m_addForce(),
 	m_velocity(),
-	m_updateFunc(&Physics::WaterUpdate) // テスト
+	m_updateState(&Physics::WaterUpdate) // テスト
 {
 }
 
@@ -32,14 +32,14 @@ Physics::Physics(float weight, float volume) :
 	m_useConstantForce(true),
 	m_addForce(),
 	m_velocity(),
-	m_updateFunc(&Physics::WaterUpdate) // テスト
+	m_updateState(&Physics::GroundUpdate) // テスト
 {
 }
 
 Vector2 Physics::Update()
 {
 	// 関数ポインタを走らせるんや！
-	return (this->*m_updateFunc)();
+	return (this->*m_updateState)();
 }
 
 Vector2 Physics::WaterUpdate()
@@ -58,7 +58,7 @@ Vector2 Physics::WaterUpdate()
 	// 抵抗を出す
 	// 水の抵抗で計算
 	Vector2 resistanceForce = m_velocity * kWaterResistance * -1.0f;
-	// 出てきた値でforceを計算(浮力を考慮)
+	// 出てきた値でforceを計算
 	force += resistanceForce;
 
 	// Fとmから、aを出す
@@ -113,4 +113,28 @@ void Physics::AddForce(Vector2 force)
 {
 	// 一回addForceに力をためておく
 	m_addForce += force;
+}
+
+bool Physics::CheckState(const MapConstants::Environment& env)
+{
+	return m_stateArray[static_cast<int>(env)] == m_updateState;
+}
+
+void Physics::ChangeState(const MapConstants::Environment& env)
+{
+	m_updateState = m_stateArray[static_cast<int>(env)];
+}
+
+void Physics::InvertState()
+{
+	// 状態は地上と水中の二つしかないとする
+	// 仕様追加時は頑張れ
+	if (CheckState(MapConstants::Environment::kGround))
+	{
+		m_updateState = &Physics::WaterUpdate;
+	}
+	else
+	{
+		m_updateState = &Physics::GroundUpdate;
+	}
 }

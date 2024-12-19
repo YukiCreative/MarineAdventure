@@ -57,9 +57,16 @@ private:
 	void Death(Input& input, Vector2& axis);
 	// 敵にダメージを与えた後の硬直
 	void Attacked(Input& input, Vector2& axis);
+	// 地上ステート
+	void GMove(Input& input, Vector2& axis);
+	void GDash(Input& input, Vector2& axis);
+	void Jump(Input& input, Vector2& axis);
+	void GAttack(Input& input, Vector2& axis);
+	void GStrongAttack(Input& input, Vector2& axis);
+	void GDamage(Input& input, Vector2& axis);
 
 	void SetStateNormal();
-
+	bool CheckEnvironmentChanged();
 public:
 	/// <summary>
 	/// 初期化

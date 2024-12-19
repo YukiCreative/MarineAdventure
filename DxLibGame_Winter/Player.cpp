@@ -198,6 +198,31 @@ void Player::SetStateNormal()
 	m_state = &Player::Normal;
 }
 
+bool Player::CheckEnvironmentChanged()
+{
+	// もう一回当たり判定する
+	// すべてのマップチップが対象
+	const auto& allMapChips = m_map.lock()->GetAllMapChips();
+	std::list<MapConstants::Environment> hitEnvironments;
+	for (const auto& chip : allMapChips)
+	{
+		// 移動なし当たり判定
+		// 多少軽い
+		CollisionStatus col = m_collider->CheckHit(chip->GetCollider());
+		if (!col.isCollide) continue;
+
+		// Environmentを記憶
+		hitEnvironments.push_back(chip->GetMapChipData().environment);
+	}
+	// 自分の物理状態が一つもなかったらtrue
+	bool result = true;
+	for (const auto& env : hitEnvironments)
+	{
+		result &= !m_physics->CheckState(env);
+	}
+	return result;
+}
+
 Player::Player(Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
 	m_state(&Player::Normal),
@@ -247,6 +272,12 @@ void Player::Update()
 		m_physics->AddForce(-addforce * kBounceFactor);
 
 		vel -= col.overlap;
+	}
+	//// 物理状態の遷移
+	if (CheckEnvironmentChanged())
+	{
+		// もう一つの状態へ
+		m_physics->InvertState();
 	}
 
 	// 最後に移動

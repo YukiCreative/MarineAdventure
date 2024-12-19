@@ -14,4 +14,12 @@ namespace MapConstants
 	// w17,h10‚®‚ç‚¢‚ª‚¿‚å‚¤‚Ç‚¢‚¢‚ñ‚·‚í
 	constexpr int kWidthChipNum = static_cast<int>(Game::kScreenWidth / kChipSize) + 1;
 	constexpr int kHeightChipNum = static_cast<int>(Game::kScreenHeight / kChipSize) + 1;
+
+	// ’nã‚©…’†‚©
+	enum class Environment
+	{
+		kWater,
+		kGround,
+		kEnvNum,
+	};
 }
