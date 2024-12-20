@@ -27,7 +27,7 @@ namespace
 	constexpr float kAttackedRigidFrame = 30.0f;
 	constexpr float kStrongAttackForce = 20.0f;
 	constexpr float kBounceFactor = 1.2f;
-
+	const Vector2 kJumpForce(0.0f, 10.0f);
 	const Vector2Int kPlayerGraphSize(32, 32);
 }
 
@@ -191,6 +191,14 @@ void Player::Attacked(Input& input, Vector2& axis)
 
 void Player::GNormal(Input& input, Vector2& axis)
 {
+	// いろいろなモーションにつながる
+	if (input.IsPressed("Jump"))
+	{
+		m_physics->AddForce(kJumpForce);
+		m_state = &Player::Jump;
+		(this->*m_state)(input, axis);
+		return;
+	}
 }
 
 void Player::GMove(Input& input, Vector2& axis)
@@ -205,12 +213,10 @@ void Player::GDash(Input& input, Vector2& axis)
 
 void Player::Jump(Input& input, Vector2& axis)
 {
-	// 何もしない
-}
-
-void Player::GAttack(Input& input, Vector2& axis)
-{
-	// 突進はない
+	// 空中モーション
+	// 左右に動ける
+	// ジャンプの遷移は存在しないので、多段ジャンプしない
+	// 着地(水)したらNormalへ
 }
 
 void Player::SetStateNormal()
@@ -257,7 +263,7 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 {
 	ImageStore& imageStore = ImageStore::GetInstance();
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f),
-	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
+		m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
 	// ここからアニメーションの初期化
 	m_idleAnim = std::make_shared<Animation>();
 	m_idleAnim->Init("Data/Image/Idle (32x32).png", kPlayerGraphSize, 2);
@@ -300,8 +306,17 @@ void Player::Update()
 	//// 物理状態の遷移
 	if (CheckEnvironmentChanged())
 	{
-		// もう一つの状態へ
-		m_physics->InvertState();
+		// 地上→水中
+		if (m_physics->CheckState(MapConstants::Environment::kGround))
+		{
+			m_physics->ChangeState(MapConstants::Environment::kWater);
+			m_state = &Player::
+		}
+		// 水中→地上
+		else
+		{
+			m_physics->ChangeState(MapConstants::Environment::kGround);
+		}
 	}
 
 	// 最後に移動

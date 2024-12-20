@@ -62,7 +62,6 @@ private:
 	void GMove(Input& input, Vector2& axis);
 	void GDash(Input& input, Vector2& axis);
 	void Jump(Input& input, Vector2& axis);
-	void GAttack(Input& input, Vector2& axis);
 
 	void SetStateNormal();
 	bool CheckEnvironmentChanged();

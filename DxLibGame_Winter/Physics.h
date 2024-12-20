@@ -34,6 +34,10 @@ private:
 		&Physics::WaterUpdate,
 		&Physics::GroundUpdate,
 	};;
+
+	// 水中時と地上時で関数を切り替える
+	Vector2 WaterUpdate();
+	Vector2 GroundUpdate();
 public:
 	Physics();
 	/// <summary>
@@ -49,10 +53,6 @@ public:
 	/// 自分の1フレームに動く距離を算出する。
 	/// </summary>
 	Vector2 Update();
-
-	// 水中時と地上時で関数を切り替える
-	Vector2 WaterUpdate();
-	Vector2 GroundUpdate();
 
 	/// <summary>
 	/// 力を加える
@@ -80,6 +80,7 @@ public:
 	bool CheckState(const MapConstants::Environment&);
 	void ChangeState(const MapConstants::Environment&);
 	void InvertState();
+	MapConstants::Environment GetNowEnvironment();
 };
 
 

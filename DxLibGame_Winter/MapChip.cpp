@@ -89,9 +89,9 @@ kMapChip::kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPo
 {
 	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
 	m_chipImage = std::make_shared<Image>(-1);
-	m_chipImage->SetExRate(5.0f);
+	m_chipImage->SetExRate(MapConstants::kExRate);
 	m_backImage = std::make_shared<Image>(-1);
-	m_backImage->SetExRate(5.0f);
+	m_backImage->SetExRate(MapConstants::kExRate);
 	ResetMapData();
 }
 

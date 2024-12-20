@@ -138,3 +138,15 @@ void Physics::InvertState()
 		m_updateState = &Physics::GroundUpdate;
 	}
 }
+
+MapConstants::Environment Physics::GetNowEnvironment()
+{
+	if (m_updateState == &Physics::GroundUpdate)
+	{
+		return MapConstants::Environment::kGround;
+	}
+	else
+	{
+		return MapConstants::Environment::kWater;
+	}
+}

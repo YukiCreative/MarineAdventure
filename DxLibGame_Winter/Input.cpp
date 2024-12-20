@@ -46,6 +46,11 @@ Input::Input() :
         {PeripheralType::kKeyboard, KEY_INPUT_RETURN},
         {PeripheralType::kPad, PAD_INPUT_3},
     };
+    m_inputEvent["Jump"] =
+    {
+        {PeripheralType::kKeyboard, KEY_INPUT_SPACE},
+        {PeripheralType::kPad, PAD_INPUT_4},
+    };
 }
 
 Input& Input::GetInstance()
