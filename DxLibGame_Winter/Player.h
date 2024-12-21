@@ -48,6 +48,8 @@ private:
 	// 体力
 	int m_hp;
 
+	// 状態関数
+	// 一段格上げしてクラスにしてもいいかも？
 	void Normal(Input& input, Vector2& axis);
 	void Move(Input& input, Vector2& axis);
 	void Dash(Input& input, Vector2& axis);

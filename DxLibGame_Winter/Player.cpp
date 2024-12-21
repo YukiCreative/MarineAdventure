@@ -27,7 +27,8 @@ namespace
 	constexpr float kAttackedRigidFrame = 30.0f;
 	constexpr float kStrongAttackForce = 20.0f;
 	constexpr float kBounceFactor = 1.2f;
-	const Vector2 kJumpForce(0.0f, 10.0f);
+	constexpr int kMoveThreshold = 10000;
+	const Vector2 kJumpForce(0.0f, -10.0f);
 	const Vector2Int kPlayerGraphSize(32, 32);
 }
 
@@ -44,7 +45,7 @@ void Player::Normal(Input& input, Vector2& axis)
 		return;
 	}
 	// スティックでMoveへ
-	if (axis.SqrMagnitude() > 10000)
+	if (axis.SqrMagnitude() > kMoveThreshold)
 	{
 		m_graphic = "M";
 		m_physics->UseConstantForce(false);
@@ -68,7 +69,7 @@ void Player::Move(Input& input, Vector2& axis)
 		return;
 	}
 	// 入力がなかったらNomalへ
-	if (axis.SqrMagnitude() < 10000)
+	if (axis.SqrMagnitude() < kMoveThreshold)
 	{
 		SetStateNormal();
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
@@ -114,7 +115,7 @@ void Player::Dash(Input& input, Vector2& axis)
 		return;
 	}
 	// 	// 入力がなかったらNomalへ
-	if (axis.SqrMagnitude() < 10000)
+	if (axis.SqrMagnitude() < kMoveThreshold)
 	{
 		SetStateNormal();
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
@@ -203,7 +204,21 @@ void Player::GNormal(Input& input, Vector2& axis)
 
 void Player::GMove(Input& input, Vector2& axis)
 {
-
+	if (input.IsTrigger("Jump"))
+	{
+		m_physics->AddForce(kJumpForce);
+		m_graphic = "Jump";
+		m_state = &Player::Jump;
+		(this->*m_state)(input, axis);
+		return;
+	}
+	if (axis.SqrMagnitude() < kMoveThreshold)
+	{
+		m_graphic = "GN";
+		m_state = &Player::GNormal;
+		(this->*m_state)(input, axis);
+		return;
+	}
 }
 
 void Player::GDash(Input& input, Vector2& axis)
@@ -215,8 +230,11 @@ void Player::Jump(Input& input, Vector2& axis)
 {
 	// 空中モーション
 	// 左右に動ける
+	Vector2 sideAxis = Vector2(axis.x, 0.0f);
+	m_physics->AddForce(sideAxis * kMoveForceFactor);
 	// ジャンプの遷移は存在しないので、多段ジャンプしない
 	// 着地(水)したらNormalへ
+
 }
 
 void Player::SetStateNormal()
@@ -303,19 +321,29 @@ void Player::Update()
 
 		vel -= col.overlap;
 	}
-	//// 物理状態の遷移
+	// 物理状態の遷移
+	// これ各状態に設置した方が分岐減るのでは
 	if (CheckEnvironmentChanged())
 	{
 		// 地上→水中
 		if (m_physics->CheckState(MapConstants::Environment::kGround))
 		{
 			m_physics->ChangeState(MapConstants::Environment::kWater);
-			m_state = &Player::
+			m_graphic = "N";
+			m_physics->UseConstantForce(true);
+			m_state = &Player::Normal;
 		}
 		// 水中→地上
 		else
 		{
 			m_physics->ChangeState(MapConstants::Environment::kGround);
+			m_graphic = "Jump";
+			m_physics->UseConstantForce(true);
+			if (input.IsPressed("Dash"))
+			{
+				m_physics->AddForce(kJumpForce);
+			}
+			m_state = &Player::Jump;
 		}
 	}
 
