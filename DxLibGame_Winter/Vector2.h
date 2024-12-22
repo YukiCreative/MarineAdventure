@@ -2,6 +2,7 @@
 #include <cmath>
 #include <limits>
 #include <DxLib.h>
+#include "Calculation.h"
 // このスクリプトには特に、何もincludeしないこと！
 
 /// <summary>
@@ -246,6 +247,18 @@ public:
 	static float Dot(const Vector2& first, const Vector2& second)
 	{
 		return first.x * second.x + first.y * second.y;
+	}
+
+	// X正方向が始線の一般角を取得（度数）
+	// Yが下向き正なので時計回りが正の角度になる
+	float Angle() const
+	{
+		float rad = atan2(y, x);
+		if (rad < 0)
+		{
+			rad += Calculation::kPi;
+		}
+		return rad * Calculation::kRadToDeg;
 	}
 };
 

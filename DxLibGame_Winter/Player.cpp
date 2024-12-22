@@ -233,8 +233,8 @@ void Player::Jump(Input& input, Vector2& axis)
 	Vector2 sideAxis = Vector2(axis.x, 0.0f);
 	m_physics->AddForce(sideAxis * kMoveForceFactor);
 	// ジャンプの遷移は存在しないので、多段ジャンプしない
-	// 着地(水)したらNormalへ
-
+	// 着地したらGNormalへ
+	// 着水は網羅できている
 }
 
 void Player::SetStateNormal()
