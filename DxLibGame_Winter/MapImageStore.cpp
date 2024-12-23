@@ -9,13 +9,18 @@ namespace
 	// 繰り返し処理してほしい数を定数で書きます
 	constexpr int kWidthChipNum = 12;
 	constexpr int kHeightChipNum = 14;
+
+	constexpr int kBackImageWidth = 4;
+	constexpr int kBackImageHeight = 4;
 }
 
 MapImageStore::MapImageStore()
 {
+	ImageStore& img = ImageStore::GetInstance();
+
 	// マップチップの画像を読んで、それを16x16に分割したやつも作る
 	// 作ったハンドルは配列に入れる
-	m_sourceHandle = ImageStore::GetInstance().GetGraph("Data/Image/MapChip.png");
+	m_sourceHandle = img.GetGraph("Data/Image/MapChip.png");
 	assert(m_sourceHandle != -1);
 	for (int y = 0; y < kHeightChipNum; ++y)
 	{
@@ -26,15 +31,18 @@ MapImageStore::MapImageStore()
 				DerivationGraph(kChipSize * x, kChipSize * y, kChipSize, kChipSize, m_sourceHandle);
 		}
 	}
-}
 
-MapImageStore::~MapImageStore()
-{
-	// 画像の消去
-	for (const auto& handle : m_imageArray)
+	// 上とほぼ同じ
+	m_backSourceHandle = img.GetGraph("Data/Image/BackImageMapParts.png");
+	assert(m_sourceHandle != -1);
+	for (int y = 0; y < kBackImageHeight; ++y)
 	{
-		// これでいけるはず
-		DeleteGraph(handle);
+		for (int x = 0; x < kBackImageWidth; ++x)
+		{
+			int index = kBackImageWidth * y + x;
+			m_backImageArray[index] =
+				DerivationGraph(kChipSize * x, kChipSize * y, kChipSize, kChipSize, m_backSourceHandle);
+		}
 	}
 }
 
@@ -47,4 +55,9 @@ MapImageStore& MapImageStore::GetInstance()
 int MapImageStore::GetGraph(int id) const
 {
 	return m_imageArray[id];
+}
+
+int MapImageStore::GetBackGraph(int id) const
+{
+	return m_backImageArray[id];
 }

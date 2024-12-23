@@ -271,6 +271,34 @@ bool Player::CheckEnvironmentChanged()
 	return result;
 }
 
+void Player::CollideToMapChips()
+{
+	// マップとの衝突処理を分けた
+	// ここでマップの壁との当たり判定
+	m_contactAngles.clear();
+	auto& collidableMapChips = m_map.lock()->GetCollidableMapChips();
+	Vector2 pushBackVec = Vector2::Zero();
+	for (const auto& chip : collidableMapChips)
+	{
+		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), m_velocity);
+		if (!col.isCollide) continue;
+
+		// 色を変えてみる
+		//chip->ChangeGraph_Debug();
+
+		// 壁に吸い付くような挙動になって違和感があるので力を加える
+		Vector2 overlapN = col.overlap.GetNormalize();
+		// 現在の速度の分、当たっている壁の向きだけ力を加える
+		Vector2 addforce(m_velocity.x * std::abs(overlapN.x), m_velocity.y * std::abs(overlapN.y));
+		m_physics->AddForce(-addforce * kBounceFactor);
+
+		// 接触した面の角度を取得
+		//m_contactAngles.push_back();
+
+		m_velocity -= col.overlap;
+	}
+}
+
 Player::Player(Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
 	m_state(&Player::Normal),
@@ -294,6 +322,9 @@ Player::~Player()
 
 void Player::Update()
 {
+	// 速度クリア
+	m_velocity = Vector2::Zero();
+
 	// 入力とる
 	Input& input = Input::GetInstance();
 	Vector2 axis = input.GetInputAxis();
@@ -301,26 +332,10 @@ void Player::Update()
 	(this->*m_state)(input, axis);
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
-	Vector2 vel = m_physics->Update();
+	m_velocity = m_physics->Update();
 
-	// ここでマップの壁との当たり判定
-	auto& collidableMapChips = m_map.lock()->GetCollidableMapChips();
-	for (const auto& chip : collidableMapChips)
-	{
-		CollisionStatus col = m_collider->CheckHit(chip->GetCollider(), vel);
-		if (!col.isCollide) continue;
+	CollideToMapChips();
 
-		// 色を変えてみる
-		//chip->ChangeGraph_Debug();
-
-		// 壁に吸い付くような挙動になって違和感があるので力を加える
-		Vector2 overlapN = col.overlap.GetNormalize();
-		// 現在の速度の分、当たっている壁の向きだけ力を加える
-		Vector2 addforce(vel.x * std::abs(overlapN.x), vel.y * std::abs(overlapN.y));
-		m_physics->AddForce(-addforce * kBounceFactor);
-
-		vel -= col.overlap;
-	}
 	// 物理状態の遷移
 	// これ各状態に設置した方が分岐減るのでは
 	if (CheckEnvironmentChanged())
@@ -348,7 +363,7 @@ void Player::Update()
 	}
 
 	// 最後に移動
-	m_pos += vel;
+	m_pos += m_velocity;
 
 	m_nowAnim->Update();
 }
@@ -359,8 +374,9 @@ void Player::Draw() const
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
 	m_nowAnim->Draw(screenPos);
 #if _DEBUG
-	DrawFormatString(0, 15, 0xffffff, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
-	DrawFormatString(0, 105, 0xffffff, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
+	DrawFormatString(0, 15, 0x999999, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
+	DrawFormatString(0, 105, 0x999999, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
+	DrawFormatString(0, 120, 0x999999, "vel:x = %f, y = %f", m_velocity.x, m_velocity.y);
 	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x00ff00);
 #endif
 }

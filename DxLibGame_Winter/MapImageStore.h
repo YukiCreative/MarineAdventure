@@ -18,12 +18,10 @@ private:
 	/// マップチップの元
 	/// </summary>
 	int m_sourceHandle;
+	// 背景装飾用
+	int m_backSourceHandle;
+	std::array<int, 4 * 4> m_backImageArray;
 public:
-	/// <summary>
-	/// デストラクタ
-	/// 読んだ画像の片付け
-	/// </summary>
-	~MapImageStore();
 
 	/// <summary>
 	/// 毎度おなじみインスタンス取得
@@ -37,5 +35,6 @@ public:
 	/// <param name="id">マップの通し番号をまとめた列挙体</param>
 	/// <returns>該当するチップの画像のハンドル</returns>
 	int GetGraph(int id) const;
+	int GetBackGraph(int id) const;
 };
 

@@ -3,6 +3,7 @@
 #include "Vector2.h"
 #include <memory>
 #include <string>
+#include <list>
 
 // プロトタイプ宣言
 class Physics;
@@ -47,6 +48,9 @@ private:
 	int m_stateFrameCount;
 	// 体力
 	int m_hp;
+	// 接触したマップチップの面の角度
+	std::list<int> m_contactAngles;
+	Vector2 m_velocity;
 
 	// 状態関数
 	// 一段格上げしてクラスにしてもいいかも？
@@ -67,6 +71,7 @@ private:
 
 	void SetStateNormal();
 	bool CheckEnvironmentChanged();
+	void CollideToMapChips();
 public:
 	/// <summary>
 	/// 初期化

@@ -81,7 +81,7 @@ MapChipData MapDataStore::GetMapData(Vector2Int mapPos) const
 		// ŠÂ‹«
 		result.environment = static_cast<MapConstants::Environment>((*m_mapData)[static_cast<int>(MapLayerAttribute::Environment)][chipIndex]);
 		// ”wŒi‰æ‘œ
-		result.backGraphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kBackImage)][chipIndex]));
+		result.backGraphHandle = imgStore.GetBackGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kBackImage)][chipIndex]));
 		if (graphNum != kGraphInvisible)
 		{
 			result.graphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kMapChip)][chipIndex]));

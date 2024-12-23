@@ -154,5 +154,6 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
         Vector2 overlap = radiusVec - nextToClosest;
         result.overlap = overlap;
     }
+
     return result;
 }
