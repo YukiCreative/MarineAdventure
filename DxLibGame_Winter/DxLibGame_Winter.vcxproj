@@ -146,6 +146,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="MapImageStore.cpp" />
     <ClCompile Include="MapSystem.cpp" />
     <ClCompile Include="ObjectsController.cpp" />
+    <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneController.cpp" />
@@ -176,6 +178,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Calculation.h" />
     <ClInclude Include="Camera.h" />
@@ -199,6 +202,7 @@
     <ClInclude Include="MapSystem.h" />
     <ClInclude Include="ObjectKind.h" />
     <ClInclude Include="ObjectsController.h" />
+    <ClInclude Include="PauseScene.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
