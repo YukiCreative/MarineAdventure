@@ -1,5 +1,10 @@
 #pragma once
 #include "Scene.h"
+#include <memory>
+
+class BackGround;
+class ScreenFade;
+class Camera;
 
 // このクラスにさせたいこと
 // オプションシーンへ
@@ -8,8 +13,13 @@
 class PauseScene : public Scene
 {
 private:
+	std::shared_ptr<Camera> m_camera;
+	ScreenFade& m_fade;
+	std::shared_ptr<BackGround> m_back;
 public:
-	void Update() override;
+	PauseScene();
+
+	void NormalUpdate() override;
 	void Draw() const override;
 };
 

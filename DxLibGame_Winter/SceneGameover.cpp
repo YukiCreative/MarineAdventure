@@ -20,7 +20,7 @@ SceneGameover::SceneGameover()
 	m_backGround->ExpandGtaph(3.0f);
 }
 
-void SceneGameover::Update()
+void SceneGameover::NormalUpdate()
 {
 	m_backGround->Update();
 
@@ -28,7 +28,7 @@ void SceneGameover::Update()
 	{
 		// シーンが次のシーンをインクルードするのはどうかと思ってる
 		// 別に今何かをしようってわけではない
-		SceneController::GetInstance().ChangeScene(std::make_shared<SceneTitle>());
+		SceneController::GetInstance().ChangeScene("Title");
 		return;
 	}
 }

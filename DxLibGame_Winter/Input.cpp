@@ -51,6 +51,11 @@ Input::Input() :
         {PeripheralType::kKeyboard, KEY_INPUT_SPACE},
         {PeripheralType::kPad, PAD_INPUT_4},
     };
+    m_inputEvent["Pause"] =
+    {
+        {PeripheralType::kKeyboard, KEY_INPUT_ESCAPE},
+        {PeripheralType::kPad, PAD_INPUT_8},
+    };
 }
 
 Input& Input::GetInstance()

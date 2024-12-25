@@ -10,14 +10,13 @@ class ScreenFade;
 class SceneTitle : public Scene
 {
 private:
-	ScreenFade& m_fade;
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<BackGround> m_backGround;
 public:
 	SceneTitle();
 	~SceneTitle();
 
-	void Update() override;
+	void NormalUpdate() override;
 	void Draw() const override;
 };
 

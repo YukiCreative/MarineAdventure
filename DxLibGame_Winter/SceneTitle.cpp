@@ -15,13 +15,11 @@ namespace
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 }
 
-SceneTitle::SceneTitle() :
-	m_fade(ScreenFade::Getinstance())
+SceneTitle::SceneTitle()
 {
 	m_camera = std::make_shared<Camera>();
 	// タイトル画像をロード
 	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenMiddlePoint, "Data/Image/Marine.jpg");
-	m_backGround->ExpandGtaph(2.2f);
 	m_fade.Fade(60, 0);
 }
 
@@ -29,13 +27,13 @@ SceneTitle::~SceneTitle()
 {
 }
 
-void SceneTitle::Update()
+void SceneTitle::NormalUpdate()
 {
 	m_fade.Update();
 	Input& input = Input::GetInstance();
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		SceneController::GetInstance().ChangeScene(std::make_shared<TestScene>());
+		SceneChangeWithFadeOut("Game");
 	}
 }
 

@@ -59,7 +59,7 @@ ColliderTestScene::~ColliderTestScene()
 {
 }
 
-void ColliderTestScene::Update()
+void ColliderTestScene::NormalUpdate()
 {
 	Input& input = Input::GetInstance();
 	//boxPos.x++;
@@ -72,7 +72,7 @@ void ColliderTestScene::Update()
 
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		SceneController::GetInstance().ChangeScene(std::make_shared<TestScene>());
+		SceneController::GetInstance().ChangeScene("Game");
 		return;
 	}
 }

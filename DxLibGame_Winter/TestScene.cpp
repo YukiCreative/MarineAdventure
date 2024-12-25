@@ -1,19 +1,19 @@
-#include "TestScene.h"
-#include <DxLib.h>
-#include "Player.h"
-#include "Time.h"
-#include "MapSystem.h"
-#include "Input.h"
-#include "SceneController.h"
-#include "ColliderTestScene.h"
-#include "Camera.h"
-#include "HarmFish.h"
-#include "ObjectsController.h"
-#include "ObjectKind.h"
-#include "SceneGameover.h"
 #include "BackGround.h"
+#include "Camera.h"
+#include "ColliderTestScene.h"
 #include "game.h"
+#include "Input.h"
+#include "MapSystem.h"
+#include "ObjectKind.h"
+#include "ObjectsController.h"
+#include "PauseScene.h"
+#include "Player.h"
+#include "SceneController.h"
+#include "SceneGameover.h"
 #include "ScreenFade.h"
+#include "TestScene.h"
+#include "Time.h"
+#include <DxLib.h>
 
 namespace
 {
@@ -22,8 +22,7 @@ namespace
 }
 
 TestScene::TestScene() :
-	m_frameCount(0),
-	m_fade(ScreenFade::Getinstance())
+	m_frameCount(0)
 {
 	m_camera = std::make_shared<Camera>(initPlayerPos);
 	m_player = std::make_shared<Player>(*m_camera, initPlayerPos);
@@ -43,7 +42,7 @@ TestScene::~TestScene()
 {
 }
 
-void TestScene::Update()
+void TestScene::NormalUpdate()
 {
 	Input& input = Input::GetInstance();
 
@@ -58,16 +57,20 @@ void TestScene::Update()
 	m_backGround->Move(m_camera->GetVel() * 0.5f);
 	m_backGround->Update();
 
+
+	if (input.IsTrigger("Pause"))
+	{
+		SceneController::GetInstance().StackScene("Pause");
+	}
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		SceneController::GetInstance().ChangeScene(std::make_shared<ColliderTestScene>());
+		SceneController::GetInstance().ChangeScene("ColTest");
 		return;
 	}
 	if (m_player->IsDeleted())
 	{
 		// フェードアウトしてシーン遷移
-		
-		SceneController::GetInstance().ChangeScene(std::make_shared<SceneGameover>());
+		SceneChangeWithFadeOut("Gameover");
 		return;
 	}
 }

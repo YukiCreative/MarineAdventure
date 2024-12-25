@@ -167,6 +167,7 @@
     <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneController.cpp" />
     <ClCompile Include="SceneGameover.cpp" />
     <ClCompile Include="SceneTitle.cpp" />

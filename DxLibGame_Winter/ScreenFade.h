@@ -40,6 +40,7 @@ private:
 	// 目指す透明度
 	Alpha m_targetAlpha;
 	unsigned int m_color;
+	bool m_isFading;
 
 	using UpdateState_t = void (ScreenFade::*)();
 	UpdateState_t m_updateState;
@@ -51,6 +52,7 @@ private:
 	void FadeInUpdate();
 	void FadeOutUpdate();
 	void NormalUpdate();
+	void SetNormalUpdate();
 public:
 	static ScreenFade& Getinstance();
 
@@ -63,5 +65,6 @@ public:
 	/// <param name="percent">最終的な透明度(百分率)</param>
 	void Fade(const int& totalFrame, const float& percent);
 	void SetColor(const unsigned int& value) { m_color = value; }
+	bool IsFading() const { return m_isFading; }
 };
 

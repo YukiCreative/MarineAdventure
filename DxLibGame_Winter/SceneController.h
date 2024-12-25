@@ -1,6 +1,8 @@
 #pragma once
 #include <memory>
 #include <list>
+#include <unordered_map>
+#include <string>
 
 // プロトタイプ宣言
 class Scene;
@@ -19,6 +21,9 @@ private:
 	using SceneList_t = std::list<std::shared_ptr<Scene>>;
 	SceneList_t m_scenes;
 	bool m_changedSceneInThisFrame;
+
+	using SceneFactory_t = std::shared_ptr<Scene> (*)();
+	std::unordered_map<std::string, SceneFactory_t> m_factoryMap;
 public:
 	static SceneController& GetInstance();
 
@@ -27,9 +32,9 @@ public:
 	void Draw();
 
 	// 今実行中のシーンを別のものに替える
-	void ChangeScene(std::shared_ptr<Scene> changeScene);
+	void ChangeScene(std::string sceneId);
 	// シーンを重ねる
-	void StackScene(std::shared_ptr<Scene> addScene);
+	void StackScene(std::string addSceneId);
 	// 最後尾のシーンを削除
 	void RemoveSceme();
 };

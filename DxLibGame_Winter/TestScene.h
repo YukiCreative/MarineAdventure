@@ -22,12 +22,11 @@ private:
 	std::shared_ptr<ObjectsController> m_objectCont;
 	std::shared_ptr<MapDataStore> m_mapDataStore;
 	std::shared_ptr<BackGround> m_backGround;
-	ScreenFade& m_fade;
 public:
 	TestScene();
 	~TestScene();
 
-	virtual void Update() override;
+	virtual void NormalUpdate() override;
 	virtual void Draw() const override;
 };
 

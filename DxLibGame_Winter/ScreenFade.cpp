@@ -14,7 +14,8 @@ ScreenFade::ScreenFade() :
 	m_transParFrame(0),
 	m_color(0x000000),
 	m_updateState(&ScreenFade::NormalUpdate),
-	m_alpha(100)
+	m_alpha(100),
+	m_isFading(false)
 {
 }
 
@@ -37,8 +38,7 @@ void ScreenFade::FadeInUpdate()
 	m_alpha += m_transParFrame;
 	if (m_alpha <= m_targetAlpha)
 	{
-		m_alpha = m_targetAlpha;
-		m_updateState = &ScreenFade::NormalUpdate;
+		SetNormalUpdate();
 		return;
 	}
 }
@@ -50,8 +50,7 @@ void ScreenFade::FadeOutUpdate()
 	m_alpha += m_transParFrame;
 	if (m_alpha >= m_targetAlpha)
 	{
-		m_alpha = m_targetAlpha;
-		m_updateState = &ScreenFade::NormalUpdate;
+		SetNormalUpdate();
 		return;
 	}
 }
@@ -59,6 +58,14 @@ void ScreenFade::FadeOutUpdate()
 void ScreenFade::NormalUpdate()
 {
 	// 何もしない？
+}
+
+void ScreenFade::SetNormalUpdate()
+{
+	m_alpha = m_targetAlpha;
+	m_updateState = &ScreenFade::NormalUpdate;
+	// フェード止めました
+	m_isFading = false;
 }
 
 void ScreenFade::Draw() const
@@ -86,4 +93,7 @@ void ScreenFade::Fade(const int& totalFrame, const float& percent)
 	{
 		m_updateState = &ScreenFade::FadeInUpdate;
 	}
+
+	// フェード始めました
+	m_isFading = true;
 }
