@@ -70,8 +70,9 @@ void ScreenFade::SetNormalUpdate()
 
 void ScreenFade::Draw() const
 {
-	// Imageを使うか考え中
-	SetDrawBlendMode(DX_BLENDMODE_MULA, static_cast<int>(m_alpha.value * kPercentToBlendParam));
+	// やっぱ乗算合成は幻やったんやなって
+	// 乗算使うと白色のフェードができなくなった
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(m_alpha.value * kPercentToBlendParam));
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, m_color, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

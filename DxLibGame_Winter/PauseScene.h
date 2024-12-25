@@ -3,7 +3,6 @@
 #include <memory>
 
 class BackGround;
-class ScreenFade;
 class Camera;
 
 // ‚±‚ÌƒNƒ‰ƒX‚É‚³‚¹‚½‚¢‚±‚Æ
@@ -14,7 +13,6 @@ class PauseScene : public Scene
 {
 private:
 	std::shared_ptr<Camera> m_camera;
-	ScreenFade& m_fade;
 	std::shared_ptr<BackGround> m_back;
 public:
 	PauseScene();

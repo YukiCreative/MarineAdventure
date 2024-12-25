@@ -60,17 +60,19 @@ void TestScene::NormalUpdate()
 
 	if (input.IsTrigger("Pause"))
 	{
-		SceneController::GetInstance().StackScene("Pause");
+		// ここでフェードパネルの色変えたらいいんじゃね
+		m_fade.SetColor(0xffffff);
+		SceneStackWithFadeOut("Pause", 30);
 	}
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		SceneController::GetInstance().ChangeScene("ColTest");
+		SceneChangeWithFadeOut("ColTest");
 		return;
 	}
 	if (m_player->IsDeleted())
 	{
 		// フェードアウトしてシーン遷移
-		SceneChangeWithFadeOut("Gameover");
+		SceneChangeWithFadeOut("Gameover", 120);
 		return;
 	}
 }

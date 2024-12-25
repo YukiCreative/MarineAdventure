@@ -45,7 +45,7 @@ void Scene::SceneChangeWithFadeOut(const std::string& nextSceneId, const int& to
 	m_update = &Scene::SceneChangeUpdate;
 }
 
-void Scene::StackChangeWithFadeOut(const std::string& nextSceneId, const int& toralFrame, const float& percent)
+void Scene::SceneStackWithFadeOut(const std::string& nextSceneId, const int& toralFrame, const float& percent)
 {
 	m_fadedNextScene = nextSceneId;
 	m_fade.Fade(toralFrame, percent);
