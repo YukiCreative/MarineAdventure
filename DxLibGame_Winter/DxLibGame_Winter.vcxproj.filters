@@ -61,6 +61,9 @@
     <Filter Include="ソース ファイル\Image">
       <UniqueIdentifier>{449710fd-f323-4926-9bed-6bf4fd911f28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\UI\Button">
+      <UniqueIdentifier>{af1c86e2-eed6-4a33-8a87-9a55d5b8e887}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneController.cpp">
@@ -155,6 +158,15 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonSystem.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonGameStart.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +283,15 @@
     </ClInclude>
     <ClInclude Include="PauseScene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonGameStart.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonSystem.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

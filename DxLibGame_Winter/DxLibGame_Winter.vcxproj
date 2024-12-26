@@ -148,6 +148,9 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonGameStart.cpp" />
+    <ClCompile Include="ButtonSystem.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -181,6 +184,9 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonGameStart.h" />
+    <ClInclude Include="ButtonSystem.h" />
     <ClInclude Include="Calculation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollider.h" />
