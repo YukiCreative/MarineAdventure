@@ -94,7 +94,7 @@ void Input::Update()
     m_inputAxis.y = static_cast<float>(inputAxis.y);
 }
 
-bool Input::IsTrigger(std::string key)
+bool Input::IsTrigger(std::string key) const
 {
     bool isTrigger = false;
     // 与えられたキーに対応する全ての周辺機器の入力コードを調べる
@@ -118,7 +118,7 @@ bool Input::IsTrigger(std::string key)
     return isTrigger;
 }
 
-bool Input::IsPressed(std::string key)
+bool Input::IsPressed(std::string key) const
 {
     bool isPressed = false;
     // 与えられたキーに対応する全ての周辺機器の入力コードを調べる
@@ -142,7 +142,7 @@ bool Input::IsPressed(std::string key)
     return isPressed;
 }
 
-Vector2 Input::GetInputAxis()
+Vector2 Input::GetInputAxis() const
 {
     return m_inputAxis;
 }

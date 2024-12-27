@@ -186,6 +186,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonGameStart.h" />
+    <ClInclude Include="ButtonNoFocus.h" />
     <ClInclude Include="ButtonSystem.h" />
     <ClInclude Include="Calculation.h" />
     <ClInclude Include="Camera.h" />

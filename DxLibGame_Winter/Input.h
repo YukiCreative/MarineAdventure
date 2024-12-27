@@ -21,9 +21,7 @@ class Input
 
 	struct KeyInput
 	{
-		char state[256];
-		// これコンストラクタっす
-		KeyInput() = default;
+		char state[256] = {};
 	};
 
 	// 入力をつかさどるクラス
@@ -57,15 +55,14 @@ public:
 	/// </summary>
 	/// <param name="key">入力</param>
 	/// <returns>true:押した瞬間 false:押してないor押しっぱなし</returns>
-	bool IsTrigger(std::string key);
+	bool IsTrigger(std::string key) const;
 
 	/// <summary>
 	/// IDの入力が押されているかどうか
 	/// </summary>
 	/// <param name="key">入力</param>
 	/// <returns>true:押している false:押していない</returns>
-	bool IsPressed(std::string key);
+	bool IsPressed(std::string key) const;
 
-	Vector2 GetInputAxis();
+	Vector2 GetInputAxis() const;
 };
-
