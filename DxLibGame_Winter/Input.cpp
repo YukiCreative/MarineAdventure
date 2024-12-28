@@ -56,6 +56,11 @@ Input::Input() :
         {PeripheralType::kKeyboard, KEY_INPUT_ESCAPE},
         {PeripheralType::kPad, PAD_INPUT_8},
     };
+    m_inputEvent["Submit"] =
+    {
+        {PeripheralType::kKeyboard, KEY_INPUT_Z},
+        {PeripheralType::kPad, PAD_INPUT_1},
+    };
 }
 
 Input& Input::GetInstance()

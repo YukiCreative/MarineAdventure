@@ -244,9 +244,9 @@ public:
 	}
 
 	// 内積
-	static float Dot(const Vector2& first, const Vector2& second)
+	float Dot(const Vector2& second) const
 	{
-		return first.x * second.x + first.y * second.y;
+		return x * second.x + y * second.y;
 	}
 
 	// X正方向が始線の一般角を取得（度数）
@@ -259,6 +259,15 @@ public:
 			rad += Calculation::kPi;
 		}
 		return rad * Calculation::kRadToDeg;
+	}
+
+	// 引数に入れられたベクトルとのなす角を出す(度数)
+	// 時計回りがプラス、反時計回りがマイナス
+	float RerativeAngle(Vector2 other) const
+	{
+		float myDeg = this->Angle();
+		float otherDeg = other.Angle();
+		return myDeg - otherDeg;
 	}
 };
 

@@ -16,18 +16,18 @@ namespace Geometry
 		Vector2 startToPos = pos - first;
 		Vector2 endToPos = pos - second;
 		// 始点からposの内積が鈍角なら、最近傍点は始点
-		if (Vector2::Dot(startToEndN, startToPos) < 0)
+		if (startToEndN.Dot(startToPos) < 0)
 		{
 			return first;
 		}
 		// 終点からposが鈍角の時、最近傍点は終点
-		else if (Vector2::Dot(endToStartN, endToPos) < 0)
+		else if (endToStartN.Dot(endToPos) < 0)
 		{
 			return second;
 		}
 		else
 		{
-			return first + startToEndN * Vector2::Dot(startToEndN, startToPos);
+			return first + startToEndN * startToEndN.Dot(startToPos);
 		}
 	}
 
@@ -37,7 +37,7 @@ namespace Geometry
 		// 正規化
 		Vector2 startToEndN = (second - first).GetNormalize();
 		Vector2 startToPos = pos - first;
-		return first + startToEndN * Vector2::Dot(startToEndN, startToPos);
+		return first + startToEndN * startToEndN.Dot(startToPos);
 	}
 }
 

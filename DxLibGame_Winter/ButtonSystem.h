@@ -6,15 +6,6 @@
 class Button;
 class ButtonNoFocus;
 
-enum class InputDir
-{
-	kNone,
-	kRight,
-	kLeft,
-	kUp,
-	kDown
-};
-
 // 役割
 // ボタンをたくさん持つ
 // 入力をボタンに拘束、解除
@@ -31,19 +22,22 @@ private:
 	std::shared_ptr<ButtonNoFocus> m_noFocus;
 	// 同じ方向に入力し続けたら動くアレのタイマー
 	int m_cursorMoveTimer;
-	InputDir m_inputDirBeforeFrame;
+	Vector2Int m_inputDirBeforeFrame;
 
 	void MoveFocus();
 public:
 	ButtonSystem();
+	~ButtonSystem();
 
 	// 入力からどのボタンを選択しているかを変えたりする
 	void Update();
+	
+	void Draw() const;
 
 	// ボタンを追加
 	// シーンが利用する想定
 	void AddButton(std::shared_ptr<Button> buttonInstance);
 
-	void SetButtonFocus(std::shared_ptr<Button> setButton) { m_nowFocusedButton = setButton; }
-	void ExitFocus() { m_nowFocusedButton = std::static_pointer_cast<Button>(m_noFocus); }
+	void SetButtonFocus(std::shared_ptr<Button> setButton);
+	void ExitFocus();
 };

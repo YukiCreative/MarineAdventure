@@ -46,5 +46,6 @@ ImageStore& ImageStore::GetInstance()
 
 int ImageStore::GetGraph(const std::string& id) const
 {
+    assert(m_store.contains(id) && "—^‚¦‚ç‚ê‚½ƒpƒX‚Ì‰æ‘œ‚ª–³‚¢‚æ");
     return m_store.at(id);
 }
