@@ -5,9 +5,10 @@ Button::Button(Vector2 initPos) :
 	m_updateState(&Button::NormalUpdate),
 	m_downButton(this),
 	m_leftButton(this),
-	m_upButton(this),
-	m_rightButton(this)
+	m_rightButton(this),
+	m_upButton(this)
 {
+
 }
 
 void Button::Update()

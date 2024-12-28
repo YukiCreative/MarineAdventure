@@ -171,6 +171,9 @@
     <ClCompile Include="ButtonGameStart.cpp">
       <Filter>ソース ファイル\UI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonReturnToTitle.cpp">
+      <Filter>ソース ファイル\UI\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -297,6 +300,9 @@
       <Filter>ヘッダー ファイル\UI\Button</Filter>
     </ClInclude>
     <ClInclude Include="ButtonNoFocus.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonReturnToTitle.h">
       <Filter>ヘッダー ファイル\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
