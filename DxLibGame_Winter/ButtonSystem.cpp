@@ -88,7 +88,7 @@ void ButtonSystem::Update()
 	// ボタン押したときの処理
 	if (Input::GetInstance().IsTrigger("Submit"))
 	{
-		m_nowFocusedButton->Onpressed();
+		m_nowFocusedButton->OnPressed();
 		// すぐにシーン遷移するかもしれないのでreturnしとく
 		return;
 	}

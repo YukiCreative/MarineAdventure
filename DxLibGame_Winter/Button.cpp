@@ -20,7 +20,7 @@ void Button::Update()
 void Button::OnForcused()
 {
 	// ó‘Ô‚ğ•Ï‚¦‚é
-	m_updateState = &Button::ForcusedUpdate;
+	m_updateState = &Button::FocusedUpdate;
 }
 
 void Button::OnDisfocused()

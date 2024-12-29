@@ -4,6 +4,7 @@
 
 class BackGround;
 class Camera;
+class ButtonSystem;
 
 // このクラスにさせたいこと
 // オプションシーンへ
@@ -14,10 +15,14 @@ class PauseScene : public Scene
 private:
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<BackGround> m_back;
+	std::shared_ptr<ButtonSystem> m_buttonSystem;
 public:
 	PauseScene();
 
 	void NormalUpdate() override;
 	void Draw() const override;
+
+	void ReturnToTitle();
+	void RetrunToGame();
 };
 

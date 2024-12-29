@@ -35,6 +35,14 @@ void Scene::SceneStackUpdate()
 	SceneController::GetInstance().StackScene(m_fadedNextScene);
 }
 
+void Scene::SceneRemoveUpdate()
+{
+	m_fade.Update();
+	if (m_fade.IsFading()) return;
+
+	SceneController::GetInstance().RemoveSceme();
+}
+
 void Scene::SceneChangeWithFadeOut(const std::string& nextSceneId, const int& toralFrame, const float& percent)
 {
 	// 次のシーンを記憶
@@ -51,4 +59,10 @@ void Scene::SceneStackWithFadeOut(const std::string& nextSceneId, const int& tor
 	m_fade.Fade(toralFrame, percent);
 	// 自身はフェード待ち状態へ(スタック)
 	m_update = &Scene::SceneStackUpdate;
+}
+
+void Scene::SceneRemoveWithFadeOut(const int& toralFrame, const float& percent)
+{
+	m_fade.Fade(toralFrame, percent);
+	m_update = &Scene::SceneRemoveUpdate;
 }

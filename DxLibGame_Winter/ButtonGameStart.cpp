@@ -4,27 +4,31 @@
 #include <memory>
 #include "Image.h"
 
+namespace
+{
+	const std::string kImagePass = "Data/Image/GameStartButton.png";
+}
+
 ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
 	Button(initPos),
 	m_frameCount(0),
-	m_text("GameStart!!"),
 	m_titleRef(title)
 {
-	m_image = std::make_shared<Image>("Data/Image/GameStartButton.png");
+	m_image = std::make_shared<Image>(kImagePass);
 }
 void ButtonGameStart::NormalUpdate()
 {
 	// 何もしない
 }
 
-void ButtonGameStart::ForcusedUpdate()
+void ButtonGameStart::FocusedUpdate()
 {
 	++m_frameCount;
 	// 点滅とかさせたい
 	m_image->SetExRate(sinf(m_frameCount * 0.1f) * 1.5f);
 }
 
-void ButtonGameStart::Onpressed()
+void ButtonGameStart::OnPressed()
 {
 	// シーン遷移をシーンにお願い
 	m_titleRef.GameStart();

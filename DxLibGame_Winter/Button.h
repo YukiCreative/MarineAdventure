@@ -21,7 +21,7 @@ private:
 	Button* m_downButton;
 	// 画像とかテキストとかは派生先で宣言した方が扱いやすいと思い、置いていません。
 
-	virtual void ForcusedUpdate() = 0;
+	virtual void FocusedUpdate() = 0;
 	virtual void NormalUpdate() = 0;
 
 	using UpdateState_t = void (Button::*)();
@@ -36,7 +36,7 @@ public:
 	void OnForcused();
 	void OnDisfocused();
 	// ここに押下時の個別処理を
-	virtual void Onpressed() = 0;
+	virtual void OnPressed() = 0;
 
 	void SetRightButton(std::shared_ptr<Button> right) { m_rightButton = right.get(); }
 	void SetLeftButton(std::shared_ptr<Button> left) { m_leftButton = left.get(); }
