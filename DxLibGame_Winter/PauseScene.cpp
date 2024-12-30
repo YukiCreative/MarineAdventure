@@ -26,9 +26,13 @@ PauseScene::PauseScene()
 	m_buttonSystem = std::make_shared<ButtonSystem>();
 	std::shared_ptr<ButtonReturnToTitle> returnTitleButton = std::make_shared<ButtonReturnToTitle>(kPosButtonReturnToTitle, *this);
 	std::shared_ptr<ButtonReturnToGame> returnGameButton = std::make_shared<ButtonReturnToGame>(kPosButtonReturnToGame, *this);
+	returnGameButton->SetDownButton(returnTitleButton);
+	returnGameButton->SetUpButton(returnTitleButton);
+	returnTitleButton->SetUpButton(returnGameButton);
+	returnTitleButton->SetDownButton(returnGameButton);
 	m_buttonSystem->AddButton(returnTitleButton);
 	m_buttonSystem->AddButton(returnGameButton);
-	m_buttonSystem->SetButtonFocus(returnGameButton);
+	m_buttonSystem->SetButtonFocus(returnTitleButton);
 
 	m_fade.Fade(30, 0);
 }

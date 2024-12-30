@@ -9,6 +9,7 @@ private:
 	void NormalUpdate() override {};
 public:
 	ButtonNoFocus() : Button(Vector2::Zero()) {}
+	~ButtonNoFocus(){}
 
 	void Draw() const override {}
 

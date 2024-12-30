@@ -18,6 +18,7 @@ private:
 
 public:
 	ButtonReturnToGame(Vector2 initPos, PauseScene& pauseScene);
+	~ButtonReturnToGame();
 
 	void OnPressed() override;
 

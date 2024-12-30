@@ -27,6 +27,10 @@ ButtonReturnToTitle::ButtonReturnToTitle(Vector2 initPos, PauseScene& parent) :
 	m_image = std::make_shared<Image>(kImagePass);
 }
 
+ButtonReturnToTitle::~ButtonReturnToTitle()
+{
+}
+
 void ButtonReturnToTitle::OnPressed()
 {
 	m_pauseSceneRef.ReturnToTitle();

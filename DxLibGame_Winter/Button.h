@@ -43,8 +43,12 @@ public:
 	void SetUpButton(std::shared_ptr<Button> up) { m_upButton = up.get(); }
 	void SetDownButton(std::shared_ptr<Button> down) { m_downButton = down.get(); }
 
-	std::shared_ptr<Button> RightButton() const { return std::shared_ptr<Button>(m_rightButton); }
-	std::shared_ptr<Button> LeftButton() const { return std::shared_ptr<Button>(m_leftButton); }
-	std::shared_ptr<Button> UpButton() const { return std::shared_ptr<Button>(m_upButton); }
-	std::shared_ptr<Button> DownButton() const { return std::shared_ptr<Button>(m_downButton); }
+	Button* RightButton() const { return m_rightButton; }
+	Button* LeftButton() const { return m_leftButton; }
+	Button* UpButton() const { return m_upButton; }
+	Button* DownButton() const { return m_downButton; }
+	//std::shared_ptr<Button> RightButton() { return std::shared_ptr<Button>(m_leftButton); }
+	//std::shared_ptr<Button> LeftButton() const { return std::shared_ptr<Button>(m_leftButton); }
+	//std::shared_ptr<Button> UpButton() const { return std::shared_ptr<Button>(m_upButton); }
+	//std::shared_ptr<Button> DownButton() const { return std::shared_ptr<Button>(m_downButton); }
 };

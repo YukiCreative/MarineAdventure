@@ -23,26 +23,26 @@ void ButtonSystem::MoveFocus()
 	}
 
 	Vector2Int inputDir(0,0);
-	std::shared_ptr<Button> beforeButton = m_nowFocusedButton;
+	std::weak_ptr<Button> beforeButton = m_nowFocusedButton;
 	// axisを取ってフォーカスの位置をずらす
 	if (inputAxis.x > kButtonPosMoveThreshold)
 	{
-		m_nowFocusedButton = m_nowFocusedButton->RightButton();
+		m_nowFocusedButton = GetWeakPtr(m_nowFocusedButton.lock()->RightButton());
 		++inputDir.x;
 	}
 	else if (inputAxis.x < -kButtonPosMoveThreshold)
 	{
-		m_nowFocusedButton = m_nowFocusedButton->LeftButton();
+		m_nowFocusedButton = GetWeakPtr(m_nowFocusedButton.lock()->LeftButton());
 		--inputDir.x;
 	}
 	if (inputAxis.y > kButtonPosMoveThreshold)
 	{
-		m_nowFocusedButton = m_nowFocusedButton->DownButton();
+		m_nowFocusedButton = GetWeakPtr(m_nowFocusedButton.lock()->DownButton());
 		++inputDir.y;
 	}
 	else if (inputAxis.y < -kButtonPosMoveThreshold)
 	{
-		m_nowFocusedButton = m_nowFocusedButton->UpButton();
+		m_nowFocusedButton = GetWeakPtr(m_nowFocusedButton.lock()->UpButton());
 		--inputDir.y;
 	}
 
@@ -50,14 +50,28 @@ void ButtonSystem::MoveFocus()
 	m_inputDirBeforeFrame = inputDir;
 
 	// ここで何も変わっていなかったら処理終わり
-	if (m_nowFocusedButton == beforeButton) return;
+	if (m_nowFocusedButton.lock() == beforeButton.lock()) return;
 
 	// 新しく選択されたボタンに「お前選ばれてるぞ」と連絡
-	m_nowFocusedButton->OnForcused();
+	m_nowFocusedButton.lock()->OnForcused();
 	// 元のボタンは通常状態に戻るように連絡
-	beforeButton->OnDisfocused();
+	beforeButton.lock()->OnDisfocused();
+	printf("before参照数：%d", beforeButton.use_count());
 	// タイマーを設定
 	m_cursorMoveTimer = kCursorMoveInterval;
+}
+
+std::weak_ptr<Button> ButtonSystem::GetWeakPtr(Button* rawPtr)
+{
+	for (const auto& button : m_buttons)
+	{
+		if (button.get() == rawPtr)
+		{
+			return button;
+		}
+	}
+
+	assert(false && "ボタン一覧にそんなボタンがなかったから追加していないのでは？");
 }
 
 ButtonSystem::ButtonSystem() :
@@ -88,7 +102,7 @@ void ButtonSystem::Update()
 	// ボタン押したときの処理
 	if (Input::GetInstance().IsTrigger("Submit"))
 	{
-		m_nowFocusedButton->OnPressed();
+		m_nowFocusedButton.lock()->OnPressed();
 		// すぐにシーン遷移するかもしれないのでreturnしとく
 		return;
 	}
@@ -100,6 +114,7 @@ void ButtonSystem::Draw() const
 	for (const auto& button : m_buttons)
 	{
 		button->Draw();
+		printf("参照数:%d", button.use_count());
 	}
 }
 
@@ -111,9 +126,9 @@ void ButtonSystem::AddButton(std::shared_ptr<Button> buttonInstance)
 void ButtonSystem::SetButtonFocus(std::shared_ptr<Button> setButton)
 {
 	assert(std::find(m_buttons.begin(), m_buttons.end(), setButton) != m_buttons.end() && "登録されていないボタンです");
-	m_nowFocusedButton->OnDisfocused();
+	m_nowFocusedButton.lock()->OnDisfocused();
 	m_nowFocusedButton = setButton;
-	m_nowFocusedButton->OnForcused();
+	m_nowFocusedButton.lock()->OnForcused();
 }
 
 void ButtonSystem::ExitFocus()

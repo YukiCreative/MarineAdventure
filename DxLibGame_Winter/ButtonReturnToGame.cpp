@@ -15,7 +15,7 @@ void ButtonReturnToGame::FocusedUpdate()
 {
 	++m_frameCount;
 	if (m_frameCount > 360) m_frameCount = 0;
-	m_pos += sin(m_frameCount * Calculation::kDegToRad);
+	m_pos.x += cos(m_frameCount * Calculation::kDegToRad);
 }
 
 void ButtonReturnToGame::NormalUpdate()
@@ -28,6 +28,10 @@ ButtonReturnToGame::ButtonReturnToGame(Vector2 initPos, PauseScene& pauseScene) 
 	m_frameCount(0)
 {
 	m_image = std::make_shared<Image>(kImagePass);
+}
+
+ButtonReturnToGame::~ButtonReturnToGame()
+{
 }
 
 void ButtonReturnToGame::OnPressed()

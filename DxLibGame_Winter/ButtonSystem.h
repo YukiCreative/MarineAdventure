@@ -17,7 +17,7 @@ private:
 	using ButtonList_t = std::list<std::shared_ptr<Button>>;
 	ButtonList_t m_buttons;
 	// 空の時は…ヌルポでいいですか？
-	std::shared_ptr<Button> m_nowFocusedButton;
+	std::weak_ptr<Button> m_nowFocusedButton;
 	// ダメと言われた気がしたので、非フォーカス時を表すボタンを作る
 	std::shared_ptr<ButtonNoFocus> m_noFocus;
 	// 同じ方向に入力し続けたら動くアレのタイマー
@@ -25,6 +25,8 @@ private:
 	Vector2Int m_inputDirBeforeFrame;
 
 	void MoveFocus();
+	// 生ぽからweak_ptrを返す
+	std::weak_ptr<Button> GetWeakPtr(Button* rawPtr);
 public:
 	ButtonSystem();
 	~ButtonSystem();

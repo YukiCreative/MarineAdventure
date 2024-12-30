@@ -19,6 +19,7 @@ private:
 	void NormalUpdate() override;
 public:
 	ButtonReturnToTitle(Vector2 initPos, PauseScene& parent);
+	~ButtonReturnToTitle();
 
 	void OnPressed() override;
 
