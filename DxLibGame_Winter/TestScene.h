@@ -26,7 +26,8 @@ public:
 	TestScene();
 	~TestScene();
 
-	virtual void NormalUpdate() override;
-	virtual void Draw() const override;
+	void Entry() override;
+	void NormalUpdate() override;
+	void Draw() const override;
 };
 

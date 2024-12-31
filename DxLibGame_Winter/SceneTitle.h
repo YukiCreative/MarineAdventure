@@ -17,6 +17,7 @@ private:
 public:
 	SceneTitle();
 
+	void Entry() override;
 	void NormalUpdate() override;
 	void Draw() const override;
 

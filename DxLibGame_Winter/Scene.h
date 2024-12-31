@@ -41,4 +41,8 @@ public:
 	/// 描画
 	/// </summary>
 	virtual void Draw() const = 0;
+
+	// シーンに入った時にやりたいことを書く
+	// これはポーズシーンから戻った時なども実行される
+	virtual void Entry() = 0;
 };

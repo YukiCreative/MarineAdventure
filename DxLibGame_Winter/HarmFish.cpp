@@ -24,8 +24,8 @@ void HarmFish::Idle()
 		if (m_playerRef.CheckState(PlayerState::kAttack) || m_playerRef.CheckState(PlayerState::kStrongAttack))
 		{
 			// ここでHPを減らす
-			--m_hp;
-			printf("HP%dになたよ", m_hp);
+			m_hp.Decrease(1);
+			printf("HP%dになたよ", m_hp.Value());
 			m_graphic = ">_<";
 			m_state = &HarmFish::Damage;
 			// プレイヤーに「攻撃した」と教える
@@ -45,7 +45,7 @@ void HarmFish::Idle()
 void HarmFish::Damage()
 {
 	++m_stateFrameCount;
-	if (m_hp <= 0)
+	if (m_hp.Value() == 0)
 	{
 		m_stateFrameCount = 0;
 		printf("ちんだ");
@@ -86,7 +86,7 @@ HarmFish::HarmFish(Player& player, Camera& camera, Vector2 spawnPos) :
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f);
 	m_physics->UseConstantForce(false);
 	m_collider = std::make_shared<CircleCollider>(m_pos, kRadius);
-	m_hp = kInitHp;
+	m_hp.Increase(kInitHp);
 }
 
 void HarmFish::Update()

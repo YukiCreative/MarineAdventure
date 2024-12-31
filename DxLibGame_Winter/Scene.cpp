@@ -32,6 +32,9 @@ void Scene::SceneStackUpdate()
 	// でもこっちはシーンを重ねる
 	if (m_fade.IsFading()) return;
 
+	// アプデを元に戻す
+	m_update = &Scene::NormalUpdate;
+
 	SceneController::GetInstance().StackScene(m_fadedNextScene);
 }
 

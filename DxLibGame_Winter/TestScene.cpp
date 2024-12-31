@@ -34,12 +34,16 @@ TestScene::TestScene() :
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_backGround->ExpandGtaph(2.0f);
-	// フェードイン
-	m_fade.Fade(60, 0);
 }
 
 TestScene::~TestScene()
 {
+}
+
+void TestScene::Entry()
+{
+	// 主にフェード
+	m_fade.Fade(60, 0);
 }
 
 void TestScene::NormalUpdate()

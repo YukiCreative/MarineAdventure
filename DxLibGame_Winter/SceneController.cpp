@@ -50,15 +50,19 @@ void SceneController::ChangeScene(std::string sceneId)
 	// ŠÖ”‚ğÀs
 	m_scenes.back() = m_factoryMap.at(sceneId)();
 	m_changedSceneInThisFrame = true;
+	m_scenes.back()->Entry();
 }
 
 void SceneController::StackScene(std::string addSceneId)
 {
 	m_scenes.push_back(m_factoryMap.at(addSceneId)());
+	m_scenes.back()->Entry();
 }
 
 void SceneController::RemoveSceme()
 {
 	assert(m_scenes.size() > 1 && "ƒV[ƒ“‚ª–³‚­‚È‚é‚ñ‚Å‚·‚¯‚Ç");
 	m_scenes.pop_back();
+	// –ß‚Á‚½‚É‚â‚è‚½‚¢‚±‚Æ‚ğ‚â‚éŠÖ”‚ğ‘–‚ç‚¹‚é
+	m_scenes.back()->Entry();
 }

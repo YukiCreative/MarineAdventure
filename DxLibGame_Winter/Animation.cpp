@@ -5,6 +5,18 @@
 #include <cassert>
 #include "ImageStore.h"
 
+Animation::Animation() :
+	m_allAnimNum(0),
+	m_allFrame(0),
+	m_frameCount(0),
+	m_frameHandle(-1),
+	m_image(nullptr),
+	m_nowAnimNum(0),
+	m_sourceHandle(-1),
+	m_oneAnimTime(0)
+{
+}
+
 void Animation::Init(const std::string& path, const Vector2Int& oneFrameSize, const int& playSpeed)
 {
 	m_oneAnimTime = playSpeed;

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <memory>
+#include "HitPoint.h"
 
 class Camera;
 class Physics;
@@ -13,7 +14,7 @@ class Enemy : public GameObject
 {
 protected:
 	Camera& m_camera;
-	int m_hp;
+	HitPoint m_hp;
 	std::shared_ptr<Physics> m_physics;
 	Player& m_playerRef;
 public:

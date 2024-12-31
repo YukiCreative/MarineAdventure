@@ -19,6 +19,7 @@ private:
 public:
 	PauseScene();
 
+	void Entry() override;
 	void NormalUpdate() override;
 	void Draw() const override;
 

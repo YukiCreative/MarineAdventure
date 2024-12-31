@@ -20,6 +20,11 @@ SceneGameover::SceneGameover()
 	m_backGround->ExpandGtaph(3.0f);
 }
 
+void SceneGameover::Entry()
+{
+
+}
+
 void SceneGameover::NormalUpdate()
 {
 	m_backGround->Update();

@@ -28,6 +28,10 @@ SceneTitle::SceneTitle()
 	m_buttonSystem->SetButtonFocus(buttonGameStart);
 	// タイトル画像をロード
 	m_backGround = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), "Data/Image/Marine.jpg");
+}
+
+void SceneTitle::Entry()
+{
 	m_fade.Fade(60, 0);
 }
 

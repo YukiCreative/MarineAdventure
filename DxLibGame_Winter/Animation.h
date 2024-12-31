@@ -26,7 +26,7 @@ private:
 	int m_frameCount;
 	std::shared_ptr<Image> m_image;
 public:
-	Animation() = default;
+	Animation();
 
 	/// <summary>
 	/// アニメーションを設定する際に、コンストラクタではなくこちらで初期化する

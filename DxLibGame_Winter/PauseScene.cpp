@@ -33,7 +33,10 @@ PauseScene::PauseScene()
 	m_buttonSystem->AddButton(returnTitleButton);
 	m_buttonSystem->AddButton(returnGameButton);
 	m_buttonSystem->SetButtonFocus(returnTitleButton);
+}
 
+void PauseScene::Entry()
+{
 	m_fade.Fade(30, 0);
 }
 
@@ -60,7 +63,8 @@ void PauseScene::Draw() const
 void PauseScene::ReturnToTitle()
 {
 	m_fade.SetColor(0x000000);
-	SceneChangeWithFadeOut("Title");
+	SceneRemoveWithFadeOut();
+	//SceneChangeWithFadeOut("Title");
 }
 
 void PauseScene::RetrunToGame()

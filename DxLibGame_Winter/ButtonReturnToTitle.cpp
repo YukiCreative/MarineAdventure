@@ -4,7 +4,7 @@
 
 namespace
 {
-	const std::string kImagePass = "Data/Image/GameStartButton.png";
+	const std::string kImagePass = "Data/Image/ButtonReturnToTitle.png";
 }
 
 void ButtonReturnToTitle::FocusedUpdate()

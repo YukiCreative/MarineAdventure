@@ -202,6 +202,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="HarmFish.h" />
+    <ClInclude Include="HitPoint.h" />
     <ClInclude Include="HPUI.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageStore.h" />
