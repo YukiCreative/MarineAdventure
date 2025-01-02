@@ -9,7 +9,6 @@ Animation::Animation() :
 	m_allAnimNum(0),
 	m_allFrame(0),
 	m_frameCount(0),
-	m_frameHandle(-1),
 	m_image(nullptr),
 	m_nowAnimNum(0),
 	m_sourceHandle(-1),

@@ -6,18 +6,16 @@
 #include "Player.h"
 #include "Camera.h"
 #include "ObjectKind.h"
-
-std::shared_ptr<GameObject> ObjectsController::CreateHarmFish(Vector2 spawnPos)
-{
-	return std::static_pointer_cast<Enemy>(std::make_shared<HarmFish>(m_playerRef, m_cameraRef, spawnPos));
-}
+#include "Boss.h"
 
 ObjectsController::ObjectsController(Player& player, Camera& camera) :
 	m_playerRef(player),
 	m_cameraRef(camera)
 {
 	// mapの設定
-	m_factoryMap[ObjectKind::kHarmFish] = &ObjectsController::CreateHarmFish;
+	// functionってすげー
+	m_factoryMap[ObjectKind::kHarmFish] = [&](Vector2 spawnPos) {return std::make_shared<HarmFish>(m_playerRef, m_cameraRef, spawnPos); };
+	m_factoryMap[ObjectKind::kBoss] = [&](Vector2 spawnPos) {return std::make_shared<Boss>(m_playerRef, m_cameraRef, spawnPos); };
 }
 
 void ObjectsController::Update()
@@ -39,7 +37,7 @@ void ObjectsController::Update()
 	// すべての処理が終わった後に、消える予定の敵を削除する
 	for (const auto& deathObject : deathNote)
 	{
-		// 絶対遅いけど仕様追加するのが大事よな
+		// 絶対他の方法あるけど仕様追加するのが大事よな
 		auto iterator = std::remove(m_objects.begin(), m_objects.end(), deathObject);
 		// このイテレータはちょうどremoveした要素を指している
 		m_objects.erase(iterator);
@@ -59,7 +57,7 @@ void ObjectsController::Draw()
 void ObjectsController::SpawnObject(ObjectKind kind, Vector2 spawnPos)
 {
 	if (kind == ObjectKind::kEmpty) return;
-	m_objects.push_back((this->*m_factoryMap[kind])(spawnPos));
+	m_objects.push_back(m_factoryMap[kind](spawnPos));
 }
 
 void ObjectsController::SpawnObject(std::shared_ptr<GameObject> objectInstance)

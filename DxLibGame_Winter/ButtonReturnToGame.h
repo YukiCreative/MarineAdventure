@@ -20,6 +20,9 @@ public:
 	ButtonReturnToGame(Vector2 initPos, PauseScene& pauseScene);
 	~ButtonReturnToGame();
 
+	void OnFocused() override;
+	void OnDisfocused() override;
+
 	void OnPressed() override;
 
 	void Draw() const override;

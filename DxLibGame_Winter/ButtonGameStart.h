@@ -12,11 +12,14 @@ private:
 	int m_frameCount;
 	// こうやってボタンごとに個別に設定していいのだろうか（主に開発速度的に）
 	SceneTitle& m_titleRef;
-public:
-	ButtonGameStart(Vector2 initPos, SceneTitle& title);
 
 	void NormalUpdate() override;
 	void FocusedUpdate() override;
+public:
+	ButtonGameStart(Vector2 initPos, SceneTitle& title);
+
+	void OnFocused() override;
+	void OnDisfocused() override;
 
 	void OnPressed() override;
 

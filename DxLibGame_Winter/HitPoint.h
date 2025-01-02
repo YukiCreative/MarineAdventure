@@ -18,7 +18,9 @@ public:
 
 	void operator=(HitPoint right)
 	{
-		*this = right;
+		m_value = right.m_value;
+		// èdï°å‰ñ∆
+		m_value = std::clamp(m_value, kMinHitPoint, kMaxHitPoint);
 	}
 
 	int Value() const

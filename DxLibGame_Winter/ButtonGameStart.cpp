@@ -6,7 +6,7 @@
 
 namespace
 {
-	const std::string kImagePass = "Data/Image/GameStartButton.png";
+	const std::string kImagePass = "GameStartButton.png";
 }
 
 ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
@@ -16,6 +16,17 @@ ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
 {
 	m_image = std::make_shared<Image>(kImagePass);
 }
+
+void ButtonGameStart::OnFocused()
+{
+	InvertState();
+}
+
+void ButtonGameStart::OnDisfocused()
+{
+	InvertState();
+}
+
 void ButtonGameStart::NormalUpdate()
 {
 	// ‰½‚à‚µ‚È‚¢

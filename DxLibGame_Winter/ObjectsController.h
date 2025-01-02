@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "Vector2.h"
 #include "ObjectKind.h"
+#include <functional>
 
 class HarmFish;
 class Player;
@@ -25,9 +26,8 @@ private:
 	using ObjectList_t = std::list<std::shared_ptr<GameObject>>;
 	ObjectList_t m_objects;
 
-	// Enemyの生成を列挙体から連想できるように関数を紐づける
-	using ObjectFactory_t = std::shared_ptr<GameObject>(ObjectsController::*)(Vector2 pos);
-	std::shared_ptr<GameObject> CreateHarmFish(Vector2 spawnPos);
+	// オブジェクトの生成を列挙体から連想できるように関数を紐づける
+	using ObjectFactory_t = std::function<std::shared_ptr<GameObject>(Vector2)>;
 	std::unordered_map<ObjectKind, ObjectFactory_t> m_factoryMap;
 public:
 	ObjectsController(Player& player, Camera& camera);

@@ -53,7 +53,7 @@ void ButtonSystem::MoveFocus()
 	if (m_nowFocusedButton.lock() == beforeButton.lock()) return;
 
 	// 新しく選択されたボタンに「お前選ばれてるぞ」と連絡
-	m_nowFocusedButton.lock()->OnForcused();
+	m_nowFocusedButton.lock()->OnFocused();
 	// 元のボタンは通常状態に戻るように連絡
 	beforeButton.lock()->OnDisfocused();
 	printf("before参照数：%d", beforeButton.use_count());
@@ -128,7 +128,7 @@ void ButtonSystem::SetButtonFocus(std::shared_ptr<Button> setButton)
 	assert(std::find(m_buttons.begin(), m_buttons.end(), setButton) != m_buttons.end() && "登録されていないボタンです");
 	m_nowFocusedButton.lock()->OnDisfocused();
 	m_nowFocusedButton = setButton;
-	m_nowFocusedButton.lock()->OnForcused();
+	m_nowFocusedButton.lock()->OnFocused();
 }
 
 void ButtonSystem::ExitFocus()

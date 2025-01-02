@@ -24,6 +24,15 @@ void Scene::SceneChangeUpdate()
 	SceneController::GetInstance().ChangeScene(m_fadedNextScene);
 }
 
+void Scene::SceneResumeUpdate()
+{
+	m_fade.Update();
+	// 遷移条件：フェードが終わる
+	if (m_fade.IsFading()) return;
+
+	SceneController::GetInstance().ResumeScene(m_fadedNextScene);
+}
+
 void Scene::SceneStackUpdate()
 {
 	m_fade.Update();
@@ -54,6 +63,13 @@ void Scene::SceneChangeWithFadeOut(const std::string& nextSceneId, const int& to
 	m_fade.Fade(toralFrame, percent);
 	// 自身はフェード待ち状態へ
 	m_update = &Scene::SceneChangeUpdate;
+}
+
+void Scene::SceneResumeWithFadeOut(const std::string& nextSceneId, const int& toralFrame, const float& percent)
+{
+	m_fadedNextScene = nextSceneId;
+	m_fade.Fade(toralFrame, percent);
+	m_update = &Scene::SceneResumeUpdate;
 }
 
 void Scene::SceneStackWithFadeOut(const std::string& nextSceneId, const int& toralFrame, const float& percent)

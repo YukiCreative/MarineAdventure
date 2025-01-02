@@ -4,7 +4,8 @@
 
 namespace
 {
-	const std::string kImagePass = "Data/Image/ButtonReturnToTitle.png";
+	const std::string kImagePass = "ButtonReturnToTitle.png";
+	const std::string kImagePassNoFocused = "ButtonReturnToTitle_NoFocused.png";
 }
 
 void ButtonReturnToTitle::FocusedUpdate()
@@ -23,12 +24,24 @@ ButtonReturnToTitle::ButtonReturnToTitle(Vector2 initPos, PauseScene& parent) :
 	m_pauseSceneRef(parent),
 	m_frameTimer(0)
 {
-	// ‚Æ‚è‚ ‚¦‚¸‚Ë
-	m_image = std::make_shared<Image>(kImagePass);
+	m_image = std::make_shared<Image>(kImagePassNoFocused);
+	m_image->ExpandGraph(2.0f);
 }
 
 ButtonReturnToTitle::~ButtonReturnToTitle()
 {
+}
+
+void ButtonReturnToTitle::OnFocused()
+{
+	InvertState();
+	m_image->SetGraph(kImagePass);
+}
+
+void ButtonReturnToTitle::OnDisfocused()
+{
+	InvertState();
+	m_image->SetGraph(kImagePassNoFocused);
 }
 
 void ButtonReturnToTitle::OnPressed()

@@ -1,5 +1,17 @@
 #include "Button.h"
 
+void Button::InvertState()
+{
+	if (m_updateState == &Button::FocusedUpdate)
+	{
+		m_updateState = &Button::NormalUpdate;
+	}
+	else
+	{
+		m_updateState = &Button::FocusedUpdate;
+	}
+}
+
 Button::Button(Vector2 initPos) :
 	GameObject(initPos),
 	m_updateState(&Button::NormalUpdate),
@@ -8,23 +20,10 @@ Button::Button(Vector2 initPos) :
 	m_rightButton(this),
 	m_upButton(this)
 {
-
 }
 
 void Button::Update()
 {
 	// ‚¢‚Â‚à‚Ì
 	(this->*m_updateState)();
-}
-
-void Button::OnForcused()
-{
-	// ó‘Ô‚ğ•Ï‚¦‚é
-	m_updateState = &Button::FocusedUpdate;
-}
-
-void Button::OnDisfocused()
-{
-	// ó‘Ô‚ğ•Ï‚¦‚é
-	m_updateState = &Button::NormalUpdate;
 }

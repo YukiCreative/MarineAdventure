@@ -17,6 +17,7 @@ namespace
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 	constexpr int kButtonYOffset = 80;
 	const Vector2 kInitButtonPos(Game::kScreenHalfWidth, Game::kScreenHeight - kButtonYOffset);
+	const std::string kBGPath = "Marine.jpg";
 }
 
 SceneTitle::SceneTitle()
@@ -27,7 +28,7 @@ SceneTitle::SceneTitle()
 	m_buttonSystem->AddButton(buttonGameStart);
 	m_buttonSystem->SetButtonFocus(buttonGameStart);
 	// タイトル画像をロード
-	m_backGround = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), "Data/Image/Marine.jpg");
+	m_backGround = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), kBGPath);
 }
 
 void SceneTitle::Entry()

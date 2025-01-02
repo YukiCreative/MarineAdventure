@@ -27,7 +27,7 @@ private:
 	std::shared_ptr<Animation> m_anim;
 	std::shared_ptr<CircleCollider> m_col;
 public:
-	Boss(Vector2 initPos, Camera& camera, Player& player);
+	Boss(Player& player, Camera& camera, Vector2 initPos);
 
 	void Update() override;
 	void Draw() const override;

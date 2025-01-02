@@ -21,6 +21,9 @@ public:
 	ButtonReturnToTitle(Vector2 initPos, PauseScene& parent);
 	~ButtonReturnToTitle();
 
+	void OnFocused() override;
+	void OnDisfocused() override;
+
 	void OnPressed() override;
 
 	void Draw() const override;

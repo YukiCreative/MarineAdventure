@@ -6,7 +6,8 @@
 /// </summary>
 enum class ObjectKind
 {
-	kEmpty = 0,
+	kEmpty,
 	kHarmFish,
+	kBoss,
 	kMax,
 };

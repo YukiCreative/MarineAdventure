@@ -12,6 +12,9 @@ namespace
 
 	constexpr int kBackImageWidth = 4;
 	constexpr int kBackImageHeight = 4;
+
+	const std::string kMapImagePath = "MapChip.png";
+	const std::string kBackImagePath = "BackImageMapParts.png";
 }
 
 MapImageStore::MapImageStore()
@@ -20,7 +23,7 @@ MapImageStore::MapImageStore()
 
 	// マップチップの画像を読んで、それを16x16に分割したやつも作る
 	// 作ったハンドルは配列に入れる
-	m_sourceHandle = img.GetGraph("Data/Image/MapChip.png");
+	m_sourceHandle = img.GetGraph(kMapImagePath);
 	assert(m_sourceHandle != -1);
 	for (int y = 0; y < kHeightChipNum; ++y)
 	{
@@ -33,7 +36,7 @@ MapImageStore::MapImageStore()
 	}
 
 	// 上とほぼ同じ
-	m_backSourceHandle = img.GetGraph("Data/Image/BackImageMapParts.png");
+	m_backSourceHandle = img.GetGraph(kBackImagePath);
 	assert(m_sourceHandle != -1);
 	for (int y = 0; y < kBackImageHeight; ++y)
 	{

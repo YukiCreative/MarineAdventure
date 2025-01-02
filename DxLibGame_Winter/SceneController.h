@@ -20,7 +20,6 @@ private:
 
 	using SceneList_t = std::list<std::shared_ptr<Scene>>;
 	SceneList_t m_scenes;
-	bool m_changedSceneInThisFrame;
 
 	using SceneFactory_t = std::shared_ptr<Scene> (*)();
 	std::unordered_map<std::string, SceneFactory_t> m_factoryMap;
@@ -33,6 +32,8 @@ public:
 
 	// 今実行中のシーンを別のものに替える
 	void ChangeScene(std::string sceneId);
+	// 一回展開しているシーンを全部片づけて新しいシーン一つだけにする
+	void ResumeScene(std::string sceneId);
 	// シーンを重ねる
 	void StackScene(std::string addSceneId);
 	// 最後尾のシーンを削除

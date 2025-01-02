@@ -30,6 +30,8 @@ namespace
 	constexpr int kMoveThreshold = 10000;
 	const Vector2 kJumpForce(0.0f, -10.0f);
 	const Vector2Int kPlayerGraphSize(32, 32);
+
+	const std::string kIdleAnimPath = "Idle (32x32).png";
 }
 
 // 何も操作されていない状態。
@@ -312,7 +314,7 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 		m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
 	// ここからアニメーションの初期化
 	m_idleAnim = std::make_shared<Animation>();
-	m_idleAnim->Init("Data/Image/Idle (32x32).png", kPlayerGraphSize, 2);
+	m_idleAnim->Init(kIdleAnimPath, kPlayerGraphSize, 2);
 	m_nowAnim = m_idleAnim;
 }
 

@@ -32,6 +32,5 @@ void Image::Draw(const Vector2& pos) const
 
 void Image::SetGraph(const std::string& path)
 {
-	DeleteGraph(m_sourceHandle);
-	m_sourceHandle = LoadGraph(path.c_str());
+	m_sourceHandle = ImageStore::GetInstance().GetGraph(path);
 }

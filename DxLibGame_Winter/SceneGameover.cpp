@@ -11,12 +11,13 @@
 namespace
 {
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
+	const std::string kGameOverImagePath = "GAMEOVER_Test.jpg";
 }
 
 SceneGameover::SceneGameover()
 {
 	m_camera = std::make_shared<Camera>();
-	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenMiddlePoint, "Data/Image/GAMEOVER_Test.jpg");
+	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenMiddlePoint, kGameOverImagePath);
 	m_backGround->ExpandGtaph(3.0f);
 }
 

@@ -18,7 +18,9 @@
 namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	const 	Vector2 initPlayerPos(0, 0);
+	const Vector2 initPlayerPos(0, 0);
+	const std::string kMapDataPass = "Data/MapData/TestMapData32x16.fmf";
+	const std::string kBackGroundPass = "Marine.jpg";
 }
 
 TestScene::TestScene() :
@@ -27,8 +29,8 @@ TestScene::TestScene() :
 	m_camera = std::make_shared<Camera>(initPlayerPos);
 	m_player = std::make_shared<Player>(*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
-	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont, "Data/MapData/TestMapGroundStage.fmf");
-	m_backGround = std::make_shared<BackGround>(*m_camera, (m_map->GetMapSize() * 16), "Data/Image/Marine.jpg");
+	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont, kMapDataPass);
+	m_backGround = std::make_shared<BackGround>(*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
 
 	m_player->Init(m_map);
 	m_camera->SetFollowObject(m_player);

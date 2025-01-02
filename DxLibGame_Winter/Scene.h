@@ -15,6 +15,7 @@ private:
 	std::string m_fadedNextScene;
 
 	void SceneChangeUpdate();
+	void SceneResumeUpdate();
 	void SceneStackUpdate();
 	void SceneRemoveUpdate();
 protected:
@@ -26,6 +27,7 @@ protected:
 	virtual void NormalUpdate() = 0;
 	// フェードアウトしてシーン遷移
 	void SceneChangeWithFadeOut(const std::string& nextSceneId, const int& toralFrame = 60, const float& percent = 100.0f);
+	void SceneResumeWithFadeOut(const std::string& nextSceneId, const int& toralFrame = 60, const float& percent = 100.0f);
 	void SceneStackWithFadeOut(const std::string& nextSceneId, const int& toralFrame = 60, const float& percent = 100.0f);
 	void SceneRemoveWithFadeOut(const int& toralFrame = 60, const float& percent = 100.0f);
 public:

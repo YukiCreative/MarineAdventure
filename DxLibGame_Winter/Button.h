@@ -26,6 +26,9 @@ private:
 
 	using UpdateState_t = void (Button::*)();
 	UpdateState_t m_updateState;
+protected:
+	// フォーカスの有無の切り替えってこれ一つでいいかな
+	void InvertState();
 public:
 	Button(Vector2 initPos);
 
@@ -33,8 +36,8 @@ public:
 	// Drawは派生先でやってね
 
 	// フォーカスされたらButtonSystemが呼ぶ関数
-	void OnForcused();
-	void OnDisfocused();
+	virtual void OnFocused() = 0;
+	virtual void OnDisfocused() = 0;
 	// ここに押下時の個別処理を
 	virtual void OnPressed() = 0;
 
@@ -47,8 +50,4 @@ public:
 	Button* LeftButton() const { return m_leftButton; }
 	Button* UpButton() const { return m_upButton; }
 	Button* DownButton() const { return m_downButton; }
-	//std::shared_ptr<Button> RightButton() { return std::shared_ptr<Button>(m_leftButton); }
-	//std::shared_ptr<Button> LeftButton() const { return std::shared_ptr<Button>(m_leftButton); }
-	//std::shared_ptr<Button> UpButton() const { return std::shared_ptr<Button>(m_upButton); }
-	//std::shared_ptr<Button> DownButton() const { return std::shared_ptr<Button>(m_downButton); }
 };

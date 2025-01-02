@@ -13,14 +13,15 @@
 namespace 
 {
 	const Vector2 kScrrenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	const Vector2 kPosButtonReturnToTitle = kScrrenMiddlePoint;
-	const Vector2 kPosButtonReturnToGame = (kScrrenMiddlePoint - Vector2(0, 80));
+	const Vector2 kPosButtonReturnToTitle = kScrrenMiddlePoint + Vector2(0, 90);
+	const Vector2 kPosButtonReturnToGame = (kScrrenMiddlePoint + Vector2(0, -90));
+	const std::string kBackGroundPath = "Marine.jpg";
 }
 
 PauseScene::PauseScene()
 {
 	m_camera = std::make_shared<Camera>();
-	m_back = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), "Data/Image/Marine.jpg");
+	m_back = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), kBackGroundPath);
 
 	// É{É^ÉìÇÃê›íË
 	m_buttonSystem = std::make_shared<ButtonSystem>();
@@ -32,7 +33,7 @@ PauseScene::PauseScene()
 	returnTitleButton->SetDownButton(returnGameButton);
 	m_buttonSystem->AddButton(returnTitleButton);
 	m_buttonSystem->AddButton(returnGameButton);
-	m_buttonSystem->SetButtonFocus(returnTitleButton);
+	m_buttonSystem->SetButtonFocus(returnGameButton);
 }
 
 void PauseScene::Entry()
@@ -63,8 +64,7 @@ void PauseScene::Draw() const
 void PauseScene::ReturnToTitle()
 {
 	m_fade.SetColor(0x000000);
-	SceneRemoveWithFadeOut();
-	//SceneChangeWithFadeOut("Title");
+	SceneResumeWithFadeOut("Title");
 }
 
 void PauseScene::RetrunToGame()
