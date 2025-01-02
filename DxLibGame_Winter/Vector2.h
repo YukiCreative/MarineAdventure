@@ -264,7 +264,7 @@ public:
 		float rad = atan2(y, x);
 		if (rad < 0)
 		{
-			rad += Calculation::kPi;
+			rad += Calculation::kPi * 2;
 		}
 		return rad * Calculation::kRadToDeg;
 	}

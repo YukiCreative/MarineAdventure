@@ -23,10 +23,13 @@ private:
 	// 同じ方向に入力し続けたら動くアレのタイマー
 	int m_cursorMoveTimer;
 	Vector2Int m_inputDirBeforeFrame;
+	Vector2 m_inputAxisBeforeFrame;
 
-	void MoveFocus();
+	void MoveFocus(Vector2 inputAxis);
 	// 生ぽからweak_ptrを返す
 	std::weak_ptr<Button> GetWeakPtr(Button* rawPtr);
+
+	bool CanMoveFocus(Vector2 inputAxis);
 public:
 	ButtonSystem();
 	~ButtonSystem();

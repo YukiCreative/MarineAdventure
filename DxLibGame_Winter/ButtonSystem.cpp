@@ -11,16 +11,9 @@ namespace
 	constexpr int kAxisDirThreshold = 45;
 }
 
-void ButtonSystem::MoveFocus()
+void ButtonSystem::MoveFocus(Vector2 inputAxis)
 {
-	Vector2 inputAxis = Input::GetInstance().GetInputAxis();
-
-	// 今の入力が、前回のフレームと同じ方向ならすぐには動かない
-	if (inputAxis.RerativeAngle(m_inputDirBeforeFrame) < kAxisDirThreshold)
-	{
-		// この場合、タイマーが一定時間経過しているか確かめる
-		if (m_cursorMoveTimer > 0) return;
-	}
+	if (CanMoveFocus(inputAxis)) return;
 
 	Vector2Int inputDir(0,0);
 	std::weak_ptr<Button> beforeButton = m_nowFocusedButton;
@@ -56,7 +49,6 @@ void ButtonSystem::MoveFocus()
 	m_nowFocusedButton.lock()->OnFocused();
 	// 元のボタンは通常状態に戻るように連絡
 	beforeButton.lock()->OnDisfocused();
-	printf("before参照数：%d", beforeButton.use_count());
 	// タイマーを設定
 	m_cursorMoveTimer = kCursorMoveInterval;
 }
@@ -74,9 +66,22 @@ std::weak_ptr<Button> ButtonSystem::GetWeakPtr(Button* rawPtr)
 	assert(false && "ボタン一覧にそんなボタンがなかったから追加していないのでは？");
 }
 
+bool ButtonSystem::CanMoveFocus(Vector2 inputAxis)
+{
+	// 条件
+	// 　前のフレームと同じ方向（入力なし以外）に入力していたら、
+	//　 その方向に入力を初めて一定時間が経過していないといけない
+	// 前のフレームと方向が違うならそのまま入力を通す
+	// 入力方向は360度を上下左右で分割した四つ
+	printf("一般角角度%f\n", inputAxis.RerativeAngle(m_inputAxisBeforeFrame));
+	if (inputAxis.RerativeAngle(m_inputDirBeforeFrame) < 45) return true;
+	return false;
+}
+
 ButtonSystem::ButtonSystem() :
 	m_cursorMoveTimer(0),
-	m_inputDirBeforeFrame(0,0)
+	m_inputDirBeforeFrame(0,0),
+	m_inputAxisBeforeFrame()
 {
 	m_noFocus = std::make_shared<ButtonNoFocus>();
 	m_nowFocusedButton = m_noFocus;
@@ -89,9 +94,10 @@ ButtonSystem::~ButtonSystem()
 void ButtonSystem::Update()
 {
 	--m_cursorMoveTimer;
+	Vector2 inputAxis = Input::GetInstance().GetInputAxis();
 
 	// 選択ボタンの移動処理
-	MoveFocus();
+	MoveFocus(inputAxis);
 
 	// 登録されているボタンの更新処理をする
 	for (auto& button : m_buttons)
@@ -106,6 +112,10 @@ void ButtonSystem::Update()
 		// すぐにシーン遷移するかもしれないのでreturnしとく
 		return;
 	}
+
+	// このフレームの入力を記憶しとく
+	// Inputクラスに任せてもいいかも
+	m_inputAxisBeforeFrame = inputAxis;
 }
 
 void ButtonSystem::Draw() const
@@ -114,7 +124,7 @@ void ButtonSystem::Draw() const
 	for (const auto& button : m_buttons)
 	{
 		button->Draw();
-		printf("参照数:%d", button.use_count());
+		//printf("参照数:%d", button.use_count());
 	}
 }
 
