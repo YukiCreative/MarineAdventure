@@ -26,6 +26,8 @@ private:
 
 	std::shared_ptr<Animation> m_anim;
 	std::shared_ptr<CircleCollider> m_col;
+
+	void GameClear();
 public:
 	Boss(Player& player, Camera& camera, Vector2 initPos);
 

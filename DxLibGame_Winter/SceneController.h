@@ -38,4 +38,7 @@ public:
 	void StackScene(std::string addSceneId);
 	// 最後尾のシーンを削除
 	void RemoveSceme();
+
+	// 今実行中のシーンを返す
+	std::shared_ptr<Scene> CurrentScene() { return m_scenes.back(); }
 };

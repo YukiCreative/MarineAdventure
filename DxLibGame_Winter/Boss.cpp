@@ -3,6 +3,8 @@
 #include "CircleCollider.h"
 #include "Camera.h"
 #include "Physics.h"
+#include "SceneController.h"
+#include "TestScene.h"
 
 namespace
 {
@@ -23,6 +25,11 @@ void Boss::Death()
 {
 }
 
+void Boss::GameClear()
+{
+	SceneController::GetInstance().CurrentScene()->;
+}
+
 Boss::Boss(Player& player, Camera& camera, Vector2 initPos) :
 	Enemy(player, camera, initPos),
 	m_stateFrameCount(0),
@@ -33,12 +40,15 @@ Boss::Boss(Player& player, Camera& camera, Vector2 initPos) :
 	m_physics = std::make_shared<Physics>(10.0f, 10.0f);
 	m_col = std::make_shared<CircleCollider>(m_pos, 50.0f);
 
+	m_physics->UseConstantForce(false);
+
 	m_hp = kMaxHitPoint;
 }
 
 void Boss::Update()
 {
 	m_pos += m_physics->Update();
+	m_anim->Update();
 	(this->*m_state)();
 }
 
