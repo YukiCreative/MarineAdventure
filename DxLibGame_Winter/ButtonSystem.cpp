@@ -13,7 +13,11 @@ namespace
 
 void ButtonSystem::MoveFocus(Vector2 inputAxis)
 {
-	if (CanMoveFocus(inputAxis)) return;
+	if (!CanMoveFocus(inputAxis))
+	{
+		//printf("動けなかった");
+		return;
+	}
 
 	Vector2Int inputDir(0,0);
 	std::weak_ptr<Button> beforeButton = m_nowFocusedButton;
@@ -69,12 +73,16 @@ std::weak_ptr<Button> ButtonSystem::GetWeakPtr(Button* rawPtr)
 bool ButtonSystem::CanMoveFocus(Vector2 inputAxis)
 {
 	// 条件
-	// 　前のフレームと同じ方向（入力なし以外）に入力していたら、
+	// 　前の有効な入力方向と同じ方向（入力なし以外）に入力していたら、
 	//　 その方向に入力を初めて一定時間が経過していないといけない
 	// 前のフレームと方向が違うならそのまま入力を通す
 	// 入力方向は360度を上下左右で分割した四つ
-	printf("一般角角度%f\n", inputAxis.RerativeAngle(m_inputAxisBeforeFrame));
-	if (inputAxis.RerativeAngle(m_inputDirBeforeFrame) < 45) return true;
+	//printf("一般角角度%f\n", inputAxis.RerativeAngle(m_inputDirBeforeFrame));
+	//printf("入力方向X:%d, Y:%d\n", m_inputDirBeforeFrame.x, m_inputDirBeforeFrame.y);
+	if (abs(inputAxis.RerativeAngle(m_inputDirBeforeFrame)) > 30) return true;
+
+	if (m_cursorMoveTimer <= 0) return true;
+
 	return false;
 }
 
@@ -116,6 +124,8 @@ void ButtonSystem::Update()
 	// このフレームの入力を記憶しとく
 	// Inputクラスに任せてもいいかも
 	m_inputAxisBeforeFrame = inputAxis;
+
+	//printf("m_cursorMoveTimer=%d\n", m_cursorMoveTimer);
 }
 
 void ButtonSystem::Draw() const
