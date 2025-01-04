@@ -17,9 +17,12 @@ protected:
 	float m_radius;
 	
 public:
-	CircleCollider(Vector2& pos, float radius);
+	CircleCollider(Vector2& pos, const float& radius);
+	CircleCollider(Vector2& pos, const float& radius, const Vector2& offset);
 
 	float GetRadius() const { return m_radius; }
+
+	void DrawColliderRange_Debug(const Vector2& cameraOffset) const override;
 
 protected:
 	/// <summary>

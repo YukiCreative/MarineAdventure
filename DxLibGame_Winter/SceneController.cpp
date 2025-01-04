@@ -6,6 +6,7 @@
 #include "SceneGameover.h"
 #include "ColliderTestScene.h"
 #include "PauseScene.h"
+#include "SceneGameClear.h"
 #include <cassert>
 
 SceneController::SceneController()
@@ -15,6 +16,7 @@ SceneController::SceneController()
 	m_factoryMap["Gameover"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGameover>());};
 	m_factoryMap["ColTest"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<ColliderTestScene>());};
 	m_factoryMap["Pause"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<PauseScene>());};
+	m_factoryMap["Clear"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGameClear>());};
 
 	StackScene("Title");
 }

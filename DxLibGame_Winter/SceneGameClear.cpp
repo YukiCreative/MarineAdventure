@@ -3,10 +3,11 @@
 #include "BackGround.h"
 #include "Camera.h"	
 #include "Input.h"
+#include "game.h"
 
 namespace
 {
-	const std::string kImagePath = "Marine.png";
+	const std::string kImagePath = "Marine.jpg";
 }
 
 void SceneGameClear::NormalUpdate()
@@ -15,6 +16,7 @@ void SceneGameClear::NormalUpdate()
 
 	m_camera->Update();
 	m_back->Update();
+	m_fade.Update();
 
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
@@ -32,6 +34,9 @@ SceneGameClear::SceneGameClear() :
 
 void SceneGameClear::Draw() const
 {
+	m_back->Draw();
+	DrawString(static_cast<int>(Game::kScreenHalfWidth), static_cast<int>(Game::kScreenHalfHeight), "GameClear!!!!!", 0xffffff);
+	m_fade.Draw();
 }
 
 void SceneGameClear::Entry()

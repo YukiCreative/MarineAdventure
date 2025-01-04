@@ -35,12 +35,17 @@ protected:
 	/// </summary>
 	Vector2& m_pos;
 
+	// m_posからどれだけずらすか
+	Vector2 m_offset;
+
 	const ColKind m_kind;
 
 public:
-	Collider(ColKind kind, Vector2& pos);
+	Collider(const ColKind& kind, Vector2& pos);
+	Collider(const ColKind& kind, Vector2& pos, const Vector2& offset);
 
-	Vector2 GetPos() const { return m_pos; }
+	// ゲームオブジェクトの位置ではないので注意
+	Vector2 GetPos() const { return m_pos + m_offset; }
 	// 使うなよ
 	Vector2* GetPVec() const { return &m_pos; }
 	ColKind GetKind() const { return m_kind; }
@@ -48,6 +53,9 @@ public:
 	CollisionStatus CheckHit(Collider& other) const;
 	// 補正あり これから加算する移動量を加味するときなどに有効
 	CollisionStatus CheckHit(Collider& other, const Vector2& offset) const;
+
+	// 自分の衝突範囲を可視化
+	virtual void DrawColliderRange_Debug(const Vector2& cameraOffset) const = 0;
 
 protected:
 	// ここから先の関数は外部には見せない

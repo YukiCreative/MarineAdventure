@@ -4,9 +4,17 @@
 #include "BoxCollider.h"
 #include "LineCollider.h"
 
-Collider::Collider(ColKind kind, Vector2& pos) :
+Collider::Collider(const ColKind& kind, Vector2& pos) :
 	m_pos(pos),
-	m_kind(kind)
+	m_kind(kind),
+	m_offset()
+{
+}
+
+Collider::Collider(const ColKind& kind, Vector2& pos, const Vector2& offset) :
+	m_pos(pos),
+	m_kind(kind),
+	m_offset(offset)
 {
 }
 

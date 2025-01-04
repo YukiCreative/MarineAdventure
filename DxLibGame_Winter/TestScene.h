@@ -26,6 +26,9 @@ public:
 	TestScene();
 	~TestScene();
 
+	void GameClear();
+	void GameOver();
+
 	void Entry() override;
 	void NormalUpdate() override;
 	void Draw() const override;

@@ -14,17 +14,30 @@ namespace
     constexpr int kLineColNum = 4;
 }
 
-CircleCollider::CircleCollider(Vector2& pos, float radius) :
+CircleCollider::CircleCollider(Vector2& pos, const float& radius) :
     Collider(ColKind::kCircle, pos),
     m_radius(radius)
 {
 }
 
+CircleCollider::CircleCollider(Vector2& pos, const float& radius, const Vector2& offset) :
+    Collider(ColKind::kCircle, pos, offset),
+    m_radius(radius)
+{
+}
+
+void CircleCollider::DrawColliderRange_Debug(const Vector2& cameraOffset) const
+{
+    Vector2 drawPos = GetPos() - cameraOffset;
+    DrawCircle(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), static_cast<int>(m_radius), 0xff0000, false);
+}
+
 CollisionStatus CircleCollider::CheckHitCircle(const CircleCollider& otherCircle) const 
 {
+    Vector2 myPos = GetPos();
     // 円形と円形の当たり判定
     // 距離と二つの円の合計半径を比べる
-    Vector2 distVec = m_pos - otherCircle.GetPos();
+    Vector2 distVec = myPos - otherCircle.GetPos();
     float dist = distVec.SqrMagnitude();
     float radiusLength = m_radius + otherCircle.GetRadius();
     Vector2 distUnit = distVec.GetNormalize();
@@ -39,8 +52,10 @@ CollisionStatus CircleCollider::CheckHitCircle(const CircleCollider& otherCircle
 
 CollisionStatus CircleCollider::CheckHitCircle(const CircleCollider& otherCircle, const Vector2& offset) const
 {
+    Vector2 myPos = GetPos() + offset;
     // 自分の位置を補正込みで考える あとは一緒
-    Vector2 distVec = m_pos - otherCircle.GetPos() + offset;
+    // 貫通の考慮はできない
+    Vector2 distVec = myPos - otherCircle.GetPos();
     float dist = distVec.SqrMagnitude();
     float radiusLength = m_radius + otherCircle.GetRadius();
     Vector2 distUnit = distVec.GetNormalize();
@@ -55,14 +70,15 @@ CollisionStatus CircleCollider::CheckHitCircle(const CircleCollider& otherCircle
 
 CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect) const
 {
+    Vector2 myPos = GetPos();
     // 矩形の辺で、円の中心座標と一番近い点を出す
     Vector2 nearestPoint;
-    nearestPoint.x = std::clamp(m_pos.x, otherRect.Left(), otherRect.Right());
-    nearestPoint.y = std::clamp(m_pos.y, otherRect.Top(), otherRect.Bottom());
+    nearestPoint.x = std::clamp(myPos.x, otherRect.Left(), otherRect.Right());
+    nearestPoint.y = std::clamp(myPos.y, otherRect.Top(), otherRect.Bottom());
     // 円の中心が完全にめり込んでいたら、離す方向に行きたい
     
     // 出した二点の距離が、円の半径以下なら当たっている
-    Vector2 distVec = m_pos - nearestPoint;
+    Vector2 distVec = myPos - nearestPoint;
     float sqrDist = distVec.SqrMagnitude();
     // 円の半径の大きさをした、distVecの向きのベクトルを作りたい
     Vector2 radiusVec = distVec.GetNormalize() * m_radius;

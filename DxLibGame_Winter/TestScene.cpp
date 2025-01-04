@@ -42,6 +42,16 @@ TestScene::~TestScene()
 {
 }
 
+void TestScene::GameClear()
+{
+	SceneChangeWithFadeOut("Clear");
+}
+
+void TestScene::GameOver()
+{
+	SceneChangeWithFadeOut("Gameover");
+}
+
 void TestScene::Entry()
 {
 	// 主にフェード
@@ -57,8 +67,9 @@ void TestScene::NormalUpdate()
 	m_fade.Update();
 
 	m_map->Update();
-	m_objectCont->Update();
 	m_player->Update();
+	m_objectCont->Update();
+
 	// カメラの移動量を取得したい
 	m_backGround->Move(m_camera->GetVel() * 0.5f);
 	m_backGround->Update();
@@ -72,7 +83,7 @@ void TestScene::NormalUpdate()
 	}
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		SceneChangeWithFadeOut("ColTest");
+		SceneChangeWithFadeOut("Clear");
 		return;
 	}
 	if (m_player->IsDeleted())

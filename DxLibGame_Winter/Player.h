@@ -52,6 +52,8 @@ private:
 	std::list<int> m_contactAngles;
 	Vector2 m_velocity;
 
+	void GameOver();
+
 	// 状態関数
 	// 一段格上げしてクラスにしてもいいかも？
 	void Normal(Input& input, Vector2& axis);
@@ -110,4 +112,6 @@ public:
 	void Stop();
 	// 攻撃時の振る舞い
 	void OnAttack();
+
+	Vector2 GetVel() const { return m_velocity; }
 };

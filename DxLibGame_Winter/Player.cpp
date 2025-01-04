@@ -12,6 +12,7 @@
 #include "SceneController.h"
 #include "Animation.h"
 #include "ImageStore.h"
+#include "TestScene.h"
 
 namespace
 {
@@ -32,6 +33,13 @@ namespace
 	const Vector2Int kPlayerGraphSize(32, 32);
 
 	const std::string kIdleAnimPath = "Idle (32x32).png";
+}
+
+void Player::GameOver()
+{
+	std::shared_ptr<TestScene> gameScene = std::dynamic_pointer_cast<TestScene>(SceneController::GetInstance().CurrentScene());
+	assert(gameScene && "何かがおかしい");
+	gameScene->GameOver();
 }
 
 // 何も操作されていない状態。
@@ -169,15 +177,13 @@ void Player::Damage(Input& input, Vector2& axis)
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
-
 }
 
 void Player::Death(Input& input, Vector2& axis)
 {
 	// 死亡モーション
-	// 別のシーンへ
-	// こいつが生きているかどうかをシーンが毎フレームチェック
-	m_isDeleted = true;
+	// 終わったら別のシーンへ
+	GameOver();
 }
 
 void Player::Attacked(Input& input, Vector2& axis)
@@ -311,7 +317,7 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 {
 	ImageStore& imageStore = ImageStore::GetInstance();
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f),
-		m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
+	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
 	// ここからアニメーションの初期化
 	m_idleAnim = std::make_shared<Animation>();
 	m_idleAnim->Init(kIdleAnimPath, kPlayerGraphSize, 2);
@@ -373,13 +379,10 @@ void Player::Update()
 void Player::Draw() const
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
-	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(kRaduis), 0xff0000);
 	m_nowAnim->Draw(screenPos);
 #if _DEBUG
-	DrawFormatString(0, 15, 0x999999, "PlayerPos:x = %f, y = %f", m_pos.x, m_pos.y);
-	DrawFormatString(0, 105, 0x999999, "screenPos:x = %f, y = %f", screenPos.x, screenPos.y);
-	DrawFormatString(0, 120, 0x999999, "vel:x = %f, y = %f", m_velocity.x, m_velocity.y);
 	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x00ff00);
+	m_collider->DrawColliderRange_Debug(m_camera.DrawOffset());
 #endif
 }
 

@@ -11,12 +11,15 @@ private:
 	Vector2 m_firstPosOffset;
 	Vector2 m_secondPosOffset;
 public:
-	LineCollider(Vector2& posRef, Vector2 firstPosOffset, const Vector2 secondPosOffset);
+	LineCollider(Vector2& posRef, const Vector2& firstPosOffset, const Vector2& secondPosOffset);
+	LineCollider(Vector2& posRef, const Vector2& firstPosOffset, const Vector2& secondPosOffset, const Vector2& offset);
 
-	Vector2 GetFirstPos() const { return m_pos + m_firstPosOffset; }
-	Vector2 GetSecondPos() const { return m_pos + m_secondPosOffset; }
+	Vector2 GetFirstPos() const { return GetPos() + m_firstPosOffset; }
+	Vector2 GetSecondPos() const { return GetPos() + m_secondPosOffset; }
 	// 中点返す
 	Vector2 SegmentMidPoint()const { return (GetFirstPos() + GetSecondPos()) * 0.5f; };
+
+	void DrawColliderRange_Debug(const Vector2& cameraOffset) const override;
 protected:
 	// 当たり判定のパターン増えていく問題
 	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle) const override;

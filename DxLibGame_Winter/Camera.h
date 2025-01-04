@@ -47,6 +47,9 @@ public:
 	void SetMapSize(Vector2Int mapSize) { m_mapSize = mapSize; };
 
 	Vector2 GetPos() const { return m_pos; };
+	// これを座標から引けばスクリーン座標になります
+	// でもいつもはCaptureを使ってほしい
+	Vector2 DrawOffset() const { return m_drawOffset; }
 
 	/// <summary>
 	/// 引数に入れられたゲームオブジェクトに追従する
