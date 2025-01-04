@@ -178,6 +178,7 @@
     <ClCompile Include="SceneGameover.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="ScreenFade.cpp" />
+    <ClCompile Include="SoundStore.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
@@ -225,6 +226,7 @@
     <ClInclude Include="SceneGameover.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="ScreenFade.h" />
+    <ClInclude Include="SoundStore.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />

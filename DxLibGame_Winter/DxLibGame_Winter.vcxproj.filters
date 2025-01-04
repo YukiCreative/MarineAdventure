@@ -67,6 +67,12 @@
     <Filter Include="ソース ファイル\UI\Button">
       <UniqueIdentifier>{aa8c8b7a-e525-4571-9860-1a53c3450fb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Sound">
+      <UniqueIdentifier>{2bc7320b-0233-432f-aefb-a5f63ce77161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sound">
+      <UniqueIdentifier>{44e1789f-07b8-4939-b8a3-04f07ffbbdfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneController.cpp">
@@ -179,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="SceneGameClear.cpp">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundStore.cpp">
+      <Filter>ソース ファイル\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="SceneGameClear.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundStore.h">
+      <Filter>ヘッダー ファイル\Sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
