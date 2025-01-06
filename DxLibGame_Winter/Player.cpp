@@ -31,6 +31,7 @@ namespace
 	constexpr float kBounceFactor = 1.2f;
 	constexpr int kMoveThreshold = 10000;
 	const Vector2 kJumpForce(0.0f, -10.0f);
+	const Vector2 kDashJumpForce(0.0f, -12.0f);
 	const Vector2Int kPlayerGraphSize(32, 32);
 	// 着地できる地面の角度(法線)
 	constexpr int kLandingThresholdMin = 45;
@@ -56,7 +57,7 @@ void Player::Normal(Input& input, Vector2& axis)
 		m_graphic = "A";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Attack);
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// スティックでMoveへ
@@ -65,7 +66,7 @@ void Player::Normal(Input& input, Vector2& axis)
 		m_graphic = "M";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Move);
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// 現在の移動方向によってモーションを変える
@@ -80,14 +81,14 @@ void Player::Move(Input& input, Vector2& axis)
 		m_graphic = "D";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Dash);
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// 入力がなかったらNomalへ
 	if (axis.SqrMagnitude() < kMoveThreshold)
 	{
 		SetStateNormal();
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// Bボタンでアタック状態
@@ -98,7 +99,7 @@ void Player::Move(Input& input, Vector2& axis)
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
 		ChangeState(&Player::StrongAttack);
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// 仮
@@ -115,7 +116,7 @@ void Player::Dash(Input& input, Vector2& axis)
 		m_graphic = "M";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Move);
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// Bボタンでアタック状態
@@ -126,14 +127,14 @@ void Player::Dash(Input& input, Vector2& axis)
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
 		ChangeState(&Player::Attack);
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// 	// 入力がなかったらNomalへ
 	if (axis.SqrMagnitude() < kMoveThreshold)
 	{
 		SetStateNormal();
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// 仮
@@ -148,7 +149,7 @@ void Player::Attack(Input& input, Vector2& axis)
 	if (m_stateFrameCount >= kAttackFrame)
 	{
 		SetStateNormal();
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// 移動ができる
@@ -161,7 +162,7 @@ void Player::StrongAttack(Input& input, Vector2& axis)
 	if (m_stateFrameCount >= kAttackFrame)
 	{
 		SetStateNormal();
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 	// 攻撃判定を持つ
@@ -176,7 +177,7 @@ void Player::Damage(Input& input, Vector2& axis)
 	if (m_stateFrameCount >= kInvincibleFrame)
 	{
 		SetStateNormal();
-		(this->*m_state)(input, axis); // 次の状態の内容を実行
+		 // 次の状態の内容を実行
 		return;
 	}
 }
@@ -194,7 +195,6 @@ void Player::Attacked(Input& input, Vector2& axis)
 	if (m_stateFrameCount >= kAttackedRigidFrame)
 	{
 		SetStateNormal();
-		(this->*m_state)(input, axis);
 		return;
 	}
 }
@@ -207,14 +207,12 @@ void Player::GNormal(Input& input, Vector2& axis)
 		m_graphic = "Jump";
 		m_physics->AddForce(kJumpForce);
 		ChangeState(&Player::Jump);
-		(this->*m_state)(input, axis);
 		return;
 	}
 	if (abs(axis.x) > kGroundMoveThreshold)
 	{
 		m_graphic = "GM";
 		ChangeState(&Player::GMove);
-		(this->*m_state)(input, axis);
 		return;
 	}
 }
@@ -226,14 +224,18 @@ void Player::GMove(Input& input, Vector2& axis)
 		m_physics->AddForce(kJumpForce);
 		m_graphic = "Jump";
 		ChangeState(&Player::Jump);
-		(this->*m_state)(input, axis);
 		return;
 	}
 	if (abs(axis.x) < kGroundMoveThreshold)
 	{
 		m_graphic = "GN";
 		ChangeState(&Player::GNormal);
-		(this->*m_state)(input, axis);
+		return;
+	}
+	if (input.IsPressed("Dash"))
+	{
+		m_graphic = "GD";
+		ChangeState(&Player::GDash);
 		return;
 	}
 	// こいつ動くぞ
@@ -247,7 +249,6 @@ void Player::GDash(Input& input, Vector2& axis)
 	{
 		m_graphic = "GN";
 		ChangeState(&Player::GMove);
-		(this->*m_state)(input, axis);
 		return;
 	}
 	// 入力がなくなったら通常状態へ
@@ -255,7 +256,14 @@ void Player::GDash(Input& input, Vector2& axis)
 	{
 		m_graphic = "GN";
 		ChangeState(&Player::GNormal);
-		(this->*m_state)(input, axis);
+		return;
+	}
+	if (input.IsTrigger("Jump"))
+	{
+		// ダッシュジャンプはちょっと高く飛びたい
+		m_physics->AddForce(kDashJumpForce);
+		m_graphic = "Jump";
+		ChangeState(&Player::Jump);
 		return;
 	}
 	// 早く動ける
@@ -501,6 +509,5 @@ void Player::OnAttack()
 	Input& input = Input::GetInstance();
 	Vector2 axis = input.GetInputAxis();
 	m_graphic = "やったぜ。";
-	(this->*m_state)(input, axis);
 	return;
 }

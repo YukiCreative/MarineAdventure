@@ -17,6 +17,7 @@ public:
 
 	static SoundStore& GetInstance();
 
-	int GetSound(const std::string& fileName);
+	// これで手に入れた音声データは各自で削除しないといけません
+	int GenerateSound(const std::string& fileName);
 };
 

@@ -39,8 +39,8 @@ SoundStore& SoundStore::GetInstance()
     return instance;
 }
 
-int SoundStore::GetSound(const std::string& fileName)
+int SoundStore::GenerateSound(const std::string& fileName)
 {
     assert(m_store.contains(fileName) && "—^‚¦‚ç‚ê‚½ƒpƒX‚Ì‰¹º‚ª–³‚¢‚æ");
-    return m_store.at(fileName);
+    return DuplicateSoundMem(m_store.at(fileName));
 }

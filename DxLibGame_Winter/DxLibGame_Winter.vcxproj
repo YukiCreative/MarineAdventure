@@ -168,6 +168,7 @@
     <ClCompile Include="MapDataStore.cpp" />
     <ClCompile Include="MapImageStore.cpp" />
     <ClCompile Include="MapSystem.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="ObjectsController.cpp" />
     <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="Physics.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="SceneGameover.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="ScreenFade.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundStore.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -215,6 +217,7 @@
     <ClInclude Include="MapDataStore.h" />
     <ClInclude Include="MapImageStore.h" />
     <ClInclude Include="MapSystem.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="ObjectKind.h" />
     <ClInclude Include="ObjectsController.h" />
     <ClInclude Include="PauseScene.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="SceneGameover.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="ScreenFade.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundStore.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Time.h" />
