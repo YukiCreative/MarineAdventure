@@ -21,6 +21,7 @@ namespace
 	constexpr int kMaxHp = 5;
 	// Axisがでかすぎるんだよ
 	constexpr float kMoveForceFactor = 0.0002f;
+	constexpr float kJumpingMoveForceFactor = 0.0001f;
 	constexpr float kDashForceFactor = 0.0003f;
 	constexpr float kStrongAttackMoveFactor = 0.0001f;
 	constexpr float kAttackFrame = 60.0f;
@@ -31,6 +32,10 @@ namespace
 	constexpr int kMoveThreshold = 10000;
 	const Vector2 kJumpForce(0.0f, -10.0f);
 	const Vector2Int kPlayerGraphSize(32, 32);
+	// 着地できる地面の角度(法線)
+	constexpr int kLandingThresholdMin = 45;
+	constexpr int kLandingThresholdMax = 135;
+	constexpr int kGroundMoveThreshold = 100;
 
 	const std::string kIdleAnimPath = "Idle (32x32).png";
 }
@@ -38,7 +43,7 @@ namespace
 void Player::GameOver()
 {
 	std::shared_ptr<TestScene> gameScene = std::dynamic_pointer_cast<TestScene>(SceneController::GetInstance().CurrentScene());
-	assert(gameScene && "何かがおかしい");
+	assert(gameScene && "ゲームシーンに動的キャストできなかった");
 	gameScene->GameOver();
 }
 
@@ -50,7 +55,7 @@ void Player::Normal(Input& input, Vector2& axis)
 	{
 		m_graphic = "A";
 		m_physics->UseConstantForce(false);
-		m_state = &Player::Attack;
+		ChangeState(&Player::Attack);
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -59,7 +64,7 @@ void Player::Normal(Input& input, Vector2& axis)
 	{
 		m_graphic = "M";
 		m_physics->UseConstantForce(false);
-		m_state = &Player::Move;
+		ChangeState(&Player::Move);
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -74,7 +79,7 @@ void Player::Move(Input& input, Vector2& axis)
 	{
 		m_graphic = "D";
 		m_physics->UseConstantForce(false);
-		m_state = &Player::Dash;
+		ChangeState(&Player::Dash);
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -92,7 +97,7 @@ void Player::Move(Input& input, Vector2& axis)
 		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
-		m_state = &Player::StrongAttack;
+		ChangeState(&Player::StrongAttack);
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -109,7 +114,7 @@ void Player::Dash(Input& input, Vector2& axis)
 	{
 		m_graphic = "M";
 		m_physics->UseConstantForce(false);
-		m_state = &Player::Move;
+		ChangeState(&Player::Move);
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -120,7 +125,7 @@ void Player::Dash(Input& input, Vector2& axis)
 		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
-		m_state = &Player::StrongAttack;
+		ChangeState(&Player::Attack);
 		(this->*m_state)(input, axis); // 次の状態の内容を実行
 		return;
 	}
@@ -140,7 +145,6 @@ void Player::Attack(Input& input, Vector2& axis)
 {
 	// 攻撃判定を持つ
 	// 一定時間経ったらNormalへ
-	++m_stateFrameCount;
 	if (m_stateFrameCount >= kAttackFrame)
 	{
 		SetStateNormal();
@@ -154,7 +158,6 @@ void Player::Attack(Input& input, Vector2& axis)
 void Player::StrongAttack(Input& input, Vector2& axis)
 {
 	// 一定時間経ったらNormalへ
-	++m_stateFrameCount;
 	if (m_stateFrameCount >= kAttackFrame)
 	{
 		SetStateNormal();
@@ -170,7 +173,6 @@ void Player::Damage(Input& input, Vector2& axis)
 {
 	// ダメージを受けたらこの状態へ
 	// 一定時間無敵
-	++m_stateFrameCount;
 	if (m_stateFrameCount >= kInvincibleFrame)
 	{
 		SetStateNormal();
@@ -189,7 +191,6 @@ void Player::Death(Input& input, Vector2& axis)
 void Player::Attacked(Input& input, Vector2& axis)
 {
 	// 硬直なのでモーション以外何もしない
-	++m_stateFrameCount;
 	if (m_stateFrameCount >= kAttackedRigidFrame)
 	{
 		SetStateNormal();
@@ -201,10 +202,18 @@ void Player::Attacked(Input& input, Vector2& axis)
 void Player::GNormal(Input& input, Vector2& axis)
 {
 	// いろいろなモーションにつながる
-	if (input.IsPressed("Jump"))
+	if (input.IsTrigger("Jump"))
 	{
+		m_graphic = "Jump";
 		m_physics->AddForce(kJumpForce);
-		m_state = &Player::Jump;
+		ChangeState(&Player::Jump);
+		(this->*m_state)(input, axis);
+		return;
+	}
+	if (abs(axis.x) > kGroundMoveThreshold)
+	{
+		m_graphic = "GM";
+		ChangeState(&Player::GMove);
 		(this->*m_state)(input, axis);
 		return;
 	}
@@ -216,22 +225,41 @@ void Player::GMove(Input& input, Vector2& axis)
 	{
 		m_physics->AddForce(kJumpForce);
 		m_graphic = "Jump";
-		m_state = &Player::Jump;
+		ChangeState(&Player::Jump);
 		(this->*m_state)(input, axis);
 		return;
 	}
-	if (axis.SqrMagnitude() < kMoveThreshold)
+	if (abs(axis.x) < kGroundMoveThreshold)
 	{
 		m_graphic = "GN";
-		m_state = &Player::GNormal;
+		ChangeState(&Player::GNormal);
 		(this->*m_state)(input, axis);
 		return;
 	}
+	// こいつ動くぞ
+	m_physics->AddForce(axis.x * kMoveForceFactor);
 }
 
 void Player::GDash(Input& input, Vector2& axis)
 {
-	// 腹滑りでもする？ペンギンだし
+	// 入力がなくなったら通常移動へ
+	if (!input.IsPressed("Dash"))
+	{
+		m_graphic = "GN";
+		ChangeState(&Player::GMove);
+		(this->*m_state)(input, axis);
+		return;
+	}
+	// 入力がなくなったら通常状態へ
+	if (abs(axis.x) < kGroundMoveThreshold)
+	{
+		m_graphic = "GN";
+		ChangeState(&Player::GNormal);
+		(this->*m_state)(input, axis);
+		return;
+	}
+	// 早く動ける
+	m_physics->AddForce(axis.x * kDashForceFactor);
 }
 
 void Player::Jump(Input& input, Vector2& axis)
@@ -239,19 +267,28 @@ void Player::Jump(Input& input, Vector2& axis)
 	// 空中モーション
 	// 左右に動ける
 	Vector2 sideAxis = Vector2(axis.x, 0.0f);
-	m_physics->AddForce(sideAxis * kMoveForceFactor);
 	// ジャンプの遷移は存在しないので、多段ジャンプしない
 	// 着地したらGNormalへ
+	for (const auto& overlap : m_overlaps)
+	{
+		float angle = overlap.Angle();
+		if (angle > kLandingThresholdMin && angle < kLandingThresholdMax)
+		{
+			m_graphic = "GN";
+			ChangeState(&Player::GNormal);
+			return;
+		}
+	}
+	//m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
 	// 着水は網羅できている
 }
 
 void Player::SetStateNormal()
 {
 	// 状態遷移する処理が重複していたので
-	m_stateFrameCount = 0;
 	m_graphic = "N";
 	m_physics->UseConstantForce(true);
-	m_state = &Player::Normal;
+	ChangeState(&Player::Normal);
 }
 
 bool Player::CheckEnvironmentChanged()
@@ -281,9 +318,9 @@ bool Player::CheckEnvironmentChanged()
 
 void Player::CollideToMapChips()
 {
+	m_overlaps.clear();
+
 	// マップとの衝突処理を分けた
-	// ここでマップの壁との当たり判定
-	m_contactAngles.clear();
 	auto& collidableMapChips = m_map.lock()->GetCollidableMapChips();
 	Vector2 pushBackVec = Vector2::Zero();
 	for (const auto& chip : collidableMapChips)
@@ -294,17 +331,24 @@ void Player::CollideToMapChips()
 		// 色を変えてみる
 		//chip->ChangeGraph_Debug();
 
-		// 壁に吸い付くような挙動になって違和感があるので力を加える
+		// めり込みを記録
+		m_overlaps.push_back(col.overlap);
+
+		//// 壁に吸い付くような挙動になって違和感があるので力を加える
 		Vector2 overlapN = col.overlap.GetNormalize();
-		// 現在の速度の分、当たっている壁の向きだけ力を加える
+		//// 現在の速度の分、当たっている壁の向きだけ力を加える
 		Vector2 addforce(m_velocity.x * std::abs(overlapN.x), m_velocity.y * std::abs(overlapN.y));
 		m_physics->AddForce(-addforce * kBounceFactor);
 
-		// 接触した面の角度を取得
-		//m_contactAngles.push_back();
-
 		m_velocity -= col.overlap;
 	}
+}
+
+void Player::ChangeState(StateFunc_t nextState)
+{
+	m_stateFrameCount = 0;
+	m_state = nextState;
+	// ステートの実行はしない
 }
 
 Player::Player(Camera& camera, Vector2 spawnPos) :
@@ -336,6 +380,8 @@ void Player::Update()
 	// 入力とる
 	Input& input = Input::GetInstance();
 	Vector2 axis = input.GetInputAxis();
+
+	++m_stateFrameCount;
 	// 現在の状態の処理
 	(this->*m_state)(input, axis);
 
@@ -451,8 +497,7 @@ void Player::Stop()
 void Player::OnAttack()
 {
 	// 攻撃時モーションに切り替え
-	m_stateFrameCount = 0;
-	m_state = &Player::Attacked;
+	ChangeState(&Player::Attacked);
 	Input& input = Input::GetInstance();
 	Vector2 axis = input.GetInputAxis();
 	m_graphic = "やったぜ。";

@@ -18,8 +18,8 @@
 namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	const Vector2 initPlayerPos(0, 0);
-	const std::string kMapDataPass = "Data/MapData/TestMapData32x16.fmf";
+	const Vector2 initPlayerPos(0, 800);
+	const std::string kMapDataPass = "Data/MapData/TestMapGroundStage.fmf";
 	const std::string kBackGroundPass = "Marine.jpg";
 }
 

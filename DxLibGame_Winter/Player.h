@@ -48,9 +48,10 @@ private:
 	int m_stateFrameCount;
 	// 体力
 	int m_hp;
-	// 接触したマップチップの面の角度
-	std::list<int> m_contactAngles;
+	// 今フレームの移動量が記録される
 	Vector2 m_velocity;
+	// このフレームに接触した当たり判定で、どれだけめり込んだかが記録される
+	std::list<Vector2> m_overlaps;
 
 	void GameOver();
 
@@ -74,6 +75,7 @@ private:
 	void SetStateNormal();
 	bool CheckEnvironmentChanged();
 	void CollideToMapChips();
+	void ChangeState(StateFunc_t nextState);
 public:
 	/// <summary>
 	/// 初期化
