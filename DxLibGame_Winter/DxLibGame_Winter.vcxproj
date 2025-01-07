@@ -180,6 +180,7 @@
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="ScreenFade.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundStore.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="ScreenFade.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundStore.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Time.h" />

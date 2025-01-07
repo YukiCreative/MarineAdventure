@@ -29,6 +29,8 @@ public:
 	void GameClear();
 	void GameOver();
 
+	void ChangeMap(const std::string& path);
+
 	void Entry() override;
 	void NormalUpdate() override;
 	void Draw() const override;

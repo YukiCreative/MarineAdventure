@@ -7,8 +7,14 @@ private:
 	Music();
 	Music(const Music&) = delete;
 	void operator=(const Music&) = delete;
+
+	int m_playType;
 public:
-	static M GetInstance();
-	static void PlayBGM(const std::string& path);
-	static void 
+	static Music& GetInstance();
+	void Play(const std::string& path) const;
+	void Loop(const bool& loopOrNot);
+	// 0~255
+	void SetVolume(const int& volume);
+	bool IsPlaying() const;
+	void Stop() const;
 };

@@ -11,6 +11,7 @@
 #include "TestScene.h"
 #include "ButtonSystem.h"
 #include "ButtonGameStart.h"
+#include "Music.h"
 
 namespace
 {
@@ -33,6 +34,7 @@ SceneTitle::SceneTitle()
 
 void SceneTitle::Entry()
 {
+	Music::GetInstance().Play("Data/Sound/’‹‰º‚ª‚è‹C•ª.mp3");
 	m_fade.Fade(60, 0);
 }
 

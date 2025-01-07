@@ -195,6 +195,9 @@
     <ClCompile Include="Music.cpp">
       <Filter>ソース ファイル\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>ソース ファイル\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -342,6 +345,9 @@
       <Filter>ヘッダー ファイル\Sound</Filter>
     </ClInclude>
     <ClInclude Include="Music.h">
+      <Filter>ヘッダー ファイル\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
       <Filter>ヘッダー ファイル\Sound</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "SceneController.h"
 #include "Time.h"
+#include "SoundManager.h"
 
 #if _DEBUG
 namespace
@@ -56,6 +57,7 @@ void Application::Run()
 	Input& inputInstance = Input::GetInstance();
 	SceneController& controller = SceneController::GetInstance();
 	Time& timeInstance = Time::GetInstance();
+	SoundManager& sound = SoundManager::GetInstance();
 	// ゲームループ
 	while (ProcessMessage() == 0)
 	{
@@ -72,6 +74,7 @@ void Application::Run()
 
 		// Inputクラスの更新処理
 		inputInstance.Update();
+		sound.Update();
 
 		// SceneControllerの処理
 		controller.Update();

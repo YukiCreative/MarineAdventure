@@ -13,13 +13,13 @@ namespace
 	constexpr int kGraphInvisible = 0;
 }
 
-MapDataStore::MapDataStore(std::string path)
+MapDataStore::MapDataStore(const std::string& path)
 {
 	m_mapData = std::make_unique<MapList_t>();
 	LoadMapData(path);
 }
 
-void MapDataStore::LoadMapData(std::string path)
+void MapDataStore::LoadMapData(const std::string& path)
 {
 	int mapHandle = FileRead_open(path.c_str());
 	// きまったバイト数を読み込む　これは変わらない
@@ -55,7 +55,7 @@ void MapDataStore::LoadMapData(std::string path)
 	FileRead_close(mapHandle);
 }
 
-MapChipData MapDataStore::GetMapData(Vector2Int mapPos) const
+MapChipData MapDataStore::GetMapData(const Vector2Int& mapPos) const
 {
 	// ここでハンドルや列挙体など、使える形にしてしまう
 	MapChipData result;

@@ -3,10 +3,11 @@
 #include <memory>
 #include "Input.h"
 #include "SceneController.h"
-#include "SceneTitle.h"
 #include "game.h"
 #include "BackGround.h"
 #include "Camera.h"
+#include "ScreenFade.h"
+#include "Music.h"
 
 namespace
 {
@@ -23,18 +24,20 @@ SceneGameover::SceneGameover()
 
 void SceneGameover::Entry()
 {
-
+	Music::GetInstance().Play("Data/Sound/降りしきる、白.mp3");
+	m_fade.Fade(60, 0);
 }
 
 void SceneGameover::NormalUpdate()
 {
 	m_backGround->Update();
+	m_fade.Update();
 
 	if (Input::GetInstance().IsTrigger("ChangeScene_Debug"))
 	{
 		// シーンが次のシーンをインクルードするのはどうかと思ってる
 		// 別に今何かをしようってわけではない
-		SceneController::GetInstance().ChangeScene("Title");
+		SceneChangeWithFadeOut("Title");
 		return;
 	}
 }
@@ -42,6 +45,7 @@ void SceneGameover::NormalUpdate()
 void SceneGameover::Draw() const
 {
 	m_backGround->Draw();
+	m_fade.Draw();
 
 	DrawString(static_cast<int>(Game::kScreenWidth * 0.5f), static_cast<int>(Game::kScreenHeight * 0.5f), "GameoverScene", 0xffffff);
 }

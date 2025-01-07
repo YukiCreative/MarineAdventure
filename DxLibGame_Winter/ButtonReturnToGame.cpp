@@ -51,7 +51,7 @@ void ButtonReturnToGame::OnDisfocused()
 void ButtonReturnToGame::OnPressed()
 {
 	// ポーズシーンを消す
-	m_pauseSceneRef.RetrunToGame();
+	m_pauseSceneRef.ReturnToGame();
 }
 
 void ButtonReturnToGame::Draw() const

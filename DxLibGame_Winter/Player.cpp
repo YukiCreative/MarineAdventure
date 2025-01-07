@@ -13,6 +13,7 @@
 #include "Animation.h"
 #include "ImageStore.h"
 #include "TestScene.h"
+#include "SoundManager.h"
 
 namespace
 {
@@ -31,6 +32,7 @@ namespace
 	constexpr float kBounceFactor = 1.2f;
 	constexpr int kMoveThreshold = 10000;
 	const Vector2 kJumpForce(0.0f, -10.0f);
+	const Vector2 kWaterJumpForce(0.0f, -5.0f);
 	const Vector2 kDashJumpForce(0.0f, -12.0f);
 	const Vector2Int kPlayerGraphSize(32, 32);
 	// 着地できる地面の角度(法線)
@@ -409,6 +411,9 @@ void Player::Update()
 			m_graphic = "N";
 			m_physics->UseConstantForce(true);
 			m_state = &Player::Normal;
+
+			SoundManager::GetInstance().Play("水バッシャ_3.mp3");
+			SoundManager::GetInstance().Play("水中に飛び込む音.mp3");
 		}
 		// 水中→地上
 		else
@@ -418,7 +423,7 @@ void Player::Update()
 			m_physics->UseConstantForce(true);
 			if (input.IsPressed("Dash"))
 			{
-				m_physics->AddForce(kJumpForce);
+				m_physics->AddForce(kWaterJumpForce);
 			}
 			m_state = &Player::Jump;
 		}

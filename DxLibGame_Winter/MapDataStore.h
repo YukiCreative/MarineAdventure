@@ -58,17 +58,17 @@ private:
 	using MapList_t = std::vector<std::vector<uint8_t>>;
 	std::unique_ptr<MapList_t> m_mapData;
 public:
-	MapDataStore(std::string path);
+	MapDataStore(const std::string& path);
 
 	// 文字通り
 	// 古いマップデータはスマポで破棄される
-	void LoadMapData(std::string path);
+	void LoadMapData(const std::string& path);
 
 	/// <summary>
 	/// マップ座標からお目当てのマップチップのデータを返す
 	/// </summary>
 	/// <param name="id"></param>
-	MapChipData GetMapData(Vector2Int mapPos) const;
+	MapChipData GetMapData(const Vector2Int& mapPos) const;
 
 	Vector2Int GetMapSize() const { return Vector2Int(m_fmfHeader.mapWidth, m_fmfHeader.mapHeight); }
 };

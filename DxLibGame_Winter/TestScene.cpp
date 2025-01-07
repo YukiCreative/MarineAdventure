@@ -14,6 +14,7 @@
 #include "TestScene.h"
 #include "Time.h"
 #include <DxLib.h>
+#include "Music.h"
 
 namespace
 {
@@ -36,6 +37,8 @@ TestScene::TestScene() :
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_backGround->ExpandGtaph(2.0f);
+
+	Music::GetInstance().Play("Data/Sound/‚½‚Ê‚«‚¿‚Ì–`Œ¯.mp3");
 }
 
 TestScene::~TestScene()
@@ -49,7 +52,13 @@ void TestScene::GameClear()
 
 void TestScene::GameOver()
 {
-	SceneChangeWithFadeOut("Gameover");
+	SceneChangeWithFadeOut("Gameover", 120);
+}
+
+void TestScene::ChangeMap(const std::string& path)
+{
+	// •Ê‚Ìfmfƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚ß‚Î‚¢‚¢‚ñ‚â‚È
+	m_mapDataStore->LoadMapData(path);
 }
 
 void TestScene::Entry()
@@ -83,7 +92,8 @@ void TestScene::NormalUpdate()
 	}
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		SceneChangeWithFadeOut("Clear");
+		//SceneChangeWithFadeOut("Clear");
+		ChangeMap("Data/MapData/TestMapData32x16.fmf");
 		return;
 	}
 	if (m_player->IsDeleted())

@@ -18,12 +18,13 @@ private:
 	std::shared_ptr<ButtonSystem> m_buttonSystem;
 public:
 	PauseScene();
+	~PauseScene();
 
 	void Entry() override;
 	void NormalUpdate() override;
 	void Draw() const override;
 
 	void ReturnToTitle();
-	void RetrunToGame();
+	void ReturnToGame();
 };
 

@@ -9,6 +9,7 @@
 #include "ButtonSystem.h"
 #include "ButtonReturnToTitle.h"
 #include "ButtonReturnToGame.h"
+#include "Music.h"
 
 namespace 
 {
@@ -16,6 +17,9 @@ namespace
 	const Vector2 kPosButtonReturnToTitle = kScrrenMiddlePoint + Vector2(0, 90);
 	const Vector2 kPosButtonReturnToGame = (kScrrenMiddlePoint + Vector2(0, -90));
 	const std::string kBackGroundPath = "Marine.jpg";
+
+	constexpr int kPauseMusicVolume = 200;
+	constexpr int kDefaultMusicVolume = 255;
 }
 
 PauseScene::PauseScene()
@@ -36,8 +40,14 @@ PauseScene::PauseScene()
 	m_buttonSystem->SetButtonFocus(returnGameButton);
 }
 
+PauseScene::~PauseScene()
+{
+	Music::GetInstance().SetVolume(kDefaultMusicVolume);
+}
+
 void PauseScene::Entry()
 {
+	Music::GetInstance().SetVolume(kPauseMusicVolume);
 	m_fade.Fade(30, 0);
 }
 
@@ -49,7 +59,7 @@ void PauseScene::NormalUpdate()
 	Input& input = Input::GetInstance();
 	if (input.IsTrigger("Pause"))
 	{
-		SceneStackWithFadeOut("Game", 30);
+		ReturnToGame();
 		return;
 	}
 }
@@ -67,7 +77,7 @@ void PauseScene::ReturnToTitle()
 	SceneResumeWithFadeOut("Title");
 }
 
-void PauseScene::RetrunToGame()
+void PauseScene::ReturnToGame()
 {
 	SceneRemoveWithFadeOut();
 }
