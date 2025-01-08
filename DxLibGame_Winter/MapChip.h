@@ -3,6 +3,7 @@
 #include <memory>
 #include "GameObject.h"
 #include "ObjectKind.h"
+#include "MapChipData.h"
 
 class BoxCollider;
 class Camera;
@@ -10,7 +11,7 @@ class ObjectsController;
 class MapSystem;
 class Player;
 class Image;
-struct MapChipData;
+class Animation;
 
 /// <summary>
 /// マップチップ一個分の画像を担当する
@@ -26,6 +27,8 @@ private:
 	// 画像
 	std::shared_ptr<Image> m_chipImage;
 	std::shared_ptr<Image> m_backImage;
+	// 自分が水中の時だけ一番上に重ねて描画される
+	std::shared_ptr<Animation> m_marineAnimation;
 	// 当たり判定
 	std::shared_ptr<BoxCollider> m_collider;
 	// カメラさん
@@ -33,6 +36,7 @@ private:
 	// 敵を呼び出す
 	ObjectsController& m_objectsController;
 	MapSystem& m_system;
+	MapChipData m_mapChipData;
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、
 	/// そうならば一周するかのように座標を移動させる
@@ -41,12 +45,6 @@ private:
 	bool LoopScreen();
 	bool CheckLoopUpAndLeft();
 	bool CheckLoopDownAndRight();
-
-	/// <summary>
-	/// 現在のマップのデータを参照して、
-	/// 自分の持つグラフデータを決める
-	/// </summary>
-	void ResetMapData();
 public:
 	// 引数がすんごい
 	// いろいろやらせすぎかも
@@ -75,6 +73,12 @@ public:
 	/// </summary>
 	/// <returns>座標</returns>
 	Vector2 GetPos() const { return m_pos; }
+
+	/// <summary>
+	/// 現在のマップのデータを参照して、
+	/// 自分の持つグラフデータを決める
+	/// </summary>
+	void ResetMapData();
 
 	/// <summary>
 	/// 返すだけ

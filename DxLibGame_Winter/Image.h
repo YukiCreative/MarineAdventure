@@ -7,11 +7,13 @@
 class Image
 {
 private:
-	int m_sourceHandle;
-	float m_expandRate;
-	float m_angle;
-	int m_blendMode;
+	int     m_sourceHandle;
+	float   m_expandRate;
+	float   m_angle;
+	int     m_blendMode;
 	uint8_t m_blendPal;
+	bool    m_reverceX;
+	bool    m_reverceY;
 public:
 	Image(const int& handle);
 	Image(const std::string& path);
@@ -24,11 +26,11 @@ public:
 	// åªç›ÇÃâΩî{ÇÃëÂÇ´Ç≥Ç…Ç∑ÇÈÇ©
 	void ExpandGraph(const float& exRate) { m_expandRate *= exRate; }
 	// ë„ì¸
-	void SetExRate(const float& value) { m_expandRate = value; }
+	void SetExRate(const float& value)    { m_expandRate = value; }
 	// åªèÛÇ©ÇÁâΩìxâÒì]Ç≥ÇπÇÈÇ©
-	void RotateGraph(const float& deg) { m_angle += deg * Calculation::kDegToRad; }
+	void RotateGraph(const float& deg)    { m_angle += deg * Calculation::kDegToRad; }
 	// ë„ì¸
-	void SetAngle(const float& angleDeg) { m_angle = angleDeg * Calculation::kDegToRad; }
+	void SetAngle(const float& angleDeg)  { m_angle = angleDeg * Calculation::kDegToRad; }
 	// SetDrawBlendModeÇÇªÇÃÇ‹Ç‹ï\Ç…å©ÇπÇƒÇ¢ÇÈ
 	void SetImageBlendMode(const int& blendmode, const int& pal)
 	{
@@ -36,7 +38,9 @@ public:
 		m_blendPal = pal;
 	}
 	void SetImageBlendMode(const int& blendMode) { m_blendMode = blendMode; }
-	void SetImageBlendPal(const int& pal) { m_blendPal = pal; }
+	void SetImageBlendPal (const int& pal)       { m_blendPal = pal; }
+	void SetReverceFlagX  (const bool& value)	 { m_reverceX = value; }
+	void SetReverceFlagY  (const bool& value)	 { m_reverceY = value; }
 	int GraphHandle() const { return m_sourceHandle; }
 };
 

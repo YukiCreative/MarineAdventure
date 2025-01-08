@@ -49,8 +49,8 @@ ImageStore& ImageStore::GetInstance()
     return instance;
 }
 
-int ImageStore::GetGraph(const std::string& id) const
+int ImageStore::GetGraph(const std::string& fileName) const
 {
-    assert(m_store.contains(id) && "与えられたパスの画像が無いよ");
-    return m_store.at(id);
+    assert(m_store.contains(fileName) && "与えられたパスの画像が無いよ");
+    return m_store.at(fileName);
 }

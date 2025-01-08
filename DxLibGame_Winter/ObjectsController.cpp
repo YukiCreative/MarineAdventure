@@ -8,7 +8,7 @@
 #include "ObjectKind.h"
 #include "Boss.h"
 
-ObjectsController::ObjectsController(Player& player, Camera& camera) :
+ObjectsController::ObjectsController(Camera& camera, Player& player) :
 	m_playerRef(player),
 	m_cameraRef(camera)
 {

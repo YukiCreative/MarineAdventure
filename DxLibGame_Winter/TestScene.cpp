@@ -27,18 +27,19 @@ namespace
 TestScene::TestScene() :
 	m_frameCount(0)
 {
-	m_camera = std::make_shared<Camera>(initPlayerPos);
-	m_player = std::make_shared<Player>(*m_camera, initPlayerPos);
-	m_objectCont = std::make_shared<ObjectsController>(*m_player, *m_camera);
-	m_map = std::make_shared<MapSystem>(*m_camera, *m_objectCont, kMapDataPass);
-	m_backGround = std::make_shared<BackGround>(*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
+	m_camera     = std::make_shared<Camera>           (initPlayerPos);
+	m_player       = std::make_shared<Player>         (*m_camera, initPlayerPos);
+	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
+	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kMapDataPass);
+	m_backGround = std::make_shared<BackGround>       (*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
 
 	m_player->Init(m_map);
+
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_backGround->ExpandGtaph(2.0f);
 
-	Music::GetInstance().Play("Data/Sound/たぬきちの冒険.mp3");
+	Music::GetInstance().Play("Data/Music/たぬきちの冒険.mp3");
 }
 
 TestScene::~TestScene()
@@ -58,7 +59,9 @@ void TestScene::GameOver()
 void TestScene::ChangeMap(const std::string& path)
 {
 	// 別のfmfファイルを読み込めばいいんやな
-	m_mapDataStore->LoadMapData(path);
+	m_map->ChangeMapData(path);
+	// 新しいマップのカメラの制限を把握
+	m_camera->SetMapSize(m_map->GetMapSize());
 }
 
 void TestScene::Entry()
@@ -89,17 +92,12 @@ void TestScene::NormalUpdate()
 		// ここでフェードパネルの色変えたらいいんじゃね
 		m_fade.SetColor(0xffffff);
 		SceneStackWithFadeOut("Pause", 30);
+		return;
 	}
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		//SceneChangeWithFadeOut("Clear");
 		ChangeMap("Data/MapData/TestMapData32x16.fmf");
-		return;
-	}
-	if (m_player->IsDeleted())
-	{
-		// フェードアウトしてシーン遷移
-		SceneChangeWithFadeOut("Gameover", 120);
 		return;
 	}
 }

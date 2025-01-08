@@ -11,12 +11,12 @@
 
 SceneController::SceneController()
 {
-	m_factoryMap["Title"] = []() {return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneTitle>()); };
-	m_factoryMap["Game"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<TestScene>());};
-	m_factoryMap["Gameover"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGameover>());};
-	m_factoryMap["ColTest"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<ColliderTestScene>());};
-	m_factoryMap["Pause"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<PauseScene>());};
-	m_factoryMap["Clear"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGameClear>());};
+	m_factoryMap["Title"]    = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneTitle>       ());};
+	m_factoryMap["Game"]     = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<TestScene>        ());};
+	m_factoryMap["Gameover"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGameover>    ());};
+	m_factoryMap["ColTest"]  = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<ColliderTestScene>());};
+	m_factoryMap["Pause"]    = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<PauseScene>       ());};
+	m_factoryMap["Clear"]    = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGameClear>   ());};
 
 	StackScene("Title");
 }

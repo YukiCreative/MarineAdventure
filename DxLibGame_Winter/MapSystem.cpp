@@ -63,7 +63,7 @@ MapList_t& MapSystem::GetCollidableMapChips()
 	return m_collidableMapChips;
 }
 
-bool MapSystem::GetMapChipNotCollidable(const Vector2Int& mapPos) const
+bool MapSystem::GetMapChipCollidable(const Vector2Int& mapPos) const
 {
 	// こちら側でマップの端ではfalseを返すように気を遣う
 	// MapData持ってるのはこのクラスだし
@@ -73,9 +73,9 @@ bool MapSystem::GetMapChipNotCollidable(const Vector2Int& mapPos) const
 		mapPos.x > mapsize.x ||
 		mapPos.y > mapsize.y)
 	{
-		return false;
+		return true;
 	}
-	return m_mapData->GetMapData(mapPos).graphHandle == -1;
+	return m_mapData->GetMapData(mapPos).graphHandle != -1;
 }
 
 MapChipData MapSystem::GetMapChipData(const Vector2Int& mapPos) const
@@ -87,6 +87,18 @@ Vector2Int MapSystem::GetMapSize()
 {
 	// 右から左へ受け流す
 	return m_mapData->GetMapSize();
+}
+
+void MapSystem::ChangeMapData(const std::string& path)
+{
+	m_mapData->LoadMapData(path);
+
+	// マップチップを再読み込み
+	// 別の関数に切り離してもいいかも
+	for (auto& chip : m_mapChips)
+	{
+		chip->ResetMapData();
+	}
 }
 
 void MapSystem::MoveMap(Vector2 moveValue)

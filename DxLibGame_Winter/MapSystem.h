@@ -56,9 +56,12 @@ public:
 	MapList_t& GetCollidableMapChips();
 
 	// 与えられたマップ座標が壁かどうかを返す
-	bool GetMapChipNotCollidable(const Vector2Int& mapPos) const;
+	bool GetMapChipCollidable(const Vector2Int& mapPos) const;
 
 	MapChipData GetMapChipData(const Vector2Int& mapPos) const;
 	Vector2Int GetMapSize();
+
+	// 読み取りなおす
+	void ChangeMapData(const std::string& path);
 };
 

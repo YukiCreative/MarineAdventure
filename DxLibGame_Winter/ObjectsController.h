@@ -30,7 +30,7 @@ private:
 	using ObjectFactory_t = std::function<std::shared_ptr<GameObject>(Vector2)>;
 	std::unordered_map<ObjectKind, ObjectFactory_t> m_factoryMap;
 public:
-	ObjectsController(Player& player, Camera& camera);
+	ObjectsController(Camera& camera, Player& player);
 
 	void Update();
 	void Draw();

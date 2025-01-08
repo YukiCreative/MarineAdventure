@@ -17,14 +17,15 @@ namespace
 
 SceneGameover::SceneGameover()
 {
-	m_camera = std::make_shared<Camera>();
+	m_camera     = std::make_shared<Camera>    ();
 	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenMiddlePoint, kGameOverImagePath);
+
 	m_backGround->ExpandGtaph(3.0f);
 }
 
 void SceneGameover::Entry()
 {
-	Music::GetInstance().Play("Data/Sound/~‚è‚µ‚«‚éA”’.mp3");
+	Music::GetInstance().Play("Data/Music/~‚è‚µ‚«‚éA”’.mp3");
 	m_fade.Fade(60, 0);
 }
 

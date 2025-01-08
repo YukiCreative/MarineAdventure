@@ -23,8 +23,9 @@ namespace
 
 SceneTitle::SceneTitle()
 {
-	m_camera = std::make_shared<Camera>();
+	m_camera       = std::make_shared<Camera>      ();
 	m_buttonSystem = std::make_shared<ButtonSystem>(); 
+
 	std::shared_ptr<ButtonGameStart> buttonGameStart = std::make_shared<ButtonGameStart>(kInitButtonPos, *this);
 	m_buttonSystem->AddButton(buttonGameStart);
 	m_buttonSystem->SetButtonFocus(buttonGameStart);
@@ -34,7 +35,7 @@ SceneTitle::SceneTitle()
 
 void SceneTitle::Entry()
 {
-	Music::GetInstance().Play("Data/Sound/’‹‰º‚ª‚è‹C•ª.mp3");
+	Music::GetInstance().Play("Data/Music/’‹‰º‚ª‚è‹C•ª.mp3");
 	m_fade.Fade(60, 0);
 }
 

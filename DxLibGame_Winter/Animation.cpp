@@ -16,21 +16,21 @@ Animation::Animation() :
 {
 }
 
-void Animation::Init(const std::string& path, const Vector2Int& oneFrameSize, const int& playSpeed)
+void Animation::Init(const std::string& fileName, const Vector2Int& oneImageSize, const int& playSpeed)
 {
 	m_oneAnimTime = playSpeed;
 	// Imageを初期化
 	m_image = std::make_shared<Image>(-1);
-	m_sourceHandle = ImageStore::GetInstance().GetGraph(path);
-	// 画像サイズが、oneFrameSizeで割り切れるか調べる
+	m_sourceHandle = ImageStore::GetInstance().GetGraph(fileName);
+	// 画像サイズが、oneImageSizeで割り切れるか調べる
 	Vector2Int graphSize;
 	GetGraphSize(m_sourceHandle, &graphSize.x, &graphSize.y);
-	assert(!(graphSize.x % oneFrameSize.x) && "与えられたサイズで横分割してみたけど余りが出たよ");
+	assert(!(graphSize.x % oneImageSize.x) && "与えられたサイズで横分割してみたけど余りが出たよ");
 	// コマ数の分だけ画像を記憶できるようにする
-	m_frameHandle.resize(graphSize.x / oneFrameSize.x);
+	m_frameHandle.resize(graphSize.x / oneImageSize.x);
 	for (int x = 0; auto& graph : m_frameHandle)
 	{
-		graph = DerivationGraph(x * oneFrameSize.x, 0, oneFrameSize.x, oneFrameSize.y, m_sourceHandle);
+		graph = DerivationGraph(x * oneImageSize.x, 0, oneImageSize.x, oneImageSize.y, m_sourceHandle);
 		++x;
 	}
 	// こんなんでいいや
@@ -57,4 +57,14 @@ void Animation::Draw(const Vector2& pos) const
 	// 現在の画像番号によって画像を切り替える
 	m_image->SetGraph(m_frameHandle[m_nowAnimNum]);
 	m_image->Draw(pos);
+}
+
+void Animation::SetExRate(const float& rate)
+{
+	m_image->SetExRate(rate);
+}
+
+void Animation::SetBlendMode(const int& mode, const int& param)
+{
+	m_image->SetImageBlendMode(mode, param);
 }

@@ -18,5 +18,5 @@ public:
 
 	static ImageStore& GetInstance();
 
-	int GetGraph(const std::string& path) const;
+	int GetGraph(const std::string& fileName) const;
 };

@@ -34,8 +34,12 @@ public:
 	/// <param name="path">アニメーション画像のパス</param>
 	/// <param name="oneFrameSize">画像を切るサイズ</param>
 	/// <param name="playSpeed">再生速度(画像が切り替わるまで何フレームかけるか)</param>
-	void Init(const std::string& path, const Vector2Int& oneFrameSize, const int& playSpeed);
+	void Init(const std::string& fileName, const Vector2Int& oneImageSize, const int& playSpeed);
 
 	void Update();
 	void Draw(const Vector2& pos) const;
+
+	// Imageの仲介
+	void SetExRate(const float& rate);
+	void SetBlendMode(const int& mode, const int& param);
 };

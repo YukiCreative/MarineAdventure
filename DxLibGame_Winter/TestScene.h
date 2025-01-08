@@ -7,7 +7,6 @@ class MapSystem;
 class Camera;
 class HarmFish;
 class ObjectsController;
-class MapDataStore;
 class BackGround;
 class ScreenFade;
 
@@ -20,7 +19,6 @@ private:
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ObjectsController> m_objectCont;
-	std::shared_ptr<MapDataStore> m_mapDataStore;
 	std::shared_ptr<BackGround> m_backGround;
 public:
 	TestScene();

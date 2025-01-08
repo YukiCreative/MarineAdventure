@@ -28,8 +28,8 @@ void SceneGameClear::NormalUpdate()
 SceneGameClear::SceneGameClear() :
 	m_fade(ScreenFade::Getinstance())
 {
-	m_camera = std::make_shared<Camera>();
-	m_back = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), kImagePath);
+	m_camera = std::make_shared<Camera>    ();
+	m_back   = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), kImagePath);
 }
 
 void SceneGameClear::Draw() const

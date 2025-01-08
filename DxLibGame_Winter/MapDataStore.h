@@ -3,20 +3,8 @@
 #include "string"
 #include <vector>
 #include <memory>
-#include "ObjectKind.h"
 #include "MapConstants.h"
-
-// マップのいろいろをまとめる
-// 外部に渡す用
-struct MapChipData
-{
-	int graphHandle;
-	int backGraphHandle;
-	// 敵、ギミックなどオブジェクトの有無と種類を指し示す列挙体
-	ObjectKind objKind;
-	// 地上or水中
-	MapConstants::Environment environment;
-};
+#include "MapChipData.h"
 
 // どんなレイヤーがどんな順番であるか
 enum class MapLayerAttribute

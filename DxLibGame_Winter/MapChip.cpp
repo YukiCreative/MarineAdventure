@@ -9,24 +9,29 @@
 #include "Player.h"
 #include "MapImageStore.h"
 #include "Image.h"
+#include "Animation.h"
+
+namespace
+{
+	const std::string kMarineAnimPath = "MarineMapAnimation.png";
+	constexpr int kMarineAnimImageSize = 32;
+	constexpr float kMarineExRate = MapConstants::kChipSize / kMarineAnimImageSize;
+}
 
 void kMapChip::ResetMapData()
 {
 	// マップデータに問い合わせてマップ情報をもらう
-	MapChipData chipData = m_system.GetMapChipData(m_mapPos);
+	m_mapChipData = m_system.GetMapChipData(m_mapPos);
 	// 画像
-	m_chipImage->SetGraph(chipData.graphHandle);
-	m_backImage->SetGraph(chipData.backGraphHandle);
-	m_objectsController.SpawnObject(chipData.objKind, m_pos);
+	m_chipImage->       SetGraph   (m_mapChipData.graphHandle);
+	m_backImage->       SetGraph   (m_mapChipData.backGraphHandle);
+	m_objectsController.SpawnObject(m_mapChipData.objKind, m_pos);
 	// 線分の当たり判定を設定する
-	bool isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x, m_mapPos.y - 1)); // 上
-	m_collider->SetIsLineValid(LineDir::Top, isLineValid);
-	isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x, m_mapPos.y + 1)); // 下
-	m_collider->SetIsLineValid(LineDir::Bottom, isLineValid);
-	isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x - 1, m_mapPos.y)); // 左
-	m_collider->SetIsLineValid(LineDir::Left, isLineValid);
-	isLineValid = m_system.GetMapChipNotCollidable(Vector2Int(m_mapPos.x + 1, m_mapPos.y)); // 右
-	m_collider->SetIsLineValid(LineDir::Right, isLineValid);
+	// 周りのコライダーが有効でない->自分は有効
+	m_collider->SetIsLineValid(LineDir::Top,    !m_system.GetMapChipCollidable(Vector2Int(m_mapPos.x,     m_mapPos.y - 1))); // 上
+	m_collider->SetIsLineValid(LineDir::Bottom, !m_system.GetMapChipCollidable(Vector2Int(m_mapPos.x,     m_mapPos.y + 1))); // 下
+	m_collider->SetIsLineValid(LineDir::Left,   !m_system.GetMapChipCollidable(Vector2Int(m_mapPos.x - 1, m_mapPos.y))); // 左
+	m_collider->SetIsLineValid(LineDir::Right,  !m_system.GetMapChipCollidable(Vector2Int(m_mapPos.x + 1, m_mapPos.y))); // 右
 }
 
 bool kMapChip::LoopScreen()
@@ -87,11 +92,17 @@ kMapChip::kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPo
 	m_mapPos(initMapPos),
 	m_system(system)
 {
-	m_collider = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
-	m_chipImage = std::make_shared<Image>(-1);
+	m_collider        = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
+	m_chipImage       = std::make_shared<Image>      (-1);
+	m_backImage       = std::make_shared<Image>      (-1);
+	m_marineAnimation = std::make_shared<Animation>  ();
+
 	m_chipImage->SetExRate(MapConstants::kExRate);
-	m_backImage = std::make_shared<Image>(-1);
 	m_backImage->SetExRate(MapConstants::kExRate);
+	m_marineAnimation->Init(kMarineAnimPath, 32, 30);
+	m_marineAnimation->SetExRate(kMarineExRate);
+	m_marineAnimation->SetBlendMode(DX_BLENDMODE_ALPHA, 128);
+
 	ResetMapData();
 }
 
@@ -110,6 +121,8 @@ void kMapChip::Update()
 
 	// movePosを0,0でリセット
 	m_movePos = Vector2();
+
+	m_marineAnimation->Update();
 }
 
 void kMapChip::Draw() const
@@ -117,6 +130,12 @@ void kMapChip::Draw() const
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	m_backImage->Draw(drawPos);
 	m_chipImage->Draw(drawPos);
+
+	if (m_mapChipData.environment == MapConstants::Environment::kWater)
+	{
+		m_marineAnimation->Draw(drawPos);
+	}
+
 #if _DEBUG
 	DrawPixel(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 0xff0000);
 	DrawFormatString(static_cast<int>(drawPos.x) - 20, static_cast<int>(drawPos.y), 0xff0000, "X;%d\nY:%d", m_mapPos.x, m_mapPos.y);
@@ -131,7 +150,7 @@ bool kMapChip::CanCollide() const
 
 MapChipData kMapChip::GetMapChipData() const
 {
-	return m_system.GetMapChipData(m_mapPos);
+	return m_mapChipData;
 }
 
 void kMapChip::ChangeGraph_Debug()

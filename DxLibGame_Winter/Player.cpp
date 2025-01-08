@@ -19,26 +19,27 @@ namespace
 {
 	// プレイヤーの当たり判定に使います
 	constexpr float kRaduis = 20.0f;
-	constexpr int kMaxHp = 5;
+	constexpr int   kMaxHp  = 5;
 	// Axisがでかすぎるんだよ
-	constexpr float kMoveForceFactor = 0.0002f;
-	constexpr float kJumpingMoveForceFactor = 0.0001f;
-	constexpr float kDashForceFactor = 0.0003f;
-	constexpr float kStrongAttackMoveFactor = 0.0001f;
-	constexpr float kAttackFrame = 60.0f;
-	constexpr float kInvincibleFrame = 90.0f;
-	constexpr float kAttackedRigidFrame = 30.0f;
-	constexpr float kStrongAttackForce = 20.0f;
-	constexpr float kBounceFactor = 1.2f;
-	constexpr int kMoveThreshold = 10000;
-	const Vector2 kJumpForce(0.0f, -10.0f);
-	const Vector2 kWaterJumpForce(0.0f, -5.0f);
-	const Vector2 kDashJumpForce(0.0f, -12.0f);
+	constexpr float      kMoveForceFactor        = 0.0002f;
+	constexpr float      kJumpingMoveForceFactor = 0.0001f;
+	constexpr float      kDashForceFactor        = 0.0003f;
+	constexpr float      kStrongAttackMoveFactor = 0.0001f;
+	constexpr float      kAttackFrame            = 60.0f;
+	constexpr float      kInvincibleFrame        = 90.0f;
+	constexpr float      kAttackedRigidFrame     = 30.0f;
+	constexpr float      kStrongAttackForce      = 20.0f;
+	constexpr float      kBounceFactor           = 1.2f;
+	constexpr int        kMoveThreshold          = 10000;
+	constexpr int		 kGroundMoveThreshold	 = 100;
+
+	const Vector2    kJumpForce      (0.0f, -10.0f);
+	const Vector2    kWaterJumpForce (0.0f,  -5.0f);
+	const Vector2    kDashJumpForce  (0.0f, -12.0f);
 	const Vector2Int kPlayerGraphSize(32, 32);
 	// 着地できる地面の角度(法線)
 	constexpr int kLandingThresholdMin = 45;
 	constexpr int kLandingThresholdMax = 135;
-	constexpr int kGroundMoveThreshold = 100;
 
 	const std::string kIdleAnimPath = "Idle (32x32).png";
 }
@@ -289,7 +290,7 @@ void Player::Jump(Input& input, Vector2& axis)
 			return;
 		}
 	}
-	//m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
+	m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
 	// 着水は網羅できている
 }
 
@@ -421,7 +422,7 @@ void Player::Update()
 			m_physics->ChangeState(MapConstants::Environment::kGround);
 			m_graphic = "Jump";
 			m_physics->UseConstantForce(true);
-			if (input.IsPressed("Dash"))
+			if (CheckState(PlayerState::kDash))
 			{
 				m_physics->AddForce(kWaterJumpForce);
 			}
