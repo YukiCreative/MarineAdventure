@@ -42,4 +42,5 @@ public:
 	// Image‚Ì’‡‰î
 	void SetExRate(const float& rate);
 	void SetBlendMode(const int& mode, const int& param);
+	void ReverceX(const bool& value);
 };

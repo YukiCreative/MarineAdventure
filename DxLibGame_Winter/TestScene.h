@@ -1,13 +1,14 @@
 #pragma once
 #include "Scene.h"
 #include <memory>
+#include "Vector2.h"
 
 class Player;
 class MapSystem;
 class Camera;
 class HarmFish;
 class ObjectsController;
-class BackGround;
+class ImageObject;
 class ScreenFade;
 
 // プロトタイプ開発を共にするシーン
@@ -19,7 +20,7 @@ private:
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ObjectsController> m_objectCont;
-	std::shared_ptr<BackGround> m_backGround;
+	std::shared_ptr<ImageObject> m_backGround;
 public:
 	TestScene();
 	~TestScene();
@@ -28,6 +29,7 @@ public:
 	void GameOver();
 
 	void ChangeMap(const std::string& path);
+	void ChangeMap(const std::string& path, const Vector2& playerTransferPos);
 
 	void Entry() override;
 	void NormalUpdate() override;

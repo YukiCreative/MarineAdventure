@@ -171,7 +171,7 @@
     <ClCompile Include="MapSystem.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="ObjectsController.cpp" />
-    <ClCompile Include="PauseScene.cpp" />
+    <ClCompile Include="ScenePause.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -224,7 +224,7 @@
     <ClInclude Include="Music.h" />
     <ClInclude Include="ObjectKind.h" />
     <ClInclude Include="ObjectsController.h" />
-    <ClInclude Include="PauseScene.h" />
+    <ClInclude Include="ScenePause.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />

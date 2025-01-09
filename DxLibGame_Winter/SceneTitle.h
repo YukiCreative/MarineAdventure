@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include <memory>
 
-class BackGround;
+class ImageObject;
 class Camera;
 class ScreenFade;
 class ButtonSystem;
@@ -11,9 +11,10 @@ class ButtonSystem;
 class SceneTitle : public Scene
 {
 private:
-	std::shared_ptr<Camera> m_camera;
-	std::shared_ptr<BackGround> m_backGround;
+	std::shared_ptr<Camera>		  m_camera;
+	std::shared_ptr<ImageObject>  m_backGround;
 	std::shared_ptr<ButtonSystem> m_buttonSystem;
+	std::shared_ptr<ImageObject>  m_titleLogo;
 public:
 	SceneTitle();
 

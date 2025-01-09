@@ -18,7 +18,7 @@ namespace
 SceneGameover::SceneGameover()
 {
 	m_camera     = std::make_shared<Camera>    ();
-	m_backGround = std::make_shared<BackGround>(*m_camera, kScreenMiddlePoint, kGameOverImagePath);
+	m_backGround = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kGameOverImagePath);
 
 	m_backGround->ExpandGtaph(3.0f);
 }

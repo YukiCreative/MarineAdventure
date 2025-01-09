@@ -14,6 +14,7 @@ private:
 	uint8_t m_blendPal;
 	bool    m_reverceX;
 	bool    m_reverceY;
+	Vector2 m_offset;
 public:
 	Image(const int& handle);
 	Image(const std::string& path);
@@ -41,6 +42,7 @@ public:
 	void SetImageBlendPal (const int& pal)       { m_blendPal = pal; }
 	void SetReverceFlagX  (const bool& value)	 { m_reverceX = value; }
 	void SetReverceFlagY  (const bool& value)	 { m_reverceY = value; }
+	void SetOffset		  (const Vector2& value) { m_offset = value; }
 	int GraphHandle() const { return m_sourceHandle; }
 };
 

@@ -18,19 +18,20 @@ namespace
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 	constexpr int kButtonYOffset = 80;
 	const Vector2 kInitButtonPos(Game::kScreenHalfWidth, Game::kScreenHeight - kButtonYOffset);
-	const std::string kBGPath = "Marine.jpg";
+	const std::string kBGPath   = "Marine.jpg";
+	const std::string kLogoPath = "Logo.png";
 }
 
 SceneTitle::SceneTitle()
 {
 	m_camera       = std::make_shared<Camera>      ();
-	m_buttonSystem = std::make_shared<ButtonSystem>(); 
+	m_buttonSystem = std::make_shared<ButtonSystem>();
+	m_backGround   = std::make_shared<ImageObject> (*m_camera, Vector2::Zero(), kBGPath);
+	m_titleLogo    = std::make_shared<ImageObject> (*m_camera, Vector2::Zero(), kLogoPath);
 
 	std::shared_ptr<ButtonGameStart> buttonGameStart = std::make_shared<ButtonGameStart>(kInitButtonPos, *this);
 	m_buttonSystem->AddButton(buttonGameStart);
 	m_buttonSystem->SetButtonFocus(buttonGameStart);
-	// タイトル画像をロード
-	m_backGround = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), kBGPath);
 }
 
 void SceneTitle::Entry()
@@ -50,6 +51,7 @@ void SceneTitle::NormalUpdate()
 void SceneTitle::Draw() const
 {
 	m_backGround->Draw();
+	m_titleLogo->Draw();
 	m_buttonSystem->Draw();
 	m_fade.Draw();
 }

@@ -1,4 +1,4 @@
-#include "PauseScene.h"
+#include "ScenePause.h"
 #include "ScreenFade.h"
 #include "BackGround.h"
 #include "Camera.h"
@@ -22,10 +22,10 @@ namespace
 	constexpr int kDefaultMusicVolume = 255;
 }
 
-PauseScene::PauseScene()
+ScenePause::ScenePause()
 {
 	m_camera = std::make_shared<Camera>    ();
-	m_back   = std::make_shared<BackGround>(*m_camera, Vector2::Zero(), kBackGroundPath);
+	m_back   = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBackGroundPath);
 
 	// É{É^ÉìÇÃê›íË
 	m_buttonSystem = std::make_shared<ButtonSystem>();
@@ -44,18 +44,18 @@ PauseScene::PauseScene()
 	m_buttonSystem->SetButtonFocus(returnGameButton);
 }
 
-PauseScene::~PauseScene()
+ScenePause::~ScenePause()
 {
 	Music::GetInstance().SetVolume(kDefaultMusicVolume);
 }
 
-void PauseScene::Entry()
+void ScenePause::Entry()
 {
 	Music::GetInstance().SetVolume(kPauseMusicVolume);
 	m_fade.Fade(30, 0);
 }
 
-void PauseScene::NormalUpdate()
+void ScenePause::NormalUpdate()
 {
 	m_camera->Update();
 	m_buttonSystem->Update();
@@ -68,20 +68,20 @@ void PauseScene::NormalUpdate()
 	}
 }
 
-void PauseScene::Draw() const
+void ScenePause::Draw() const
 {
 	m_back->Draw();
 	m_buttonSystem->Draw();
 	m_fade.Draw();
 }
 
-void PauseScene::ReturnToTitle()
+void ScenePause::ReturnToTitle()
 {
 	m_fade.SetColor(0x000000);
 	SceneResumeWithFadeOut("Title");
 }
 
-void PauseScene::ReturnToGame()
+void ScenePause::ReturnToGame()
 {
 	SceneRemoveWithFadeOut();
 }

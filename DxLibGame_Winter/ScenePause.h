@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include <memory>
 
-class BackGround;
+class ImageObject;
 class Camera;
 class ButtonSystem;
 
@@ -10,15 +10,15 @@ class ButtonSystem;
 // オプションシーンへ
 // タイトルに戻る
 // 装飾用の画像
-class PauseScene : public Scene
+class ScenePause : public Scene
 {
 private:
 	std::shared_ptr<Camera> m_camera;
-	std::shared_ptr<BackGround> m_back;
+	std::shared_ptr<ImageObject> m_back;
 	std::shared_ptr<ButtonSystem> m_buttonSystem;
 public:
-	PauseScene();
-	~PauseScene();
+	ScenePause();
+	~ScenePause();
 
 	void Entry() override;
 	void NormalUpdate() override;

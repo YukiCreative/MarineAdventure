@@ -4,7 +4,7 @@
 #include <memory>
 
 class Image;
-class PauseScene;
+class ScenePause;
 
 // ポーズ画面の「タイトルに戻る」ボタン
 class ButtonReturnToTitle : public Button
@@ -13,12 +13,12 @@ private:
 	int m_frameTimer;
 
 	std::shared_ptr<Image> m_image;
-	PauseScene& m_pauseSceneRef;
+	ScenePause& m_pauseSceneRef;
 
 	void FocusedUpdate() override;
 	void NormalUpdate() override;
 public:
-	ButtonReturnToTitle(Vector2 initPos, PauseScene& parent);
+	ButtonReturnToTitle(Vector2 initPos, ScenePause& parent);
 	~ButtonReturnToTitle();
 
 	void OnFocused() override;

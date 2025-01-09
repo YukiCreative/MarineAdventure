@@ -3,7 +3,7 @@
 #include <memory>
 
 class Image;
-class PauseScene;
+class ScenePause;
 
 class ButtonReturnToGame : public Button
 {
@@ -11,13 +11,13 @@ private:
 	int m_frameCount;
 
 	std::shared_ptr<Image> m_image;
-	PauseScene& m_pauseSceneRef;
+	ScenePause& m_pauseSceneRef;
 
 	void FocusedUpdate() override;
 	void NormalUpdate() override;
 
 public:
-	ButtonReturnToGame(Vector2 initPos, PauseScene& pauseScene);
+	ButtonReturnToGame(Vector2 initPos, ScenePause& pauseScene);
 	~ButtonReturnToGame();
 
 	void OnFocused() override;

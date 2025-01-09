@@ -33,8 +33,14 @@ private:
 	// コンポーネント
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
+
 	std::shared_ptr<Animation> m_nowAnim;
 	std::shared_ptr<Animation> m_idleAnim;
+	std::shared_ptr<Animation> m_jumpAnim;
+	std::shared_ptr<Animation> m_fallAnim;
+	std::shared_ptr<Animation> m_damageAnim;
+	std::shared_ptr<Animation> m_attackAnim;
+	std::shared_ptr<Animation> m_dashAnim;
 
 	std::weak_ptr<MapSystem> m_map;
 	Camera& m_camera;
@@ -43,7 +49,7 @@ private:
 	// 今のプレイヤーの状態
 	StateFunc_t m_state;
 	// 仮で今の状態を可視化
-	std::string m_graphic;
+	std::string m_stateText;
 	// 現在の状態が何フレーム持続しているか　とかに使います
 	int m_stateFrameCount;
 	// 体力
@@ -52,6 +58,8 @@ private:
 	Vector2 m_velocity;
 	// このフレームに接触した当たり判定で、どれだけめり込んだかが記録される
 	std::list<Vector2> m_overlaps;
+	// 自分が左を向いているか
+	bool m_isLeft;
 
 	void GameOver();
 
@@ -76,6 +84,8 @@ private:
 	bool CheckEnvironmentChanged();
 	void CollideToMapChips();
 	void ChangeState(StateFunc_t nextState);
+	void ChangeAnimation(const std::shared_ptr<Animation>& setAnim);
+	void ChangeDirection(const Vector2& axis);
 public:
 	/// <summary>
 	/// 初期化

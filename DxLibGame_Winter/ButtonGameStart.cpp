@@ -6,7 +6,7 @@
 
 namespace
 {
-	const std::string kImagePass = "GameStartButton.png";
+	const std::string kImagePath = "GameStartButton.png";
 }
 
 ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
@@ -14,7 +14,7 @@ ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
 	m_frameCount(0),
 	m_titleRef(title)
 {
-	m_image = std::make_shared<Image>(kImagePass);
+	m_image = std::make_shared<Image>(kImagePath);
 }
 
 void ButtonGameStart::OnFocused()
@@ -29,14 +29,15 @@ void ButtonGameStart::OnDisfocused()
 
 void ButtonGameStart::NormalUpdate()
 {
-	// ‰½‚à‚µ‚È‚¢
+	// ‚Ü‚ ‚±‚±‚Í’Ê‚è‚Ü‚¹‚ñ‚ª
+	m_image->SetExRate(1);
 }
 
 void ButtonGameStart::FocusedUpdate()
 {
 	++m_frameCount;
 	// “_–Å‚Æ‚©‚³‚¹‚½‚¢
-	m_image->SetExRate(sinf(m_frameCount * 0.1f) * 1.5f);
+	m_image->SetExRate(1.5f + sinf(m_frameCount * 0.1f));
 }
 
 void ButtonGameStart::OnPressed()

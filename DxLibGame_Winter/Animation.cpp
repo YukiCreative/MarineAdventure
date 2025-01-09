@@ -68,3 +68,8 @@ void Animation::SetBlendMode(const int& mode, const int& param)
 {
 	m_image->SetImageBlendMode(mode, param);
 }
+
+void Animation::ReverceX(const bool& value)
+{
+	m_image->SetReverceFlagX(value);
+}

@@ -2,13 +2,13 @@
 #include "Scene.h"
 #include <memory>
 
-class BackGround;
+class ImageObject;
 class Camera;
 
 class SceneGameover : public Scene
 {
 private:
-	std::shared_ptr<BackGround> m_backGround;
+	std::shared_ptr<ImageObject> m_backGround;
 	std::shared_ptr<Camera> m_camera;
 public:
 	SceneGameover();

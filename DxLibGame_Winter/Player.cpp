@@ -18,30 +18,36 @@
 namespace
 {
 	// プレイヤーの当たり判定に使います
-	constexpr float kRaduis = 20.0f;
+	constexpr float kColliderRaduis = 30.0f;
 	constexpr int   kMaxHp  = 5;
 	// Axisがでかすぎるんだよ
-	constexpr float      kMoveForceFactor        = 0.0002f;
-	constexpr float      kJumpingMoveForceFactor = 0.0001f;
-	constexpr float      kDashForceFactor        = 0.0003f;
-	constexpr float      kStrongAttackMoveFactor = 0.0001f;
-	constexpr float      kAttackFrame            = 60.0f;
-	constexpr float      kInvincibleFrame        = 90.0f;
-	constexpr float      kAttackedRigidFrame     = 30.0f;
-	constexpr float      kStrongAttackForce      = 20.0f;
-	constexpr float      kBounceFactor           = 1.2f;
-	constexpr int        kMoveThreshold          = 10000;
-	constexpr int		 kGroundMoveThreshold	 = 100;
+	constexpr float  kMoveForceFactor        = 0.0002f;
+	constexpr float  kJumpingMoveForceFactor = 0.0001f;
+	constexpr float  kDashForceFactor        = 0.0003f;
+	constexpr float  kStrongAttackMoveFactor = 0.0001f;
+	constexpr float  kAttackFrame            = 60.0f;
+	constexpr float  kInvincibleFrame        = 90.0f;
+	constexpr float  kAttackedRigidFrame     = 30.0f;
+	constexpr float  kStrongAttackForce      = 20.0f;
+	constexpr float  kBounceFactor           = 1.2f;
+	constexpr int    kMoveThreshold          = 10000;
+	constexpr int	 kGroundMoveThreshold	 = 100;
 
 	const Vector2    kJumpForce      (0.0f, -10.0f);
 	const Vector2    kWaterJumpForce (0.0f,  -5.0f);
 	const Vector2    kDashJumpForce  (0.0f, -12.0f);
-	const Vector2Int kPlayerGraphSize(32, 32);
 	// 着地できる地面の角度(法線)
 	constexpr int kLandingThresholdMin = 45;
 	constexpr int kLandingThresholdMax = 135;
-
-	const std::string kIdleAnimPath = "Idle (32x32).png";
+	// アニメーション
+	const std::string kIdleAnimPath   = "PlayerIdle.png";
+	const std::string kJumpAnimPath   = "PlayerJump.png";
+	const std::string kFallAnimPath   = "PlayerFall.png";
+	const std::string kDamageAnimPath = "PlayerDamage.png";
+	const std::string kAttackAnimPath = "PlayerAttack.png";
+	const std::string kDashAnimPath   = "PlayerDash.png";
+	constexpr int     kAnimPlaySpeed  = 3;
+	const Vector2Int  kPlayerGraphSize(32, 32);
 }
 
 void Player::GameOver()
@@ -57,22 +63,20 @@ void Player::Normal(Input& input, Vector2& axis)
 	// Bボタンでアタック状態
 	if (input.IsTrigger("Attack"))
 	{
-		m_graphic = "A";
+		m_stateText = "A";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Attack);
-		 // 次の状態の内容を実行
+		ChangeAnimation(m_attackAnim);
 		return;
 	}
 	// スティックでMoveへ
 	if (axis.SqrMagnitude() > kMoveThreshold)
 	{
-		m_graphic = "M";
+		m_stateText = "M";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Move);
-		 // 次の状態の内容を実行
 		return;
 	}
-	// 現在の移動方向によってモーションを変える
 }
 
 // 移動してます
@@ -81,7 +85,7 @@ void Player::Move(Input& input, Vector2& axis)
 	// ダッシュ押されてたらDashへ
 	if (input.IsPressed("Dash"))
 	{
-		m_graphic = "D";
+		m_stateText = "D";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Dash);
 		 // 次の状態の内容を実行
@@ -91,23 +95,23 @@ void Player::Move(Input& input, Vector2& axis)
 	if (axis.SqrMagnitude() < kMoveThreshold)
 	{
 		SetStateNormal();
-		 // 次の状態の内容を実行
 		return;
 	}
 	// Bボタンでアタック状態
 	if (input.IsTrigger("Attack"))
 	{
-		m_graphic = "SA";
+		m_stateText = "SA";
 		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
 		ChangeState(&Player::StrongAttack);
-		 // 次の状態の内容を実行
+		ChangeAnimation(m_attackAnim);
 		return;
 	}
 	// 仮
 	m_physics->AddForce(axis * kMoveForceFactor);
 	// 現在の移動方向によってモーションを変える
+	ChangeDirection(axis);
 }
 
 // 早いです。
@@ -116,7 +120,7 @@ void Player::Dash(Input& input, Vector2& axis)
 	// ダッシュ押されてなかったらMoveへ
 	if (!input.IsPressed("Dash"))
 	{
-		m_graphic = "M";
+		m_stateText = "M";
 		m_physics->UseConstantForce(false);
 		ChangeState(&Player::Move);
 		 // 次の状態の内容を実行
@@ -125,24 +129,24 @@ void Player::Dash(Input& input, Vector2& axis)
 	// Bボタンでアタック状態
 	if (input.IsTrigger("Attack"))
 	{
-		m_graphic = "SA";
+		m_stateText = "SA";
 		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
 		ChangeState(&Player::Attack);
-		 // 次の状態の内容を実行
+		ChangeAnimation(m_attackAnim);
 		return;
 	}
 	// 	// 入力がなかったらNomalへ
 	if (axis.SqrMagnitude() < kMoveThreshold)
 	{
 		SetStateNormal();
-		 // 次の状態の内容を実行
 		return;
 	}
 	// 仮
 	m_physics->AddForce(axis * kDashForceFactor);
 	// モーションが変わるのはこちらも同じ
+	ChangeDirection(axis);
 }
 
 void Player::Attack(Input& input, Vector2& axis)
@@ -152,7 +156,7 @@ void Player::Attack(Input& input, Vector2& axis)
 	if (m_stateFrameCount >= kAttackFrame)
 	{
 		SetStateNormal();
-		 // 次の状態の内容を実行
+		ChangeAnimation(m_idleAnim);
 		return;
 	}
 	// 移動ができる
@@ -165,7 +169,6 @@ void Player::StrongAttack(Input& input, Vector2& axis)
 	if (m_stateFrameCount >= kAttackFrame)
 	{
 		SetStateNormal();
-		 // 次の状態の内容を実行
 		return;
 	}
 	// 攻撃判定を持つ
@@ -180,7 +183,6 @@ void Player::Damage(Input& input, Vector2& axis)
 	if (m_stateFrameCount >= kInvincibleFrame)
 	{
 		SetStateNormal();
-		 // 次の状態の内容を実行
 		return;
 	}
 }
@@ -207,15 +209,17 @@ void Player::GNormal(Input& input, Vector2& axis)
 	// いろいろなモーションにつながる
 	if (input.IsTrigger("Jump"))
 	{
-		m_graphic = "Jump";
+		m_stateText = "Jump";
 		m_physics->AddForce(kJumpForce);
 		ChangeState(&Player::Jump);
+		ChangeAnimation(m_jumpAnim);
 		return;
 	}
 	if (abs(axis.x) > kGroundMoveThreshold)
 	{
-		m_graphic = "GM";
+		m_stateText = "GM";
 		ChangeState(&Player::GMove);
+		ChangeAnimation(m_dashAnim);
 		return;
 	}
 }
@@ -225,24 +229,29 @@ void Player::GMove(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
-		m_graphic = "Jump";
+		m_stateText = "Jump";
 		ChangeState(&Player::Jump);
+		ChangeAnimation(m_jumpAnim);
 		return;
 	}
 	if (abs(axis.x) < kGroundMoveThreshold)
 	{
-		m_graphic = "GN";
+		m_stateText = "GN";
 		ChangeState(&Player::GNormal);
+		ChangeAnimation(m_idleAnim);
 		return;
 	}
 	if (input.IsPressed("Dash"))
 	{
-		m_graphic = "GD";
+		m_stateText = "GD";
 		ChangeState(&Player::GDash);
+		ChangeAnimation(m_dashAnim);
 		return;
 	}
 	// こいつ動くぞ
 	m_physics->AddForce(axis.x * kMoveForceFactor);
+	// キャラの向きを変える
+	ChangeDirection(axis);
 }
 
 void Player::GDash(Input& input, Vector2& axis)
@@ -250,27 +259,32 @@ void Player::GDash(Input& input, Vector2& axis)
 	// 入力がなくなったら通常移動へ
 	if (!input.IsPressed("Dash"))
 	{
-		m_graphic = "GN";
+		m_stateText = "GN";
 		ChangeState(&Player::GMove);
+		ChangeAnimation(m_dashAnim);
 		return;
 	}
 	// 入力がなくなったら通常状態へ
 	if (abs(axis.x) < kGroundMoveThreshold)
 	{
-		m_graphic = "GN";
+		m_stateText = "GN";
 		ChangeState(&Player::GNormal);
+		ChangeAnimation(m_idleAnim);
 		return;
 	}
 	if (input.IsTrigger("Jump"))
 	{
 		// ダッシュジャンプはちょっと高く飛びたい
 		m_physics->AddForce(kDashJumpForce);
-		m_graphic = "Jump";
+		m_stateText = "Jump";
+		ChangeAnimation(m_jumpAnim);
 		ChangeState(&Player::Jump);
 		return;
 	}
 	// 早く動ける
 	m_physics->AddForce(axis.x * kDashForceFactor);
+	// キャラの向きを変える
+	ChangeDirection(axis);
 }
 
 void Player::Jump(Input& input, Vector2& axis)
@@ -285,20 +299,22 @@ void Player::Jump(Input& input, Vector2& axis)
 		float angle = overlap.Angle();
 		if (angle > kLandingThresholdMin && angle < kLandingThresholdMax)
 		{
-			m_graphic = "GN";
+			m_stateText = "GN";
 			ChangeState(&Player::GNormal);
+			ChangeAnimation(m_idleAnim);
 			return;
 		}
 	}
 	m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
-	// 着水は網羅できている
+	ChangeDirection(axis);
 }
 
 void Player::SetStateNormal()
 {
 	// 状態遷移する処理が重複していたので
-	m_graphic = "N";
+	m_stateText = "N";
 	m_physics->UseConstantForce(true);
+	ChangeAnimation(m_idleAnim);
 	ChangeState(&Player::Normal);
 }
 
@@ -362,20 +378,54 @@ void Player::ChangeState(StateFunc_t nextState)
 	// ステートの実行はしない
 }
 
+void Player::ChangeAnimation(const std::shared_ptr<Animation>& setAnim)
+{
+	m_nowAnim = setAnim;
+	m_nowAnim->ReverceX(m_isLeft);
+}
+
+void Player::ChangeDirection(const Vector2& axis)
+{
+	if (abs(axis.x) < kGroundMoveThreshold) return;
+	m_isLeft = axis.x < 0;
+	m_nowAnim->ReverceX(m_isLeft);
+}
+
 Player::Player(Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
 	m_state(&Player::Normal),
-	m_graphic("N"),
+	m_stateText("N"),
 	m_stateFrameCount(0),
 	m_hp(kMaxHp),
-	m_camera(camera)
+	m_camera(camera),
+	m_isLeft(false)
 {
 	ImageStore& imageStore = ImageStore::GetInstance();
-	m_physics = std::make_shared<Physics>(1.0f, 1.0f),
-	m_collider = std::make_shared<CircleCollider>(m_pos, kRaduis);
+	m_physics  = std::make_shared<Physics>(1.0f, 1.0f),
+	m_collider = std::make_shared<CircleCollider>(m_pos, kColliderRaduis);
 	// ここからアニメーションの初期化
-	m_idleAnim = std::make_shared<Animation>();
-	m_idleAnim->Init(kIdleAnimPath, kPlayerGraphSize, 2);
+	// これってまとめたほうがいいのか都度宣言して初期化関数流したほうがいいのか
+	m_idleAnim   = std::make_shared<Animation>();
+	m_jumpAnim   = std::make_shared<Animation>();
+	m_fallAnim   = std::make_shared<Animation>();
+	m_damageAnim = std::make_shared<Animation>();
+	m_attackAnim = std::make_shared<Animation>();
+	m_dashAnim   = std::make_shared<Animation>();
+
+	m_idleAnim  ->Init(kIdleAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
+	m_jumpAnim  ->Init(kJumpAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
+	m_fallAnim  ->Init(kFallAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
+	m_damageAnim->Init(kDamageAnimPath, kPlayerGraphSize, kAnimPlaySpeed);
+	m_attackAnim->Init(kAttackAnimPath, kPlayerGraphSize, kAnimPlaySpeed);
+	m_dashAnim  ->Init(kDashAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
+
+	m_idleAnim  ->SetExRate(2.0f);
+	m_jumpAnim  ->SetExRate(2.0f);
+	m_fallAnim  ->SetExRate(2.0f);
+	m_damageAnim->SetExRate(2.0f);
+	m_attackAnim->SetExRate(2.0f);
+	m_dashAnim  ->SetExRate(2.0f);
+
 	m_nowAnim = m_idleAnim;
 }
 
@@ -408,11 +458,9 @@ void Player::Update()
 		// 地上→水中
 		if (m_physics->CheckState(MapConstants::Environment::kGround))
 		{
+			// いろいろやってんなあ
 			m_physics->ChangeState(MapConstants::Environment::kWater);
-			m_graphic = "N";
-			m_physics->UseConstantForce(true);
-			m_state = &Player::Normal;
-
+			SetStateNormal();
 			SoundManager::GetInstance().Play("水バッシャ_3.mp3");
 			SoundManager::GetInstance().Play("水中に飛び込む音.mp3");
 		}
@@ -420,7 +468,7 @@ void Player::Update()
 		else
 		{
 			m_physics->ChangeState(MapConstants::Environment::kGround);
-			m_graphic = "Jump";
+			m_stateText = "Jump";
 			m_physics->UseConstantForce(true);
 			if (CheckState(PlayerState::kDash))
 			{
@@ -441,7 +489,7 @@ void Player::Draw() const
 	Vector2 screenPos = m_camera.Capture(m_pos);
 	m_nowAnim->Draw(screenPos);
 #if _DEBUG
-	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_graphic.c_str(), 0x00ff00);
+	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_stateText.c_str(), 0x00ff00);
 	m_collider->DrawColliderRange_Debug(m_camera.DrawOffset());
 #endif
 }
@@ -486,16 +534,18 @@ void Player::OnDamage(int damage)
 	// こんなのでいいんでしょうか
 	m_hp -= damage;
 	printf("Playerの体力%d\n", m_hp);
-	if (m_hp <= 0)
+	if (m_hp >= 0)
 	{
-		m_state = &Player::Death;
-		m_graphic = "Death";
+		m_stateText = "Damage";
+		ChangeState(&Player::Damage);
 	}
 	else
 	{
-		m_state = &Player::Damage;
-		m_graphic = "Damage";
+		m_stateText = "Death";
+		ChangeState(&Player::Death);
 	}
+
+	ChangeAnimation(m_damageAnim);
 }
 
 void Player::AddForce(const Vector2& force)
@@ -514,6 +564,7 @@ void Player::OnAttack()
 	ChangeState(&Player::Attacked);
 	Input& input = Input::GetInstance();
 	Vector2 axis = input.GetInputAxis();
-	m_graphic = "やったぜ。";
+	m_stateText = "やったぜ。";
+	ChangeAnimation(m_idleAnim);
 	return;
 }

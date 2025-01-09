@@ -6,7 +6,7 @@
 #include "MapSystem.h"
 #include "ObjectKind.h"
 #include "ObjectsController.h"
-#include "PauseScene.h"
+#include "ScenePause.h"
 #include "Player.h"
 #include "SceneController.h"
 #include "SceneGameover.h"
@@ -31,7 +31,7 @@ TestScene::TestScene() :
 	m_player       = std::make_shared<Player>         (*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kMapDataPass);
-	m_backGround = std::make_shared<BackGround>       (*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
+	m_backGround = std::make_shared<ImageObject>       (*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
 
 	m_player->Init(m_map);
 
@@ -58,10 +58,17 @@ void TestScene::GameOver()
 
 void TestScene::ChangeMap(const std::string& path)
 {
+	m_map->ChangeMapData(path);
+	m_camera->SetMapSize(m_map->GetMapSize());
+}
+
+void TestScene::ChangeMap(const std::string& path, const Vector2& playerTransferPos)
+{
 	// 別のfmfファイルを読み込めばいいんやな
 	m_map->ChangeMapData(path);
 	// 新しいマップのカメラの制限を把握
 	m_camera->SetMapSize(m_map->GetMapSize());
+	m_player->Teleportation(playerTransferPos);
 }
 
 void TestScene::Entry()
@@ -83,7 +90,7 @@ void TestScene::NormalUpdate()
 	m_objectCont->Update();
 
 	// カメラの移動量を取得したい
-	m_backGround->Move(m_camera->GetVel() * 0.5f);
+	//m_backGround->Move(m_camera->GetVel() * 0.5f);
 	m_backGround->Update();
 
 

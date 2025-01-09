@@ -4,26 +4,26 @@
 #include <memory>
 #include <string>
 #include "Calculation.h"
-#include "PauseScene.h"
+#include "ScenePause.h"
 
 namespace
 {
-	const std::string kImagePass = "ButtonReturnToGame.png";
+	const std::string kImagePath = "ButtonReturnToGame.png";
 	const std::string kNoFocusedImagePass = "ButtonReturnToGame_NoFocused.png";
 }
 
 void ButtonReturnToGame::FocusedUpdate()
 {
 	++m_frameCount;
-	if (m_frameCount > 360) m_frameCount = 0;
-	m_pos.x += cos(m_frameCount * Calculation::kDegToRad);
+	m_image->SetExRate(1.5f + sinf(m_frameCount * Calculation::kDegToRad));
 }
 
 void ButtonReturnToGame::NormalUpdate()
 {
+	m_image->SetExRate(1.0f);
 }
 
-ButtonReturnToGame::ButtonReturnToGame(Vector2 initPos, PauseScene& pauseScene) :
+ButtonReturnToGame::ButtonReturnToGame(Vector2 initPos, ScenePause& pauseScene) :
 	Button(initPos),
 	m_pauseSceneRef(pauseScene),
 	m_frameCount(0)
@@ -39,7 +39,7 @@ ButtonReturnToGame::~ButtonReturnToGame()
 void ButtonReturnToGame::OnFocused()
 {
 	InvertState();
-	m_image->SetGraph(kImagePass);
+	m_image->SetGraph(kImagePath);
 }
 
 void ButtonReturnToGame::OnDisfocused()

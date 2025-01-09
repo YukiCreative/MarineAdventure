@@ -162,7 +162,7 @@
     <ClCompile Include="Boss.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PauseScene.cpp">
+    <ClCompile Include="ScenePause.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -314,7 +314,7 @@
     <ClInclude Include="Boss.h">
       <Filter>ヘッダー ファイル\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PauseScene.h">
+    <ClInclude Include="ScenePause.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
