@@ -150,3 +150,7 @@ MapConstants::Environment Physics::GetNowEnvironment()
 		return MapConstants::Environment::kWater;
 	}
 }
+
+void Physics::AddFrictionalForce()
+{
+}

@@ -7,7 +7,7 @@
 class kMapChip;
 
 /// <summary>
-///  物理挙動をつかさどる
+/// 物理挙動をつかさどる
 /// </summary>
 class Physics
 {
@@ -33,37 +33,24 @@ private:
 	{
 		&Physics::WaterUpdate,
 		&Physics::GroundUpdate,
-	};;
+	};
 
 	// 水中時と地上時で関数を切り替える
 	Vector2 WaterUpdate();
 	Vector2 GroundUpdate();
 public:
 	Physics();
-	/// <summary>
-	/// 必要な値を初期値に入れたコンストラクタ
-	/// </summary>
-	/// <param name="weight">重さ</param>
-	/// <param name="volume">体積</param>
+	// 必要な値を初期値に入れたコンストラクタ
 	Physics(float weight, float volume);
 
-	/// <summary>
-	/// 物理の更新
-	/// この関数で、自分の持っているパラメータと、このフレームに与えられた力から
-	/// 自分の1フレームに動く距離を算出する。
-	/// </summary>
+	// この関数で、自分の持っているパラメータと、このフレームに与えられた力から
+	// 自分の1フレームに動く距離を算出する。
 	Vector2 Update();
 
-	/// <summary>
-	/// 力を加える
-	/// </summary>
-	/// <param name="_force">力</param>
+	// 力を加える
 	void AddForce(Vector2 force);
 
-	/// <summary>
 	/// 文字通り速度を返す
-	/// </summary>
-	/// <returns>現在の速度</returns>
 	Vector2 GetVel() const { return m_velocity; }
 
 	/// <summary>
@@ -77,10 +64,12 @@ public:
 	void UseConstantForce(bool value) { m_useConstantForce = value; }
 
 	// 与えられた列挙に対応した状態かどうかを返す
-	bool CheckState(const MapConstants::Environment&);
+	bool CheckState (const MapConstants::Environment&);
 	void ChangeState(const MapConstants::Environment&);
 	void InvertState();
 	MapConstants::Environment GetNowEnvironment();
+	// 引数から摩擦力を算出して、移動時に考慮する
+	// 性質上Updateの前に実行しないと効果がないかも
+	// 第一引数：押す力　第二引数：摩擦定数(0で摩擦なし、マイナスだと逆方向に摩擦が働く)
+	void AddFrictionalForce(const Vector2& pushForce, const float& frictionFactor);
 };
-
-
