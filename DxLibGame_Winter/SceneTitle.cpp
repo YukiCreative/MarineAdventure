@@ -1,6 +1,5 @@
 #include "SceneTitle.h"
 #include <DxLib.h>
-#include "Input.h"
 #include "SceneController.h"
 #include <cassert>
 #include "game.h"
@@ -45,7 +44,6 @@ void SceneTitle::NormalUpdate()
 	m_camera->Update();
 	m_buttonSystem->Update();
 	m_fade.Update();
-	Input& input = Input::GetInstance();
 }
 
 void SceneTitle::Draw() const
@@ -58,5 +56,5 @@ void SceneTitle::Draw() const
 
 void SceneTitle::GameStart()
 {
-	SceneChangeWithFadeOut("Game");
+	SceneChangeWithFadeOut("ColTest");
 }

@@ -83,7 +83,7 @@ public:
 		return result;
 	}
 
-	Vector2 operator*(const float& other)
+	Vector2 operator*(const float& other) const
 	{
 		Vector2 result;
 		result.x = x * other;
@@ -257,7 +257,7 @@ public:
 		return x * second.x + y * second.y;
 	}
 
-	// X正方向が始線の一般角を取得（度数）
+	// X正方向を始線とした角度
 	// Yが下向き正なので時計回りが正の角度になる
 	float Angle() const
 	{
@@ -276,6 +276,19 @@ public:
 		float myDeg = this->Angle();
 		float otherDeg = other.Angle();
 		return myDeg - otherDeg;
+	}
+
+	// 自信を時計回りにdeg度回したベクトルを返す
+	// 今回は三角関数を使うが、いずれ行列かクオータニオンを使いたい
+	// sqrtを使っているので重たいよ
+	Vector2 RotatedVec(const float& deg) const
+	{
+		Vector2 rotatedVec;
+		float myAngle = Angle();
+		float mySize = Magnitude();
+		rotatedVec.x = mySize * cosf((myAngle + deg) * Calculation::kDegToRad);
+		rotatedVec.y = mySize * sinf((myAngle + deg) * Calculation::kDegToRad);
+		return rotatedVec;
 	}
 };
 

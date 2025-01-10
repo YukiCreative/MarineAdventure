@@ -72,6 +72,9 @@ Vector2 Physics::WaterUpdate()
 	// m_addForceをリセット
 	m_addForce = Vector2();
 
+	// 摩擦力の力を削除
+	m_pushedForces.clear();
+
 	// 速度返す
 	return m_velocity;
 }
@@ -94,6 +97,13 @@ Vector2 Physics::GroundUpdate()
 	// 出てきた値でforceを弱める
 	force += resistanceForce;
 
+	// 押されている力に垂直な向きでforceを弱める
+	// 弱めすぎてマイナスにはならない
+	for (const auto& pushedForce : m_pushedForces)
+	{
+		//pushedForce
+	}
+
 	// Fとmから、aを出す
 	// F = maより、a = F / m;
 	// 割り算するのかー
@@ -105,6 +115,9 @@ Vector2 Physics::GroundUpdate()
 	// m_addForceをリセット
 	m_addForce = Vector2();
 
+	// 摩擦力の力を削除
+	m_pushedForces.clear();
+
 	// 最後に速度を返す
 	return m_velocity;
 }
@@ -115,7 +128,7 @@ void Physics::AddForce(Vector2 force)
 	m_addForce += force;
 }
 
-bool Physics::CheckState(const MapConstants::Environment& env)
+bool Physics::CheckState(const MapConstants::Environment& env) const
 {
 	return m_stateArray[static_cast<int>(env)] == m_updateState;
 }
@@ -139,7 +152,7 @@ void Physics::InvertState()
 	}
 }
 
-MapConstants::Environment Physics::GetNowEnvironment()
+MapConstants::Environment Physics::GetNowEnvironment() const
 {
 	if (m_updateState == &Physics::GroundUpdate)
 	{
@@ -151,6 +164,7 @@ MapConstants::Environment Physics::GetNowEnvironment()
 	}
 }
 
-void Physics::AddFrictionalForce()
+void Physics::AddFrictionalForce(const Vector2& pushForce, const float& frictionFactor)
 {
+	m_pushedForces.push_back(pushForce * frictionFactor);
 }

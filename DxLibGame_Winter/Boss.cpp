@@ -14,7 +14,7 @@ namespace
 {
 	const Vector2Int kAnimationImageSize(32, 32);
 	const HitPoint kMaxHitPoint(5);
-	const std::string kBossIdleAnimPass = "Idle (32x32).png";
+	const std::string kBossIdleAnimPass = "PlayerIdle.png";
 	constexpr float kWeight = 5.0f;
 	constexpr float kVolume = 5.0f;
 	constexpr float kCircleColRadius = 20.0f;

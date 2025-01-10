@@ -3,6 +3,7 @@
 #include <memory>
 #include "MapConstants.h"
 #include <array>
+#include <list>
 
 class kMapChip;
 
@@ -25,6 +26,8 @@ private:
 	/// </summary>
 	float m_volume;
 	bool m_useConstantForce;
+	// オブジェクトがどの向きにどれくらい押されているか
+	std::list<Vector2> m_pushedForces;
 
 	// 関数ポインタ使うか
 	using UpdateState_t = Vector2 (Physics::*)();
@@ -64,12 +67,12 @@ public:
 	void UseConstantForce(bool value) { m_useConstantForce = value; }
 
 	// 与えられた列挙に対応した状態かどうかを返す
-	bool CheckState (const MapConstants::Environment&);
+	bool CheckState (const MapConstants::Environment&) const;
 	void ChangeState(const MapConstants::Environment&);
 	void InvertState();
-	MapConstants::Environment GetNowEnvironment();
+	MapConstants::Environment GetNowEnvironment() const;
 	// 引数から摩擦力を算出して、移動時に考慮する
-	// 性質上Updateの前に実行しないと効果がないかも
+	// 性質上PhysicsのUpdateの前に実行しないと効果がないかも
 	// 第一引数：押す力　第二引数：摩擦定数(0で摩擦なし、マイナスだと逆方向に摩擦が働く)
 	void AddFrictionalForce(const Vector2& pushForce, const float& frictionFactor);
 };

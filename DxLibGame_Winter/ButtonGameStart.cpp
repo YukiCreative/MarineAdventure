@@ -42,7 +42,7 @@ void ButtonGameStart::FocusedUpdate()
 
 void ButtonGameStart::OnPressed()
 {
-	// シーン遷移をシーンにお願い
+	// シーン遷移をお願い
 	m_titleRef.GameStart();
 }
 

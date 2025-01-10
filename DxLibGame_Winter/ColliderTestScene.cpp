@@ -70,6 +70,16 @@ void ColliderTestScene::NormalUpdate()
 	nowMousePos->y = static_cast<float>(mouseY);
 	HitKansuu();
 
+	// 特定の四角形との相対的なベクトルを出していろいろさせる
+	Vector2 rerativeVec = nowCol->GetPos() - boxCol->GetPos();
+	printf("テストm_pos.x=%f, y=%f\n", rerativeVec.x, rerativeVec.y);
+	printf("今の向き：%f\n", rerativeVec.Angle());
+	DrawLine(boxPos.x, boxPos.y, circlePos.x, circlePos.y, 0xffffff);
+	printf("45度時計回りに回転\n");
+	Vector2 rotatedVec = rerativeVec.RotatedVec(45);
+	printf("結果x=%f, y=%f\n", rotatedVec.x, rotatedVec.y);
+	printf("今の向き：%f\n", rotatedVec.Angle());
+
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		SceneController::GetInstance().ChangeScene("Game");

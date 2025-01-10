@@ -4,9 +4,9 @@
 
 namespace
 {
-	const std::string kImagePath = "ButtonReturnToTitle.png";
+	const std::string kImagePath          = "ButtonReturnToTitle.png";
 	const std::string kImagePassNoFocused = "ButtonReturnToTitle_NoFocused.png";
-	constexpr float kButtonFocusExpand = 0.25f;
+	constexpr float   kButtonFocusExpand  = 0.25f;
 }
 
 void ButtonReturnToTitle::FocusedUpdate()
