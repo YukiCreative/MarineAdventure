@@ -26,13 +26,15 @@ private:
 	/// </summary>
 	float m_volume;
 	bool m_useConstantForce;
-	// オブジェクトがどの向きにどれくらい押されているか
-	std::list<Vector2> m_pushedForces;
+	// 接地しているか
+	// 本当は空中と地上で状態関数を分けるべきなのですが、変更箇所が膨大なのでGroundUpdate内で分岐します
+	// どうしてこうなった
+	bool m_isGrounded;
 
 	// 関数ポインタ使うか
-	using UpdateState_t = Vector2 (Physics::*)();
+	using UpdateState_t = Vector2(Physics::*)();
 	UpdateState_t m_updateState;
-	std::array<UpdateState_t, static_cast<int>(MapConstants::Environment::kEnvNum)> m_stateArray = 
+	std::array<UpdateState_t, static_cast<int>(MapConstants::Environment::kEnvNum)> m_stateArray =
 	{
 		&Physics::WaterUpdate,
 		&Physics::GroundUpdate,
@@ -67,12 +69,9 @@ public:
 	void UseConstantForce(bool value) { m_useConstantForce = value; }
 
 	// 与えられた列挙に対応した状態かどうかを返す
-	bool CheckState (const MapConstants::Environment&) const;
+	bool CheckState(const MapConstants::Environment&) const;
 	void ChangeState(const MapConstants::Environment&);
 	void InvertState();
 	MapConstants::Environment GetNowEnvironment() const;
-	// 引数から摩擦力を算出して、移動時に考慮する
-	// 性質上PhysicsのUpdateの前に実行しないと効果がないかも
-	// 第一引数：押す力　第二引数：摩擦定数(0で摩擦なし、マイナスだと逆方向に摩擦が働く)
-	void AddFrictionalForce(const Vector2& pushForce, const float& frictionFactor);
+	void IsGrounded(const bool& value) { m_isGrounded = value; }
 };

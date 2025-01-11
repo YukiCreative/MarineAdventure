@@ -5,6 +5,7 @@
 #include "SceneController.h"
 #include "Time.h"
 #include "SoundManager.h"
+#include "Music.h"
 
 #if _DEBUG
 namespace

@@ -56,5 +56,5 @@ void SceneTitle::Draw() const
 
 void SceneTitle::GameStart()
 {
-	SceneChangeWithFadeOut("ColTest");
+	SceneChangeWithFadeOut("Game");
 }

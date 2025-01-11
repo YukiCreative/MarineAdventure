@@ -14,6 +14,7 @@
 #include "ImageStore.h"
 #include "TestScene.h"
 #include "SoundManager.h"
+#include "Sound.h"
 
 namespace
 {
@@ -209,10 +210,14 @@ void Player::GNormal(Input& input, Vector2& axis)
 	// いろいろなモーションにつながる
 	if (input.IsTrigger("Jump"))
 	{
-		m_stateText = "Jump";
 		m_physics->AddForce(kJumpForce);
-		ChangeState(&Player::Jump);
-		ChangeAnimation(m_jumpAnim);
+		SetStateJump();
+		return;
+	}
+	if (m_velocity.y < 0)
+	{
+		// ジャンプなし空中状態
+		SetStateJump();
 		return;
 	}
 	if (abs(axis.x) > kGroundMoveThreshold)
@@ -229,9 +234,13 @@ void Player::GMove(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
-		m_stateText = "Jump";
-		ChangeState(&Player::Jump);
-		ChangeAnimation(m_jumpAnim);
+		SetStateJump();
+		return;
+	}
+	if (m_velocity.y < 0)
+	{
+		// ジャンプなし空中状態
+		SetStateJump();
 		return;
 	}
 	if (abs(axis.x) < kGroundMoveThreshold)
@@ -276,9 +285,12 @@ void Player::GDash(Input& input, Vector2& axis)
 	{
 		// ダッシュジャンプはちょっと高く飛びたい
 		m_physics->AddForce(kDashJumpForce);
-		m_stateText = "Jump";
-		ChangeAnimation(m_jumpAnim);
-		ChangeState(&Player::Jump);
+		SetStateJump();
+		return;
+	}
+	if (m_velocity.y > 0)
+	{
+		SetStateJump();
 		return;
 	}
 	// 早く動ける
@@ -287,23 +299,23 @@ void Player::GDash(Input& input, Vector2& axis)
 	ChangeDirection(axis);
 }
 
-void Player::Jump(Input& input, Vector2& axis)
+void Player::Air(Input& input, Vector2& axis)
 {
 	// 空中モーション
 	// 左右に動ける
 	Vector2 sideAxis = Vector2(axis.x, 0.0f);
-	// ジャンプの遷移は存在しないので、多段ジャンプしない
 	// 着地したらGNormalへ
 	for (const auto& overlap : m_overlaps)
 	{
 		float angle = overlap.Angle();
-		if (angle > kLandingThresholdMin && angle < kLandingThresholdMax)
-		{
-			m_stateText = "GN";
-			ChangeState(&Player::GNormal);
-			ChangeAnimation(m_idleAnim);
-			return;
-		}
+		// continue見づらいかなあ
+		if (angle < kLandingThresholdMin || angle > kLandingThresholdMax) continue;
+
+		m_stateText = "GN";
+		m_physics->IsGrounded(true);
+		ChangeState(&Player::GNormal);
+		ChangeAnimation(m_idleAnim);
+		return;
 	}
 	m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
 	ChangeDirection(axis);
@@ -316,6 +328,14 @@ void Player::SetStateNormal()
 	m_physics->UseConstantForce(true);
 	ChangeAnimation(m_idleAnim);
 	ChangeState(&Player::Normal);
+}
+
+void Player::SetStateJump()
+{
+	m_stateText = "Jump";
+	m_physics->IsGrounded(false);
+	ChangeState(&Player::Air);
+	ChangeAnimation(m_jumpAnim);
 }
 
 bool Player::CheckEnvironmentChanged()
@@ -459,10 +479,12 @@ void Player::Update()
 		if (m_physics->CheckState(MapConstants::Environment::kGround))
 		{
 			// いろいろやってんなあ
+			m_physics->IsGrounded(false);
 			m_physics->ChangeState(MapConstants::Environment::kWater);
 			SetStateNormal();
-			SoundManager::GetInstance().Play("水バッシャ_3.mp3");
-			SoundManager::GetInstance().Play("水中に飛び込む音.mp3");
+			SoundManager& sound = SoundManager::GetInstance();
+			sound.Play("水バッシャ_3.mp3").lock()->SetVolume(200);
+			sound.Play("水中に飛び込む音.mp3").lock()->SetVolume(200);
 		}
 		// 水中→地上
 		else
@@ -474,7 +496,7 @@ void Player::Update()
 			{
 				m_physics->AddForce(kWaterJumpForce);
 			}
-			m_state = &Player::Jump;
+			m_state = &Player::Air;
 		}
 	}
 
@@ -534,7 +556,7 @@ void Player::OnDamage(int damage)
 	// こんなのでいいんでしょうか
 	m_hp -= damage;
 	printf("Playerの体力%d\n", m_hp);
-	if (m_hp >= 0)
+	if (m_hp > 0)
 	{
 		m_stateText = "Damage";
 		ChangeState(&Player::Damage);

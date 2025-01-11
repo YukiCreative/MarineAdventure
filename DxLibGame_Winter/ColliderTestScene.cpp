@@ -74,7 +74,7 @@ void ColliderTestScene::NormalUpdate()
 	Vector2 rerativeVec = nowCol->GetPos() - boxCol->GetPos();
 	printf("テストm_pos.x=%f, y=%f\n", rerativeVec.x, rerativeVec.y);
 	printf("今の向き：%f\n", rerativeVec.Angle());
-	DrawLine(boxPos.x, boxPos.y, circlePos.x, circlePos.y, 0xffffff);
+	DrawLine(static_cast<int>(boxPos.x), static_cast<int>(boxPos.y), static_cast<int>(circlePos.x), static_cast<int>(circlePos.y), 0xffffff);
 	printf("45度時計回りに回転\n");
 	Vector2 rotatedVec = rerativeVec.RotatedVec(45);
 	printf("結果x=%f, y=%f\n", rotatedVec.x, rotatedVec.y);

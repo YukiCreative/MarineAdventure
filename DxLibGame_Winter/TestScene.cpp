@@ -40,6 +40,7 @@ TestScene::TestScene() :
 	m_backGround->ExpandGtaph(2.0f);
 
 	Music::GetInstance().Play("Data/Music/‚½‚Ê‚«‚¿‚Ì–`Œ¯.mp3");
+	Music::GetInstance().SetVolume(50);
 }
 
 TestScene::~TestScene()
