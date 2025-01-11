@@ -78,13 +78,15 @@ private:
 	void GNormal(Input& input, Vector2& axis);
 	void GMove(Input& input, Vector2& axis);
 	void GDash(Input& input, Vector2& axis);
-	void Jump(Input& input, Vector2& axis);
+	void Air(Input& input, Vector2& axis);
 
 	void SetStateNormal();
+	void SetStateJump();
 	bool CheckEnvironmentChanged();
 	void CollideToMapChips();
 	void ChangeState(StateFunc_t nextState);
 	void ChangeAnimation(const std::shared_ptr<Animation>& setAnim);
+	// 今の入力から、アニメーションの向きを変える
 	void ChangeDirection(const Vector2& axis);
 public:
 	/// <summary>

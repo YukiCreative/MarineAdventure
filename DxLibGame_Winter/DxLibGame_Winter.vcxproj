@@ -185,6 +185,7 @@
     <ClCompile Include="SoundStore.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="VolumeLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -239,6 +240,7 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="VolumeLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
