@@ -37,6 +37,7 @@ namespace
 	const Vector2    kJumpForce      (0.0f, -10.0f);
 	const Vector2    kWaterJumpForce (0.0f,  -5.0f);
 	const Vector2    kDashJumpForce  (0.0f, -12.0f);
+	constexpr float  kFallThreshold = 2.0f;
 	// 着地できる地面の角度(法線)
 	constexpr int kLandingThresholdMin = 45;
 	constexpr int kLandingThresholdMax = 135;
@@ -214,7 +215,7 @@ void Player::GNormal(Input& input, Vector2& axis)
 		SetStateJump();
 		return;
 	}
-	if (m_velocity.y < 0)
+	if (m_velocity.y > kFallThreshold)
 	{
 		// ジャンプなし空中状態
 		SetStateJump();
@@ -237,7 +238,7 @@ void Player::GMove(Input& input, Vector2& axis)
 		SetStateJump();
 		return;
 	}
-	if (m_velocity.y < 0)
+	if (m_velocity.y > kFallThreshold)
 	{
 		// ジャンプなし空中状態
 		SetStateJump();
@@ -288,7 +289,7 @@ void Player::GDash(Input& input, Vector2& axis)
 		SetStateJump();
 		return;
 	}
-	if (m_velocity.y > 0)
+	if (m_velocity.y > kFallThreshold)
 	{
 		SetStateJump();
 		return;
@@ -455,9 +456,6 @@ Player::~Player()
 
 void Player::Update()
 {
-	// 速度クリア
-	m_velocity = Vector2::Zero();
-
 	// 入力とる
 	Input& input = Input::GetInstance();
 	Vector2 axis = input.GetInputAxis();
@@ -465,6 +463,9 @@ void Player::Update()
 	++m_stateFrameCount;
 	// 現在の状態の処理
 	(this->*m_state)(input, axis);
+
+	// 速度クリア
+	m_velocity = Vector2::Zero();
 
 	// 物理のUpdateは入力などで力を算出し終わった後に実行すること。
 	m_velocity = m_physics->Update();
