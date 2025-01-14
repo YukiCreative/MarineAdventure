@@ -23,7 +23,7 @@ protected:
 	// 12/25 フェードを義務化
 	ScreenFade& m_fade;
 	// 01/14 カメラを義務化
-	Camera& m_camera;
+	std::shared_ptr<Camera> m_camera;
 	/// <summary>
 	/// 更新処理
 	/// </summary>
@@ -50,4 +50,6 @@ public:
 	// シーンに入った時にやりたいことを書く
 	// これはポーズシーンから戻った時なども実行される
 	virtual void Entry() = 0;
+
+	std::shared_ptr<Camera> GetCamera() { return m_camera; }
 };

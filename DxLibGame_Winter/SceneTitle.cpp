@@ -23,7 +23,6 @@ namespace
 
 SceneTitle::SceneTitle()
 {
-	m_camera       = std::make_shared<Camera>      ();
 	m_buttonSystem = std::make_shared<ButtonSystem>();
 	m_backGround   = std::make_shared<ImageObject> (*m_camera, Vector2::Zero(), kBGPath);
 	m_titleLogo    = std::make_shared<ImageObject> (*m_camera, Vector2::Zero(), kLogoPath);

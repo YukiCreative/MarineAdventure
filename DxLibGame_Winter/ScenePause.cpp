@@ -24,8 +24,7 @@ namespace
 
 ScenePause::ScenePause()
 {
-	m_camera = std::make_shared<Camera>    ();
-	m_back   = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBackGroundPath);
+	m_back = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBackGroundPath);
 
 	// ƒ{ƒ^ƒ“‚Ìİ’è
 	m_buttonSystem = std::make_shared<ButtonSystem>();

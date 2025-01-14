@@ -1,12 +1,14 @@
 #include "Scene.h"
 #include "ScreenFade.h"
 #include "SceneController.h"
+#include "Camera.h"
 
 Scene::Scene() :
 	m_fade(ScreenFade::Getinstance()),
 	m_fadedNextScene(""),
 	m_update(&Scene::NormalUpdate)
 {
+	m_camera = std::make_shared<Camera>();
 }
 
 void Scene::Update()

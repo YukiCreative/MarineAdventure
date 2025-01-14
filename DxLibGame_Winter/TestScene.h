@@ -18,7 +18,6 @@ private:
 	int m_frameCount;
 	std::shared_ptr<MapSystem> m_map;
 	std::shared_ptr<Player> m_player;
-	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<ObjectsController> m_objectCont;
 	std::shared_ptr<ImageObject> m_backGround;
 public:

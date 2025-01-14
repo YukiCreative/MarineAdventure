@@ -27,11 +27,10 @@ namespace
 TestScene::TestScene() :
 	m_frameCount(0)
 {
-	m_camera     = std::make_shared<Camera>           (initPlayerPos);
-	m_player       = std::make_shared<Player>         (*m_camera, initPlayerPos);
+	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kMapDataPass);
-	m_backGround = std::make_shared<ImageObject>       (*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
+	m_backGround = std::make_shared<ImageObject>      (*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
 
 	m_player->Init(m_map);
 
