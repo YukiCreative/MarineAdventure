@@ -11,7 +11,6 @@ private:
 	void NormalUpdate()  override;
 
 	std::shared_ptr<Image> m_image;
-	std::shared_ptr<Image> m_image;
 	int m_frameCount;
 public:
 	// ‚¸‚Á‚Æ‹C‚É‚È‚Á‚Ä‚é‚¯‚Ç

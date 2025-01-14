@@ -16,7 +16,7 @@ Image::Image(const int& handle) :
 {
 }
 
-Image::Image(const std::string& path) :
+Image::Image(const std::string& fileName) :
 	m_expandRate(1.0f),
 	m_angle     (0.0f),
 	m_blendMode (DX_BLENDMODE_NOBLEND),
@@ -25,7 +25,7 @@ Image::Image(const std::string& path) :
 	m_reverceY  (false),
 	m_offset	()
 {
-	m_sourceHandle = ImageStore::GetInstance().GetGraph(path);
+	SetGraph(fileName);
 }
 
 void Image::Draw(const Vector2& pos) const
