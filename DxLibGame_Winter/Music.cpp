@@ -9,7 +9,8 @@ namespace
 }
 
 Music::Music() :
-	m_playType(DX_PLAYTYPE_LOOP)
+	m_playType(DX_PLAYTYPE_LOOP),
+	m_nowPlayingFilePath()
 {
 }
 
@@ -19,8 +20,12 @@ Music& Music::GetInstance()
 	return instance;
 }
 
-void Music::Play(const std::string& path) const
+void Music::Play(const std::string& path)
 {
+	// ó¨ÇªÇ§Ç∆ÇµÇƒÇ¢ÇÈâπäyÇ™ìØÇ∂ìzÇ»ÇÁÅAÇªÇÃÇ‹Ç‹Ç…ÇµÇΩÇ©Ç¡ÇΩÇÒÇ≈Ç∑
+	if (m_nowPlayingFilePath == path) return;
+
+	m_nowPlayingFilePath = path;
 	PlayMusic(path.c_str(), m_playType);
 }
 

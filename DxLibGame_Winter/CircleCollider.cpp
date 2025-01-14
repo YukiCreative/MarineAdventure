@@ -143,11 +143,11 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     // 円の未来の位置と「直線」の最近傍点を出す
     Vector2 futureNearestPos = geo::GetSegmentIntercept(futurePos, line.GetFirstPos(), line.GetSecondPos());
     // もしこれが線分の端ならめり込まなかったことに
-    if (futureNearestPos == line.GetFirstPos() || futureNearestPos == line.GetSecondPos())
-    {
-        result.overlap = Vector2::Zero();
-        return result;
-    }
+    //if (futureNearestPos == line.GetFirstPos() || futureNearestPos == line.GetSecondPos())
+    //{
+    //    result.overlap = Vector2::Zero();
+    //    return result;
+    //}
 
     // 交わっていれば
     if (isCross)

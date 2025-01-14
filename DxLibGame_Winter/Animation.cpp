@@ -12,7 +12,8 @@ Animation::Animation() :
 	m_image(nullptr),
 	m_nowAnimNum(0),
 	m_sourceHandle(-1),
-	m_oneAnimTime(0)
+	m_oneAnimTime(0),
+	m_loopCount(0)
 {
 }
 
@@ -25,7 +26,8 @@ void Animation::Init(const std::string& fileName, const Vector2Int& oneImageSize
 	// 画像サイズが、oneImageSizeで割り切れるか調べる
 	Vector2Int graphSize;
 	GetGraphSize(m_sourceHandle, &graphSize.x, &graphSize.y);
-	assert(!(graphSize.x % oneImageSize.x) && "与えられたサイズで横分割してみたけど余りが出たよ");
+	assert(!(graphSize.x % oneImageSize.x) && "与えられたサイズで横分割してみたけど割り切れなかった");
+	assert(graphSize.y  != oneImageSize.y  && "縦のサイズが教えられたサイズと違いました");
 	// コマ数の分だけ画像を記憶できるようにする
 	m_frameHandle.resize(graphSize.x / oneImageSize.x);
 	for (int x = 0; auto& graph : m_frameHandle)
@@ -45,6 +47,7 @@ void Animation::Update()
 	++m_frameCount;
 	if (m_frameCount >= m_allFrame)
 	{
+		++m_loopCount;
 		m_frameCount = 0;
 	}
 

@@ -26,6 +26,8 @@ namespace
 	constexpr float  kJumpingMoveForceFactor = 0.0001f;
 	constexpr float  kDashForceFactor        = 0.0003f;
 	constexpr float  kStrongAttackMoveFactor = 0.0001f;
+	constexpr float  kDuringDamageMoveFactor = 0.0001f;
+
 	constexpr float  kAttackFrame            = 60.0f;
 	constexpr float  kInvincibleFrame        = 90.0f;
 	constexpr float  kAttackedRigidFrame     = 30.0f;
@@ -187,6 +189,8 @@ void Player::Damage(Input& input, Vector2& axis)
 		SetStateNormal();
 		return;
 	}
+	// 01/14@“®‚¯‚é‚æ‚¤‚É
+	m_physics->AddForce(axis.x * kDuringDamageMoveFactor);
 }
 
 void Player::Death(Input& input, Vector2& axis)

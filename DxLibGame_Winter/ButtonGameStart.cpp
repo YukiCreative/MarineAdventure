@@ -7,6 +7,7 @@
 namespace
 {
 	const std::string kImagePath = "GameStartButton.png";
+	constexpr float kBaseButtonExpand = 2.0f;
 }
 
 ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
@@ -15,6 +16,7 @@ ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
 	m_titleRef(title)
 {
 	m_image = std::make_shared<Image>(kImagePath);
+	m_image->SetExRate(kBaseButtonExpand);
 }
 
 void ButtonGameStart::OnFocused()
@@ -37,7 +39,7 @@ void ButtonGameStart::FocusedUpdate()
 {
 	++m_frameCount;
 	// “_–Å‚Æ‚©‚³‚¹‚½‚¢
-	m_image->SetExRate(1.5f + sinf(m_frameCount * 0.1f));
+	m_image->SetExRate(kBaseButtonExpand + abs(sinf(m_frameCount * 0.05f)));
 }
 
 void ButtonGameStart::OnPressed()

@@ -93,7 +93,7 @@ Vector2 Physics::GroundUpdate()
 
 	// 抵抗を出す
 	// 接地しているかしていないかで分ける
-	float resistance = m_isGrounded ? kGroundResistance : kAirResistance;
+	const float& resistance = m_isGrounded ? kGroundResistance : kAirResistance;
 	Vector2 resistanceForce = -m_velocity * resistance;
 	// 出てきた値でforceを弱める
 	force += resistanceForce;

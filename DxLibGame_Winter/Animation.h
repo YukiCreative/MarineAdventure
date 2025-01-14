@@ -25,6 +25,7 @@ private:
 	int m_oneAnimTime;
 	int m_frameCount;
 	std::shared_ptr<Image> m_image;
+	int m_loopCount;
 public:
 	Animation();
 
@@ -43,4 +44,7 @@ public:
 	void SetExRate(const float& rate);
 	void SetBlendMode(const int& mode, const int& param);
 	void ReverceX(const bool& value);
+
+	// アニメーションが何回ループしたかを返す
+	int LoopCount() const { return m_loopCount; };
 };

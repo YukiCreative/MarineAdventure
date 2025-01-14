@@ -38,9 +38,6 @@ TestScene::TestScene() :
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_backGround->ExpandGtaph(2.0f);
-
-	Music::GetInstance().Play("Data/Music/たぬきちの冒険.mp3");
-	Music::GetInstance().SetVolume(50);
 }
 
 TestScene::~TestScene()
@@ -76,6 +73,9 @@ void TestScene::Entry()
 {
 	// 主にフェード
 	m_fade.Fade(60, 0);
+
+	Music::GetInstance().Play("Data/Music/たぬきちの冒険.mp3");
+	Music::GetInstance().SetVolume(255);
 }
 
 void TestScene::NormalUpdate()

@@ -19,8 +19,6 @@ public:
 	void operator=(HitPoint right)
 	{
 		m_value = right.m_value;
-		// d•¡Œä–Æ
-		m_value = std::clamp(m_value, kMinHitPoint, kMaxHitPoint);
 	}
 
 	int Value() const
@@ -40,6 +38,7 @@ public:
 
 	void Increase(const HitPoint& value)
 	{
+		// ‚±‚Ì‘‚«•û•|‚¢‚ñ‚¾‚¯‚Ç
 		*this = *this + value;
 	}
 
