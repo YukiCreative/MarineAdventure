@@ -32,6 +32,7 @@ protected:
 public:
 	Button(Vector2 initPos);
 
+	// Update‚Íˆ—‚ğ‘‚¢‚Ä‚¢‚é‚Ì‚Åã‘‚«‚µ‚È‚¢•û‚ª‚¢‚¢‚æ
 	void Update() override;
 	// Draw‚Í”h¶æ‚Å‚â‚Á‚Ä‚Ë
 
@@ -42,12 +43,12 @@ public:
 	virtual void OnPressed() = 0;
 
 	void SetRightButton(std::shared_ptr<Button> right) { m_rightButton = right.get(); }
-	void SetLeftButton(std::shared_ptr<Button> left) { m_leftButton = left.get(); }
-	void SetUpButton(std::shared_ptr<Button> up) { m_upButton = up.get(); }
-	void SetDownButton(std::shared_ptr<Button> down) { m_downButton = down.get(); }
+	void SetLeftButton (std::shared_ptr<Button> left ) { m_leftButton  =  left.get(); }
+	void SetUpButton   (std::shared_ptr<Button> up   ) { m_upButton    =    up.get(); }
+	void SetDownButton (std::shared_ptr<Button> down ) { m_downButton  =  down.get(); }
 
 	Button* RightButton() const { return m_rightButton; }
-	Button* LeftButton() const { return m_leftButton; }
-	Button* UpButton() const { return m_upButton; }
-	Button* DownButton() const { return m_downButton; }
+	Button* LeftButton()  const { return m_leftButton;  }
+	Button* UpButton()    const { return m_upButton;    }
+	Button* DownButton()  const { return m_downButton;  }
 };

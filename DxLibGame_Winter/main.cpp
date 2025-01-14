@@ -11,7 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return -1;
 	}
 	instance.Run();
-	instance.Exit();
+	instance.Terminate();
 
 	return 0;				// ソフトの終了 
 }

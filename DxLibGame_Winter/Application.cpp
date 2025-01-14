@@ -16,6 +16,11 @@ namespace
 }
 #endif
 
+Application::Application() :
+	m_isRunning(true)
+{
+}
+
 Application& Application::GetInstance()
 {
 	// ここにstaticをおいておけば一つだけ、
@@ -55,10 +60,10 @@ bool Application::Init()
 
 void Application::Run()
 {
-	Input& inputInstance = Input::GetInstance();
-	SceneController& controller = SceneController::GetInstance();
-	Time& timeInstance = Time::GetInstance();
-	SoundManager& sound = SoundManager::GetInstance();
+	Input& inputInstance             = Input::GetInstance();
+	SceneController& sceneController = SceneController::GetInstance();
+	Time& timeInstance               = Time::GetInstance();
+	SoundManager& sound              = SoundManager::GetInstance();
 	// ゲームループ
 	while (ProcessMessage() == 0)
 	{
@@ -78,8 +83,8 @@ void Application::Run()
 		sound.Update();
 
 		// SceneControllerの処理
-		controller.Update();
-		controller.Draw();
+		sceneController.Update();
+		sceneController.Draw();
 
 		// 画面の切り替わりを待つ
 		ScreenFlip();
@@ -92,10 +97,13 @@ void Application::Run()
 			waitTime *= 5;
 		}
 		while (GetNowHiPerformanceCount() - time < waitTime);
+
+		// もし終了していたらループを抜ける
+		if (!m_isRunning) break;
 	}
 }
 
-void Application::Exit()
+void Application::Terminate()
 {
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

@@ -27,7 +27,7 @@ void Animation::Init(const std::string& fileName, const Vector2Int& oneImageSize
 	Vector2Int graphSize;
 	GetGraphSize(m_sourceHandle, &graphSize.x, &graphSize.y);
 	assert(!(graphSize.x % oneImageSize.x) && "与えられたサイズで横分割してみたけど割り切れなかった");
-	assert(graphSize.y  != oneImageSize.y  && "縦のサイズが教えられたサイズと違いました");
+	assert(graphSize.y  == oneImageSize.y  && "縦のサイズが教えられたサイズと違いました");
 	// コマ数の分だけ画像を記憶できるようにする
 	m_frameHandle.resize(graphSize.x / oneImageSize.x);
 	for (int x = 0; auto& graph : m_frameHandle)

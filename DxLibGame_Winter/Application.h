@@ -3,15 +3,21 @@ class Application
 {
 	// シングルトンオブジェクト
 private:
-	Application() = default;
+	Application();
 	Application(const Application&) = delete;
 	void operator=(const Application&) = delete;
 
+	bool m_isRunning;
 public:
 	static Application& GetInstance();
 
 	bool Init();
 	void Run();
-	void Exit();
+	// main以外で呼ばないで
+	void Terminate();
+
+	// こっちがゲームを終える時の処理
+	// Terminateと紛らわしくて御免
+	void Quit() { m_isRunning = false; };
 };
 

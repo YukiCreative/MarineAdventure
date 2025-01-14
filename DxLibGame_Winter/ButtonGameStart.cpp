@@ -31,7 +31,6 @@ void ButtonGameStart::OnDisfocused()
 
 void ButtonGameStart::NormalUpdate()
 {
-	// ‚Ü‚ ‚±‚±‚Í’Ê‚è‚Ü‚¹‚ñ‚ª
 	m_image->SetExRate(1);
 }
 

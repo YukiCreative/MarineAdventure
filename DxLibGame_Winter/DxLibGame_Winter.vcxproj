@@ -150,6 +150,7 @@
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonGameStart.cpp" />
+    <ClCompile Include="ButtonQuitGame.cpp" />
     <ClCompile Include="ButtonReturnToGame.cpp" />
     <ClCompile Include="ButtonReturnToTitle.cpp" />
     <ClCompile Include="ButtonSystem.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonGameStart.h" />
     <ClInclude Include="ButtonNoFocus.h" />
+    <ClInclude Include="ButtonQuitGame.h" />
     <ClInclude Include="ButtonReturnToGame.h" />
     <ClInclude Include="ButtonReturnToTitle.h" />
     <ClInclude Include="ButtonSystem.h" />

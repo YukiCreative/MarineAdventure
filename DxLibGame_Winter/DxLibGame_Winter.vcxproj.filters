@@ -207,6 +207,9 @@
     <ClCompile Include="GameEffect.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonQuitGame.cpp">
+      <Filter>ソース ファイル\UI\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -370,6 +373,9 @@
     </ClInclude>
     <ClInclude Include="GameEffect.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonQuitGame.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
