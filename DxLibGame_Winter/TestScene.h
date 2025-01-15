@@ -20,6 +20,12 @@ private:
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<ObjectsController> m_objectCont;
 	std::shared_ptr<ImageObject> m_backGround;
+
+	void ChangeMap(const std::string& path);
+	void ChangeMap(const std::string& path, const Vector2& playerTransferPos);
+
+	// ƒ}ƒbƒv‚ª•Ï‚í‚é‚Ü‚Å‘Ò‚Âó‘Ô
+	void MapChangeUpdate();
 public:
 	TestScene();
 	~TestScene();
@@ -27,8 +33,7 @@ public:
 	void GameClear();
 	void GameOver();
 
-	void ChangeMap(const std::string& path);
-	void ChangeMap(const std::string& path, const Vector2& playerTransferPos);
+	void ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos);
 
 	void Entry() override;
 	void NormalUpdate() override;

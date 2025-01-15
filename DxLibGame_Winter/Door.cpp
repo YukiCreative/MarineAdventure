@@ -7,10 +7,10 @@
 
 namespace
 {
-	const std::string kImagePath;
+	const std::string kImagePath = "OpenedDoor.png";
 
 	// これDoorKindでまとめた連想配列のほうがいいか？
-	const Vector2 kTutoTpMap1(0, 0);
+	const Vector2 kTutoToMap1(0, 0);
 }
 
 Door::PathMap_t Door::s_paths =
@@ -21,7 +21,7 @@ Door::PathMap_t Door::s_paths =
 
 Door::DoorMap_t Door::s_doors =
 {
-	{DoorKind::kTutoToMap1, DoorStatus(Door::s_paths[MapKind::kFish], kTutoTpMap1)}
+	{DoorKind::kTutoToMap1, DoorStatus(Door::s_paths[MapKind::kFish], kTutoToMap1)}
 };
 
 void Door::In()
@@ -30,13 +30,14 @@ void Door::In()
 	std::shared_ptr<TestScene> gameScene = std::dynamic_pointer_cast<TestScene>(SceneController::GetInstance().CurrentScene());
 	assert(gameScene && "ダウンキャストに失敗");
 	DoorStatus mystatus = s_doors[m_myKind];
-	gameScene->ChangeMap(mystatus.path, mystatus.appearPos);
+	gameScene->ChangeMapWithFadeOut(mystatus.path, mystatus.appearPos);
 }
 
-void Door::Init(int mapPartsNum)
+Door::Door(const Vector2& initPos, const int& mapPartsNum) :
+	GameObject(initPos)
 {
 	m_myKind = static_cast<DoorKind>(mapPartsNum);
-	m_image = std::make_shared<Image>("");
+	m_image  = std::make_shared<Image>(kImagePath);
 }
 
 void Door::Update()

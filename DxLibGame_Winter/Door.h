@@ -7,6 +7,7 @@
 
 enum class DoorKind
 {
+	// 敵とかをまとめている列挙体と番号を共有しているのでこうなってる
 	kTutoToMap1 = 9,
 };
 
@@ -45,8 +46,7 @@ private:
 	void In();
 public:
 	/// <param name="mapPartsNum">Pratinumで設定する</param>
-	// Imageの初期化を行っているので、ドアの行き先を変える用途では使用できないよ
-	void Init(int mapPartsNum);
+	Door(const Vector2& initPos, const int& mapPartsNum);
 
 	void Update() override;
 	void Draw() const override;

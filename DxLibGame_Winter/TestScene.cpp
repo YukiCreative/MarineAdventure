@@ -53,6 +53,11 @@ void TestScene::GameOver()
 	SceneChangeWithFadeOut("Gameover", 120);
 }
 
+void TestScene::ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos)
+{
+
+}
+
 void TestScene::ChangeMap(const std::string& path)
 {
 	m_map->ChangeMapData(path);

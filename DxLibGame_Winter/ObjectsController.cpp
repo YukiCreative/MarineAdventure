@@ -15,7 +15,7 @@ ObjectsController::ObjectsController(Camera& camera, Player& player) :
 	// map‚Ìİ’è
 	// function‚Á‚Ä‚·‚°[
 	m_factoryMap[ObjectKind::kHarmFish] = [&](Vector2 spawnPos) {return std::make_shared<HarmFish>(m_playerRef, m_cameraRef, spawnPos); };
-	m_factoryMap[ObjectKind::kBoss] = [&](Vector2 spawnPos) {return std::make_shared<Boss>(m_playerRef, m_cameraRef, spawnPos); };
+	m_factoryMap[ObjectKind::kBoss]     = [&](Vector2 spawnPos) {return std::make_shared<Boss>    (m_playerRef, m_cameraRef, spawnPos); };
 }
 
 void ObjectsController::Update()
