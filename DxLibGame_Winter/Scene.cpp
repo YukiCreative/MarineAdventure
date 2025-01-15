@@ -16,6 +16,11 @@ void Scene::Update()
 	(this->*m_update)();
 }
 
+void Scene::Leave()
+{
+	// Šî’êƒNƒ‰ƒX‚Å‚Í‰½‚à‚µ‚È‚¢
+}
+
 void Scene::SceneChangeUpdate()
 {
 	m_fade.Update();

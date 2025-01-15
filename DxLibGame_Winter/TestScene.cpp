@@ -50,6 +50,8 @@ void TestScene::GameClear()
 
 void TestScene::GameOver()
 {
+	// ここでポーズを開いた(フェードの色が変わっている)想定をしないといけないのが不服
+	m_fade.SetColor(0x000000);
 	SceneChangeWithFadeOut("Gameover", 120);
 }
 

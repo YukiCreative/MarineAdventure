@@ -50,6 +50,9 @@ public:
 	// シーンに入った時にやりたいことを書く
 	// これはポーズシーンから戻った時なども実行される
 	virtual void Entry() = 0;
+	// Entryの逆　シーンから離れるときに実行
+	// いらないシーンもあるので、純粋にはしない
+	virtual void Leave();
 
 	std::shared_ptr<Camera> GetCamera() { return m_camera; }
 };

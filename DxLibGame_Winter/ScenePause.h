@@ -7,6 +7,7 @@ class Camera;
 class ButtonSystem;
 
 // このクラスにさせたいこと
+// ゲームに戻る
 // オプションシーンへ
 // タイトルに戻る
 // 装飾用の画像
@@ -20,6 +21,7 @@ public:
 	~ScenePause();
 
 	void Entry() override;
+
 	void NormalUpdate() override;
 	void Draw() const override;
 

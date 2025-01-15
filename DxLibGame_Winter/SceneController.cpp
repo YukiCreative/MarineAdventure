@@ -45,6 +45,7 @@ void SceneController::Draw()
 
 void SceneController::ChangeScene(std::string sceneId)
 {
+	m_scenes.back()->Leave();
 	// 関数を実行
 	m_scenes.back() = m_factoryMap.at(sceneId)();
 	m_scenes.back()->Entry();
@@ -56,6 +57,7 @@ void SceneController::ChangeScene(std::string sceneId)
 
 void SceneController::ResumeScene(std::string sceneId)
 {
+	m_scenes.back()->Leave();
 	// シーンを一回リセット
 	m_scenes.clear();
 	StackScene(sceneId);
@@ -67,6 +69,9 @@ void SceneController::ResumeScene(std::string sceneId)
 
 void SceneController::StackScene(std::string addSceneId)
 {
+	// もし乗せるのが最初のシーンならLeaveを実行する対象がないよね
+	if (m_scenes.size()) m_scenes.back()->Leave();
+
 	m_scenes.push_back(m_factoryMap.at(addSceneId)());
 	m_scenes.back()->Entry();
 
@@ -78,6 +83,8 @@ void SceneController::StackScene(std::string addSceneId)
 void SceneController::RemoveSceme()
 {
 	assert(m_scenes.size() > 1 && "シーンが無くなるんですけど");
+
+	m_scenes.back()->Leave();
 	m_scenes.pop_back();
 	// 戻った時にやりたいことをやる関数を走らせる
 	m_scenes.back()->Entry();
