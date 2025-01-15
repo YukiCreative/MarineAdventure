@@ -86,10 +86,10 @@ void Input::Update()
     int analogX, analogY;
     GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
     // キーボード、十字キーも取得
-    if (IsPressed("Up")) analogY    = -1000;
-    if (IsPressed("Down")) analogY  =  1000;
+    if (IsPressed("Up"))    analogY = -1000;
+    if (IsPressed("Down"))  analogY =  1000;
     if (IsPressed("Right")) analogX =  1000;
-    if (IsPressed("Left")) analogX  = -1000;
+    if (IsPressed("Left"))  analogX = -1000;
 
     // アナログ入力の大きさを1000までに制限する
     Vector2 inputAxis(analogX, analogY);

@@ -14,6 +14,8 @@ private:
 	std::shared_ptr<ImageObject>  m_backGround;
 	std::shared_ptr<ButtonSystem> m_buttonSystem;
 	std::shared_ptr<ImageObject>  m_titleLogo;
+
+	void ButtonInit();
 public:
 	SceneTitle();
 

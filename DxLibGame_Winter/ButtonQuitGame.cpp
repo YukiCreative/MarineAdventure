@@ -4,7 +4,8 @@
 
 namespace
 {
-	const std::string kImageFileName = "ButtonQuitGame.png";
+	//const std::string kImageFileName = "ButtonQuitGame.png";
+	const std::string kImageFileName = "GameStartButton.png";
 	constexpr float kBaseButtonExpand = 2.0f;
 }
 

@@ -10,26 +10,44 @@
 #include "TestScene.h"
 #include "ButtonSystem.h"
 #include "ButtonGameStart.h"
+#include "ButtonQuitGame.h"
 #include "Music.h"
 
 namespace
 {
-	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	constexpr int kButtonYOffset = 80;
-	const Vector2 kInitButtonPos(Game::kScreenHalfWidth, Game::kScreenHeight - kButtonYOffset);
+	constexpr int kStartButtonInitPosY = Game::kScreenHalfHeight + 200;
+	constexpr int kButtonYOffset = 100;
+	// íÜêSÇ©ÇÁÇæÇÒÇæÇÒâ∫Ç…Ç∏ÇÍÇƒÇ¢Ç≠
+	const Vector2 kInitStartButtonPos(Game::kScreenHalfWidth, kStartButtonInitPosY);
+	const Vector2 kInitQuitButtonPos(kInitStartButtonPos.x, kInitStartButtonPos.y + kButtonYOffset);
 	const std::string kBGPath   = "Marine.jpg";
 	const std::string kLogoPath = "Logo.png";
 }
 
-SceneTitle::SceneTitle()
+void SceneTitle::ButtonInit()
 {
 	m_buttonSystem = std::make_shared<ButtonSystem>();
-	m_backGround   = std::make_shared<ImageObject> (*m_camera, Vector2::Zero(), kBGPath);
-	m_titleLogo    = std::make_shared<ImageObject> (*m_camera, Vector2::Zero(), kLogoPath);
 
-	std::shared_ptr<ButtonGameStart> buttonGameStart = std::make_shared<ButtonGameStart>(kInitButtonPos, *this);
+	std::shared_ptr<ButtonGameStart> buttonGameStart = std::make_shared<ButtonGameStart>(kInitStartButtonPos, *this);
+	std::shared_ptr<ButtonQuitGame>  buttonQuitGame  = std::make_shared<ButtonQuitGame> (kInitQuitButtonPos);
+
+	buttonGameStart->SetUpButton  (buttonQuitGame);
+	buttonGameStart->SetDownButton(buttonQuitGame);
+	buttonQuitGame ->SetUpButton  (buttonGameStart);
+	buttonQuitGame ->SetDownButton(buttonGameStart);
+
 	m_buttonSystem->AddButton(buttonGameStart);
+	m_buttonSystem->AddButton(buttonQuitGame);
+
 	m_buttonSystem->SetButtonFocus(buttonGameStart);
+}
+
+SceneTitle::SceneTitle()
+{
+	m_backGround = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBGPath);
+	m_titleLogo  = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kLogoPath);
+
+	ButtonInit();
 }
 
 void SceneTitle::Entry()
