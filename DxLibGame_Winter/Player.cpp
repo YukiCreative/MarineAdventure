@@ -223,6 +223,7 @@ void Player::GNormal(Input& input, Vector2& axis)
 	{
 		// ジャンプなし空中状態
 		SetStateJump();
+		m_nowAnim = m_fallAnim;
 		return;
 	}
 	if (abs(axis.x) > kGroundMoveThreshold)
@@ -246,6 +247,7 @@ void Player::GMove(Input& input, Vector2& axis)
 	{
 		// ジャンプなし空中状態
 		SetStateJump();
+		m_nowAnim = m_fallAnim;
 		return;
 	}
 	if (abs(axis.x) < kGroundMoveThreshold)
@@ -296,6 +298,8 @@ void Player::GDash(Input& input, Vector2& axis)
 	if (m_velocity.y > kFallThreshold)
 	{
 		SetStateJump();
+		// アニメーションの切り替えが重複しているのが気になる
+		m_nowAnim = m_fallAnim;
 		return;
 	}
 	// 早く動ける
@@ -324,6 +328,7 @@ void Player::Air(Input& input, Vector2& axis)
 	}
 	m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
 	ChangeDirection(axis);
+	ChangeFallAnim();
 }
 
 void Player::SetStateNormal()
@@ -416,6 +421,14 @@ void Player::ChangeDirection(const Vector2& axis)
 	m_nowAnim->ReverceX(m_isLeft);
 }
 
+void Player::ChangeFallAnim()
+{
+	if (m_velocity.y > kFallThreshold)
+	{
+		m_nowAnim = m_fallAnim;
+	}
+}
+
 Player::Player(Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
 	m_state(&Player::Normal),
@@ -487,6 +500,7 @@ void Player::Update()
 			m_physics->IsGrounded(false);
 			m_physics->ChangeState(MapConstants::Environment::kWater);
 			SetStateNormal();
+			// TODO:音源を一つにまとめる
 			SoundManager& sound = SoundManager::GetInstance();
 			sound.Play("水バッシャ_3.mp3").lock()->SetVolume(200);
 			sound.Play("水中に飛び込む音.mp3").lock()->SetVolume(200);
@@ -495,13 +509,9 @@ void Player::Update()
 		else
 		{
 			m_physics->ChangeState(MapConstants::Environment::kGround);
-			m_stateText = "Jump";
 			m_physics->UseConstantForce(true);
-			if (CheckState(PlayerState::kDash))
-			{
-				m_physics->AddForce(kWaterJumpForce);
-			}
-			m_state = &Player::Air;
+			if (CheckState(PlayerState::kDash)) { m_physics->AddForce(kWaterJumpForce); }
+			SetStateJump();
 		}
 	}
 

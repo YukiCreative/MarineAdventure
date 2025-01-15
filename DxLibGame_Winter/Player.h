@@ -88,6 +88,8 @@ private:
 	void ChangeAnimation(const std::shared_ptr<Animation>& setAnim);
 	// 今の入力から、アニメーションの向きを変える
 	void ChangeDirection(const Vector2& axis);
+	// 落下していたら、落下アニメーションに変える関数
+	void ChangeFallAnim();
 public:
 	/// <summary>
 	/// 初期化
