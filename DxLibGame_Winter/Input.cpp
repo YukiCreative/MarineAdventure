@@ -23,18 +23,22 @@ Input::Input() :
     m_inputEvent["Up"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_UP},
+        {PeripheralType::kPad, PAD_INPUT_UP},
     };
     m_inputEvent["Right"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_RIGHT},
+        {PeripheralType::kPad, PAD_INPUT_RIGHT},
     };
     m_inputEvent["Left"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_LEFT},
+        {PeripheralType::kPad, PAD_INPUT_LEFT},
     };
     m_inputEvent["Down"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_DOWN},
+        {PeripheralType::kPad, PAD_INPUT_DOWN},
     };
     m_inputEvent["Srow"] =
     {
@@ -81,11 +85,11 @@ void Input::Update()
     // スティックの入力を取得
     int analogX, analogY;
     GetJoypadAnalogInput(&analogX, &analogY, DX_INPUT_PAD1);
-    // キーボードも取得
-    if (IsPressed("Up")) analogY = -1000;
-    if (IsPressed("Down")) analogY = 1000;
-    if (IsPressed("Right")) analogX = 1000;
-    if (IsPressed("Left")) analogX = -1000;
+    // キーボード、十字キーも取得
+    if (IsPressed("Up")) analogY    = -1000;
+    if (IsPressed("Down")) analogY  =  1000;
+    if (IsPressed("Right")) analogX =  1000;
+    if (IsPressed("Left")) analogX  = -1000;
 
     // アナログ入力の大きさを1000までに制限する
     Vector2 inputAxis(analogX, analogY);
