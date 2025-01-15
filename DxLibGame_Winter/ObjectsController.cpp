@@ -20,30 +20,22 @@ ObjectsController::ObjectsController(Camera& camera, Player& player) :
 
 void ObjectsController::Update()
 {
-	// 死亡者リストを宣言
-	std::vector<std::shared_ptr<GameObject>> deathNote;
+	// 生存者リストを宣言
+	// 死んだのを消すより簡単
+	ObjectList_t aliveObjects;
 	// リストの要素全部Update
 	for (auto& object : m_objects)
 	{
 		object->Update();
-		// この敵が死んだら死亡者リストに入れとく
-		if (object->IsDeleted())
+		// この敵がまだ生きてたらリストに入れとく
+		if (!object->IsDeleted())
 		{
 			// ポインタをコピー
-			deathNote.push_back(object);
+			aliveObjects.push_back(object);
 		}
 	}
-
-	// すべての処理が終わった後に、消える予定の敵を削除する
-	for (const auto& deathObject : deathNote)
-	{
-		// 絶対他の方法あるけど仕様追加するのが大事よな
-		auto iterator = std::remove(m_objects.begin(), m_objects.end(), deathObject);
-		// このイテレータはちょうどremoveした要素を指している
-		m_objects.erase(iterator);
-	}
-	// ここでEnemyのスマポは参照を失うので消える。はず。
-	deathNote.clear();
+	// はみ出た要素は自動的に削除される
+	m_objects = aliveObjects;
 }
 
 void ObjectsController::Draw()
