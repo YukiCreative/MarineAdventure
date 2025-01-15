@@ -132,4 +132,6 @@ public:
 	Vector2 GetVel() const { return m_velocity; }
 	// w’è‚µ‚½À•W‚ÉuŠÔˆÚ“®
 	void Teleportation(Vector2 worldPos) { m_pos = worldPos; }
+
+	bool IsGround();
 };

@@ -605,3 +605,8 @@ void Player::OnAttack()
 	ChangeAnimation(m_idleAnim);
 	return;
 }
+
+bool Player::IsGround()
+{
+	return m_physics->CheckState(MapConstants::Environment::kGround);
+}

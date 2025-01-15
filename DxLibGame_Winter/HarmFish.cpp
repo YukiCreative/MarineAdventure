@@ -33,20 +33,23 @@ namespace
 
 void HarmFish::Idle()
 {
+	// 当たり判定
+	HitToPlayer();
+	ChangeDirection();
+
+	// プレイヤーが地上にいたら追尾には移行しない
+	if (m_playerRef.IsGround()) return;
+
 	// 追尾状態への遷移
 	m_chasePoint += ScoreChasePoint();
 	ChasePointValidation();
 	if (m_chasePoint == kChaseScoreMax)
 	{
 		// これがどんな状態でも一つの関数でできたらいいのだが…
-		m_state      = &HarmFish::Chase;
-		m_nowAnim    = m_chaseAnim;
+		m_state   = &HarmFish::Chase;
+		m_nowAnim = m_chaseAnim;
 		return;
 	}
-
-	ChangeDirection();
-	// 当たり判定
-	HitToPlayer();
 }
 
 void HarmFish::Chase()
@@ -54,7 +57,7 @@ void HarmFish::Chase()
 	// 遷移
 	m_chasePoint += ScoreChasePoint();
 	ChasePointValidation();
-	if (m_chasePoint == kChaseScoreMin)
+	if (m_chasePoint == kChaseScoreMin || m_playerRef.IsGround())
 	{
 		ChangeStateIdle();
 		return;
@@ -72,6 +75,7 @@ void HarmFish::Chase()
 void HarmFish::Damage()
 {
 	++m_stateFrameCount;
+	// 0になったらDeath
 	if (m_hp.Value() == 0)
 	{
 		m_stateFrameCount = 0;
@@ -80,7 +84,6 @@ void HarmFish::Damage()
 		return;
 	}
 	// アニメーションしたい
-	// 0になったらDeath
 	if (m_stateFrameCount > kDamageMortionFrame)
 	{
 		ChangeStateIdle();
