@@ -21,5 +21,7 @@ public:
 
 	// ƒ|[ƒY‚É‚à“¯‚¶ŠÖ”‚ ‚é‚Ì‚ª‚È‚ 
 	void ReturnToTitle();
+	// Continue‚Æ‚Ç‚Á‚¿‚ª‚¢‚¢‚©‚È
+	void ReturnToGame();
 };
 

@@ -149,10 +149,11 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonContinue.cpp" />
     <ClCompile Include="ButtonGameStart.cpp" />
     <ClCompile Include="ButtonQuitGame.cpp" />
+    <ClCompile Include="ButtonQuitGameFromGameover.cpp" />
     <ClCompile Include="ButtonReturnToGame.cpp" />
-    <ClCompile Include="ButtonReturnToGemeover.cpp" />
     <ClCompile Include="ButtonReturnToTitle.cpp" />
     <ClCompile Include="ButtonReturnToTitleFromGameover.cpp" />
     <ClCompile Include="ButtonSystem.cpp" />
@@ -198,11 +199,12 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonContinue.h" />
     <ClInclude Include="ButtonGameStart.h" />
     <ClInclude Include="ButtonNoFocus.h" />
     <ClInclude Include="ButtonQuitGame.h" />
+    <ClInclude Include="ButtonQuitGameFromGameover.h" />
     <ClInclude Include="ButtonReturnToGame.h" />
-    <ClInclude Include="ButtonReturnToGemeover.h" />
     <ClInclude Include="ButtonReturnToTitle.h" />
     <ClInclude Include="ButtonReturnToTitleFromGameover.h" />
     <ClInclude Include="ButtonSystem.h" />

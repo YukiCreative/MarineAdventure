@@ -213,8 +213,11 @@
     <ClCompile Include="ButtonReturnToTitleFromGameover.cpp">
       <Filter>ソース ファイル\UI\Button</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonReturnToGemeover.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ButtonContinue.cpp">
+      <Filter>ソース ファイル\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonQuitGameFromGameover.cpp">
+      <Filter>ソース ファイル\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -386,8 +389,11 @@
     <ClInclude Include="ButtonReturnToTitleFromGameover.h">
       <Filter>ヘッダー ファイル\UI\Button</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonReturnToGemeover.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="ButtonContinue.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonQuitGameFromGameover.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

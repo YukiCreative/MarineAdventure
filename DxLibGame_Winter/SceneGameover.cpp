@@ -10,14 +10,19 @@
 #include "Music.h"
 #include "ButtonSystem.h"
 #include "ButtonReturnToTitleFromGameover.h"
+#include "ButtonContinue.h"
+#include "ButtonQuitGameFromGameover.h"
 
 namespace
 {
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 	const std::string kGameOverImagePath = "GAMEOVER_Test.jpg";
 
-	constexpr int kReturnButtonPosOffset = 60;
-	const Vector2 kReturnButtonInitPos(Game::kScreenHalfWidth, Game::kScreenHalfHeight + kReturnButtonPosOffset);
+	constexpr int kContinueButtonPosOffset = 100;
+	constexpr int kButtonShiftOffset       = 100;
+	const Vector2 kContinueButtonInitPos   (Game::kScreenHalfWidth, Game::kScreenHalfHeight + kContinueButtonPosOffset);
+	const Vector2 kReturnTitleButtonInitPos(kContinueButtonInitPos.x, kContinueButtonInitPos.y + kButtonShiftOffset);
+	const Vector2 kQuitGameButtonInitPos   (kReturnTitleButtonInitPos.x, kReturnTitleButtonInitPos.y + kButtonShiftOffset);
 }
 
 SceneGameover::SceneGameover()
@@ -26,9 +31,23 @@ SceneGameover::SceneGameover()
 	m_backGround->ExpandGtaph(3.0f);
 
 	m_buttonController = std::make_shared<ButtonSystem>();
-	std::shared_ptr<Button> buttonReturnToGame = std::make_shared<ButtonReturnToTitleFromGameover>(kReturnButtonInitPos);
-	m_buttonController->AddButton(buttonReturnToGame);
-	m_buttonController->SetButtonFocus(buttonReturnToGame);
+
+	std::shared_ptr<Button> buttonReturnToTitle = std::make_shared<ButtonReturnToTitleFromGameover>(kReturnTitleButtonInitPos);
+	std::shared_ptr<Button> buttonContinue     = std::make_shared<ButtonContinue>(kContinueButtonInitPos);
+	std::shared_ptr<Button> buttonQuitGame     = std::make_shared<ButtonQuitGameFromGameover>(kQuitGameButtonInitPos);
+
+	buttonContinue     ->SetDownButton(buttonReturnToTitle);
+	buttonContinue     ->SetUpButton  (buttonQuitGame);
+	buttonReturnToTitle->SetDownButton(buttonQuitGame);
+	buttonReturnToTitle->SetUpButton  (buttonContinue);
+	buttonQuitGame     ->SetDownButton(buttonContinue);
+	buttonQuitGame     ->SetUpButton  (buttonReturnToTitle);
+
+	m_buttonController->AddButton(buttonContinue);
+	m_buttonController->AddButton(buttonReturnToTitle);
+	m_buttonController->AddButton(buttonQuitGame);
+
+	m_buttonController->SetButtonFocus(buttonReturnToTitle);
 }
 
 void SceneGameover::Entry()
@@ -62,4 +81,9 @@ void SceneGameover::Draw() const
 void SceneGameover::ReturnToTitle()
 {
 	SceneChangeWithFadeOut("Title");
+}
+
+void SceneGameover::ReturnToGame()
+{
+	SceneChangeWithFadeOut("Game");
 }
