@@ -80,6 +80,8 @@ void HarmFish::Attacked()
 	{
 		ChangeStateIdle();
 	}
+
+	ChangeDirection();
 }
 
 void HarmFish::Damage()
@@ -160,6 +162,10 @@ void HarmFish::HitToPlayer()
 		m_physics->Stop();
 		m_physics->AddForce(collision.overlap.GetNormalize());
 	}
+}
+
+void HarmFish::HitToMap()
+{
 }
 
 void HarmFish::ChangeDirection()

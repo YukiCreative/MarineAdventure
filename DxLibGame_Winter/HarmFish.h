@@ -37,8 +37,11 @@ private:
 	// スコアをクラス化してそっちに実装するのが確かにいい
 	// が、めんどくさい
 	void ChasePointValidation();
-	// プレイヤーとの当たり判定をまとめた
+
+	// 当たり判定をまとめた
 	void HitToPlayer();
+	void HitToMap();
+
 	void ChangeDirection();
 	void ChangeState(StateFunc_t nextState);
 	void ChangeStateIdle();

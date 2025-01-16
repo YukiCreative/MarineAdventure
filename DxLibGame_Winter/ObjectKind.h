@@ -9,5 +9,13 @@ enum class ObjectKind
 	kEmpty,
 	kHarmFish,
 	kBoss,
-	kMax,
+	// ほかにも追加したいオブジェクトがあるので、ドアを後ろに置いておく
+	kDoor1 = 9, // これ(全部列挙)以外思いつかなかった
+	kDoor2,
+	kDoor3,
+	kDoor4,
+	kDoor5,
+	kDoor6,
+	kDoor7,
+	kDoor8,
 };
