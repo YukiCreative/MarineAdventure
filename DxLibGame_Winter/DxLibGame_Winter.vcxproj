@@ -152,7 +152,9 @@
     <ClCompile Include="ButtonGameStart.cpp" />
     <ClCompile Include="ButtonQuitGame.cpp" />
     <ClCompile Include="ButtonReturnToGame.cpp" />
+    <ClCompile Include="ButtonReturnToGemeover.cpp" />
     <ClCompile Include="ButtonReturnToTitle.cpp" />
+    <ClCompile Include="ButtonReturnToTitleFromGameover.cpp" />
     <ClCompile Include="ButtonSystem.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
@@ -200,7 +202,9 @@
     <ClInclude Include="ButtonNoFocus.h" />
     <ClInclude Include="ButtonQuitGame.h" />
     <ClInclude Include="ButtonReturnToGame.h" />
+    <ClInclude Include="ButtonReturnToGemeover.h" />
     <ClInclude Include="ButtonReturnToTitle.h" />
+    <ClInclude Include="ButtonReturnToTitleFromGameover.h" />
     <ClInclude Include="ButtonSystem.h" />
     <ClInclude Include="Calculation.h" />
     <ClInclude Include="Camera.h" />

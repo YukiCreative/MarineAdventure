@@ -9,11 +9,15 @@
 #include "ScreenFade.h"
 #include "Music.h"
 #include "ButtonSystem.h"
+#include "ButtonReturnToTitleFromGameover.h"
 
 namespace
 {
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 	const std::string kGameOverImagePath = "GAMEOVER_Test.jpg";
+
+	constexpr int kReturnButtonPosOffset = 60;
+	const Vector2 kReturnButtonInitPos(Game::kScreenHalfWidth, Game::kScreenHalfHeight + kReturnButtonPosOffset);
 }
 
 SceneGameover::SceneGameover()
@@ -22,6 +26,9 @@ SceneGameover::SceneGameover()
 	m_backGround->ExpandGtaph(3.0f);
 
 	m_buttonController = std::make_shared<ButtonSystem>();
+	std::shared_ptr<Button> buttonReturnToGame = std::make_shared<ButtonReturnToTitleFromGameover>(kReturnButtonInitPos);
+	m_buttonController->AddButton(buttonReturnToGame);
+	m_buttonController->SetButtonFocus(buttonReturnToGame);
 }
 
 void SceneGameover::Entry()
@@ -33,6 +40,7 @@ void SceneGameover::Entry()
 void SceneGameover::NormalUpdate()
 {
 	m_backGround->Update();
+	m_buttonController->Update();
 	m_fade.Update();
 
 	if (Input::GetInstance().IsTrigger("ChangeScene_Debug"))
@@ -47,6 +55,7 @@ void SceneGameover::NormalUpdate()
 void SceneGameover::Draw() const
 {
 	m_backGround->Draw();
+	m_buttonController->Draw();
 	m_fade.Draw();
 }
 

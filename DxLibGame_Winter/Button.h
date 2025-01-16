@@ -33,7 +33,7 @@ public:
 	Button(Vector2 initPos);
 
 	// Updateは処理を書いているので上書きしない方がいいよ
-	void Update() override;
+	void Update() override final;
 	// Drawは派生先でやってね
 
 	// フォーカスされたらButtonSystemが呼ぶ関数

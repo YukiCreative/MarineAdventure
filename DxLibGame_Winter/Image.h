@@ -44,5 +44,7 @@ public:
 	void SetReverceFlagY  (const bool& value)	 { m_reverceY = value; }
 	void SetOffset		  (const Vector2& value) { m_offset = value; }
 	int GraphHandle() const { return m_sourceHandle; }
+	
+	const float& ExRate() const { return m_expandRate; }
 };
 

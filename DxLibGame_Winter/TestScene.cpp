@@ -111,7 +111,8 @@ void TestScene::NormalUpdate()
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		//SceneChangeWithFadeOut("Clear");
-		ChangeMap("Data/MapData/TestMapData32x16.fmf");
+		SceneChangeWithFadeOut("Gameover");
+		//ChangeMap("Data/MapData/TestMapData32x16.fmf");
 		return;
 	}
 }
