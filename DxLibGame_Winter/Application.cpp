@@ -90,7 +90,7 @@ void Application::Run()
 		ScreenFlip();
 
 		// 60FPSに固定
-		unsigned int waitTime = 16667;
+		unsigned int waitTime = Game::kMillisecondsPerFrame;
 		if (inputInstance.IsPressed("Srow"))
 		{
 			// スローモーション

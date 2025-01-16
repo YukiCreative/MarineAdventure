@@ -29,7 +29,7 @@ ScenePause::ScenePause()
 	// ƒ{ƒ^ƒ“‚Ìİ’è
 	m_buttonSystem = std::make_shared<ButtonSystem>();
 
-	std::shared_ptr<ButtonReturnToTitle> returnTitleButton = std::make_shared<ButtonReturnToTitle>(kPosButtonReturnToTitle, *this);
+	std::shared_ptr<ButtonReturnToTitle> returnTitleButton = std::make_shared<ButtonReturnToTitle>(kPosButtonReturnToTitle);
 	std::shared_ptr<ButtonReturnToGame>  returnGameButton  = std::make_shared<ButtonReturnToGame> (kPosButtonReturnToGame,  *this);
 
 	returnGameButton ->SetDownButton(returnTitleButton);

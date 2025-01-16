@@ -4,39 +4,43 @@
 
 namespace
 {
-	//const std::string kImageFileName = "ButtonQuitGame.png";
-	const std::string kImageFileName = "GameStartButton.png";
-	constexpr float kBaseButtonExpand = 2.0f;
+	const std::string kImageFileName          = "ButtonQuitGame.png";
+	const std::string kNoFocusedImageFileName = "ButtonQuitGame_NoFocused.png";
+	constexpr float kBaseButtonExpand         = 1.0f;
+	constexpr float kPlusExRate               = 0.5f;
 }
 
 void ButtonQuitGame::FocusedUpdate()
 {
 	++m_frameCount;
 	// “_–Å‚Æ‚©‚³‚¹‚½‚¢
-	m_image->SetExRate(kBaseButtonExpand + abs(sinf(m_frameCount * 0.05f)));
+	m_image->SetExRate(kBaseButtonExpand + abs(sinf(m_frameCount * 0.05f) * kPlusExRate));
 }
 
 void ButtonQuitGame::NormalUpdate()
 {
-	m_image->SetExRate(1);
+	m_image->SetExRate(kBaseButtonExpand);
 }
 
 ButtonQuitGame::ButtonQuitGame(const Vector2& initPos) :
 	Button(initPos),
 	m_frameCount(0)
 {
-	m_image = std::make_shared<Image>(kImageFileName);
+	m_image = std::make_shared<Image>(kNoFocusedImageFileName);
 	m_image->SetExRate(kBaseButtonExpand);
 }
 
 void ButtonQuitGame::OnFocused()
 {
 	InvertState();
+	m_image->SetGraph(kImageFileName);
 }
 
 void ButtonQuitGame::OnDisfocused()
 {
 	InvertState();
+	m_image->SetGraph(kNoFocusedImageFileName);
+	m_frameCount = 0;
 }
 
 void ButtonQuitGame::OnPressed()

@@ -6,8 +6,11 @@
 
 namespace
 {
-	const std::string kImagePath = "GameStartButton.png";
-	constexpr float kBaseButtonExpand = 2.0f;
+	const std::string kImagePath          = "ButtonStartGame.png";
+	const std::string kNoFocusedImagePath = "ButtonStartGame_NoFocused.png";
+	constexpr float kBaseButtonExpand = 1.0f;
+	// Base + Plus = MaxExRate
+	constexpr float kPlusExpandPoint = 0.5f;
 }
 
 ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
@@ -15,36 +18,40 @@ ButtonGameStart::ButtonGameStart(Vector2 initPos, SceneTitle& title) :
 	m_frameCount(0),
 	m_titleRef(title)
 {
-	m_image = std::make_shared<Image>(kImagePath);
+	m_image = std::make_shared<Image>(kNoFocusedImagePath);
 	m_image->SetExRate(kBaseButtonExpand);
 }
 
 void ButtonGameStart::OnFocused()
 {
 	InvertState();
+	m_image->SetGraph(kImagePath);
 }
 
 void ButtonGameStart::OnDisfocused()
 {
 	InvertState();
+	m_frameCount = 0;
+	m_image->SetGraph(kNoFocusedImagePath);
 }
 
 void ButtonGameStart::NormalUpdate()
 {
-	m_image->SetExRate(1);
+	m_image->SetExRate(kBaseButtonExpand);
 }
 
 void ButtonGameStart::FocusedUpdate()
 {
 	++m_frameCount;
 	// ì_ñ≈Ç∆Ç©Ç≥ÇπÇΩÇ¢
-	m_image->SetExRate(kBaseButtonExpand + abs(sinf(m_frameCount * 0.05f)));
+	m_image->SetExRate(kBaseButtonExpand + abs(sinf(m_frameCount * 0.05f) * kPlusExpandPoint));
 }
 
 void ButtonGameStart::OnPressed()
 {
 	// ÉVÅ[ÉìëJà⁄ÇÇ®äËÇ¢
 	m_titleRef.GameStart();
+	m_frameCount = 0;
 }
 
 void ButtonGameStart::Draw() const

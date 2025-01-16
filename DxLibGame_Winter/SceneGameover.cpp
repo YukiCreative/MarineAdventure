@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "ScreenFade.h"
 #include "Music.h"
+#include "ButtonSystem.h"
 
 namespace
 {
@@ -18,8 +19,9 @@ namespace
 SceneGameover::SceneGameover()
 {
 	m_backGround = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kGameOverImagePath);
-
 	m_backGround->ExpandGtaph(3.0f);
+
+	m_buttonController = std::make_shared<ButtonSystem>();
 }
 
 void SceneGameover::Entry()
@@ -46,6 +48,9 @@ void SceneGameover::Draw() const
 {
 	m_backGround->Draw();
 	m_fade.Draw();
+}
 
-	DrawString(static_cast<int>(Game::kScreenWidth * 0.5f), static_cast<int>(Game::kScreenHeight * 0.5f), "GameoverScene", 0xffffff);
+void SceneGameover::ReturnToTitle()
+{
+	SceneChangeWithFadeOut("Title");
 }

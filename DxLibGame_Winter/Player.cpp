@@ -190,7 +190,7 @@ void Player::Damage(Input& input, Vector2& axis)
 		return;
 	}
 	// 01/14@“®‚¯‚é‚æ‚¤‚É
-	m_physics->AddForce(axis.x * kDuringDamageMoveFactor);
+	m_physics->AddForce(axis * kDuringDamageMoveFactor);
 }
 
 void Player::Death(Input& input, Vector2& axis)

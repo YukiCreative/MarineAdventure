@@ -5,22 +5,27 @@
 #include <string>
 #include "Calculation.h"
 #include "ScenePause.h"
+#include "game.h"
 
 namespace
 {
 	const std::string kImagePath = "ButtonReturnToGame.png";
 	const std::string kNoFocusedImagePass = "ButtonReturnToGame_NoFocused.png";
+
+	// ‚±‚ê‚©‚¯‚é‚Æ‚¢‚¢Š´‚¶‚ÌŽüŠú‚É‚È‚é‚ñ‚Å‚·
+	constexpr float kCycleFactor = 0.05f;
+	constexpr float kBaseButtonExpand = 1.0f;
+	constexpr float kPlusExpandPoint = 0.5f;
 }
 
 void ButtonReturnToGame::FocusedUpdate()
 {
 	++m_frameCount;
-	m_image->SetExRate(1.5f + sinf(m_frameCount * Calculation::kDegToRad));
+	m_image->SetExRate(kBaseButtonExpand + abs(sinf(m_frameCount * kCycleFactor) * kPlusExpandPoint));
 }
 
 void ButtonReturnToGame::NormalUpdate()
 {
-	m_image->SetExRate(1.0f);
 }
 
 ButtonReturnToGame::ButtonReturnToGame(Vector2 initPos, ScenePause& pauseScene) :
@@ -46,6 +51,8 @@ void ButtonReturnToGame::OnDisfocused()
 {
 	InvertState();
 	m_image->SetGraph(kNoFocusedImagePass);
+	m_image->SetExRate(kBaseButtonExpand);
+	m_frameCount = 0;
 }
 
 void ButtonReturnToGame::OnPressed()

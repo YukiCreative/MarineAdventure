@@ -10,6 +10,10 @@ namespace Game
 	constexpr int kScreenHeight = 720; // 先生個人的に推奨
 	constexpr int kColorBitNum = 32;
 
+	// 次があったら可変フレームレートに挑戦したいね
+	constexpr int kFrameRate = 60;
+	constexpr int kMillisecondsPerFrame = 1000000 / kFrameRate;
+
 	constexpr int kScreenHalfWidth = Game::kScreenWidth >> 1;
 	constexpr int kScreenHalfHeight = Game::kScreenHeight >> 1;
 
