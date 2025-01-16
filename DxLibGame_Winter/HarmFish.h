@@ -26,6 +26,7 @@ private:
 	StateFunc_t m_state;
 	void Idle();
 	void Chase();
+	void Attacked();
 	void Damage();
 	void Death();
 

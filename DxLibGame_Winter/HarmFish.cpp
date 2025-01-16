@@ -13,7 +13,8 @@ namespace
 {
 	constexpr int   kInitHp = 2;
 	constexpr float kColRadius = 20.0f;
-	constexpr int   kDamageMortionFrame = 60;
+	constexpr int   kDamageStateFrame = 60;
+	constexpr int   kAttackedStateFrame = 60;
 
 	// プレイヤー追跡関連
 	constexpr int   kChaseScoreMin = 0;
@@ -22,13 +23,13 @@ namespace
 	constexpr int   kChasePointDecreaseThreshold = 100000;
 	constexpr float kMoveForce = 0.1f;
 
-	const std::string kIdleAnimFile       = "SharkIdle.png";
-	const std::string kChaseAnimFile      = "SharkChase.png";
-	const std::string kDamageAnimFile      = "SharkDamage.png";
-	constexpr int     kImageOneSize       = 32;
+	const std::string kIdleAnimFile      = "SharkIdle.png";
+	const std::string kChaseAnimFile     = "SharkChase.png";
+	const std::string kDamageAnimFile    = "SharkDamage.png";
+	constexpr int     kImageOneSize      = 32;
 	const Vector2Int  kImageSize(kImageOneSize, kImageOneSize);
-	constexpr int     kIdleAnimPlaySpeed  = 9;
-	constexpr float   kGraphExpandRate = MapConstants::kChipSize / kImageOneSize;
+	constexpr int     kIdleAnimPlaySpeed = 9;
+	constexpr float   kGraphExpandRate   = MapConstants::kChipSize / kImageOneSize;
 }
 
 void HarmFish::Idle()
@@ -72,19 +73,25 @@ void HarmFish::Chase()
 	HitToPlayer();
 }
 
+void HarmFish::Attacked()
+{
+	// 何もしない時間
+	if (m_stateFrameCount > kAttackedStateFrame)
+	{
+		ChangeStateIdle();
+	}
+}
+
 void HarmFish::Damage()
 {
-	++m_stateFrameCount;
 	// 0になったらDeath
 	if (m_hp.Value() == 0)
 	{
-		m_stateFrameCount = 0;
-		printf("ちんだ");
-		m_state = &HarmFish::Death;
+		ChangeState(&HarmFish::Death);
 		return;
 	}
 	// アニメーションしたい
-	if (m_stateFrameCount > kDamageMortionFrame)
+	if (m_stateFrameCount > kDamageStateFrame)
 	{
 		ChangeStateIdle();
 		return;
@@ -93,8 +100,7 @@ void HarmFish::Damage()
 
 void HarmFish::Death()
 {
-	++m_stateFrameCount;
-	if (m_stateFrameCount > kDamageMortionFrame)
+	if (m_stateFrameCount > kDamageStateFrame)
 	{
 		// 消える
 		m_isDeleted = true;
@@ -135,7 +141,7 @@ void HarmFish::HitToPlayer()
 			// ここでHPを減らす
 			m_hp.Decrease(1);
 			printf("HP%dになたよ", m_hp.Value());
-			m_state = &HarmFish::Damage;
+			ChangeState(&HarmFish::Damage);
 			m_nowAnim = m_damageAnim;
 			ChangeDirection();
 			// プレイヤーに「攻撃した」と教える
@@ -145,11 +151,14 @@ void HarmFish::HitToPlayer()
 		{
 			// ここでプレイヤーにダメージを教えてあげる
 			m_playerRef.OnDamage();
-			ChangeStateIdle();
+			m_nowAnim = m_idleAnim;
+			ChangeState(&HarmFish::Attacked);
 		}
-		// どちらにせよプレイヤーをぶっ飛ばす
+		// どちらにせよ両者をぶっ飛ばす
 		m_playerRef.Stop();
 		m_playerRef.AddForce(-collision.overlap.GetNormalize());
+		m_physics->Stop();
+		m_physics->AddForce(collision.overlap.GetNormalize());
 	}
 }
 
@@ -204,6 +213,7 @@ HarmFish::HarmFish(Player& player, Camera& camera, Vector2 spawnPos) :
 
 void HarmFish::Update()
 {
+	++m_stateFrameCount;
 	// 状態に応じた処理を
 	(this->*m_state)();
 
