@@ -8,7 +8,7 @@ class Camera;
 
 class Scene
 {
-private:
+protected:
 	using UpdateState_t = void (Scene::*)();
 	UpdateState_t m_update;
 	// フェードしたあと、遷移する次のシーン
@@ -19,7 +19,7 @@ private:
 	void SceneResumeUpdate();
 	void SceneStackUpdate ();
 	void SceneRemoveUpdate();
-protected:
+
 	// 12/25 フェードを義務化
 	ScreenFade& m_fade;
 	// 01/14 カメラを義務化

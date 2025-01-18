@@ -10,7 +10,7 @@ enum class ObjectKind
 	kHarmFish,
 	kBoss,
 	// ほかにも追加したいオブジェクトがあるので、ドアを後ろに置いておく
-	kDoor1 = 9, // これ(全部列挙)以外思いつかなかった
+	kDoor1 = 8, // これ(全部列挙)以外思いつかなかった
 	kDoor2,
 	kDoor3,
 	kDoor4,

@@ -19,9 +19,17 @@
 namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	const Vector2 initPlayerPos(0, 800);
-	const std::string kMapDataPass = "Data/MapData/TestMapGroundStage.fmf";
+	const Vector2 initPlayerPos(0, 600);
+	//const std::string kMapDataPass = "Data/MapData/TestMapGroundStage.fmf";
+	const std::string kMapDataPass = "Data/MapData/TestMapData32x16.fmf";
 	const std::string kBackGroundPass = "Marine.jpg";
+}
+
+void TestScene::MapChangeUpdate()
+{
+	m_fade.Update();
+
+	if (m_fade.IsFading()) return;
 }
 
 TestScene::TestScene() :
@@ -57,7 +65,6 @@ void TestScene::GameOver()
 
 void TestScene::ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos)
 {
-
 }
 
 void TestScene::ChangeMap(const std::string& path)
