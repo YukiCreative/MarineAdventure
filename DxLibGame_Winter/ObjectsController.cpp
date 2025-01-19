@@ -65,3 +65,8 @@ void ObjectsController::SpawnObject(std::shared_ptr<GameObject> objectInstance)
 {
 	m_objects.push_back(objectInstance);
 }
+
+void ObjectsController::ClearObjects()
+{
+	m_objects.clear();
+}

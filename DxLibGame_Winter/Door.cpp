@@ -15,10 +15,10 @@ namespace
 	constexpr int kIdOffset = 8;
 	constexpr float kImageExRate = 80.0f / 32.0f;
 
-	constexpr int kDoorColRadius = 30;
+	constexpr float kDoorColRadius = 30.0f;
 
-	// これDoorKindでまとめた連想配列のほうがいいか？
-	const Vector2 kTutoToMap1(0, 0);
+	// 座標
+	const Vector2 kTutoToMap1(500, 0);
 }
 
 Door::PathMap_t Door::s_paths =
@@ -34,12 +34,13 @@ Door::DoorMap_t Door::s_doors =
 
 bool Door::CheckInDoor()
 {
-	if (Input::GetInstance().IsTrigger("Attack")) return false;
+	if (!Input::GetInstance().IsTrigger("Attack")) return false;
 
 	// プレイヤーとの当たり判定を取ってます
 	CollisionStatus collision = m_collider->CheckHit(m_player.GetCollider());
 	if (!collision.isCollide) return false;
 
+	// つまり　ボタンが押されていて、かつプレイヤーが接触していたらtrue
 	return true;
 }
 

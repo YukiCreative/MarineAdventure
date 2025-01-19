@@ -30,10 +30,18 @@ void TestScene::MapChangeUpdate()
 	m_fade.Update();
 
 	if (m_fade.IsFading()) return;
+
+	m_objectCont->ClearObjects();
+	ChangeMap(m_nextMapPath, m_playerTransportPos);
+	m_fade.Fade(60, 0);
+	m_isMapChanging = false;
 }
 
 TestScene::TestScene() :
-	m_frameCount(0)
+	m_frameCount(0),
+	m_nextMapPath(),
+	m_playerTransportPos(),
+	m_isMapChanging(false)
 {
 	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
@@ -65,6 +73,16 @@ void TestScene::GameOver()
 
 void TestScene::ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos)
 {
+	// 与えられた情報を覚えておく
+	m_nextMapPath = path;
+	m_playerTransportPos = playerTransferPos;
+
+	m_fade.Fade(60, 100);
+	m_player->Stop();
+
+	// 自分はフェード待ち状態へ移行
+	// フラグ管理はほんとはしたくないよ？
+	m_isMapChanging = true;
 }
 
 void TestScene::ChangeMap(const std::string& path)
@@ -93,6 +111,13 @@ void TestScene::Entry()
 
 void TestScene::NormalUpdate()
 {
+	// マップ遷移中ならそっちの処理をする
+	if (m_isMapChanging)
+	{
+		MapChangeUpdate();
+		return;
+	}
+
 	Input& input = Input::GetInstance();
 
 	++m_frameCount;
@@ -106,7 +131,6 @@ void TestScene::NormalUpdate()
 	// カメラの移動量を取得したい
 	//m_backGround->Move(m_camera->GetVel() * 0.5f);
 	m_backGround->Update();
-
 
 	if (input.IsTrigger("Pause"))
 	{
@@ -128,8 +152,8 @@ void TestScene::Draw() const
 {
 	m_backGround->Draw();
 	m_map->Draw();
-	m_player->Draw();
 	m_objectCont->Draw();
+	m_player->Draw();
 	m_fade.Draw();
 
 #if _DEBUG

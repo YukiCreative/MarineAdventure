@@ -43,4 +43,6 @@ public:
 	/// インスタンス渡してもいいよ
 	/// </summary>
 	void SpawnObject(std::shared_ptr<GameObject> objectInstance);
+	
+	void ClearObjects();
 };
