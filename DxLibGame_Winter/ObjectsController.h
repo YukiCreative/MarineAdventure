@@ -13,6 +13,29 @@ class Camera;
 class GameObject;
 class MapSystem;
 
+struct ObjectAppearanceStatus
+{
+	bool isExist;
+	// 消えてからのフレーム
+	int frameDisappear;
+	// 消えてから何フレーム後に再出現できるか
+	int spawnSpan;
+
+	ObjectAppearanceStatus();
+	ObjectAppearanceStatus(const ObjectKind& spanKind);
+
+	void IncreaseFrame() { ++frameDisappear; }
+
+	// デスポーンしたときに実行してね
+	void Despawn() { frameDisappear = -spawnSpan; }
+
+	bool CanSpawn() const
+	{
+		// 出現していなくて、消えてから十分に経過した
+		return !isExist && frameDisappear > 0;
+	}
+};
+
 /// <summary>
 /// シーンでこれをインスタンス化して
 /// 管理してもらう
@@ -31,8 +54,12 @@ private:
 	// オブジェクトの生成を列挙体から連想できるように関数を紐づける
 	using ObjectFactory_t = std::function<std::shared_ptr<GameObject>(Vector2)>;
 	std::unordered_map<ObjectKind, ObjectFactory_t> m_factoryMap;
+
+	// スポーン操作関連
+	// 今のマップにあるオブジェクトの出現状況を記憶
+	std::vector<ObjectAppearanceStatus> m_isObjectsExist;
 public:
-	ObjectsController(Camera& camera, Player& player);
+	ObjectsController(Camera& camera, Player& player, std::weak_ptr<MapSystem> system);
 
 	void Update();
 	void Draw();
@@ -47,4 +74,8 @@ public:
 	void SpawnObject(std::shared_ptr<GameObject> objectInstance);
 	
 	void ClearObjects();
+
+	void ResetObjectSpawnStatus();
+	bool CanSpawnObject(const Vector2Int& mapPos) const;
+	void Despawned(const Vector2Int& mapPos);
 };

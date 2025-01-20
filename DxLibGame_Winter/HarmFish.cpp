@@ -187,8 +187,8 @@ void HarmFish::ChangeStateIdle()
 	m_chasePoint = 0;
 }
 
-HarmFish::HarmFish(Player& player, Camera& camera, Vector2 spawnPos) :
-	Enemy(player, camera, spawnPos),
+HarmFish::HarmFish(ObjectsController& cont, Player& player, Camera& camera, Vector2 spawnPos) :
+	Enemy(cont, player, camera, spawnPos),
 	m_state(&HarmFish::Idle),
 	m_stateFrameCount(0),
 	m_chasePoint(0)

@@ -27,7 +27,7 @@ void kMapChip::ResetMapData()
 	m_backImage->       SetGraph   (m_mapChipData.backGraphHandle);
 
 	// もしこの位置のオブジェクトが出せるなら出す
-	if (m_system.CanSpawnObject(m_mapPos))
+	if (m_objectsController.CanSpawnObject(m_mapPos))
 	{
 		m_objectsController.SpawnObject(m_mapChipData.objKind, m_pos);
 	}

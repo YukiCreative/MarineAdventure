@@ -38,7 +38,7 @@ private:
 	bool CheckIsPlayerAttackState();
 	void ChangeState(StateFunc_t nextState);
 public:
-	Boss(Player& player, Camera& camera, Vector2 initPos);
+	Boss(ObjectsController& cont, Player& player, Camera& camera, Vector2 initPos);
 
 	void Update() override;
 	void Draw() const override;

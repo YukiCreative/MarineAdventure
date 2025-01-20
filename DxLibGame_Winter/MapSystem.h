@@ -16,29 +16,6 @@ class ObjectsController;
 using MapArray_t = std::array<std::shared_ptr<kMapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;
 using MapList_t  = std::list <std::shared_ptr<kMapChip>>;
 
-struct ObjectAppearanceStatus
-{
-	bool isExist;
-	// 消えてからのフレーム
-	int frameDisappear;
-	// 消えてから何フレーム後に再出現できるか
-	int spawnSpan;
-
-	ObjectAppearanceStatus();
-	ObjectAppearanceStatus(const ObjectKind& spanKind);
-
-	void IncreaseFrame() { ++frameDisappear; }
-
-	// デスポーンしたときに実行してね
-	void Despawn() { frameDisappear = -spawnSpan; }
-
-	bool CanSpawn() const
-	{
-		// 出現していなくて、消えてから十分に経過した
-		return !isExist && frameDisappear > 0;
-	}
-};
-
 /// <summary>
 /// マップチップを並べる、
 /// マップチップを動かす、
@@ -54,18 +31,13 @@ private:
 	// 今マップのデータをMapSystemが持つようにしようか考え中
 	std::shared_ptr<MapDataStore> m_mapData;
 
-	// 今のマップにあるオブジェクトが出現しているかどうかを記憶
-	// 何もおいてないマスも要素に入れる
-	// ここに置いていいかは分からない
-	std::vector<ObjectAppearanceStatus> m_isObjectsExist;
+	ObjectsController& m_cont;
 
 	/// <summary>
 	/// マップチップの表示位置をずらす
 	/// </summary>
 	/// <param name="moveValue">現在の位置からどれだけ移動させるか</param>
 	void MoveMap(Vector2 moveValue);
-
-	void ResetObjectSpawnStatus();
 public:
 	MapSystem(Camera& camera, ObjectsController& cont, std::string path);
 
@@ -95,11 +67,9 @@ public:
 	// 読み取りなおす
 	void ChangeMapData(const std::string& path);
 
-	// オブジェクト出現状況を取得
-	bool CanSpawnObject(const Vector2Int& mapPos) const;
-
-	// デスポーンしたときに呼ぶ
-	// やっぱこれObjectControllerに持たせるべきでは
-	void Despawned(const Vector2Int& mapPos);
+	// DataStoreの橋渡し
+	// 何も悪いことしてないよ
+	ObjectKind GetObjKind(const int& index);
+	ObjectKind GetObjKind(const Vector2Int& mapPos);
 };
 

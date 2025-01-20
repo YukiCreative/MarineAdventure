@@ -3,6 +3,7 @@
 #include "Vector2.h"
 #include "game.h"
 #include "MapConstants.h"
+#include "ObjectsController.h"
 
 namespace
 {
@@ -11,21 +12,22 @@ namespace
 	constexpr int kOffset = 40;
 }
 
-Enemy::Enemy(Player& player, Camera& camera, Vector2 spawnPos) :
+Enemy::Enemy(ObjectsController& cont, Player& player, Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
 	m_camera(camera),
 	m_hp(0),
 	m_playerRef(player),
 	// この辺は派生クラス側で入れてもらおうかな
 	m_physics(nullptr),
-	m_baseMapPos(spawnPos.x / MapConstants::kChipSize, spawnPos.y / MapConstants::kChipSize)
+	m_baseMapPos(spawnPos.x / MapConstants::kChipSize, spawnPos.y / MapConstants::kChipSize),
+	m_cont(cont)
 {
 }
 
 Enemy::~Enemy()
 {
-	// 
-
+	// デスポーンしたことをControllerに報告してから死ぬ
+	m_cont.Despawned(m_baseMapPos);
 }
 
 bool Enemy::CheckScreenOut() const

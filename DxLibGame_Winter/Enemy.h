@@ -6,6 +6,7 @@
 class Camera;
 class Physics;
 class Player;
+class ObjectsController;
 
 /// <summary>
 /// “G‚ÌŠî’êƒNƒ‰ƒX
@@ -17,10 +18,11 @@ protected:
 	HitPoint m_hp;
 	std::shared_ptr<Physics> m_physics;
 	Player& m_playerRef;
+	ObjectsController& m_cont;
 
 	Vector2Int m_baseMapPos;
 public:
-	Enemy(Player& player, Camera& camera, Vector2 spawnPos);
+	Enemy(ObjectsController& cont, Player& player, Camera& camera, Vector2 spawnPos);
 	~Enemy();
 
 	/// <summary>

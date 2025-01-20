@@ -136,8 +136,8 @@ void Boss::ChangeState(StateFunc_t nextState)
 	m_state = nextState;
 }
 
-Boss::Boss(Player& player, Camera& camera, Vector2 initPos) :
-	Enemy(player, camera, initPos),
+Boss::Boss(ObjectsController& cont, Player& player, Camera& camera, Vector2 initPos) :
+	Enemy(cont, player, camera, initPos),
 	m_stateFrameCount(0),
 	m_state(&Boss::Idle)
 {

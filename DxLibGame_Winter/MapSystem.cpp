@@ -10,32 +10,13 @@
 #include "MapDataStore.h"
 #include <unordered_map>
 
-namespace
-{
-	// これわメンバ変数にしたほうがよさそうだなあ しないけど
-	std::unordered_map<ObjectKind, int> spawnSpanMap =
-	{
-		// 再出現のクールタイムがあるのは、たくさん出現して、動くやつ
-		{ObjectKind::kEmpty, 0},
-		{ObjectKind::kHarmFish, Game::kFrameRate * 60},
-		{ObjectKind::kBoss,  0},
-		{ObjectKind::kDoor1, 0},
-		{ObjectKind::kDoor2, 0},
-		{ObjectKind::kDoor3, 0},
-		{ObjectKind::kDoor4, 0},
-		{ObjectKind::kDoor5, 0},
-		{ObjectKind::kDoor6, 0},
-		{ObjectKind::kDoor7, 0},
-		{ObjectKind::kDoor8, 0},
-	};
-}
-
-MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string path)
+MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string path) :
+	m_cont(cont)
 {
 	// マップデータを初期化
 	m_mapData = std::make_shared<MapDataStore>(path.c_str());
 
-	ResetObjectSpawnStatus();
+	m_cont.ResetObjectSpawnStatus();
 
 	// マップチップのメモリ確保
 	// マップの初期位置を設定
@@ -57,12 +38,6 @@ void MapSystem::Update()
 	for (auto& chip : m_mapChips)
 	{
 		chip->Update();
-	}
-
-	for (auto& status : m_isObjectsExist)
-	{
-		// タイマー加算
-		status.IncreaseFrame();
 	}
 }
 
@@ -122,7 +97,7 @@ void MapSystem::ChangeMapData(const std::string& path)
 {
 	m_mapData->LoadMapData(path);
 
-	ResetObjectSpawnStatus();
+	m_cont.ResetObjectSpawnStatus();
 
 	// マップチップを再読み込み
 	// 別の関数に切り離してもいいかも
@@ -132,17 +107,14 @@ void MapSystem::ChangeMapData(const std::string& path)
 	}
 }
 
-bool MapSystem::CanSpawnObject(const Vector2Int& mapPos) const
+ObjectKind MapSystem::GetObjKind(const int& index)
 {
-	// 条件
-	// そいつが今出現していなくて、かつ消えてから再出現可能な秒数経っていたら
-	ObjectAppearanceStatus status = m_isObjectsExist[mapPos.x + GetMapSize().x * mapPos.y];
-	return status.CanSpawn();
+	return m_mapData->GetObjKind(index);
 }
 
-void MapSystem::Despawned(const Vector2Int& mapPos)
+ObjectKind MapSystem::GetObjKind(const Vector2Int& mapPos)
 {
-	m_isObjectsExist[mapPos.x + GetMapSize().x * mapPos.y].Despawn();
+	return m_mapData->GetObjKind(mapPos);
 }
 
 void MapSystem::MoveMap(Vector2 moveValue)
@@ -152,32 +124,4 @@ void MapSystem::MoveMap(Vector2 moveValue)
 	{
 		chip->Move(moveValue);
 	}
-}
-
-void MapSystem::ResetObjectSpawnStatus()
-{
-	// マップチップの数だけ初期化
-	m_isObjectsExist.resize(GetMapSize().x * GetMapSize().y);
-
-	// 範囲for使えなかった
-	for (int i = 0; i < m_isObjectsExist.size(); ++i)
-	{
-		m_isObjectsExist[i] = ObjectAppearanceStatus(m_mapData->GetObjKind(i));
-	}
-}
-
-// ==============================================================================
-
-ObjectAppearanceStatus::ObjectAppearanceStatus() :
-	spawnSpan(spawnSpanMap[ObjectKind::kEmpty]),
-	frameDisappear(0),
-	isExist(false)
-{
-}
-
-ObjectAppearanceStatus::ObjectAppearanceStatus(const ObjectKind& spanKind) :
-	spawnSpan(spawnSpanMap[spanKind]),
-	frameDisappear(0),
-	isExist(false)
-{
 }

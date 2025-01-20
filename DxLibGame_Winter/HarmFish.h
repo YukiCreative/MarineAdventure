@@ -46,7 +46,7 @@ private:
 	void ChangeState(StateFunc_t nextState);
 	void ChangeStateIdle();
 public:
-	HarmFish(Player& player, Camera& camera, Vector2 spawnPos);
+	HarmFish(ObjectsController& cont, Player& player, Camera& camera, Vector2 spawnPos);
 	void Update() override;
 	void Draw() const override;
 };
