@@ -11,17 +11,17 @@
 
 namespace
 {
-	constexpr int   kInitHp = 2;
-	constexpr float kColRadius = 20.0f;
-	constexpr int   kDamageStateFrame = 60;
+	constexpr int   kInitHp             = 2;
+	constexpr float kColRadius          = 20.0f;
+	constexpr int   kDamageStateFrame   = 60;
 	constexpr int   kAttackedStateFrame = 60;
 
 	// プレイヤー追跡関連
-	constexpr int   kChaseScoreMin = 0;
-	constexpr int   kChaseScoreMax = 100;
-	constexpr int   kChasePointIncreaseThreshold = 10000;
-	constexpr int   kChasePointDecreaseThreshold = 100000;
-	constexpr float kMoveForce = 0.1f;
+	constexpr int   kChaseScoreMin               = 0;
+	constexpr int   kChaseScoreMax               = 100;
+	constexpr int   kChasePointIncreaseThreshold = 50000;
+	constexpr int   kChasePointDecreaseThreshold = 300000;
+	constexpr float kMoveForce                   = 0.1f;
 
 	const std::string kIdleAnimFile      = "SharkIdle.png";
 	const std::string kChaseAnimFile     = "SharkChase.png";
@@ -227,10 +227,7 @@ void HarmFish::Update()
 	m_nowAnim->Update();
 
 	// Updateの結果、画面外に出たら死亡
-	if (CheckScreenOut())
-	{
-		m_isDeleted = true;
-	}
+	// 01/20仕様変更。画面外に出ても大丈夫になりました
 }
 
 void HarmFish::Draw() const

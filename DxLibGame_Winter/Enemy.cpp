@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Vector2.h"
 #include "game.h"
+#include "MapConstants.h"
 
 namespace
 {
@@ -16,8 +17,15 @@ Enemy::Enemy(Player& player, Camera& camera, Vector2 spawnPos) :
 	m_hp(0),
 	m_playerRef(player),
 	// ‚±‚Ì•Ó‚Í”h¶ƒNƒ‰ƒX‘¤‚Å“ü‚ê‚Ä‚à‚ç‚¨‚¤‚©‚È
-	m_physics(nullptr)
+	m_physics(nullptr),
+	m_baseMapPos(spawnPos.x / MapConstants::kChipSize, spawnPos.y / MapConstants::kChipSize)
 {
+}
+
+Enemy::~Enemy()
+{
+	// 
+
 }
 
 bool Enemy::CheckScreenOut() const

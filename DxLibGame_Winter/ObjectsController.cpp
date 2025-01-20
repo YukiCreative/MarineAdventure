@@ -8,6 +8,7 @@
 #include "ObjectKind.h"
 #include "Boss.h"
 #include "Door.h"
+#include "MapSystem.h"
 
 ObjectsController::ObjectsController(Camera& camera, Player& player) :
 	m_playerRef(player),

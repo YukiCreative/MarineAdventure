@@ -29,8 +29,8 @@ struct ObjectAppearanceStatus
 
 	void IncreaseFrame() { ++frameDisappear; }
 
-	// スポーンしたときに実行してね
-	void Spawn() { frameDisappear = -spawnSpan; }
+	// デスポーンしたときに実行してね
+	void Despawn() { frameDisappear = -spawnSpan; }
 
 	bool CanSpawn() const
 	{
@@ -97,5 +97,9 @@ public:
 
 	// オブジェクト出現状況を取得
 	bool CanSpawnObject(const Vector2Int& mapPos) const;
+
+	// デスポーンしたときに呼ぶ
+	// やっぱこれObjectControllerに持たせるべきでは
+	void Despawned(const Vector2Int& mapPos);
 };
 

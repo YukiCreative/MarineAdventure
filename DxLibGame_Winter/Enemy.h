@@ -17,8 +17,11 @@ protected:
 	HitPoint m_hp;
 	std::shared_ptr<Physics> m_physics;
 	Player& m_playerRef;
+
+	Vector2Int m_baseMapPos;
 public:
 	Enemy(Player& player, Camera& camera, Vector2 spawnPos);
+	~Enemy();
 
 	/// <summary>
 	/// スクリーンの外かどうか

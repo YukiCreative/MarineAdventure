@@ -11,6 +11,7 @@ class HarmFish;
 class Player;
 class Camera;
 class GameObject;
+class MapSystem;
 
 /// <summary>
 /// シーンでこれをインスタンス化して
@@ -22,6 +23,7 @@ private:
 	// Enemyに渡すため
 	Player& m_playerRef;
 	Camera& m_cameraRef;
+	std::weak_ptr<MapSystem> m_mapSystem;
 
 	using ObjectList_t = std::list<std::shared_ptr<GameObject>>;
 	ObjectList_t m_objects;

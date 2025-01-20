@@ -140,6 +140,11 @@ bool MapSystem::CanSpawnObject(const Vector2Int& mapPos) const
 	return status.CanSpawn();
 }
 
+void MapSystem::Despawned(const Vector2Int& mapPos)
+{
+	m_isObjectsExist[mapPos.x + GetMapSize().x * mapPos.y].Despawn();
+}
+
 void MapSystem::MoveMap(Vector2 moveValue)
 {
 	// ‘Sˆõ‚ÌÀ•W‚ğ“™‚µ‚­‚¸‚ç‚µ‚Ä‚ ‚°‚é
