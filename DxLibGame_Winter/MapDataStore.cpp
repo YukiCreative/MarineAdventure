@@ -99,3 +99,13 @@ MapChipData MapDataStore::GetMapData(const Vector2Int& mapPos) const
 	}
 	return result;
 }
+
+ObjectKind MapDataStore::GetObjKind(const Vector2Int& mapPos) const
+{
+	return static_cast<ObjectKind>((*m_mapData)[static_cast<int>(MapLayerAttribute::kObjects)][mapPos.x + mapPos.y * m_fmfHeader.chiphWidth]);
+}
+
+ObjectKind MapDataStore::GetObjKind(const int& index) const
+{
+	return static_cast<ObjectKind>((*m_mapData)[static_cast<int>(MapLayerAttribute::kObjects)][index]);
+}

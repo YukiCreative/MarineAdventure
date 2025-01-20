@@ -59,5 +59,7 @@ public:
 	MapChipData GetMapData(const Vector2Int& mapPos) const;
 
 	Vector2Int GetMapSize() const { return Vector2Int(m_fmfHeader.mapWidth, m_fmfHeader.mapHeight); }
+	ObjectKind GetObjKind(const Vector2Int& mapPos) const;
+	ObjectKind GetObjKind(const int& index) const;
 };
 

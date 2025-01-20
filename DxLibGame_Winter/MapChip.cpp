@@ -25,7 +25,13 @@ void kMapChip::ResetMapData()
 	// 画像
 	m_chipImage->       SetGraph   (m_mapChipData.graphHandle);
 	m_backImage->       SetGraph   (m_mapChipData.backGraphHandle);
-	m_objectsController.SpawnObject(m_mapChipData.objKind, m_pos);
+
+	// もしこの位置のオブジェクトが出せるなら出す
+	if (m_system.CanSpawnObject(m_mapPos))
+	{
+		m_objectsController.SpawnObject(m_mapChipData.objKind, m_pos);
+	}
+
 	// 線分の当たり判定を設定する
 	// 周りのコライダーが有効でない->自分は有効
 	m_collider->SetIsLineValid(LineDir::Top,    !m_system.GetMapChipCollidable(Vector2Int(m_mapPos.x,     m_mapPos.y - 1))); // 上
