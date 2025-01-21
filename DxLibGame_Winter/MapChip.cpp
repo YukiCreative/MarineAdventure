@@ -29,7 +29,7 @@ void kMapChip::ResetMapData()
 	// もしこの位置のオブジェクトが出せるなら出す
 	if (m_objectsController.CanSpawnObject(m_mapPos))
 	{
-		m_objectsController.SpawnObject(m_mapChipData.objKind, m_pos);
+		m_objectsController.SpawnObject(m_mapChipData.objKind, m_pos, m_mapPos);
 	}
 
 	// 線分の当たり判定を設定する
@@ -135,12 +135,13 @@ void kMapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	m_backImage->Draw(drawPos);
-	m_chipImage->Draw(drawPos);
 
 	if (m_mapChipData.environment == MapConstants::Environment::kWater)
 	{
 		m_marineAnimation->Draw(drawPos);
 	}
+
+	m_chipImage->Draw(drawPos);
 
 #if _DEBUG
 	DrawPixel(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 0xff0000);

@@ -4,7 +4,7 @@
 #include "Camera.h"
 #include "Physics.h"
 #include "SceneController.h"
-#include "TestScene.h"
+#include "SceneGame.h"
 #include <cassert>
 #include "MapConstants.h"
 #include "BoxCollider.h"
@@ -117,7 +117,7 @@ void Boss::Death()
 
 void Boss::GameClear()
 {
-	std::shared_ptr<TestScene> gameScene = std::dynamic_pointer_cast<TestScene>(SceneController::GetInstance().CurrentScene());
+	std::shared_ptr<SceneGame> gameScene = std::dynamic_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
 	// nullptrならここで止まる
 	// static_castで止めてもいいが、こっちの方がエラーメッセージ出るし良いかも
 	assert(gameScene && "現在のシーンがゲームシーンではない");
@@ -136,8 +136,8 @@ void Boss::ChangeState(StateFunc_t nextState)
 	m_state = nextState;
 }
 
-Boss::Boss(ObjectsController& cont, Player& player, Camera& camera, Vector2 initPos) :
-	Enemy(cont, player, camera, initPos),
+Boss::Boss(ObjectsController& cont, Player& player, Camera& camera, const Vector2& initPos, const Vector2Int& baseMapPos) :
+	Enemy(cont, player, camera, initPos, baseMapPos),
 	m_stateFrameCount(0),
 	m_state(&Boss::Idle)
 {

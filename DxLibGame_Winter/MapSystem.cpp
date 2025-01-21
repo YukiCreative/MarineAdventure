@@ -16,7 +16,7 @@ MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string path) 
 	// マップデータを初期化
 	m_mapData = std::make_shared<MapDataStore>(path.c_str());
 
-	m_cont.ResetObjectSpawnStatus();
+	m_cont.ResetObjectSpawnStatus(*this);
 
 	// マップチップのメモリ確保
 	// マップの初期位置を設定
@@ -97,7 +97,7 @@ void MapSystem::ChangeMapData(const std::string& path)
 {
 	m_mapData->LoadMapData(path);
 
-	m_cont.ResetObjectSpawnStatus();
+	m_cont.ResetObjectSpawnStatus(*this);
 
 	// マップチップを再読み込み
 	// 別の関数に切り離してもいいかも

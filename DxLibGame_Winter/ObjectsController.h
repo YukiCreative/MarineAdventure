@@ -26,13 +26,22 @@ struct ObjectAppearanceStatus
 
 	void IncreaseFrame() { ++frameDisappear; }
 
+	void Spawn()
+	{
+		isExist = true;
+	}
+
 	// デスポーンしたときに実行してね
-	void Despawn() { frameDisappear = -spawnSpan; }
+	void Despawn() 
+	{
+		frameDisappear = -spawnSpan;
+		isExist = false;
+	}
 
 	bool CanSpawn() const
 	{
 		// 出現していなくて、消えてから十分に経過した
-		return !isExist && frameDisappear > 0;
+		return !isExist && frameDisappear >= 0;
 	}
 };
 
@@ -46,20 +55,20 @@ private:
 	// Enemyに渡すため
 	Player& m_playerRef;
 	Camera& m_cameraRef;
-	std::weak_ptr<MapSystem> m_mapSystem;
 
 	using ObjectList_t = std::list<std::shared_ptr<GameObject>>;
 	ObjectList_t m_objects;
 
 	// オブジェクトの生成を列挙体から連想できるように関数を紐づける
-	using ObjectFactory_t = std::function<std::shared_ptr<GameObject>(Vector2)>;
+	using ObjectFactory_t = std::function<std::shared_ptr<GameObject>(const Vector2& spawnPos, const Vector2Int& baseMapPos)>;
 	std::unordered_map<ObjectKind, ObjectFactory_t> m_factoryMap;
 
 	// スポーン操作関連
 	// 今のマップにあるオブジェクトの出現状況を記憶
 	std::vector<ObjectAppearanceStatus> m_isObjectsExist;
+	Vector2Int m_mapSize;
 public:
-	ObjectsController(Camera& camera, Player& player, std::weak_ptr<MapSystem> system);
+	ObjectsController(Camera& camera, Player& player);
 
 	void Update();
 	void Draw();
@@ -67,7 +76,7 @@ public:
 	/// <summary>
 	/// 種類と位置を指定してくれればこちらで生成いたします
 	/// </summary>
-	void SpawnObject(ObjectKind kind, Vector2 spawnPos);
+	void SpawnObject(const ObjectKind& kind, const Vector2& spawnPos, const Vector2Int& baseMapPos);
 	/// <summary>
 	/// インスタンス渡してもいいよ
 	/// </summary>
@@ -75,7 +84,8 @@ public:
 	
 	void ClearObjects();
 
-	void ResetObjectSpawnStatus();
+	// このクラスからアクセスしたい、MapSytemのメンバを使う処理というね
+	void ResetObjectSpawnStatus(MapSystem& system);
 	bool CanSpawnObject(const Vector2Int& mapPos) const;
 	void Despawned(const Vector2Int& mapPos);
 };

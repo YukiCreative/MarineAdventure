@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include <memory>
 #include "SceneTitle.h"
-#include "TestScene.h"
+#include "SceneGame.h"
 #include "SceneGameover.h"
 #include "ColliderTestScene.h"
 #include "ScenePause.h"
@@ -12,7 +12,7 @@
 SceneController::SceneController()
 {
 	m_factoryMap["Title"]    = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneTitle>       ());};
-	m_factoryMap["Game"]     = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<TestScene>        ());};
+	m_factoryMap["Game"]     = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGame>        ());};
 	m_factoryMap["Gameover"] = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGameover>    ());};
 	m_factoryMap["ColTest"]  = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<ColliderTestScene>());};
 	m_factoryMap["Pause"]    = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<ScenePause>       ());};

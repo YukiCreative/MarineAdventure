@@ -7,7 +7,7 @@
 #include "BackGround.h"
 #include "Camera.h"
 #include "ScreenFade.h"
-#include "TestScene.h"
+#include "SceneGame.h"
 #include "ButtonSystem.h"
 #include "ButtonGameStart.h"
 #include "ButtonQuitGame.h"

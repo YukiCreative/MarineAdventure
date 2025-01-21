@@ -187,8 +187,8 @@ void HarmFish::ChangeStateIdle()
 	m_chasePoint = 0;
 }
 
-HarmFish::HarmFish(ObjectsController& cont, Player& player, Camera& camera, Vector2 spawnPos) :
-	Enemy(cont, player, camera, spawnPos),
+HarmFish::HarmFish(ObjectsController& cont, Player& player, Camera& camera, const Vector2& initPos, const Vector2Int& baseMapPos) :
+	Enemy(cont, player, camera, initPos, baseMapPos),
 	m_state(&HarmFish::Idle),
 	m_stateFrameCount(0),
 	m_chasePoint(0)
@@ -237,8 +237,8 @@ void HarmFish::Draw() const
 	m_nowAnim->Draw(screenPos);
 #if _DEBUG
 	// ’ÇÕ”ÍˆÍ‚Ì•`‰æ
-	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), sqrt(kChasePointIncreaseThreshold), 0xffffff, false);
-	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), sqrt(kChasePointDecreaseThreshold), 0xffffff, false);
+	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(sqrt(kChasePointIncreaseThreshold)), 0xffffff, false);
+	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(sqrt(kChasePointDecreaseThreshold)), 0xffffff, false);
 	m_collider->DrawColliderRange_Debug(screenPos);
 	DrawFormatString(0, 0, 0xffffff, "¡‚Ì’Ç”ö•]‰¿’l:%d\n", m_chasePoint);
 #endif

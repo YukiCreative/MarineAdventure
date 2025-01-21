@@ -188,7 +188,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundStore.cpp" />
-    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="VolumeLoader.cpp" />
   </ItemGroup>
@@ -247,7 +247,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundStore.h" />
-    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="SceneGame.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="VolumeLoader.h" />

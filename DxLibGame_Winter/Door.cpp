@@ -1,6 +1,6 @@
 #include "Door.h"
 #include "Input.h"
-#include "TestScene.h"
+#include "SceneGame.h"
 #include "SceneController.h"
 #include <cassert>
 #include "Image.h"
@@ -47,7 +47,7 @@ bool Door::CheckInDoor()
 void Door::In()
 {
 	// ゲームシーンに指示を出す
-	std::shared_ptr<TestScene> gameScene = std::dynamic_pointer_cast<TestScene>(SceneController::GetInstance().CurrentScene());
+	std::shared_ptr<SceneGame> gameScene = std::dynamic_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
 	assert(gameScene && "ダウンキャストに失敗");
 	DoorStatus mystatus = s_doors[m_myKind];
 	gameScene->ChangeMapWithFadeOut(mystatus.path, mystatus.appearPos);

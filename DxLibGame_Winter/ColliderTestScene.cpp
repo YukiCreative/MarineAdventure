@@ -6,7 +6,7 @@
 #include "game.h"
 #include "Time.h"
 #include "Input.h"
-#include "TestScene.h"
+#include "SceneGame.h"
 #include "SceneController.h"
 
 void ColliderTestScene::HitKansuu()
@@ -90,7 +90,7 @@ void ColliderTestScene::NormalUpdate()
 void ColliderTestScene::Draw() const
 {
 	DrawFormatString(0, 0, color, "FPS=%f", Time::GetInstance().FPS());
-	DrawString(0, 15, "ColliderTestScene", color);
+	DrawString(0, 15, "ColliderSceneGame", color);
 	Vector2 nya = boxCol->GetPos();
 	DrawFormatString(0, 30, color, "コライダーが見てるBox1の位x%f:y%f", nya.x, nya.y);
 	Vector2 nyai = circleCol->GetPos();

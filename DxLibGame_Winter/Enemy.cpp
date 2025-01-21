@@ -12,22 +12,15 @@ namespace
 	constexpr int kOffset = 40;
 }
 
-Enemy::Enemy(ObjectsController& cont, Player& player, Camera& camera, Vector2 spawnPos) :
-	GameObject(spawnPos),
+Enemy::Enemy(ObjectsController& cont, Player& player, Camera& camera, const Vector2& spawnPos, const Vector2Int& baseMapPos) :
+	GameObject(spawnPos, baseMapPos),
 	m_camera(camera),
 	m_hp(0),
 	m_playerRef(player),
 	// この辺は派生クラス側で入れてもらおうかな
 	m_physics(nullptr),
-	m_baseMapPos(spawnPos.x / MapConstants::kChipSize, spawnPos.y / MapConstants::kChipSize),
 	m_cont(cont)
 {
-}
-
-Enemy::~Enemy()
-{
-	// デスポーンしたことをControllerに報告してから死ぬ
-	m_cont.Despawned(m_baseMapPos);
 }
 
 bool Enemy::CheckScreenOut() const

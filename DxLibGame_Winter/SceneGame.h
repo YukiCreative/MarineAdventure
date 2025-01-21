@@ -12,7 +12,7 @@ class ImageObject;
 class ScreenFade;
 
 // プロトタイプ開発を共にするシーン
-class TestScene : public Scene
+class SceneGame : public Scene
 {
 private:
 	int m_frameCount;
@@ -36,8 +36,8 @@ protected:
 	void NormalUpdate() override;
 
 public:
-	TestScene();
-	~TestScene();
+	SceneGame();
+	~SceneGame();
 
 	void GameClear();
 	void GameOver();

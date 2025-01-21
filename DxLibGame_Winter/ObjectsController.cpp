@@ -30,24 +30,22 @@ namespace
 	};
 }
 
-ObjectsController::ObjectsController(Camera& camera, Player& player, std::weak_ptr<MapSystem> system) :
+ObjectsController::ObjectsController(Camera& camera, Player& player) :
 	m_playerRef(player),
 	m_cameraRef(camera)
 {
-	m_mapSystem = system;
-
 	// mapの設定
 	// functionってすげー
-	m_factoryMap[ObjectKind::kHarmFish] = [&](Vector2 spawnPos) {return std::make_shared<HarmFish>(*this, m_playerRef, m_cameraRef, spawnPos); };
-	m_factoryMap[ObjectKind::kBoss]     = [&](Vector2 spawnPos) {return std::make_shared<Boss>    (*this, m_playerRef, m_cameraRef, spawnPos); };
-	m_factoryMap[ObjectKind::kDoor1]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor1)); };
-	m_factoryMap[ObjectKind::kDoor2]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor2)); };
-	m_factoryMap[ObjectKind::kDoor3]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor3)); };
-	m_factoryMap[ObjectKind::kDoor4]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor4)); };
-	m_factoryMap[ObjectKind::kDoor5]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor5)); };
-	m_factoryMap[ObjectKind::kDoor6]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor6)); };
-	m_factoryMap[ObjectKind::kDoor7]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor7)); };
-	m_factoryMap[ObjectKind::kDoor8]    = [&](Vector2 spawnPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor8)); };
+	m_factoryMap[ObjectKind::kHarmFish] = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<HarmFish>(*this, m_playerRef, m_cameraRef, spawnPos, baseMapPos); };
+	m_factoryMap[ObjectKind::kBoss]     = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Boss>    (*this, m_playerRef, m_cameraRef, spawnPos, baseMapPos); };
+	m_factoryMap[ObjectKind::kDoor1]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor1)); };
+	m_factoryMap[ObjectKind::kDoor2]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor2)); };
+	m_factoryMap[ObjectKind::kDoor3]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor3)); };
+	m_factoryMap[ObjectKind::kDoor4]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor4)); };
+	m_factoryMap[ObjectKind::kDoor5]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor5)); };
+	m_factoryMap[ObjectKind::kDoor6]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor6)); };
+	m_factoryMap[ObjectKind::kDoor7]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor7)); };
+	m_factoryMap[ObjectKind::kDoor8]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor8)); };
 }
 
 void ObjectsController::Update()
@@ -59,11 +57,15 @@ void ObjectsController::Update()
 	for (auto& object : m_objects)
 	{
 		object->Update();
-		// この敵がまだ生きてたらリストに入れとく
+		// このオブジェクトがまだ生きてたらリストに入れとく
 		if (!object->IsDeleted())
 		{
 			// ポインタをコピー
-			aliveObjects.push_back(object);
+			aliveObjects.emplace_back(object);
+		}
+		else
+		{
+			Despawned(object->GetBaseMapPos());
 		}
 	}
 	// はみ出た要素は自動的に削除される
@@ -84,10 +86,12 @@ void ObjectsController::Draw()
 	}
 }
 
-void ObjectsController::SpawnObject(ObjectKind kind, Vector2 spawnPos)
+void ObjectsController::SpawnObject(const ObjectKind& kind, const Vector2& spawnPos, const Vector2Int& baseMapPos)
 {
 	if (kind == ObjectKind::kEmpty) return;
-	m_objects.push_back(m_factoryMap[kind](spawnPos));
+	m_objects.push_back(m_factoryMap[kind](spawnPos, baseMapPos));
+	// 出現したことを記憶したい
+	m_isObjectsExist[baseMapPos.x + baseMapPos.y * m_mapSize.x].Spawn();
 }
 
 void ObjectsController::SpawnObject(std::shared_ptr<GameObject> objectInstance)
@@ -104,24 +108,25 @@ bool ObjectsController::CanSpawnObject(const Vector2Int& mapPos) const
 {
 	// 条件
 	// そいつが今出現していなくて、かつ消えてから再出現可能な秒数経っていたら
-	ObjectAppearanceStatus status = m_isObjectsExist[mapPos.x + m_mapSystem.lock()->GetMapSize().x * mapPos.y];
+	ObjectAppearanceStatus status = m_isObjectsExist[mapPos.x + m_mapSize.x * mapPos.y];
 	return status.CanSpawn();
 }
 
 void ObjectsController::Despawned(const Vector2Int& mapPos)
 {
-	m_isObjectsExist[mapPos.x + m_mapSystem.lock()->GetMapSize().x * mapPos.y].Despawn();
+	m_isObjectsExist[mapPos.x + m_mapSize.x * mapPos.y].Despawn();
 }
 
-void ObjectsController::ResetObjectSpawnStatus()
+void ObjectsController::ResetObjectSpawnStatus(MapSystem& system)
 {
+	m_mapSize = system.GetMapSize();
 	// マップチップの数だけ初期化
-	m_isObjectsExist.resize(m_mapSystem.lock()->GetMapSize().x * m_mapSystem.lock()->GetMapSize().y);
+	m_isObjectsExist.resize(m_mapSize.x * m_mapSize.y);
 
 	// 範囲for使えなかった
 	for (int i = 0; i < m_isObjectsExist.size(); ++i)
 	{
-		m_isObjectsExist[i] = ObjectAppearanceStatus(m_mapSystem.lock()->GetObjKind(i));
+		m_isObjectsExist[i] = ObjectAppearanceStatus(system.GetObjKind(i));
 	}
 }
 

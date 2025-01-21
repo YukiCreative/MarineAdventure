@@ -19,11 +19,8 @@ protected:
 	std::shared_ptr<Physics> m_physics;
 	Player& m_playerRef;
 	ObjectsController& m_cont;
-
-	Vector2Int m_baseMapPos;
 public:
-	Enemy(ObjectsController& cont, Player& player, Camera& camera, Vector2 spawnPos);
-	~Enemy();
+	Enemy(ObjectsController& cont, Player& player, Camera& camera, const Vector2& spawnPos, const Vector2Int& baseMapPos);
 
 	/// <summary>
 	/// スクリーンの外かどうか

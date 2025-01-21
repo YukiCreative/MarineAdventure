@@ -11,7 +11,7 @@
 #include "SceneController.h"
 #include "SceneGameover.h"
 #include "ScreenFade.h"
-#include "TestScene.h"
+#include "SceneGame.h"
 #include "Time.h"
 #include <DxLib.h>
 #include "Music.h"
@@ -25,7 +25,7 @@ namespace
 	const std::string kBackGroundPass = "Marine.jpg";
 }
 
-void TestScene::MapChangeUpdate()
+void SceneGame::MapChangeUpdate()
 {
 	m_fade.Update();
 
@@ -37,14 +37,14 @@ void TestScene::MapChangeUpdate()
 	m_isMapChanging = false;
 }
 
-TestScene::TestScene() :
+SceneGame::SceneGame() :
 	m_frameCount(0),
 	m_nextMapPath(),
 	m_playerTransportPos(),
 	m_isMapChanging(false)
 {
 	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos);
-	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player, m_map);
+	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kMapDataPass);
 	m_backGround = std::make_shared<ImageObject>      (*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
 
@@ -55,23 +55,23 @@ TestScene::TestScene() :
 	m_backGround->ExpandGtaph(2.0f);
 }
 
-TestScene::~TestScene()
+SceneGame::~SceneGame()
 {
 }
 
-void TestScene::GameClear()
+void SceneGame::GameClear()
 {
 	SceneChangeWithFadeOut("Clear");
 }
 
-void TestScene::GameOver()
+void SceneGame::GameOver()
 {
 	// ここでポーズを開いた(フェードの色が変わっている)想定をしないといけないのが不服
 	m_fade.SetColor(0x000000);
 	SceneChangeWithFadeOut("Gameover", 120);
 }
 
-void TestScene::ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos)
+void SceneGame::ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos)
 {
 	// 与えられた情報を覚えておく
 	m_nextMapPath = path;
@@ -85,13 +85,13 @@ void TestScene::ChangeMapWithFadeOut(const std::string& path, const Vector2& pla
 	m_isMapChanging = true;
 }
 
-void TestScene::ChangeMap(const std::string& path)
+void SceneGame::ChangeMap(const std::string& path)
 {
 	m_map->ChangeMapData(path);
 	m_camera->SetMapSize(m_map->GetMapSize());
 }
 
-void TestScene::ChangeMap(const std::string& path, const Vector2& playerTransferPos)
+void SceneGame::ChangeMap(const std::string& path, const Vector2& playerTransferPos)
 {
 	// 別のfmfファイルを読み込めばいいんやな
 	m_map->ChangeMapData(path);
@@ -100,7 +100,7 @@ void TestScene::ChangeMap(const std::string& path, const Vector2& playerTransfer
 	m_player->Teleportation(playerTransferPos);
 }
 
-void TestScene::Entry()
+void SceneGame::Entry()
 {
 	// 主にフェード
 	m_fade.Fade(60, 0);
@@ -109,7 +109,7 @@ void TestScene::Entry()
 	Music::GetInstance().SetVolume(255);
 }
 
-void TestScene::NormalUpdate()
+void SceneGame::NormalUpdate()
 {
 	// マップ遷移中ならそっちの処理をする
 	if (m_isMapChanging)
@@ -142,13 +142,13 @@ void TestScene::NormalUpdate()
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		//SceneChangeWithFadeOut("Clear");
-		SceneChangeWithFadeOut("Gameover");
-		//ChangeMap("Data/MapData/TestMapData32x16.fmf");
+		//SceneChangeWithFadeOut("Gameover");
+		ChangeMapWithFadeOut("Data/MapData/TestMapGroundStage.fmf", Vector2(-100, 0));
 		return;
 	}
 }
 
-void TestScene::Draw() const
+void SceneGame::Draw() const
 {
 	m_backGround->Draw();
 	m_map->Draw();
@@ -157,7 +157,7 @@ void TestScene::Draw() const
 	m_fade.Draw();
 
 #if _DEBUG
-	DrawFormatString(0, 0, 0x999999, "TestScene 現在%dフレーム経過中", m_frameCount);
+	DrawFormatString(0, 0, 0x999999, "SceneGame 現在%dフレーム経過中", m_frameCount);
 	DrawFormatString(0, 60, 0x999999, "%fFPS", Time::FPS());
 	DrawFormatString(0, 75, 0x999999, "deltaTime:%f", Time::DeltaTime());
 	DrawFormatString(0, 90, 0x999999, "Cameraのワールド座標:x,%f y,%f", m_camera->GetPos().x, m_camera->GetPos().y);

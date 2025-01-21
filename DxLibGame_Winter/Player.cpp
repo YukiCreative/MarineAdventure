@@ -12,7 +12,7 @@
 #include "SceneController.h"
 #include "Animation.h"
 #include "ImageStore.h"
-#include "TestScene.h"
+#include "SceneGame.h"
 #include "SoundManager.h"
 #include "Sound.h"
 
@@ -56,7 +56,7 @@ namespace
 
 void Player::GameOver()
 {
-	std::shared_ptr<TestScene> gameScene = std::dynamic_pointer_cast<TestScene>(SceneController::GetInstance().CurrentScene());
+	std::shared_ptr<SceneGame> gameScene = std::dynamic_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
 	assert(gameScene && "ゲームシーンに動的キャストできなかった");
 	gameScene->GameOver();
 }
