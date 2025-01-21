@@ -1,17 +1,15 @@
 #include "Music.h"
 #include <DxLib.h>
 #include <algorithm>
-
-namespace
-{
-	constexpr int kVolumeMin = 0;
-	constexpr int kVolumeMax = 255;
-}
+#include "VolumeLoader.h"
 
 Music::Music() :
 	m_playType(DX_PLAYTYPE_LOOP),
-	m_nowPlayingFilePath()
+	m_nowPlayingFilePath(),
+	m_volume(255)
 {
+	m_volume = VolumeLoader::LoadMusicVolume();
+	SetVolume(m_volume);
 }
 
 Music& Music::GetInstance()
@@ -27,6 +25,7 @@ void Music::Play(const std::string& path)
 
 	m_nowPlayingFilePath = path;
 	PlayMusic(path.c_str(), m_playType);
+	SetVolumeMusic(m_volume.value);
 }
 
 void Music::Loop(const bool& loopOrNot)
@@ -34,10 +33,10 @@ void Music::Loop(const bool& loopOrNot)
 	m_playType = loopOrNot ? DX_PLAYTYPE_LOOP : DX_PLAYTYPE_BACK;
 }
 
-void Music::SetVolume(const int& volume)
+void Music::SetVolume(const Volume& volume)
 {
-	 int vol = std::clamp(volume, kVolumeMin, kVolumeMax);
-	 SetVolumeMusic(vol);
+	m_volume = volume;
+	SetVolumeMusic(volume.value);
 }
 
 bool Music::IsPlaying() const

@@ -239,7 +239,7 @@ void HarmFish::Draw() const
 	// ’ÇÕ”ÍˆÍ‚Ì•`‰æ
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(sqrt(kChasePointIncreaseThreshold)), 0xffffff, false);
 	DrawCircle(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(sqrt(kChasePointDecreaseThreshold)), 0xffffff, false);
-	m_collider->DrawColliderRange_Debug(screenPos);
+	m_collider->DrawColliderRange_Debug(m_camera.DrawOffset());
 	DrawFormatString(0, 0, 0xffffff, "¡‚Ì’Ç”ö•]‰¿’l:%d\n", m_chasePoint);
 #endif
 }

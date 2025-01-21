@@ -4,14 +4,6 @@
 #include "SceneController.h"
 #include "Scene.h"
 
-GameEffect::GameEffect(const std::shared_ptr<Animation>& animInstance, const Vector2& initPos, const Vector2& offset) :
-	GameObject(initPos),
-	m_isLoop(false),
-	m_animation(animInstance),
-	m_offset()
-{
-}
-
 GameEffect::GameEffect(const std::string& filename, const Vector2Int& oneImageSize, const int& playSpeed, const Vector2& initPos, const Vector2& offset) :
 	GameObject(initPos),
 	m_isLoop(false),

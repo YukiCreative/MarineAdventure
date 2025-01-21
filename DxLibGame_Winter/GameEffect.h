@@ -14,7 +14,6 @@ private:
 	bool    m_isLoop;
 	Vector2 m_offset;
 public:
-	GameEffect(const std::shared_ptr<Animation>& animInstance, const Vector2& initPos, const Vector2& offset = Vector2::Zero());
 	GameEffect(const std::string& filename, const Vector2Int& oneImageSize, const int& playSpeed, const Vector2& initPos, const Vector2& offset = Vector2::Zero());
 
 	void Update() override;
