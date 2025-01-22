@@ -29,7 +29,7 @@ private:
 	// ê∂Ç€Ç©ÇÁweak_ptrÇï‘Ç∑
 	std::weak_ptr<Button> GetWeakPtr(Button* rawPtr);
 
-	bool CanMoveFocus(Vector2 inputAxis);
+	bool CanMoveFocus(const Vector2& inputAxis);
 public:
 	ButtonSystem();
 	~ButtonSystem();

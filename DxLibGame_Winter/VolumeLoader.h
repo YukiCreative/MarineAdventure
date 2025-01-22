@@ -46,7 +46,7 @@ private:
 	void ResetVolumeConfig();
 public:
 	// 外部に保存されている音量を読み込む
-	Volume LoadVolume();
+	void LoadVolume();
 
 	// マスター音量を考慮したいい感じの音量を効果音やBGMに与える
 	Volume SoundVolume() const;

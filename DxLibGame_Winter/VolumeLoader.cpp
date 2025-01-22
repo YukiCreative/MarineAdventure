@@ -20,7 +20,7 @@ void VolumeLoader::ResetVolumeConfig()
 	}
 }
 
-Volume VolumeLoader::LoadVolume()
+void VolumeLoader::LoadVolume()
 {
 	std::ifstream file(kFilePath);
 	assert(file && "ファイルが開けてない");
@@ -37,9 +37,6 @@ Volume VolumeLoader::LoadVolume()
 
 		volume = temp;
 	}
-
-	//return Volume();
-	return 255;
 }
 
 Volume VolumeLoader::SoundVolume() const

@@ -1,14 +1,14 @@
-#include "ObjectsController.h"
-#include "Enemy.h"
-#include <vector>
-#include <cassert>
-#include "HarmFish.h"
-#include "Player.h"
-#include "Camera.h"
-#include "ObjectKind.h"
 #include "Boss.h"
+#include "Camera.h"
 #include "Door.h"
+#include "Enemy.h"
+#include "HarmFish.h"
 #include "MapSystem.h"
+#include "ObjectKind.h"
+#include "ObjectsController.h"
+#include "Player.h"
+#include <cassert>
+#include <vector>
 
 namespace
 {

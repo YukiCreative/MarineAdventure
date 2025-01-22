@@ -83,4 +83,8 @@ void Door::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	m_image->Draw(drawPos);
+
+#if _DEBUG
+	m_collider->DrawColliderRange_Debug(m_camera.DrawOffset());
+#endif
 }

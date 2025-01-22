@@ -67,10 +67,13 @@ std::weak_ptr<Button> ButtonSystem::GetWeakPtr(Button* rawPtr)
 		}
 	}
 
-	assert(false && "ボタン一覧にそんなボタンがなかったから追加していないのでは？");
+	assert(false, "ボタン一覧にそんなボタンがなかったから追加していないのでは？");
+
+	// 警告を消したかった　そもコードが悪いのは言うまでもない
+	return m_buttons.front();
 }
 
-bool ButtonSystem::CanMoveFocus(Vector2 inputAxis)
+bool ButtonSystem::CanMoveFocus(const Vector2& inputAxis)
 {
 	// 条件
 	// 　前の有効な入力方向と同じ方向（入力なし以外）に入力していたら、

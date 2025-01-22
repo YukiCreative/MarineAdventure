@@ -1,14 +1,16 @@
 #include "Music.h"
-#include <DxLib.h>
-#include <algorithm>
 #include "VolumeLoader.h"
+#include <algorithm>
+#include <DxLib.h>
 
 Music::Music() :
 	m_playType(DX_PLAYTYPE_LOOP),
 	m_nowPlayingFilePath(),
 	m_volume(255)
 {
-	m_volume = VolumeLoader::LoadMusicVolume();
+	// staticにすべきかインスタンス化すべきか
+	VolumeLoader().LoadVolume();
+
 	SetVolume(m_volume);
 }
 
