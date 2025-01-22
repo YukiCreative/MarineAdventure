@@ -67,7 +67,7 @@ std::weak_ptr<Button> ButtonSystem::GetWeakPtr(Button* rawPtr)
 		}
 	}
 
-	assert(false, "ボタン一覧にそんなボタンがなかったから追加していないのでは？");
+	assert(false && "ボタン一覧にそんなボタンがなかったから追加していないのでは？");
 
 	// 警告を消したかった　そもコードが悪いのは言うまでもない
 	return m_buttons.front();
