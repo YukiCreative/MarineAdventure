@@ -7,6 +7,7 @@
 #include "ObjectKind.h"
 #include "ObjectsController.h"
 #include "Player.h"
+#include "GameEffect.h"
 #include <cassert>
 #include <vector>
 

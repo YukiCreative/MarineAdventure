@@ -16,6 +16,7 @@ namespace
 	constexpr float kImageExRate = 80.0f / 32.0f;
 
 	constexpr float kDoorColRadius = 30.0f;
+	const Vector2 kDoorAppearanceOffset(0, -32);
 
 	// 座標
 	const Vector2 kTutoToMap1(500, 0);
@@ -44,7 +45,7 @@ bool Door::CheckInDoor()
 	return true;
 }
 
-void Door::In()
+void Door::In() const
 {
 	// ゲームシーンに指示を出す
 	std::shared_ptr<SceneGame> gameScene = std::dynamic_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
@@ -64,6 +65,7 @@ Door::Door(Player& player, Camera& camera, const Vector2& initPos, const int& ma
 	m_collider = std::make_shared<CircleCollider>(m_pos, kDoorColRadius);
 
 	m_image->SetExRate(kImageExRate);
+	m_image->SetOffset(kDoorAppearanceOffset);
 }
 
 void Door::Update()

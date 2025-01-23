@@ -24,4 +24,3 @@ public:
 	void SetFollowGameObject(std::shared_ptr<GameObject> object) { m_followGameObject = object; }
 	void ResetFollowObject() { m_followGameObject.reset(); }
 };
-

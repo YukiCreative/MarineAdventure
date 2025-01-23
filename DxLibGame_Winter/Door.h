@@ -50,7 +50,7 @@ private:
 	Player& m_player;
 
 	bool CheckInDoor();
-	void In();
+	void In() const;
 public:
 	/// <param name="mapPartsNum">PratinumÇ≈ê›íËÇ∑ÇÈ</param>
 	Door(Player& player, Camera& camera, const Vector2& initPos, const int& mapPartsNum);

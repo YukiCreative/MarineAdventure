@@ -1,17 +1,18 @@
 #pragma once
-#include <memory>
-#include <vector>
-#include <list>
-#include <unordered_map>
-#include "Vector2.h"
 #include "ObjectKind.h"
+#include "Vector2.h"
 #include <functional>
+#include <list>
+#include <memory>
+#include <unordered_map>
+#include <vector>
 
 class HarmFish;
 class Player;
 class Camera;
 class GameObject;
 class MapSystem;
+class GameEffect;
 
 struct ObjectAppearanceStatus
 {
