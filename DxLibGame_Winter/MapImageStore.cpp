@@ -5,15 +5,15 @@
 
 namespace
 {
-	constexpr int kChipSize = 16;
+	constexpr int kChipSize      = 16;
 	// ŒJ‚è•Ô‚µˆ—‚µ‚Ä‚Ù‚µ‚¢”‚ğ’è”‚Å‘‚«‚Ü‚·
-	constexpr int kWidthChipNum = 12;
-	constexpr int kHeightChipNum = 14;
+	constexpr int kWidthChipNum  = 16;
+	constexpr int kHeightChipNum = 16;
 
-	constexpr int kBackImageWidth = 4;
+	constexpr int kBackImageWidth  = 4;
 	constexpr int kBackImageHeight = 4;
 
-	const std::string kMapImagePath = "MapChip.png";
+	const std::string kMapImagePath  = "MapChip.png";
 	const std::string kBackImagePath = "BackImageMapParts.png";
 }
 

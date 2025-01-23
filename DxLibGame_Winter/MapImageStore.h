@@ -1,6 +1,11 @@
 #pragma once
 #include <array>
 
+namespace
+{
+	constexpr int kImageNum = 256;
+}
+
 /// <summary>
 /// マップチップの画像を一括で読み込んで管理するシングルトンクラス
 /// </summary>
@@ -13,7 +18,7 @@ private:
 	/// <summary>
 	/// マップチップのハンドルを集める
 	/// </summary>
-	std::array<int, 168> m_imageArray = {};
+	std::array<int, kImageNum> m_imageArray = {};
 	/// <summary>
 	/// マップチップの元
 	/// </summary>
