@@ -10,7 +10,6 @@
 
 class kMapChip;
 class Player;
-class Camera;
 class ObjectsController;
 
 using MapArray_t = std::array<std::shared_ptr<kMapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;

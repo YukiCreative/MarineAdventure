@@ -22,14 +22,14 @@ private:
 	std::shared_ptr<ButtonNoFocus> m_noFocus;
 	// 同じ方向に入力し続けたら動くアレのタイマー
 	int m_cursorMoveTimer;
-	Vector2Int m_inputDirBeforeFrame;
+	Vector2Int m_inputDirLastMove;
 	Vector2 m_inputAxisBeforeFrame;
 
 	void MoveFocus(Vector2 inputAxis);
 	// 生ぽからweak_ptrを返す
 	std::weak_ptr<Button> GetWeakPtr(Button* rawPtr);
 
-	bool CanMoveFocus(const Vector2& inputAxis);
+	bool CanMoveFocus(const Vector2& inputAxis) const;
 public:
 	ButtonSystem();
 	~ButtonSystem();

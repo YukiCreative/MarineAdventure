@@ -17,6 +17,7 @@ namespace
 {
 	constexpr int kStartButtonInitPosY = Game::kScreenHalfHeight + 200;
 	constexpr int kButtonYOffset = 100;
+	const Vector2 kInitTitleLogoPos(0, -50);
 	// íÜêSÇ©ÇÁÇæÇÒÇæÇÒâ∫Ç…Ç∏ÇÍÇƒÇ¢Ç≠
 	const Vector2 kInitStartButtonPos(Game::kScreenHalfWidth, kStartButtonInitPosY);
 	const Vector2 kInitQuitButtonPos(kInitStartButtonPos.x, kInitStartButtonPos.y + kButtonYOffset);
@@ -31,10 +32,14 @@ void SceneTitle::ButtonInit()
 	std::shared_ptr<ButtonGameStart> buttonGameStart = std::make_shared<ButtonGameStart>(kInitStartButtonPos, *this);
 	std::shared_ptr<ButtonQuitGame>  buttonQuitGame  = std::make_shared<ButtonQuitGame> (kInitQuitButtonPos);
 
-	buttonGameStart->SetUpButton  (buttonQuitGame);
-	buttonGameStart->SetDownButton(buttonQuitGame);
-	buttonQuitGame ->SetUpButton  (buttonGameStart);
-	buttonQuitGame ->SetDownButton(buttonGameStart);
+	//buttonGameStart->SetUpButton  (buttonQuitGame);
+	//buttonGameStart->SetDownButton(buttonQuitGame);
+	//buttonQuitGame ->SetUpButton  (buttonGameStart);
+	//buttonQuitGame ->SetDownButton(buttonGameStart);
+	buttonGameStart->SetRightButton  (buttonQuitGame);
+	buttonGameStart->SetLeftButton(buttonQuitGame);
+	buttonQuitGame ->SetRightButton  (buttonGameStart);
+	buttonQuitGame ->SetLeftButton(buttonGameStart);
 
 	m_buttonSystem->AddButton(buttonGameStart);
 	m_buttonSystem->AddButton(buttonQuitGame);
@@ -45,7 +50,7 @@ void SceneTitle::ButtonInit()
 SceneTitle::SceneTitle()
 {
 	m_backGround = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBGPath);
-	m_titleLogo  = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kLogoPath);
+	m_titleLogo  = std::make_shared<ImageObject>(*m_camera, kInitTitleLogoPos, kLogoPath);
 
 	ButtonInit();
 }

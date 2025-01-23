@@ -259,6 +259,7 @@ public:
 
 	// X正方向を始線とした角度
 	// Yが下向き正なので時計回りが正の角度になる
+	// ゼロベクトルが0度になるのは仕様
 	float Angle() const
 	{
 		float rad = atan2(y, x);
@@ -271,7 +272,7 @@ public:
 
 	// 引数に入れられたベクトルとのなす角を出す(度数)
 	// 時計回りがプラス、反時計回りがマイナス
-	float RerativeAngle(Vector2 other) const
+	float RerativeAngle(const Vector2& other) const
 	{
 		float myDeg = this->Angle();
 		float otherDeg = other.Angle();
@@ -329,6 +330,11 @@ struct Vector2Int
 
 	// Vector2への変換関数
 	operator Vector2()
+	{
+		return Vector2(static_cast<float>(x), static_cast<float>(y));
+	}
+
+	operator const Vector2() const
 	{
 		return Vector2(static_cast<float>(x), static_cast<float>(y));
 	}

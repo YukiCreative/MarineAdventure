@@ -99,6 +99,9 @@ void Input::Update()
         inputAxis *= 1000;
     }
 
+    // ここで前フレームの入力を覚えておく
+	m_beforeInputAxis = m_inputAxis;
+    // そして更新
     m_inputAxis.x = static_cast<float>(inputAxis.x);
     m_inputAxis.y = static_cast<float>(inputAxis.y);
 }
@@ -154,4 +157,9 @@ bool Input::IsPressed(std::string key) const
 Vector2 Input::GetInputAxis() const
 {
     return m_inputAxis;
+}
+
+Vector2 Input::GetBeforeInputAxis() const
+{
+    return m_beforeInputAxis;
 }

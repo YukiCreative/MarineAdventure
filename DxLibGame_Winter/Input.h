@@ -39,6 +39,7 @@ private:
 	KeyInput m_beforeKeyInput;
 
 	Vector2 m_inputAxis;
+	Vector2 m_beforeInputAxis;
 	// イベントキーと入力値の相対表
 	std::map<std::string, std::vector<Peripheral>> m_inputEvent;
 
@@ -65,4 +66,5 @@ public:
 	bool IsPressed(std::string key) const;
 
 	Vector2 GetInputAxis() const;
+	Vector2 GetBeforeInputAxis() const;
 };
