@@ -1,4 +1,4 @@
-#include "BackGround.h"
+#include "ImageObject.h"
 #include "Image.h"
 #include <DxLib.h>
 #include "Vector2.h"
@@ -14,9 +14,6 @@ ImageObject::ImageObject(Camera& camera, const Vector2& initPos, const std::stri
 
 void ImageObject::Update()
 {
-	// ˆÚ“®
-	m_pos += m_velocity;
-	m_velocity = Vector2::Zero();
 }
 
 void ImageObject::Draw() const

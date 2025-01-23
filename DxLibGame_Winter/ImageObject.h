@@ -13,15 +13,13 @@ class ImageObject : public GameObject
 private:
 	std::shared_ptr<Image> m_image;
 	Camera& m_camera;
-	// 1ƒtƒŒ[ƒ€‚Ì’†‚ÅˆÚ“®—Ê‚ğ‹L‰¯
-	Vector2 m_velocity;
 public:
 	ImageObject(Camera& camera, const Vector2& initPos, const std::string& path);
 
 	void Update() override;
 	void Draw() const override;
 
-	void Move(Vector2 amount) { m_velocity += amount; };
+	void Move(Vector2 amount) { m_pos += amount; };
 	// Image‚ÌŠÖ”‚ğ‚»‚Ì‚Ü‚Üˆø‚«Œp‚®
 	void SetGraph(const int& handle);
 	void SetGraph(const std::string& path);

@@ -55,3 +55,8 @@ void ButtonReturnToTitleFromGameover::OnPressed()
 	// ‚È ‚ª ‚¢
 	std::static_pointer_cast<SceneGameover>(SceneController::GetInstance().CurrentScene())->ReturnToTitle();
 }
+
+void ButtonReturnToTitleFromGameover::SetBlendingMode(const int& mode, const int& param)
+{
+	m_image->SetImageBlendMode(mode, param);
+}

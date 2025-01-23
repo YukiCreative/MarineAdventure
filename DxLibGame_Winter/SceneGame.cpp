@@ -1,4 +1,4 @@
-#include "BackGround.h"
+#include "ImageObject.h"
 #include "Camera.h"
 #include "ColliderTestScene.h"
 #include "game.h"

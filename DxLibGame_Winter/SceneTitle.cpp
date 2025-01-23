@@ -4,7 +4,7 @@
 #include <cassert>
 #include "game.h"
 #include <memory>
-#include "BackGround.h"
+#include "ImageObject.h"
 #include "Camera.h"
 #include "ScreenFade.h"
 #include "SceneGame.h"

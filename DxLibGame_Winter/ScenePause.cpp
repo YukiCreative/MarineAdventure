@@ -1,6 +1,6 @@
 #include "ScenePause.h"
 #include "ScreenFade.h"
-#include "BackGround.h"
+#include "ImageObject.h"
 #include "Camera.h"
 #include <DxLib.h>
 #include "Input.h"

@@ -145,7 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -164,7 +164,6 @@
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameEffect.cpp" />
-    <ClCompile Include="GameoverText.cpp" />
     <ClCompile Include="HarmFish.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageStore.cpp" />
@@ -196,7 +195,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="BackGround.h" />
+    <ClInclude Include="ImageObject.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Button.h" />
@@ -219,7 +218,6 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="GameEffect.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameoverText.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="HarmFish.h" />
     <ClInclude Include="HitPoint.h" />

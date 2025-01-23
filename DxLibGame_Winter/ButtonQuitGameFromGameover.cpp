@@ -54,3 +54,8 @@ void ButtonQuitGameFromGameover::OnPressed()
 	// ƒQ[ƒ€‚ðŽ~‚ß‚é
 	Application::GetInstance().Quit();
 }
+
+void ButtonQuitGameFromGameover::SetBlendingMode(const int& mode, const int& param)
+{
+	m_image->SetImageBlendMode(mode, param);
+}

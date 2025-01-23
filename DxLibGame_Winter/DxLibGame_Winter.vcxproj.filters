@@ -147,7 +147,7 @@
     <ClCompile Include="Image.cpp">
       <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
-    <ClCompile Include="BackGround.cpp">
+    <ClCompile Include="ImageObject.cpp">
       <Filter>ソース ファイル\Image</Filter>
     </ClCompile>
     <ClCompile Include="ScreenFade.cpp">
@@ -218,9 +218,6 @@
     </ClCompile>
     <ClCompile Include="ButtonQuitGameFromGameover.cpp">
       <Filter>ソース ファイル\UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="GameoverText.cpp">
-      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,7 +317,7 @@
     <ClInclude Include="Image.h">
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
-    <ClInclude Include="BackGround.h">
+    <ClInclude Include="ImageObject.h">
       <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
     <ClInclude Include="ScreenFade.h">
@@ -397,9 +394,6 @@
     </ClInclude>
     <ClInclude Include="ButtonQuitGameFromGameover.h">
       <Filter>ヘッダー ファイル\UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="GameoverText.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

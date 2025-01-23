@@ -21,5 +21,8 @@ public:
 	void OnDisfocused() override;
 
 	void OnPressed() override;
+
+	// Image‚ÌˆøŒp‚¬‚ÌˆøŒp‚¬
+	void SetBlendingMode(const int& mode, const int& param);
 };
 

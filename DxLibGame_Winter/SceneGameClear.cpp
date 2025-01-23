@@ -1,6 +1,6 @@
 #include "SceneGameClear.h"
 #include "ScreenFade.h"
-#include "BackGround.h"
+#include "ImageObject.h"
 #include "Camera.h"	
 #include "Input.h"
 #include "game.h"

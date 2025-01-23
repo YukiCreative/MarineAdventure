@@ -53,3 +53,8 @@ void ButtonContinue::OnPressed()
 	// ƒQ[ƒ€ƒV[ƒ“‚É–ß‚é
 	std::static_pointer_cast<SceneGameover>(SceneController::GetInstance().CurrentScene())->ReturnToGame();
 }
+
+void ButtonContinue::SetBlendingMode(const int& mode, const int& param)
+{
+	m_image->SetImageBlendMode(mode, param);
+}
