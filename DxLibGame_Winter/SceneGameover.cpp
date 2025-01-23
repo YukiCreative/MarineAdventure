@@ -18,10 +18,11 @@ namespace
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 	const std::string kBackGroundImageFile = "GAMEOVER_Test.jpg";
 	const std::string kPlayerFile = "GameoverPlayer.png";
+	const std::string kGameoverTextFile = "GameoverText.png";
 
-	const Vector2 kContinueButtonPosOffset(-300, -100);
+	const Vector2 kContinueButtonPosOffset(-300, 260);
 	constexpr int kButtonShiftOffset       = 300;
-	const Vector2 kContinueButtonInitPos   (Game::kScreenHalfWidth + kContinueButtonPosOffset.x, Game::kScreenHeight + kContinueButtonPosOffset.y);
+	const Vector2 kContinueButtonInitPos   (Game::kScreenHalfWidth + kContinueButtonPosOffset.x, Game::kScreenHalfHeight + kContinueButtonPosOffset.y);
 	const Vector2 kReturnTitleButtonInitPos(kContinueButtonInitPos.x + kButtonShiftOffset, kContinueButtonInitPos.y);
 	const Vector2 kQuitGameButtonInitPos   (kReturnTitleButtonInitPos.x + kButtonShiftOffset, kReturnTitleButtonInitPos.y);
 }
@@ -31,15 +32,15 @@ void SceneGameover::ButtonSetting()
 	m_buttonController = std::make_shared<ButtonSystem>();
 
 	std::shared_ptr<Button> buttonReturnToTitle = std::make_shared<ButtonReturnToTitleFromGameover>(kReturnTitleButtonInitPos);
-	std::shared_ptr<Button> buttonContinue = std::make_shared<ButtonContinue>(kContinueButtonInitPos);
-	std::shared_ptr<Button> buttonQuitGame = std::make_shared<ButtonQuitGameFromGameover>(kQuitGameButtonInitPos);
+	std::shared_ptr<Button> buttonContinue      = std::make_shared<ButtonContinue>(kContinueButtonInitPos);
+	std::shared_ptr<Button> buttonQuitGame      = std::make_shared<ButtonQuitGameFromGameover>(kQuitGameButtonInitPos);
 
-	buttonContinue->SetRightButton(buttonReturnToTitle);
-	buttonContinue->SetLeftButton(buttonQuitGame);
+	buttonContinue->     SetRightButton(buttonReturnToTitle);
+	buttonContinue->     SetLeftButton (buttonQuitGame);
 	buttonReturnToTitle->SetRightButton(buttonQuitGame);
-	buttonReturnToTitle->SetLeftButton(buttonContinue);
-	buttonQuitGame->SetRightButton(buttonContinue);
-	buttonQuitGame->SetLeftButton(buttonReturnToTitle);
+	buttonReturnToTitle->SetLeftButton (buttonContinue);
+	buttonQuitGame->     SetRightButton(buttonContinue);
+	buttonQuitGame->     SetLeftButton (buttonReturnToTitle);
 
 	m_buttonController->AddButton(buttonContinue);
 	m_buttonController->AddButton(buttonReturnToTitle);
@@ -52,9 +53,11 @@ SceneGameover::SceneGameover()
 {
 	m_backGround = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kBackGroundImageFile);
 	m_playerDeadSprite = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kPlayerFile);
+	m_gameoverText = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kGameoverTextFile);
 
 	m_backGround->ExpandGtaph(3.0f);
-	m_playerDeadSprite->ExpandGtaph(3.0f);	
+	m_playerDeadSprite->ExpandGtaph(3.0f);
+	m_gameoverText->ExpandGtaph(3.0f);
 
 	ButtonSetting();
 }

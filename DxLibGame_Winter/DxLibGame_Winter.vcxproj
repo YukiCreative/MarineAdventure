@@ -164,6 +164,7 @@
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameEffect.cpp" />
+    <ClCompile Include="GameoverText.cpp" />
     <ClCompile Include="HarmFish.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageStore.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="GameEffect.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameoverText.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="HarmFish.h" />
     <ClInclude Include="HitPoint.h" />

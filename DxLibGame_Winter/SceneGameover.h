@@ -9,9 +9,10 @@ class ButtonSystem;
 class SceneGameover : public Scene
 {
 private:
-	std::shared_ptr<ImageObject> m_backGround;
+	std::shared_ptr<ImageObject>  m_backGround;
 	std::shared_ptr<ButtonSystem> m_buttonController;
-	std::shared_ptr<ImageObject> m_playerDeadSprite;
+	std::shared_ptr<ImageObject>  m_playerDeadSprite;
+	std::shared_ptr<ImageObject>  m_gameoverText;
 
 	void ButtonSetting();
 
