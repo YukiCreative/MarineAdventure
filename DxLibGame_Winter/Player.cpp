@@ -364,6 +364,9 @@ bool Player::CheckEnvironmentChanged()
 		// Environmentを記憶
 		hitEnvironments.push_back(chip->GetMapChipData().environment);
 	}
+	// マップ外の場合は今の状態から変わらない
+	if (hitEnvironments.empty()) return false;
+
 	// 自分の物理状態が一つもなかったらtrue
 	bool result = true;
 	for (const auto& env : hitEnvironments)
@@ -518,6 +521,12 @@ void Player::Update()
 	// 最後に移動
 	m_pos += m_velocity;
 
+	m_nowAnim->Update();
+}
+
+void Player::AnimationUpdate()
+{
+	// 操作を受け付けず、アニメーションだけを更新
 	m_nowAnim->Update();
 }
 

@@ -6,8 +6,8 @@
 
 namespace
 {
-	const std::string kImagePath = "ButtonReturnToTitle_Gameover.png";
-	const std::string kNoFImagePath = "ButtonReturnToTitle_Gameover_NoF.png";
+	const std::string kImagePath = "ButtonQuitGame_Gameover.png";
+	const std::string kNoFImagePath = "ButtonQuitGame_Gameover_NoF.png";
 
 	constexpr float kBaseExRate = 1.0f;
 	constexpr float kFocusedExRate = 1.5f;
@@ -28,7 +28,7 @@ void ButtonQuitGameFromGameover::NormalUpdate()
 ButtonQuitGameFromGameover::ButtonQuitGameFromGameover(const Vector2& initPos) :
 	Button(initPos)
 {
-	m_image = std::make_shared<Image>(kImagePath);
+	m_image = std::make_shared<Image>(kNoFImagePath);
 	m_image->SetExRate(kBaseExRate);
 }
 

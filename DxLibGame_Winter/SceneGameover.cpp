@@ -1,17 +1,17 @@
-#include "SceneGameover.h"
-#include <DxLib.h>
-#include <memory>
-#include "Input.h"
-#include "SceneController.h"
-#include "game.h"
 #include "BackGround.h"
-#include "Camera.h"
-#include "ScreenFade.h"
-#include "Music.h"
-#include "ButtonSystem.h"
-#include "ButtonReturnToTitleFromGameover.h"
 #include "ButtonContinue.h"
 #include "ButtonQuitGameFromGameover.h"
+#include "ButtonReturnToTitleFromGameover.h"
+#include "ButtonSystem.h"
+#include "Camera.h"
+#include "game.h"
+#include "Input.h"
+#include "Music.h"
+#include "SceneController.h"
+#include "SceneGameover.h"
+#include "ScreenFade.h"
+#include <DxLib.h>
+#include <memory>
 
 namespace
 {
@@ -47,7 +47,7 @@ SceneGameover::SceneGameover()
 	m_buttonController->AddButton(buttonReturnToTitle);
 	m_buttonController->AddButton(buttonQuitGame);
 
-	m_buttonController->SetButtonFocus(buttonReturnToTitle);
+	m_buttonController->SetButtonFocus(buttonContinue);
 }
 
 void SceneGameover::Entry()
@@ -61,14 +61,6 @@ void SceneGameover::NormalUpdate()
 	m_backGround->Update();
 	m_buttonController->Update();
 	m_fade.Update();
-
-	if (Input::GetInstance().IsTrigger("ChangeScene_Debug"))
-	{
-		// シーンが次のシーンをインクルードするのはどうかと思ってる
-		// 別に今何かをしようってわけではない
-		SceneChangeWithFadeOut("Title");
-		return;
-	}
 }
 
 void SceneGameover::Draw() const

@@ -23,8 +23,8 @@ void kMapChip::ResetMapData()
 	// マップデータに問い合わせてマップ情報をもらう
 	m_mapChipData = m_system.GetMapChipData(m_mapPos);
 	// 画像
-	m_chipImage->       SetGraph   (m_mapChipData.graphHandle);
-	m_backImage->       SetGraph   (m_mapChipData.backGraphHandle);
+	m_chipImage->SetGraph(m_mapChipData.graphHandle);
+	m_backImage->SetGraph(m_mapChipData.backGraphHandle);
 
 	// もしこの位置のオブジェクトが出せるなら出す
 	if (m_objectsController.CanSpawnObject(m_mapPos))

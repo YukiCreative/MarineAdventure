@@ -109,6 +109,9 @@ bool ObjectsController::CanSpawnObject(const Vector2Int& mapPos) const
 {
 	// 条件
 	// そいつが今出現していなくて、かつ消えてから再出現可能な秒数経っていたら
+	// ここで、マップの範囲外だったらfalseを返す
+	if (mapPos.x < 0 || mapPos.y < 0 || mapPos.x >= m_mapSize.x || mapPos.y >= m_mapSize.y) return false;
+
 	ObjectAppearanceStatus status = m_isObjectsExist[mapPos.x + m_mapSize.x * mapPos.y];
 	return status.CanSpawn();
 }

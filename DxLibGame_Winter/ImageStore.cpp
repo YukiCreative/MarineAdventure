@@ -30,11 +30,6 @@ ImageStore::ImageStore()
         printf("　キー：%s\n", fileName.c_str());
         printf("　ハンドル：%d\n", m_store[fileName]);
     }
-    for (const auto& pair : m_store)
-    {
-        printf("%s :", typeid(pair.first).name());
-        printf("%d\n", pair.second);
-    }
 }
 
 ImageStore::~ImageStore()

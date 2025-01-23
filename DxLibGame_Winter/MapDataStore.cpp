@@ -23,7 +23,7 @@ void MapDataStore::LoadMapData(const std::string& path)
 {
 	int mapHandle = FileRead_open(path.c_str());
 	// きまったバイト数を読み込む　これは変わらない
-	FileRead_read(&m_fmfHeader, sizeof(m_fmfHeader), mapHandle);
+	assert(FileRead_read(&m_fmfHeader, sizeof(m_fmfHeader), mapHandle) != -1 && "ファイルの読み込みに失敗しました");
 
 	// FMF_ってのをstrIDにぶち込んでる
 	std::string strId;

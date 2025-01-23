@@ -28,7 +28,7 @@ void ButtonReturnToTitleFromGameover::NormalUpdate()
 ButtonReturnToTitleFromGameover::ButtonReturnToTitleFromGameover(const Vector2& initPos) :
 	Button(initPos)
 {
-	m_image = std::make_shared<Image>(kImagePath);
+	m_image = std::make_shared<Image>(kNoFImagePath);
 	m_image->SetExRate(kBaseExRate);
 }
 

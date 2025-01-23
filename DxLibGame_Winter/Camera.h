@@ -42,7 +42,8 @@ public:
 	/// <summary>
 	/// ƒJƒƒ‰‚ÌˆÚ“®
 	/// </summary>
-	void Move(Vector2 moveValue) { m_moveAmount += moveValue; }
+	void Move(const Vector2& moveValue) { m_moveAmount += moveValue; }
+	void Teleport(const Vector2& pos) { m_pos = pos; }
 
 	void SetMapSize(Vector2Int mapSize) { m_mapSize = mapSize; };
 

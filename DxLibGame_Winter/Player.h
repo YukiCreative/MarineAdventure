@@ -104,6 +104,8 @@ public:
 	/// “ü—Í‚ğ‚Æ‚Á‚ÄˆÚ“®‚µ‚½‚è‰½‚µ‚½‚è
 	/// </summary>
 	void Update() override;
+	// ‚±‚ÌÀ‘•‚Å‚¢‚¢‚Æv‚¤H
+	void AnimationUpdate();
 	/// <summary>
 	/// •`‰æ
 	/// </summary>

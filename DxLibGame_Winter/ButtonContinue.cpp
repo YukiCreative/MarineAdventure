@@ -5,8 +5,8 @@
 
 namespace
 {
-	const std::string kImagePath = "ButtonReturnToTitle_Gameover.png";
-	const std::string kNoFImagePath = "ButtonReturnToTitle_Gameover_NoF.png";
+	const std::string kImagePath = "ButtonContinue.png";
+	const std::string kNoFImagePath = "ButtonContinue_NoF.png";
 
 	constexpr float kBaseExRate = 1.0f;
 	constexpr float kFocusedExRate = 1.5f;
@@ -27,7 +27,7 @@ void ButtonContinue::NormalUpdate()
 ButtonContinue::ButtonContinue(const Vector2& initPos) :
 	Button(initPos)
 {
-	m_image = std::make_shared<Image>(kImagePath);
+	m_image = std::make_shared<Image>(kNoFImagePath);
 	m_image->SetExRate(kBaseExRate);
 }
 
