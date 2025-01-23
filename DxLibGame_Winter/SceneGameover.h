@@ -11,6 +11,9 @@ class SceneGameover : public Scene
 private:
 	std::shared_ptr<ImageObject> m_backGround;
 	std::shared_ptr<ButtonSystem> m_buttonController;
+	std::shared_ptr<ImageObject> m_playerDeadSprite;
+
+	void ButtonSetting();
 
 public:
 	SceneGameover();

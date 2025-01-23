@@ -16,38 +16,47 @@
 namespace
 {
 	const Vector2 kScreenMiddlePoint(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	const std::string kGameOverImagePath = "GAMEOVER_Test.jpg";
+	const std::string kBackGroundImageFile = "GAMEOVER_Test.jpg";
+	const std::string kPlayerFile = "GameoverPlayer.png";
 
-	constexpr int kContinueButtonPosOffset = 100;
-	constexpr int kButtonShiftOffset       = 100;
-	const Vector2 kContinueButtonInitPos   (Game::kScreenHalfWidth, Game::kScreenHalfHeight + kContinueButtonPosOffset);
-	const Vector2 kReturnTitleButtonInitPos(kContinueButtonInitPos.x, kContinueButtonInitPos.y + kButtonShiftOffset);
-	const Vector2 kQuitGameButtonInitPos   (kReturnTitleButtonInitPos.x, kReturnTitleButtonInitPos.y + kButtonShiftOffset);
+	const Vector2 kContinueButtonPosOffset(-300, -100);
+	constexpr int kButtonShiftOffset       = 300;
+	const Vector2 kContinueButtonInitPos   (Game::kScreenHalfWidth + kContinueButtonPosOffset.x, Game::kScreenHeight + kContinueButtonPosOffset.y);
+	const Vector2 kReturnTitleButtonInitPos(kContinueButtonInitPos.x + kButtonShiftOffset, kContinueButtonInitPos.y);
+	const Vector2 kQuitGameButtonInitPos   (kReturnTitleButtonInitPos.x + kButtonShiftOffset, kReturnTitleButtonInitPos.y);
 }
 
-SceneGameover::SceneGameover()
+void SceneGameover::ButtonSetting()
 {
-	m_backGround = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kGameOverImagePath);
-	m_backGround->ExpandGtaph(3.0f);
-
 	m_buttonController = std::make_shared<ButtonSystem>();
 
 	std::shared_ptr<Button> buttonReturnToTitle = std::make_shared<ButtonReturnToTitleFromGameover>(kReturnTitleButtonInitPos);
-	std::shared_ptr<Button> buttonContinue     = std::make_shared<ButtonContinue>(kContinueButtonInitPos);
-	std::shared_ptr<Button> buttonQuitGame     = std::make_shared<ButtonQuitGameFromGameover>(kQuitGameButtonInitPos);
+	std::shared_ptr<Button> buttonContinue = std::make_shared<ButtonContinue>(kContinueButtonInitPos);
+	std::shared_ptr<Button> buttonQuitGame = std::make_shared<ButtonQuitGameFromGameover>(kQuitGameButtonInitPos);
 
-	buttonContinue     ->SetDownButton(buttonReturnToTitle);
-	buttonContinue     ->SetUpButton  (buttonQuitGame);
-	buttonReturnToTitle->SetDownButton(buttonQuitGame);
-	buttonReturnToTitle->SetUpButton  (buttonContinue);
-	buttonQuitGame     ->SetDownButton(buttonContinue);
-	buttonQuitGame     ->SetUpButton  (buttonReturnToTitle);
+	buttonContinue->SetRightButton(buttonReturnToTitle);
+	buttonContinue->SetLeftButton(buttonQuitGame);
+	buttonReturnToTitle->SetRightButton(buttonQuitGame);
+	buttonReturnToTitle->SetLeftButton(buttonContinue);
+	buttonQuitGame->SetRightButton(buttonContinue);
+	buttonQuitGame->SetLeftButton(buttonReturnToTitle);
 
 	m_buttonController->AddButton(buttonContinue);
 	m_buttonController->AddButton(buttonReturnToTitle);
 	m_buttonController->AddButton(buttonQuitGame);
 
 	m_buttonController->SetButtonFocus(buttonContinue);
+}
+
+SceneGameover::SceneGameover()
+{
+	m_backGround = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kBackGroundImageFile);
+	m_playerDeadSprite = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kPlayerFile);
+
+	m_backGround->ExpandGtaph(3.0f);
+	m_playerDeadSprite->ExpandGtaph(3.0f);	
+
+	ButtonSetting();
 }
 
 void SceneGameover::Entry()
@@ -59,6 +68,7 @@ void SceneGameover::Entry()
 void SceneGameover::NormalUpdate()
 {
 	m_backGround->Update();
+	m_playerDeadSprite->Update();
 	m_buttonController->Update();
 	m_fade.Update();
 }
@@ -66,6 +76,7 @@ void SceneGameover::NormalUpdate()
 void SceneGameover::Draw() const
 {
 	m_backGround->Draw();
+	m_playerDeadSprite->Draw();
 	m_buttonController->Draw();
 	m_fade.Draw();
 }
