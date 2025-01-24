@@ -36,9 +36,9 @@ namespace
 	constexpr int    kMoveThreshold          = 10000;
 	constexpr int	 kGroundMoveThreshold	 = 100;
 
-	const Vector2    kJumpForce      (0.0f, -10.0f);
-	const Vector2    kWaterJumpForce (0.0f,  -5.0f);
-	const Vector2    kDashJumpForce  (0.0f, -12.0f);
+	const Vector2    kJumpForce      (0.0f, -12.0f);
+	const Vector2    kWaterJumpForce (0.0f,  -7.0f);
+	const Vector2    kDashJumpForce  (0.0f, -15.0f);
 	constexpr float  kFallThreshold = 2.0f;
 	// ’…’n‚Å‚«‚é’n–Ê‚ÌŠp“x(–@ü)
 	constexpr int kLandingThresholdMin = 45;
@@ -394,9 +394,9 @@ void Player::CollideToMapChips()
 		// ‚ß‚èž‚Ý‚ð‹L˜^
 		m_overlaps.push_back(col.overlap);
 
-		//// •Ç‚É‹z‚¢•t‚­‚æ‚¤‚È‹““®‚É‚È‚Á‚Äˆá˜aŠ´‚ª‚ ‚é‚Ì‚Å—Í‚ð‰Á‚¦‚é
+		// •Ç‚É‹z‚¢•t‚­‚æ‚¤‚È‹““®‚É‚È‚Á‚Äˆá˜aŠ´‚ª‚ ‚é‚Ì‚Å—Í‚ð‰Á‚¦‚é
 		Vector2 overlapN = col.overlap.GetNormalize();
-		//// Œ»Ý‚Ì‘¬“x‚Ì•ªA“–‚½‚Á‚Ä‚¢‚é•Ç‚ÌŒü‚«‚¾‚¯—Í‚ð‰Á‚¦‚é
+		// Œ»Ý‚Ì‘¬“x‚Ì•ªA“–‚½‚Á‚Ä‚¢‚é•Ç‚ÌŒü‚«‚¾‚¯—Í‚ð‰Á‚¦‚é
 		Vector2 addforce(m_velocity.x * std::abs(overlapN.x), m_velocity.y * std::abs(overlapN.y));
 		m_physics->AddForce(-addforce * kBounceFactor);
 

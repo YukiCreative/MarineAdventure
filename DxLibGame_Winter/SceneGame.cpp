@@ -19,7 +19,7 @@
 namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	const Vector2 initPlayerPos(80 * -5, 80 * 10);
+	const Vector2 initPlayerPos(80 * (3 - 8), 80 * (36 - 6));
 	const std::string kInitMapDataPass = "Data/MapData/Stage1.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
 }
@@ -47,7 +47,7 @@ SceneGame::SceneGame() :
 	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kInitMapDataPass);
-	m_backGround = std::make_shared<ImageObject>      (*m_camera, (m_map->GetMapSize() * 16), kBackGroundPass);
+	m_backGround = std::make_shared<ImageObject>      (*m_camera, Vector2::Zero(), kBackGroundPass);
 
 	m_player->Init(m_map);
 

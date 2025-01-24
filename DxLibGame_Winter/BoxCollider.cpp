@@ -23,10 +23,16 @@ BoxCollider::BoxCollider(Vector2& pos, const float& w, const float& h) :
     Vector2 topRight = Vector2(Right(), Top()) - GetPos();
     Vector2 bottomRight = Vector2(Right(), Bottom()) - GetPos();
     // 各辺をCollider化
-    m_lines[static_cast<int>(LineDir::Top)] = std::make_shared<LineCollider>(m_pos, topLeft, topRight); // 上
-    m_lines[static_cast<int>(LineDir::Left)] = std::make_shared<LineCollider>(m_pos, topLeft, bottomLeft); // 左
-    m_lines[static_cast<int>(LineDir::Right)] = std::make_shared<LineCollider>(m_pos, bottomRight, topRight); // 右
-    m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft); // 下
+    //constexpr int offset = 10;
+    //m_lines[static_cast<int>(LineDir::Top)] = std::make_shared<LineCollider>(m_pos, topLeft + Vector2(offset, 0), topRight + Vector2(-offset, 0)); // 上
+    //m_lines[static_cast<int>(LineDir::Left)] = std::make_shared<LineCollider>(m_pos, topLeft + Vector2(0, offset), bottomLeft + Vector2(0, -offset)); // 左
+    //m_lines[static_cast<int>(LineDir::Right)] = std::make_shared<LineCollider>(m_pos, bottomRight + Vector2(0, -offset), topRight + Vector2(0, offset)); // 右
+    //m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomLeft + Vector2(offset, 0), bottomRight + Vector2(-offset, 0)); // 下
+    // それぞれの線分が始点⇒終点⇒始点でつながるように作る
+    m_lines[static_cast<int>(LineDir::Top)]    = std::make_shared<LineCollider>(m_pos, topLeft,     topRight   ); // 上
+    m_lines[static_cast<int>(LineDir::Right)]  = std::make_shared<LineCollider>(m_pos, topRight,    bottomRight); // 右
+    m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft ); // 下
+    m_lines[static_cast<int>(LineDir::Left)]   = std::make_shared<LineCollider>(m_pos, bottomLeft,  topLeft    ); // 左
     
     for (auto& isValid : m_validLineCol)
     {
@@ -45,10 +51,11 @@ BoxCollider::BoxCollider(Vector2& pos, const float& w, const float& h, const Vec
     Vector2 topRight = Vector2(Right(), Top()) - GetPos();
     Vector2 bottomRight = Vector2(Right(), Bottom()) - GetPos();
     // m_posが入っていますが正常です
-    m_lines[static_cast<int>(LineDir::Top)] = std::make_shared<LineCollider>(m_pos, topLeft, topRight, offset); // 上
-    m_lines[static_cast<int>(LineDir::Left)] = std::make_shared<LineCollider>(m_pos, topLeft, bottomLeft, offset); // 左
-    m_lines[static_cast<int>(LineDir::Right)] = std::make_shared<LineCollider>(m_pos, bottomRight, topRight, offset); // 右
-    m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft, offset); // 下
+    // それぞれの線分が始点⇒終点⇒始点でつながるように作る
+    m_lines[static_cast<int>(LineDir::Top)]    = std::make_shared<LineCollider>(m_pos, topLeft,     topRight,    offset); // 上
+    m_lines[static_cast<int>(LineDir::Right)]  = std::make_shared<LineCollider>(m_pos, topRight,    bottomRight, offset); // 右
+    m_lines[static_cast<int>(LineDir::Left)]   = std::make_shared<LineCollider>(m_pos, bottomLeft,  topLeft,     offset); // 左
+    m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft,  offset); // 下
 
     for (auto& isValid : m_validLineCol)
     {
@@ -59,17 +66,17 @@ BoxCollider::BoxCollider(Vector2& pos, const float& w, const float& h, const Vec
 void BoxCollider::DrawColliderRange_Debug(const Vector2& cameraOffset) const
 {
     // 四角の当たり判定を書く
-    DrawBox(static_cast<int>(Left() - cameraOffset.x), static_cast<int>(Top() - cameraOffset.y), static_cast<int>(Right() - cameraOffset.x), static_cast<int>(Bottom() - cameraOffset.y), 0xff0000, false);
+    //DrawBox(static_cast<int>(Left() - cameraOffset.x), static_cast<int>(Top() - cameraOffset.y), static_cast<int>(Right() - cameraOffset.x), static_cast<int>(Bottom() - cameraOffset.y), 0xff0000, false);
 
     // ↑
     // これら二つは同じ結果を描画することが確認できている
     // ↓
     
-    // 線分の描画を四回やる
-    //for (const auto& line : m_lines)
-    //{
-    //    line->DrawColliderRange_Debug(cameraOffset);
-    //}
+     //線分の描画を四回やる
+    for (const auto& line : m_lines)
+    {
+        line->DrawColliderRange_Debug(cameraOffset);
+    }
 }
 
 CollisionStatus BoxCollider::CheckHitCircle(const CircleCollider& otherCircle) const

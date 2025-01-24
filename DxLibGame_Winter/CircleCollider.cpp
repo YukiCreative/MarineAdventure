@@ -108,7 +108,7 @@ CollisionStatus CircleCollider::CheckHitBox(const BoxCollider& otherRect, const 
         lineColStatus.push_back(circle.CheckHit(*box.GetLineCol()[i], offset));
         result.isCollide |= lineColStatus.back().isCollide; // 今追加したやつ
         // ここで、overlapを取得するために、現在地点から一番近い線分を出したい
-        // 現在地点から、それぞれの線分の中心へ向かうベクトルの大きさを比べる
+        // 現在地点から、それぞれの線分の 中点 へ向かうベクトルの大きさを比べる
         lineDist.push_back((circle.GetPos() - box.GetLineCol()[i]->SegmentMidPoint()).SqrMagnitude());
     }
     // 一番近い線のoverlapを採用
@@ -140,10 +140,11 @@ CollisionStatus CircleCollider::CheckHitLine(const LineCollider& otherLine, cons
     // 当たっているかは、半径を考慮して出す
     result.isCollide = (segmentMinLength < circle.GetRadius());
 
-    // 円の未来の位置と「直線」の最近傍点を出す
+    // 円の未来の位置と線分の最近傍点を出す
     Vector2 futureNearestPos = geo::GetSegmentIntercept(futurePos, line.GetFirstPos(), line.GetSecondPos());
-    // もしこれが線分の端ならめり込まなかったことに
-    //if (futureNearestPos == line.GetFirstPos() || futureNearestPos == line.GetSecondPos())
+
+    // 接触点が線分の終点(始点でもいいが、統一が必要)ならめり込みを無視
+    //if (futureNearestPos == line.GetSecondPos())
     //{
     //    result.overlap = Vector2::Zero();
     //    return result;

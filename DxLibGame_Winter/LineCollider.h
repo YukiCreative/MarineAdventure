@@ -20,6 +20,9 @@ public:
 	Vector2 SegmentMidPoint()const { return (GetFirstPos() + GetSecondPos()) * 0.5f; };
 
 	void DrawColliderRange_Debug(const Vector2& cameraOffset) const override;
+
+	// 線分の始点⇒終点の単位ベクトルを返す
+	Vector2 UnitVector() const;
 protected:
 	// 当たり判定のパターン増えていく問題
 	CollisionStatus CheckHitCircle(const CircleCollider& otherCircle) const override;

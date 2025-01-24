@@ -146,6 +146,8 @@ void kMapChip::Draw() const
 #if _DEBUG
 	DrawPixel(static_cast<int>(drawPos.x), static_cast<int>(drawPos.y), 0xff0000);
 	DrawFormatString(static_cast<int>(drawPos.x) - 20, static_cast<int>(drawPos.y), 0xff0000, "X;%d\nY:%d", m_mapPos.x, m_mapPos.y);
+
+	m_collider->DrawColliderRange_Debug(m_camera.DrawOffset());
 #endif
 }
 

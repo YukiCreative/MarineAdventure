@@ -1,5 +1,6 @@
 #include "LineCollider.h"
 #include <cassert>
+#include "Vector2.h"
 
 LineCollider::LineCollider(Vector2& posRef, const Vector2& firstPosOffset, const Vector2& secondPosOffset) :
 	Collider(ColKind::kLine, posRef),
@@ -20,6 +21,11 @@ void LineCollider::DrawColliderRange_Debug(const Vector2& cameraOffset) const
 	Vector2 firstDrawPos = GetFirstPos() - cameraOffset;
 	Vector2 secondDrawPos = GetSecondPos() - cameraOffset;
 	DrawLine(static_cast<int>(firstDrawPos.x), static_cast<int>(firstDrawPos.y), static_cast<int>(secondDrawPos.x), static_cast<int>(secondDrawPos.y), 0xff0000);
+}
+
+Vector2 LineCollider::UnitVector() const
+{
+	return (GetSecondPos() - GetFirstPos()).GetNormalize();
 }
 
 CollisionStatus LineCollider::CheckHitCircle(const CircleCollider& otherCircle) const
