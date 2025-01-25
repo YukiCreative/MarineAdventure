@@ -33,7 +33,7 @@ namespace
 	constexpr float  kInvincibleFrame = 90.0f;
 	constexpr float  kAttackedRigidFrame = 30.0f;
 	constexpr float  kStrongAttackForce = 20.0f;
-	constexpr float  kBounceFactor = 2.2f;
+	constexpr float  kBounceFactor = 1.2f;
 	constexpr int    kMoveThreshold = 10000;
 	constexpr int	 kGroundMoveThreshold = 100;
 
@@ -218,6 +218,7 @@ void Player::GNormal(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
+		SoundManager::GetInstance().Play("ファニージャンプ_3.mp3");
 		SetStateJump();
 		return;
 	}
@@ -242,6 +243,7 @@ void Player::GMove(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
+		SoundManager::GetInstance().Play("ファニージャンプ_3.mp3");
 		SetStateJump();
 		return;
 	}
@@ -294,6 +296,7 @@ void Player::GDash(Input& input, Vector2& axis)
 	{
 		// ダッシュジャンプはちょっと高く飛びたい
 		m_physics->AddForce(kDashJumpForce);
+		SoundManager::GetInstance().Play("ファニージャンプ_3.mp3");
 		SetStateJump();
 		return;
 	}
@@ -508,10 +511,8 @@ void Player::Update()
 			m_physics->IsGrounded(false);
 			m_physics->ChangeState(MapConstants::Environment::kWater);
 			SetStateNormal();
-			// TODO:音源を一つにまとめる
 			SoundManager& sound = SoundManager::GetInstance();
-			sound.Play("水バッシャ_3.mp3").lock()->SetVolume(200);
-			sound.Play("水中に飛び込む音.mp3").lock()->SetVolume(200);
+			sound.Play("IntoTheWater.wav");
 		}
 		// 水中→地上
 		else
@@ -547,6 +548,7 @@ void Player::Draw() const
 	{
 		DrawLine(screenPos.x, screenPos.y, screenPos.x + overlap.x * 5, screenPos.y + overlap.y * 5, 0x8fffff);
 	}
+	DrawLine(screenPos.x, screenPos.y, screenPos.x + m_velocity.x, screenPos.y + m_velocity.y, 0xff8fff);
 #endif
 }
 

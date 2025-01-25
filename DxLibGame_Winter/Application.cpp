@@ -17,8 +17,29 @@ namespace
 #endif
 
 Application::Application() :
-	m_isRunning(true)
+	m_isRunning(true),
+	m_frameCount(0)
 {
+}
+
+void Application::GameLoop()
+{
+	Input& inputInstance = Input::GetInstance();
+	SceneController& sceneController = SceneController::GetInstance();
+	SoundManager& sound = SoundManager::GetInstance();
+
+	// 画面全体をクリアする
+	ClearDrawScreen();
+
+	// ここにゲームの処理を書く
+
+	// Inputクラスの更新処理
+	inputInstance.Update();
+	sound.Update();
+
+	// SceneControllerの処理
+	sceneController.Update();
+	sceneController.Draw();
 }
 
 Application& Application::GetInstance()
@@ -60,10 +81,8 @@ bool Application::Init()
 
 void Application::Run()
 {
-	Input& inputInstance             = Input::GetInstance();
-	SceneController& sceneController = SceneController::GetInstance();
-	Time& timeInstance               = Time::GetInstance();
-	SoundManager& sound              = SoundManager::GetInstance();
+	Time& timeInstance = Time::GetInstance();
+
 	// ゲームループ
 	while (ProcessMessage() == 0)
 	{
@@ -73,30 +92,23 @@ void Application::Run()
 		// Timeの更新
 		timeInstance.Update();
 
-		// 画面全体をクリアする
-		ClearDrawScreen();
+		int playSpeed = 1;
+		if (Input::GetInstance().IsPressed("Srow_Debug"))
+		{
+			playSpeed = 5;
+		}
 
-		// ここにゲームの処理を書く
-
-		// Inputクラスの更新処理
-		inputInstance.Update();
-		sound.Update();
-
-		// SceneControllerの処理
-		sceneController.Update();
-		sceneController.Draw();
+		// このifはスローの処理
+		if (!(Time::FrameCount() % playSpeed))
+		{
+			GameLoop();
+		}
 
 		// 画面の切り替わりを待つ
 		ScreenFlip();
 
 		// 60FPSに固定
-		unsigned int waitTime = Game::kMillisecondsPerFrame;
-		if (inputInstance.IsPressed("Srow"))
-		{
-			// スローモーション
-			waitTime *= 5;
-		}
-		while (GetNowHiPerformanceCount() - time < waitTime);
+		while (GetNowHiPerformanceCount() - time < Game::kMillisecondsPerFrame);
 
 		// もし終了していたらループを抜ける
 		if (!m_isRunning) break;

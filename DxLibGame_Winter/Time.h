@@ -11,12 +11,13 @@ private:
 	Time(const Time&) = delete;
 	void operator=(const Time&) = delete;
 
-	static float fps;
+	static float s_fps;
 	/// <summary>
 	/// 1フレーム処理するまでに経過した時間
 	/// GetFPSの逆数をとっただけの「なんちゃって」です。
 	/// </summary>
-	static float deltaTime;
+	static float s_deltaTime;
+	static int s_frameCount;
 public:
 	static Time& GetInstance();
 
@@ -29,4 +30,6 @@ public:
 	// これらの関数をどうしてもstaticにしてみたい
 	static float FPS();
 	static float DeltaTime();
+	// プログラムが始まってからのフレーム
+	static int FrameCount();
 };

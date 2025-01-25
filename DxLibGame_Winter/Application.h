@@ -7,7 +7,10 @@ private:
 	Application(const Application&) = delete;
 	void operator=(const Application&) = delete;
 
-	bool m_isRunning;
+	bool m_isRunning = true;
+	int m_frameCount;
+	// ƒQ[ƒ€ƒQ[ƒ€‚µ‚Ä‚¢‚éˆ—‚ğØ‚è—£‚µ‚½
+	void GameLoop();
 public:
 	static Application& GetInstance();
 

@@ -40,7 +40,7 @@ Input::Input() :
         {PeripheralType::kKeyboard, KEY_INPUT_DOWN},
         {PeripheralType::kPad, PAD_INPUT_DOWN},
     };
-    m_inputEvent["Srow"] =
+    m_inputEvent["Srow_Debug"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_LCONTROL},
         {PeripheralType::kPad, PAD_INPUT_6},
