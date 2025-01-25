@@ -20,38 +20,40 @@ namespace
 {
 	// プレイヤーの当たり判定に使います
 	constexpr float kColliderRaduis = 30.0f;
-	constexpr int   kMaxHp  = 5;
+	const Vector2   kColliderOffset = {0, 10};
+	constexpr int   kMaxHp = 5;
 	// Axisがでかすぎるんだよ
-	constexpr float  kMoveForceFactor        = 0.0002f;
+	constexpr float  kMoveForceFactor = 0.0002f;
 	constexpr float  kJumpingMoveForceFactor = 0.0001f;
-	constexpr float  kDashForceFactor        = 0.0003f;
+	constexpr float  kDashForceFactor = 0.0003f;
 	constexpr float  kStrongAttackMoveFactor = 0.0001f;
 	constexpr float  kDuringDamageMoveFactor = 0.0001f;
 
-	constexpr float  kAttackFrame            = 60.0f;
-	constexpr float  kInvincibleFrame        = 90.0f;
-	constexpr float  kAttackedRigidFrame     = 30.0f;
-	constexpr float  kStrongAttackForce      = 20.0f;
-	constexpr float  kBounceFactor           = 1.2f;
-	constexpr int    kMoveThreshold          = 10000;
-	constexpr int	 kGroundMoveThreshold	 = 100;
+	constexpr float  kAttackFrame = 60.0f;
+	constexpr float  kInvincibleFrame = 90.0f;
+	constexpr float  kAttackedRigidFrame = 30.0f;
+	constexpr float  kStrongAttackForce = 20.0f;
+	constexpr float  kBounceFactor = 2.2f;
+	constexpr int    kMoveThreshold = 10000;
+	constexpr int	 kGroundMoveThreshold = 100;
 
-	const Vector2    kJumpForce      (0.0f, -12.0f);
-	const Vector2    kWaterJumpForce (0.0f,  -7.0f);
-	const Vector2    kDashJumpForce  (0.0f, -15.0f);
-	constexpr float  kFallThreshold = 2.0f;
+	const Vector2    kJumpForce      = { 0.0f, -12.0f };
+	const Vector2    kWaterJumpForce = { 0.0f, -7.0f  };
+	const Vector2    kDashJumpForce  = { 0.0f, -15.0f };
+	constexpr float  kFallThreshold  = 2.0f;
 	// 着地できる地面の角度(法線)
 	constexpr int kLandingThresholdMin = 45;
 	constexpr int kLandingThresholdMax = 135;
 	// アニメーション
-	const std::string kIdleAnimPath   = "PlayerIdle.png";
-	const std::string kJumpAnimPath   = "PlayerJump.png";
-	const std::string kFallAnimPath   = "PlayerFall.png";
-	const std::string kDamageAnimPath = "PlayerDamage.png";
-	const std::string kAttackAnimPath = "PlayerAttack.png";
-	const std::string kDashAnimPath   = "PlayerDash.png";
-	constexpr int     kAnimPlaySpeed  = 3;
-	const Vector2Int  kPlayerGraphSize(32, 32);
+	const std::string kIdleAnimPath      = "PlayerIdle.png";
+	const std::string kJumpAnimPath      = "PlayerJump.png";
+	const std::string kFallAnimPath      = "PlayerFall.png";
+	const std::string kDamageAnimPath    = "PlayerDamage.png";
+	const std::string kAttackAnimPath    = "PlayerAttack.png";
+	const std::string kDashAnimPath      = "PlayerDash.png";
+	constexpr int     kAnimPlaySpeed     = 3;
+	const Vector2Int  kPlayerGraphSize   = { 32, 32 };
+	constexpr float   kPlayerGraphExRate = 80.0f / 32.0f;
 }
 
 void Player::GameOver()
@@ -378,6 +380,7 @@ bool Player::CheckEnvironmentChanged()
 
 void Player::CollideToMapChips()
 {
+	Vector2 overlapSum;
 	m_overlaps.clear();
 
 	// マップとの衝突処理を分けた
@@ -393,15 +396,17 @@ void Player::CollideToMapChips()
 
 		// めり込みを記録
 		m_overlaps.push_back(col.overlap);
-
-		// 壁に吸い付くような挙動になって違和感があるので力を加える
-		Vector2 overlapN = col.overlap.GetNormalize();
-		// 現在の速度の分、当たっている壁の向きだけ力を加える
-		Vector2 addforce(m_velocity.x * std::abs(overlapN.x), m_velocity.y * std::abs(overlapN.y));
-		m_physics->AddForce(-addforce * kBounceFactor);
-
-		m_velocity -= col.overlap;
+		overlapSum += col.overlap;
 	}
+
+	// 壁に吸い付くような挙動になって違和感があるので力を加える
+	// 角に当たった時は無効にしたい
+	Vector2 overlapN = overlapSum.GetNormalize();
+	// 現在の速度の分、当たっている壁の向きだけ力を加える
+	Vector2 addforce(m_velocity.x * std::abs(overlapN.x), m_velocity.y * std::abs(overlapN.y));
+	m_physics->AddForce(-addforce * kBounceFactor);
+
+	m_velocity -= overlapSum;
 }
 
 void Player::ChangeState(StateFunc_t nextState)
@@ -443,7 +448,7 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 {
 	ImageStore& imageStore = ImageStore::GetInstance();
 	m_physics  = std::make_shared<Physics>(1.0f, 1.0f),
-	m_collider = std::make_shared<CircleCollider>(m_pos, kColliderRaduis);
+	m_collider = std::make_shared<CircleCollider>(m_pos, kColliderRaduis, kColliderOffset);
 	// ここからアニメーションの初期化
 	// これってまとめたほうがいいのか都度宣言して初期化関数流したほうがいいのか
 	m_idleAnim   = std::make_shared<Animation>();
@@ -460,12 +465,12 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 	m_attackAnim->Init(kAttackAnimPath, kPlayerGraphSize, kAnimPlaySpeed);
 	m_dashAnim  ->Init(kDashAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
 
-	m_idleAnim  ->SetExRate(2.0f);
-	m_jumpAnim  ->SetExRate(2.0f);
-	m_fallAnim  ->SetExRate(2.0f);
-	m_damageAnim->SetExRate(2.0f);
-	m_attackAnim->SetExRate(2.0f);
-	m_dashAnim  ->SetExRate(2.0f);
+	m_idleAnim  ->SetExRate(kPlayerGraphExRate);
+	m_jumpAnim  ->SetExRate(kPlayerGraphExRate);
+	m_fallAnim  ->SetExRate(kPlayerGraphExRate);
+	m_damageAnim->SetExRate(kPlayerGraphExRate);
+	m_attackAnim->SetExRate(kPlayerGraphExRate);
+	m_dashAnim  ->SetExRate(kPlayerGraphExRate);
 
 	m_nowAnim = m_idleAnim;
 }
@@ -537,6 +542,11 @@ void Player::Draw() const
 #if _DEBUG
 	DrawString(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), m_stateText.c_str(), 0x00ff00);
 	m_collider->DrawColliderRange_Debug(m_camera.DrawOffset());
+
+	for (const auto& overlap : m_overlaps)
+	{
+		DrawLine(screenPos.x, screenPos.y, screenPos.x + overlap.x * 5, screenPos.y + overlap.y * 5, 0x8fffff);
+	}
 #endif
 }
 

@@ -53,6 +53,7 @@ SceneGame::SceneGame() :
 
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
+	m_camera->Move(initPlayerPos);
 	m_backGround->ExpandGtaph(2.0f);
 }
 
@@ -108,7 +109,7 @@ void SceneGame::Entry()
 	// 主にフェード
 	m_fade.Fade(60, 0);
 
-	Music::GetInstance().Play("Data/Music/たぬきちの冒険.mp3");
+	Music::GetInstance().Play("Data/Music/たぬきちの冒険.wav");
 	Music::GetInstance().SetVolume(255);
 }
 

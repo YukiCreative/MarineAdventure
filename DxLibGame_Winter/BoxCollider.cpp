@@ -23,12 +23,12 @@ BoxCollider::BoxCollider(Vector2& pos, const float& w, const float& h) :
     Vector2 topRight = Vector2(Right(), Top()) - GetPos();
     Vector2 bottomRight = Vector2(Right(), Bottom()) - GetPos();
     // 各辺をCollider化
-    //constexpr int offset = 10;
+    //constexpr int offset = 0;
     //m_lines[static_cast<int>(LineDir::Top)] = std::make_shared<LineCollider>(m_pos, topLeft + Vector2(offset, 0), topRight + Vector2(-offset, 0)); // 上
     //m_lines[static_cast<int>(LineDir::Left)] = std::make_shared<LineCollider>(m_pos, topLeft + Vector2(0, offset), bottomLeft + Vector2(0, -offset)); // 左
     //m_lines[static_cast<int>(LineDir::Right)] = std::make_shared<LineCollider>(m_pos, bottomRight + Vector2(0, -offset), topRight + Vector2(0, offset)); // 右
     //m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomLeft + Vector2(offset, 0), bottomRight + Vector2(-offset, 0)); // 下
-    // それぞれの線分が始点⇒終点⇒始点でつながるように作る
+    //それぞれの線分が始点⇒終点⇒始点でつながるように作る
     m_lines[static_cast<int>(LineDir::Top)]    = std::make_shared<LineCollider>(m_pos, topLeft,     topRight   ); // 上
     m_lines[static_cast<int>(LineDir::Right)]  = std::make_shared<LineCollider>(m_pos, topRight,    bottomRight); // 右
     m_lines[static_cast<int>(LineDir::Bottom)] = std::make_shared<LineCollider>(m_pos, bottomRight, bottomLeft ); // 下
