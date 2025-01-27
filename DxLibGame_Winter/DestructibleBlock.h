@@ -26,7 +26,7 @@ private:
 	void Normal();
 	void Breaking();
 public:
-	DestructibleBlock(Camera& camera, const Vector2& initPos, Player& player);
+	DestructibleBlock(Camera& camera, Player& player, const Vector2& initPos, const Vector2Int& baseMapPos);
 
 	void Update() override;
 	void Draw() const override;

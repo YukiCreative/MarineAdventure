@@ -11,7 +11,8 @@ namespace
 
 Sound::Sound(const std::string& fileName) :
 	m_handle(-1),
-	m_playType(DX_PLAYTYPE_BACK)
+	m_playType(DX_PLAYTYPE_BACK),
+	m_fileName(fileName)
 {
 	m_handle = SoundStore::GetInstance().GenerateSound(fileName);
 }
@@ -41,7 +42,7 @@ bool Sound::IsPlaying() const
 	return CheckSoundMem(m_handle);
 }
 
-void Sound::SetVolume(int param) const
+void Sound::SetVolume(const int param) const
 {
 	int vol = std::clamp(param, kVolumeMin, kVolumeMax);
 	ChangeVolumeSoundMem(param, m_handle);

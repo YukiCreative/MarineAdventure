@@ -3,12 +3,15 @@
 #include "Button.h"
 #include "ButtonNoFocus.h"
 #include <cassert>
+#include "SoundManager.h"
 
 namespace
 {
 	constexpr int kButtonPosMoveThreshold = 300;
 	constexpr int kCursorMoveInterval = 20;
 	constexpr int kAxisDirThreshold = 45;
+
+	const std::string kSerectSound = "セレクト音_2_3.mp3";
 }
 
 void ButtonSystem::MoveFocus(Vector2 inputAxis)
@@ -55,6 +58,8 @@ void ButtonSystem::MoveFocus(Vector2 inputAxis)
 	beforeButton.lock()->OnDisfocused();
 	// タイマーを設定
 	m_cursorMoveTimer = kCursorMoveInterval;
+	// ついでに音
+	SoundManager::GetInstance().Play(kSerectSound);
 }
 
 std::weak_ptr<Button> ButtonSystem::GetWeakPtr(Button* rawPtr)

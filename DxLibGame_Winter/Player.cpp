@@ -56,6 +56,16 @@ namespace
 	constexpr int     kDashAnimSpeed     = 1;
 	const Vector2Int  kPlayerGraphSize   = { 32, 32 };
 	constexpr float   kPlayerGraphExRate = 80.0f / 32.0f;
+
+	// 音のファイル
+	const std::string kIntoWaterSound  = "IntoTheWater.wav";
+	const std::string kOutOfWaterSound = "水音　バシャ.mp3";
+	const std::string kStunSound       = "Stun.wav";
+	const std::string kAttackSound     = "レトロアクション.mp3";
+	const std::string kWalkSound1      = "スライム的な.mp3";
+	const std::string kWalkSound2      = "スライム的な_2.mp3";
+	constexpr     int kWalkSoundSpan   = 20;
+	constexpr     int kDashSoundSpan   = 10;
 }
 
 void Player::GameOver()
@@ -72,9 +82,7 @@ void Player::Normal(Input& input, Vector2& axis)
 	if (input.IsTrigger("Attack"))
 	{
 		m_stateText = "A";
-		m_physics->UseConstantForce(false);
-		ChangeState(&Player::Attack);
-		ChangeAnimation(m_attackAnim);
+		SetStateAttack();
 		return;
 	}
 	// スティックでMoveへ
@@ -111,11 +119,9 @@ void Player::Move(Input& input, Vector2& axis)
 	if (input.IsTrigger("Attack"))
 	{
 		m_stateText = "SA";
-		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
-		ChangeState(&Player::StrongAttack);
-		ChangeAnimation(m_attackAnim);
+		SetStateAttack();
 		return;
 	}
 	// 仮
@@ -142,11 +148,9 @@ void Player::Dash(Input& input, Vector2& axis)
 	if (input.IsTrigger("Attack"))
 	{
 		m_stateText = "SA";
-		m_physics->UseConstantForce(false);
 		// ここで力を加える
 		m_physics->AddForce(axis.GetNormalize() * kStrongAttackForce);
-		ChangeState(&Player::Attack);
-		ChangeAnimation(m_attackAnim);
+		SetStateAttack();
 		return;
 	}
 	// 	// 入力がなかったらNomalへ
@@ -218,6 +222,8 @@ void Player::Attacked(Input& input, Vector2& axis)
 		SetStateNormal();
 		return;
 	}
+	// 速度に応じて向きを変える
+	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
 }
 
 void Player::GNormal(Input& input, Vector2& axis)
@@ -226,7 +232,7 @@ void Player::GNormal(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
-		SoundManager::GetInstance().Play("ファニージャンプ_3.mp3");
+		SoundManager::GetInstance().Play("ファニージャンプ_2.mp3");
 		SetStateJump();
 		return;
 	}
@@ -251,7 +257,7 @@ void Player::GMove(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
-		SoundManager::GetInstance().Play("ファニージャンプ_3.mp3");
+		SoundManager::GetInstance().Play("ファニージャンプ_2.mp3");
 		SetStateJump();
 		return;
 	}
@@ -280,6 +286,8 @@ void Player::GMove(Input& input, Vector2& axis)
 	m_physics->AddForce(axis.x * kMoveForceFactor);
 	// キャラの向きを変える
 	ChangeDirection(axis);
+	// 一定時間ごとに足音を鳴らす
+	if (!(m_stateFrameCount % kWalkSoundSpan)) PlayWalkSound();
 }
 
 void Player::GDash(Input& input, Vector2& axis)
@@ -319,6 +327,8 @@ void Player::GDash(Input& input, Vector2& axis)
 	m_physics->AddForce(axis.x * kDashForceFactor);
 	// キャラの向きを変える
 	ChangeDirection(axis);
+	// 一定時間ごとに足音を鳴らす
+	if (!(m_stateFrameCount % kDashSoundSpan)) PlayWalkSound();
 }
 
 void Player::Air(Input& input, Vector2& axis)
@@ -351,6 +361,14 @@ void Player::SetStateNormal()
 	m_physics->UseConstantForce(true);
 	ChangeAnimation(m_idleAnim);
 	ChangeState(&Player::Normal);
+}
+
+void Player::SetStateAttack()
+{
+	m_physics->UseConstantForce(false);
+	SoundManager::GetInstance().Play(kAttackSound);
+	ChangeState(&Player::Attack);
+	ChangeAnimation(m_attackAnim);
 }
 
 void Player::SetStateJump()
@@ -449,6 +467,12 @@ void Player::ChangeFallAnim()
 	}
 }
 
+void Player::PlayWalkSound()
+{
+	// ピッチをランダムにしたかった
+	SoundManager::GetInstance().Play(GetRand(1) ? kWalkSound1 : kWalkSound2);
+}
+
 Player::Player(Camera& camera, Vector2 spawnPos) :
 	GameObject(spawnPos),
 	m_state(&Player::Normal),
@@ -523,8 +547,7 @@ void Player::Update()
 			m_physics->IsGrounded(false);
 			m_physics->ChangeState(MapConstants::Environment::kWater);
 			SetStateNormal();
-			SoundManager& sound = SoundManager::GetInstance();
-			sound.Play("IntoTheWater.wav");
+			SoundManager::GetInstance().Play(kIntoWaterSound);
 		}
 		// 水中→地上
 		else
@@ -535,6 +558,7 @@ void Player::Update()
 			// 向きリセット
 			m_nowAnim->SetRotate(0);
 			SetStateJump();
+			SoundManager::GetInstance().Play(kOutOfWaterSound);
 		}
 	}
 
@@ -611,6 +635,7 @@ void Player::OnDamage(int damage)
 	if (m_hp > 0)
 	{
 		m_stateText = "Damage";
+		SoundManager::GetInstance().Play(kStunSound);
 		ChangeState(&Player::Damage);
 	}
 	else

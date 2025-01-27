@@ -82,6 +82,7 @@ private:
 	void Air(Input& input, Vector2& axis);
 
 	void SetStateNormal();
+	void SetStateAttack();
 	void SetStateJump();
 	bool CheckEnvironmentChanged();
 	void CollideToMapChips();
@@ -91,6 +92,7 @@ private:
 	void ChangeDirection(const Vector2& axis);
 	// 落下していたら、落下アニメーションに変える関数
 	void ChangeFallAnim();
+	void PlayWalkSound();
 public:
 	/// <summary>
 	/// 初期化

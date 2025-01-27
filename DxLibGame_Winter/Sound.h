@@ -12,6 +12,8 @@ private:
 	int m_handle;
 	int m_playType;
 
+	std::string m_fileName;
+
 	// コンストラクタをプライベートにして、SoundManager以外のインスタンス化を禁止する
 	Sound(const std::string& fileName);
 public:
@@ -21,6 +23,6 @@ public:
 	void Play() const;
 	void Stop() const;
 	bool IsPlaying() const;
-	void SetVolume(int param) const;
+	void SetVolume(const int param) const;
 };
 

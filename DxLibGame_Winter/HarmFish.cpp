@@ -8,6 +8,7 @@
 #include "Animation.h"
 #include "MapConstants.h"
 #include <algorithm>
+#include "SoundManager.h"
 
 namespace
 {
@@ -30,6 +31,9 @@ namespace
 	const Vector2Int  kImageSize(kImageOneSize, kImageOneSize);
 	constexpr int     kIdleAnimPlaySpeed = 9;
 	constexpr float   kGraphExpandRate   = MapConstants::kChipSize / kImageOneSize;
+
+	// 音
+	const std::string kDamageSound = "レトロアクション_3.mp3";
 }
 
 void HarmFish::Idle()
@@ -150,6 +154,7 @@ void HarmFish::HitToPlayer()
 			ChangeDirection();
 			// プレイヤーに「攻撃した」と教える
 			m_playerRef.OnAttack();
+			SoundManager::GetInstance().Play(kDamageSound);
 		}
 		else
 		{

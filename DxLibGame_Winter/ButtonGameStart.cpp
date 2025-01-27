@@ -1,6 +1,7 @@
 #include "ButtonGameStart.h"
 #include "SceneController.h"
 #include "SceneTitle.h"
+#include "SoundManager.h"
 #include <memory>
 #include "Image.h"
 
@@ -8,6 +9,7 @@ namespace
 {
 	const std::string kImagePath          = "ButtonStartGame.png";
 	const std::string kNoFocusedImagePath = "ButtonStartGame_NoFocused.png";
+	const std::string kStartSound = "キラキラ効果音.mp3";
 	constexpr float kBaseButtonExpand = 1.0f;
 	// Base + Plus = MaxExRate
 	constexpr float kPlusExpandPoint = 0.5f;
@@ -51,6 +53,7 @@ void ButtonGameStart::OnPressed()
 {
 	// シーン遷移をお願い
 	m_titleRef.GameStart();
+	SoundManager::GetInstance().Play(kStartSound);
 	m_frameCount = 0;
 }
 

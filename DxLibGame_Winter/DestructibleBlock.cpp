@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "DestructibleBlock.h"
 #include "Player.h"
+#include "SoundManager.h"
 #include <string>
 
 namespace
@@ -14,6 +15,7 @@ namespace
 	constexpr float kBreakImageExRate = static_cast<float>(kBlockWidth) / kBreakingAnimSize;
 	const std::string kNormalAnimFile = "Block.png";
 	const std::string kBleakingAnimFile = "BlockBreaking.png";
+	const std::string kBreakingSound = "BreakBlock.wav";
 }
 
 void DestructibleBlock::Normal()
@@ -29,6 +31,7 @@ void DestructibleBlock::Normal()
 	{
 		m_state = &DestructibleBlock::Breaking;
 		m_nowAnim = m_breakingAnim;
+		SoundManager::GetInstance().Play(kBreakingSound);
 		return;
 	}
 
@@ -45,8 +48,8 @@ void DestructibleBlock::Breaking()
 	}
 }
 
-DestructibleBlock::DestructibleBlock(Camera& camera, const Vector2& initPos, Player& player) :
-	GameObject(initPos),
+DestructibleBlock::DestructibleBlock(Camera& camera, Player& player, const Vector2& initPos, const Vector2Int& baseMapPos) :
+	GameObject(initPos, baseMapPos),
 	m_camera(camera),
 	m_state(&DestructibleBlock::Normal),
 	m_player(player)
