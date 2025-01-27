@@ -5,7 +5,18 @@
 
 namespace
 {
-    constexpr int kPadA = PAD_INPUT_2;
+    constexpr int kPadA      = PAD_INPUT_1;
+    constexpr int kPadB      = PAD_INPUT_2;
+    constexpr int kPadX      = PAD_INPUT_3;
+    constexpr int kPadY      = PAD_INPUT_4;
+    constexpr int kPadL      = PAD_INPUT_5;
+    constexpr int kPadR      = PAD_INPUT_6;
+    constexpr int kPadSelect = PAD_INPUT_7;
+    constexpr int kPadStart  = PAD_INPUT_8;
+    constexpr int kPadUp     = PAD_INPUT_UP;
+    constexpr int kPadDown   = PAD_INPUT_DOWN;
+    constexpr int kPadRight  = PAD_INPUT_RIGHT;
+    constexpr int kPadLeft   = PAD_INPUT_LEFT;
 }
 
 Input::Input() :
@@ -18,7 +29,7 @@ Input::Input() :
     m_inputEvent["Dash"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_LSHIFT},
-        {PeripheralType::kPad, PAD_INPUT_1},
+        {PeripheralType::kPad, kPadB},
     };
     m_inputEvent["Attack"] =
     {
@@ -48,27 +59,27 @@ Input::Input() :
     m_inputEvent["Srow_Debug"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_LCONTROL},
-        {PeripheralType::kPad, PAD_INPUT_6},
+        {PeripheralType::kPad, kPadR},
     };
     m_inputEvent["ChangeScene_Debug"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_RETURN},
-        {PeripheralType::kPad, PAD_INPUT_3},
+        {PeripheralType::kPad, kPadL},
     };
     m_inputEvent["Jump"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_SPACE},
-        {PeripheralType::kPad, PAD_INPUT_4},
+        {PeripheralType::kPad, kPadY},
     };
     m_inputEvent["Pause"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_ESCAPE},
-        {PeripheralType::kPad, PAD_INPUT_8},
+        {PeripheralType::kPad, kPadStart},
     };
     m_inputEvent["Submit"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_Z},
-        {PeripheralType::kPad, PAD_INPUT_1},
+        {PeripheralType::kPad, kPadA},
     };
 }
 
