@@ -34,4 +34,6 @@ public:
 	/// ‚±‚ê‚ğŒ©‚ÄController‚ªíœ‚·‚é
 	/// </summary>
 	bool IsDeleted() const { return m_isDeleted; }
+
+	void Tere(const Vector2& pos) { m_pos = pos; }
 };

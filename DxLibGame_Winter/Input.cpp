@@ -3,6 +3,11 @@
 #include <string>
 #include <cassert>
 
+namespace
+{
+    constexpr int kPadA = PAD_INPUT_2;
+}
+
 Input::Input() :
     m_padInput(0),
     m_beforePadInput(0),
@@ -18,7 +23,7 @@ Input::Input() :
     m_inputEvent["Attack"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_Z},
-        {PeripheralType::kPad, PAD_INPUT_2},
+        {PeripheralType::kPad, kPadA},
     };
     m_inputEvent["Up"] =
     {

@@ -76,6 +76,14 @@ void SceneGameover::PlayerFadeIn()
 	{
 		m_state = &SceneGameover::TextFall;
 		m_stateFrameCount = 0;
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		m_playerDeadSprite->SetImageBlendPal(255);
+		m_state = &SceneGameover::TextFall;
+		m_stateFrameCount = 0;
+		return;
 	}
 }
 
@@ -88,6 +96,14 @@ void SceneGameover::TextFall()
 	{
 		m_state = &SceneGameover::ButtonAppear;
 		m_stateFrameCount = 0;
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		m_gameoverText->Tere(kTextInitPos + Vector2(0, 2*kTextFallFrame));
+		m_state = &SceneGameover::ButtonAppear;
+		m_stateFrameCount = 0;
+		return;
 	}
 }
 
@@ -103,6 +119,17 @@ void SceneGameover::ButtonAppear()
 	{
 		m_state = &SceneGameover::NormalState;
 		m_stateFrameCount = 0;
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		m_buttonContinue->SetBlendingMode(DX_BLENDMODE_ALPHA, 255);
+		m_buttonReturnToTitle->SetBlendingMode(DX_BLENDMODE_ALPHA, 255);
+		m_buttonQuitGame->SetBlendingMode(DX_BLENDMODE_ALPHA, 255);
+
+		m_state = &SceneGameover::NormalState;
+		m_stateFrameCount = 0;
+		return;
 	}
 }
 
