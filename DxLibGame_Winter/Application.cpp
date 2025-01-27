@@ -5,6 +5,7 @@
 #include "SceneController.h"
 #include "Time.h"
 #include "SoundManager.h"
+#include "SoundStore.h"
 #include "Music.h"
 
 #if _DEBUG
@@ -82,6 +83,8 @@ bool Application::Init()
 void Application::Run()
 {
 	Time& timeInstance = Time::GetInstance();
+	// ロードしておく
+	SoundStore::GetInstance();
 
 	// ゲームループ
 	while (ProcessMessage() == 0)
