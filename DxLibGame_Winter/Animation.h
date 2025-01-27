@@ -47,4 +47,5 @@ public:
 
 	// アニメーションが何回ループしたかを返す
 	int LoopCount() const { return m_loopCount; };
+	void ResetLoopCount() { m_loopCount = 0; }
 };

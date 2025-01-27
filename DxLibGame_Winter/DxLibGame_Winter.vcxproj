@@ -146,6 +146,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="DestructibleBlock.cpp" />
+    <ClCompile Include="HPUI.cpp" />
     <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BoxCollider.cpp" />

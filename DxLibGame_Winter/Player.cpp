@@ -37,9 +37,9 @@ namespace
 	constexpr int    kMoveThreshold = 10000;
 	constexpr int	 kGroundMoveThreshold = 100;
 
-	const Vector2    kJumpForce      = { 0.0f, -12.0f };
+	const Vector2    kJumpForce      = { 0.0f, -15.0f };
 	const Vector2    kWaterJumpForce = { 0.0f, -7.0f  };
-	const Vector2    kDashJumpForce  = { 0.0f, -15.0f };
+	const Vector2    kDashJumpForce  = { 0.0f, -20.0f };
 	constexpr float  kFallThreshold  = 2.0f;
 	// 着地できる地面の角度(法線)
 	constexpr int kLandingThresholdMin = 45;
