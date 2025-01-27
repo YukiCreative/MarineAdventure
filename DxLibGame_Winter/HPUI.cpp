@@ -10,7 +10,7 @@ namespace
 	constexpr     int kOneImageSize     = 32;
 	constexpr     int kPlaySpeed        =  3;
 
-	const     Vector2 kUIShiftingOffset = { 80, 0 };
+	const     Vector2 kHeartShiftingOffset = { 80, 0 };
 }
 
 void HitPointHeart::Normal()
@@ -74,12 +74,13 @@ void HitPointHeart::OnRecovery()
 HitPoints::HitPoints(const Vector2& initPos) :
 	GameObject(initPos)
 {
-	//Vector2
+	Vector2 pos = m_pos + kHeartShiftingOffset;
 	// ”z—ñ‚Ì‰Šú‰»
 	for (auto& haert : m_hearts)
 	{
 		// ‰E‚©‚ç¶‚É‹l‚ß‚Ä‚¢‚­
-		//haert = std::make_shared<HitPointHeart>();
+		haert = std::make_shared<HitPointHeart>(pos);
+		pos += kHeartShiftingOffset;
 	}
 }
 

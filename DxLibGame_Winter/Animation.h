@@ -44,6 +44,7 @@ public:
 	void SetExRate(const float& rate);
 	void SetBlendMode(const int& mode, const int& param);
 	void ReverceX(const bool& value);
+	void SetRotate(const float& deg);
 
 	// アニメーションが何回ループしたかを返す
 	int LoopCount() const { return m_loopCount; };

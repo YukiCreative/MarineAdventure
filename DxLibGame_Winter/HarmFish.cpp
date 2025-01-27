@@ -142,7 +142,9 @@ void HarmFish::HitToPlayer()
 		{
 			// ‚±‚±‚ÅHP‚ðŒ¸‚ç‚·
 			m_hp.Decrease(1);
+#if _DEBUG
 			printf("HP%d‚É‚È‚½‚æ", m_hp.Value());
+#endif
 			ChangeState(&HarmFish::Damage);
 			m_nowAnim = m_damageAnim;
 			ChangeDirection();

@@ -1,17 +1,17 @@
-#include "SceneTitle.h"
-#include <DxLib.h>
-#include "SceneController.h"
-#include <cassert>
-#include "game.h"
-#include <memory>
-#include "ImageObject.h"
-#include "Camera.h"
-#include "ScreenFade.h"
-#include "SceneGame.h"
-#include "ButtonSystem.h"
 #include "ButtonGameStart.h"
 #include "ButtonQuitGame.h"
+#include "ButtonSystem.h"
+#include "Camera.h"
+#include "game.h"
+#include "ImageObject.h"
 #include "Music.h"
+#include "SceneController.h"
+#include "SceneGame.h"
+#include "SceneTitle.h"
+#include "ScreenFade.h"
+#include <cassert>
+#include <DxLib.h>
+#include <memory>
 
 namespace
 {
@@ -32,14 +32,10 @@ void SceneTitle::ButtonInit()
 	std::shared_ptr<ButtonGameStart> buttonGameStart = std::make_shared<ButtonGameStart>(kInitStartButtonPos, *this);
 	std::shared_ptr<ButtonQuitGame>  buttonQuitGame  = std::make_shared<ButtonQuitGame> (kInitQuitButtonPos);
 
-	//buttonGameStart->SetUpButton  (buttonQuitGame);
-	//buttonGameStart->SetDownButton(buttonQuitGame);
-	//buttonQuitGame ->SetUpButton  (buttonGameStart);
-	//buttonQuitGame ->SetDownButton(buttonGameStart);
-	buttonGameStart->SetRightButton  (buttonQuitGame);
-	buttonGameStart->SetLeftButton(buttonQuitGame);
-	buttonQuitGame ->SetRightButton  (buttonGameStart);
-	buttonQuitGame ->SetLeftButton(buttonGameStart);
+	buttonGameStart->SetUpButton  (buttonQuitGame);
+	buttonGameStart->SetDownButton(buttonQuitGame);
+	buttonQuitGame ->SetUpButton  (buttonGameStart);
+	buttonQuitGame ->SetDownButton(buttonGameStart);
 
 	m_buttonSystem->AddButton(buttonGameStart);
 	m_buttonSystem->AddButton(buttonQuitGame);

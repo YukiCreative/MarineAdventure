@@ -20,10 +20,12 @@ SoundStore::SoundStore()
         std::string pathCopy = path;
         std::string fileName = pathCopy.erase(0, kFolderPath.size());
         m_store[fileName] = LoadSoundMem(path.c_str());
+#if _DEBUG
         assert(m_store[fileName] != -1 && "音声ファイル読み込みに失敗した");
         printf("音声ファイルを読み込みました。\n");
         printf("　ファイル名：%s\n", fileName.c_str());
         printf("　ハンドル：%d\n", m_store[fileName]);
+#endif
     }
 }
 

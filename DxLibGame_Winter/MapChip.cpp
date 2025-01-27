@@ -122,7 +122,9 @@ void kMapChip::Update()
 	{
 		ResetMapData();
 		//printf("ループ！！");
+#if _DEBUG
 		printf("MapPos:x=%d,y=%d\n", m_mapPos.x, m_mapPos.y);
+#endif
 	}
 
 	// movePosを0,0でリセット

@@ -24,11 +24,13 @@ ImageStore::ImageStore()
         std::string pathCopy = path;
         std::string fileName = pathCopy.erase(0, kFolderpath.size());
         m_store[fileName] = LoadGraph(path.c_str());
+#if _DEBUG
         assert(m_store[fileName] != -1 && "画像ではないファイル形式が混入している可能性があります");
         printf("画像ファイルを読み込みました\n");
         printf("　相対パス：%s\n", path.c_str());
         printf("　キー：%s\n", fileName.c_str());
         printf("　ハンドル：%d\n", m_store[fileName]);
+#endif
     }
 }
 

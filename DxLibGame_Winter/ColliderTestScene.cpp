@@ -72,6 +72,7 @@ void ColliderTestScene::NormalUpdate()
 
 	// 特定の四角形との相対的なベクトルを出していろいろさせる
 	Vector2 rerativeVec = nowCol->GetPos() - boxCol->GetPos();
+#if _DEBUG
 	printf("テストm_pos.x=%f, y=%f\n", rerativeVec.x, rerativeVec.y);
 	printf("今の向き：%f\n", rerativeVec.Angle());
 	DrawLine(static_cast<int>(boxPos.x), static_cast<int>(boxPos.y), static_cast<int>(circlePos.x), static_cast<int>(circlePos.y), 0xffffff);
@@ -85,6 +86,7 @@ void ColliderTestScene::NormalUpdate()
 		SceneController::GetInstance().ChangeScene("Game");
 		return;
 	}
+#endif
 }
 
 void ColliderTestScene::Draw() const

@@ -85,6 +85,8 @@ void Player::Normal(Input& input, Vector2& axis)
 		ChangeState(&Player::Move);
 		return;
 	}
+	// 速度に応じて向きを変える
+	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
 }
 
 // 移動してます
@@ -120,6 +122,8 @@ void Player::Move(Input& input, Vector2& axis)
 	m_physics->AddForce(axis * kMoveForceFactor);
 	// 現在の移動方向によってモーションを変える
 	ChangeDirection(axis);
+	// 速度に応じて向きを変える
+	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
 }
 
 // 早いです。
@@ -155,6 +159,8 @@ void Player::Dash(Input& input, Vector2& axis)
 	m_physics->AddForce(axis * kDashForceFactor);
 	// モーションが変わるのはこちらも同じ
 	ChangeDirection(axis);
+	// 速度に応じて向きを変える
+	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
 }
 
 void Player::Attack(Input& input, Vector2& axis)
@@ -526,6 +532,8 @@ void Player::Update()
 			m_physics->ChangeState(MapConstants::Environment::kGround);
 			m_physics->UseConstantForce(true);
 			if (CheckState(PlayerState::kDash)) { m_physics->AddForce(kWaterJumpForce); }
+			// 向きリセット
+			m_nowAnim->SetRotate(0);
 			SetStateJump();
 		}
 	}
@@ -597,7 +605,9 @@ void Player::OnDamage(int damage)
 
 	// こんなのでいいんでしょうか
 	m_hp -= damage;
+#if _DEBUG
 	printf("Playerの体力%d\n", m_hp);
+#endif
 	if (m_hp > 0)
 	{
 		m_stateText = "Damage";

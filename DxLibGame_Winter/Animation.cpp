@@ -76,3 +76,8 @@ void Animation::ReverceX(const bool& value)
 {
 	m_image->SetReverceFlagX(value);
 }
+
+void Animation::SetRotate(const float& deg)
+{
+	m_image->SetAngle(deg);
+}

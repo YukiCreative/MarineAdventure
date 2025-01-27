@@ -14,6 +14,7 @@
 #include "ScenePause.h"
 #include "ScreenFade.h"
 #include "Time.h"
+#include "HPUI.h"
 #include <DxLib.h>
 
 namespace
