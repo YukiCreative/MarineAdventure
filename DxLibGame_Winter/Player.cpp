@@ -50,8 +50,10 @@ namespace
 	const std::string kFallAnimPath      = "PlayerFall.png";
 	const std::string kDamageAnimPath    = "PlayerDamage.png";
 	const std::string kAttackAnimPath    = "PlayerAttack.png";
+	const std::string kWalkAnimPath      = "PlayerDash.png";
 	const std::string kDashAnimPath      = "PlayerDash.png";
 	constexpr int     kAnimPlaySpeed     = 3;
+	constexpr int     kDashAnimSpeed     = 1;
 	const Vector2Int  kPlayerGraphSize   = { 32, 32 };
 	constexpr float   kPlayerGraphExRate = 80.0f / 32.0f;
 }
@@ -233,7 +235,7 @@ void Player::GNormal(Input& input, Vector2& axis)
 	{
 		m_stateText = "GM";
 		ChangeState(&Player::GMove);
-		ChangeAnimation(m_dashAnim);
+		ChangeAnimation(m_walkAnim);
 		return;
 	}
 }
@@ -281,7 +283,7 @@ void Player::GDash(Input& input, Vector2& axis)
 	{
 		m_stateText = "GN";
 		ChangeState(&Player::GMove);
-		ChangeAnimation(m_dashAnim);
+		ChangeAnimation(m_walkAnim);
 		return;
 	}
 	// ì¸óÕÇ™Ç»Ç≠Ç»Ç¡ÇΩÇÁí èÌèÛë‘Ç÷
@@ -409,6 +411,7 @@ void Player::CollideToMapChips()
 	Vector2 addforce(m_velocity.x * std::abs(overlapN.x), m_velocity.y * std::abs(overlapN.y));
 	m_physics->AddForce(-addforce * kBounceFactor);
 
+	// ç≈å„Ç…îΩâf
 	m_velocity -= overlapSum;
 }
 
@@ -459,6 +462,7 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 	m_fallAnim   = std::make_shared<Animation>();
 	m_damageAnim = std::make_shared<Animation>();
 	m_attackAnim = std::make_shared<Animation>();
+	m_walkAnim   = std::make_shared<Animation>();
 	m_dashAnim   = std::make_shared<Animation>();
 
 	m_idleAnim  ->Init(kIdleAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
@@ -466,13 +470,15 @@ Player::Player(Camera& camera, Vector2 spawnPos) :
 	m_fallAnim  ->Init(kFallAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
 	m_damageAnim->Init(kDamageAnimPath, kPlayerGraphSize, kAnimPlaySpeed);
 	m_attackAnim->Init(kAttackAnimPath, kPlayerGraphSize, kAnimPlaySpeed);
-	m_dashAnim  ->Init(kDashAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
+	m_walkAnim  ->Init(kWalkAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
+	m_dashAnim  ->Init(kDashAnimPath,   kPlayerGraphSize, kDashAnimSpeed);
 
 	m_idleAnim  ->SetExRate(kPlayerGraphExRate);
 	m_jumpAnim  ->SetExRate(kPlayerGraphExRate);
 	m_fallAnim  ->SetExRate(kPlayerGraphExRate);
 	m_damageAnim->SetExRate(kPlayerGraphExRate);
 	m_attackAnim->SetExRate(kPlayerGraphExRate);
+	m_walkAnim  ->SetExRate(kPlayerGraphExRate);
 	m_dashAnim  ->SetExRate(kPlayerGraphExRate);
 
 	m_nowAnim = m_idleAnim;

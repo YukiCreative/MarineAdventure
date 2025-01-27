@@ -1,13 +1,14 @@
 #include "Boss.h"
 #include "Camera.h"
+#include "DestructibleBlock.h"
 #include "Door.h"
 #include "Enemy.h"
+#include "GameEffect.h"
 #include "HarmFish.h"
 #include "MapSystem.h"
 #include "ObjectKind.h"
 #include "ObjectsController.h"
 #include "Player.h"
-#include "GameEffect.h"
 #include <cassert>
 #include <vector>
 
@@ -39,6 +40,7 @@ ObjectsController::ObjectsController(Camera& camera, Player& player) :
 	// functionÇ¡ÇƒÇ∑Ç∞Å[
 	m_factoryMap[ObjectKind::kHarmFish] = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<HarmFish>(*this, m_playerRef, m_cameraRef, spawnPos, baseMapPos); };
 	m_factoryMap[ObjectKind::kBoss]     = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Boss>    (*this, m_playerRef, m_cameraRef, spawnPos, baseMapPos); };
+	m_factoryMap[ObjectKind::kDestructibleBlock] = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<DestructibleBlock>(m_cameraRef, spawnPos, m_playerRef); };
 	m_factoryMap[ObjectKind::kDoor1]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor1)); };
 	m_factoryMap[ObjectKind::kDoor2]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor2)); };
 	m_factoryMap[ObjectKind::kDoor3]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor3)); };

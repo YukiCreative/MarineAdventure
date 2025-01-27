@@ -63,6 +63,7 @@ public:
 	/// ‚±‚êˆÈŠO‚Å’¼Úvelocity‚ð‚¢‚¶‚é‚Ì‚Í‚Å‚«‚é‚¾‚¯‚â‚ß‚æ‚¤
 	/// </summary>
 	void Stop() { m_velocity = Vector2::Zero(); }
+	void StopY() { m_velocity.y = 0; }
 	/// <summary>
 	/// d—Í‚Æ•‚—Í‚Ì‚¢‚´‚±‚´‚©‚ç—£‚ê‚½‚¢‚Æ‚«‚É
 	/// </summary>

@@ -40,6 +40,7 @@ private:
 	std::shared_ptr<Animation> m_fallAnim;
 	std::shared_ptr<Animation> m_damageAnim;
 	std::shared_ptr<Animation> m_attackAnim;
+	std::shared_ptr<Animation> m_walkAnim;
 	std::shared_ptr<Animation> m_dashAnim;
 
 	std::weak_ptr<MapSystem> m_map;

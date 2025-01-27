@@ -1,20 +1,20 @@
-#include "ImageObject.h"
 #include "Camera.h"
 #include "ColliderTestScene.h"
 #include "game.h"
+#include "ImageObject.h"
 #include "Input.h"
 #include "MapSystem.h"
+#include "Music.h"
 #include "ObjectKind.h"
 #include "ObjectsController.h"
-#include "ScenePause.h"
 #include "Player.h"
 #include "SceneController.h"
-#include "SceneGameover.h"
-#include "ScreenFade.h"
 #include "SceneGame.h"
+#include "SceneGameover.h"
+#include "ScenePause.h"
+#include "ScreenFade.h"
 #include "Time.h"
 #include <DxLib.h>
-#include "Music.h"
 
 namespace
 {

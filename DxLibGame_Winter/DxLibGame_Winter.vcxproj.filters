@@ -219,6 +219,9 @@
     <ClCompile Include="ButtonQuitGameFromGameover.cpp">
       <Filter>ソース ファイル\UI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="DestructibleBlock.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="ButtonQuitGameFromGameover.h">
       <Filter>ヘッダー ファイル\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="DestructibleBlock.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
