@@ -465,6 +465,8 @@ void Player::ChangeFallAnim()
 	{
 		m_nowAnim = m_fallAnim;
 	}
+	// ¡‚ÌˆÚ“®•ûŒü‚É‰ž‚¶‚ÄŒü‚«‚ð•Ï‚¦‚½‚¢
+	m_nowAnim->ReverceX(m_velocity.x < 0);
 }
 
 void Player::PlayWalkSound()
@@ -562,8 +564,6 @@ void Player::Update()
 			m_physics->ChangeState(MapConstants::Environment::kGround);
 			m_physics->UseConstantForce(true);
 			if (CheckState(PlayerState::kDash)) { m_physics->AddForce(kWaterJumpForce); }
-			// Œü‚«ƒŠƒZƒbƒg
-			m_nowAnim->SetRotate(0);
 			SetStateJump();
 			SoundManager::GetInstance().Play(kOutOfWaterSound);
 		}

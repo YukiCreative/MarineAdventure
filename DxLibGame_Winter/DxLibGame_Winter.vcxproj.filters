@@ -404,5 +404,8 @@
     <ClInclude Include="DestructibleBlock.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectAttribute.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@
 #include "Player.h"
 #include <cassert>
 #include <vector>
+#include "ObjectAttribute.h"
 
 namespace
 {
@@ -32,6 +33,42 @@ namespace
 		{ObjectKind::kDoor7, 0},
 		{ObjectKind::kDoor8, 0},
 	};
+
+	constexpr int kEnemyOverlapThreshold = 5000;
+}
+
+void ObjectsController::AvoidOverlappingEnemies()
+{
+	using EnemyList_t = std::list<std::shared_ptr<Enemy>>;
+	// ‚±‚±‚ÅA“G“¯m‚Ì–§’…‚ğ‘j~‚·‚é(“|‚¹‚È‚¢‚Ì‚Å)
+	EnemyList_t enemyList;
+	for (auto& object : m_objects)
+	{
+		// ‚Ü‚¸“G‚©‚Ç‚¤‚©‚ğ’²‚×‚ÄA“G‚¾‚¯‚Ì”z—ñ‚ğì‚é
+		if (object->Attribute() != ObjectAttribute::kEnemy) continue;
+
+		enemyList.emplace_back(std::static_pointer_cast<Enemy>(object));
+	}
+	// “G“¯m‚Ì‹——£‚ğ‘“–‚½‚è
+	// ƒlƒXƒg‰³
+	for (auto& firstEnemy : enemyList)
+	{
+		for (auto& secondEnemy : enemyList)
+		{
+			// ©•ª‚Æ‚ÍÕ“Ë‚³‚¹‚È‚¢
+			if (firstEnemy == secondEnemy) continue;
+
+			Vector2 rerativeVec = firstEnemy->GetPos() - secondEnemy->GetPos();
+			float rerativeLength = rerativeVec.SqrMagnitude();
+			if (rerativeLength > kEnemyOverlapThreshold) continue;
+
+			Vector2 rerativeVecN = rerativeVec.GetNormalize();
+
+			// ‚¨Œİ‚¢—£‚ê‚é•ûŒü‚É—Í‚ğ‰Á‚¦‚é
+			firstEnemy ->AddForce(rerativeVecN);
+			secondEnemy->AddForce(-rerativeVecN);
+		}
+	}
 }
 
 ObjectsController::ObjectsController(Camera& camera, Player& player) :
@@ -75,6 +112,8 @@ void ObjectsController::Update()
 	}
 	// ‚Í‚İo‚½—v‘f‚Í©“®“I‚Éíœ‚³‚ê‚é
 	m_objects = aliveObjects;
+
+	AvoidOverlappingEnemies();
 
 	for (auto& status : m_isObjectsExist)
 	{

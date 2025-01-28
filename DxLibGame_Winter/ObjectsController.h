@@ -13,6 +13,7 @@ class Camera;
 class GameObject;
 class MapSystem;
 class GameEffect;
+class Enemy;
 
 struct ObjectAppearanceStatus
 {
@@ -68,6 +69,8 @@ private:
 	// 今のマップにあるオブジェクトの出現状況を記憶
 	std::vector<ObjectAppearanceStatus> m_isObjectsExist;
 	Vector2Int m_mapSize;
+
+	void AvoidOverlappingEnemies();
 public:
 	ObjectsController(Camera& camera, Player& player);
 

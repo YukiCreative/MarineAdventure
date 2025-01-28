@@ -26,4 +26,7 @@ public:
 	/// スクリーンの外かどうか
 	/// </summary>
 	bool CheckScreenOut() const;
+
+	// ObjectControllerが敵を見て、接触していたら離すための関数
+	void AddForce(const Vector2& force);
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include "ObjectAttribute.h"
 
 /// <summary>
 /// 座標を持つ
@@ -14,6 +15,7 @@ protected:
 	// こいつが出現した元のマップ座標
 	Vector2Int m_mapPos;
 	bool m_isDeleted;
+	ObjectAttribute m_att = ObjectAttribute::kOther;
 public:
 	GameObject() : m_pos(), m_isDeleted(false), m_mapPos() {}
 	GameObject(const Vector2& pos) : m_pos(pos), m_isDeleted(false), m_mapPos() {}
@@ -36,4 +38,5 @@ public:
 	bool IsDeleted() const { return m_isDeleted; }
 
 	void Tere(const Vector2& pos) { m_pos = pos; }
+	ObjectAttribute Attribute() const { return m_att; }
 };

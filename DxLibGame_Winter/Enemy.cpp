@@ -4,6 +4,7 @@
 #include "game.h"
 #include "MapConstants.h"
 #include "ObjectsController.h"
+#include "Physics.h"
 
 namespace
 {
@@ -21,6 +22,7 @@ Enemy::Enemy(ObjectsController& cont, Player& player, Camera& camera, const Vect
 	m_physics(nullptr),
 	m_cont(cont)
 {
+	m_att = ObjectAttribute::kEnemy;
 }
 
 bool Enemy::CheckScreenOut() const
@@ -33,4 +35,9 @@ bool Enemy::CheckScreenOut() const
 	if (screenPos.y < -kOffset)							return true;
 
 	return false;
+}
+
+void Enemy::AddForce(const Vector2& force)
+{
+	m_physics->AddForce(force);
 }

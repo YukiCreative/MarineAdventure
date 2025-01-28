@@ -236,6 +236,7 @@
     <ClInclude Include="MapImageStore.h" />
     <ClInclude Include="MapSystem.h" />
     <ClInclude Include="Music.h" />
+    <ClInclude Include="ObjectAttribute.h" />
     <ClInclude Include="ObjectKind.h" />
     <ClInclude Include="ObjectsController.h" />
     <ClInclude Include="ScenePause.h" />
