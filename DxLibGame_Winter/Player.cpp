@@ -21,7 +21,6 @@ namespace
 {
 	// プレイヤーの当たり判定に使います
 	constexpr float kColliderRaduis = 30.0f;
-	const Vector2   kColliderOffset = {0, 10};
 	constexpr int   kMaxHp = 5;
 	// Axisがでかすぎるんだよ
 	constexpr float  kMoveForceFactor = 0.0002f;
@@ -346,6 +345,8 @@ void Player::Air(Input& input, Vector2& axis)
 		m_physics->IsGrounded(true);
 		ChangeState(&Player::GNormal);
 		ChangeAnimation(m_idleAnim);
+		// 立ちモーションが斜めっている場合があるので向きリセット
+		m_nowAnim->SetRotate(0);
 		return;
 	}
 	m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
@@ -490,7 +491,7 @@ Player::Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI) :
 {
 	ImageStore& imageStore = ImageStore::GetInstance();
 	m_physics  = std::make_shared<Physics>(1.0f, 1.0f),
-	m_collider = std::make_shared<CircleCollider>(m_pos, kColliderRaduis, kColliderOffset);
+	m_collider = std::make_shared<CircleCollider>(m_pos, kColliderRaduis);
 	// ここからアニメーションの初期化
 	// これってまとめたほうがいいのか都度宣言して初期化関数流したほうがいいのか
 	m_idleAnim   = std::make_shared<Animation>();
@@ -572,11 +573,12 @@ void Player::Update()
 	m_pos += m_velocity;
 
 	m_nowAnim->Update();
-
+#if _DEBUG
 	if (input.IsTrigger("RecoverPlayerHp_Debug"))
 	{
 		OnRecovery();
 	}
+#endif
 }
 
 void Player::AnimationUpdate()
@@ -598,6 +600,11 @@ void Player::Draw() const
 		DrawLine(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(screenPos.x + overlap.x * 5), static_cast<int>(screenPos.y + overlap.y * 5), 0x8fffff);
 	}
 	DrawLine(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(screenPos.x + m_velocity.x * 5), static_cast<int>(screenPos.y + m_velocity.y * 5), 0xff8fff);
+	DrawBox(static_cast<int>(screenPos.x - kPlayerGraphSize.x * kPlayerGraphExRate / 2),
+		static_cast<int>(screenPos.y - kPlayerGraphSize.y * kPlayerGraphExRate / 2),
+		static_cast<int>(screenPos.x + kPlayerGraphSize.x * kPlayerGraphExRate / 2),
+		static_cast<int>(screenPos.y + kPlayerGraphSize.y * kPlayerGraphExRate / 2),
+		0xffffff, false);
 #endif
 }
 
