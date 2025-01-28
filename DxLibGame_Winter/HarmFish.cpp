@@ -155,6 +155,10 @@ void HarmFish::HitToPlayer()
 			// プレイヤーに「攻撃した」と教える
 			m_playerRef.OnAttack();
 			SoundManager::GetInstance().Play(kDamageSound);
+
+			m_physics->Stop();
+			m_playerRef.Stop();
+			m_physics->AddForce(collision.overlap.GetNormalize() * 10);
 		}
 		else
 		{
@@ -162,12 +166,10 @@ void HarmFish::HitToPlayer()
 			m_playerRef.OnDamage();
 			m_nowAnim = m_idleAnim;
 			ChangeState(&HarmFish::Attacked);
+			m_playerRef.Stop();
+			m_physics->Stop();
+			m_playerRef.AddForce(-collision.overlap.GetNormalize() * 5);
 		}
-		// どちらにせよ両者をぶっ飛ばす
-		m_playerRef.Stop();
-		m_playerRef.AddForce(-collision.overlap.GetNormalize());
-		m_physics->Stop();
-		m_physics->AddForce(collision.overlap.GetNormalize());
 	}
 }
 

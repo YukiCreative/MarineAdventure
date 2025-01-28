@@ -225,6 +225,9 @@
     <ClCompile Include="HPUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="TileImage.cpp">
+      <Filter>ソース ファイル\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -406,6 +409,9 @@
     </ClInclude>
     <ClInclude Include="ObjectAttribute.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TileImage.h">
+      <Filter>ヘッダー ファイル\Image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

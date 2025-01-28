@@ -465,6 +465,8 @@ void Player::ChangeFallAnim()
 	{
 		m_nowAnim = m_fallAnim;
 	}
+
+	if (abs(m_velocity.x) < 0.1f) return;
 	// ¡‚ÌˆÚ“®•ûŒü‚É‰ž‚¶‚ÄŒü‚«‚ð•Ï‚¦‚½‚¢
 	m_nowAnim->ReverceX(m_velocity.x < 0);
 }

@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "ColliderTestScene.h"
 #include "game.h"
+#include "HPUI.h"
 #include "ImageObject.h"
 #include "Input.h"
 #include "MapSystem.h"
@@ -13,8 +14,8 @@
 #include "SceneGameover.h"
 #include "ScenePause.h"
 #include "ScreenFade.h"
+#include "TileImage.h"
 #include "Time.h"
-#include "HPUI.h"
 #include <DxLib.h>
 
 namespace
@@ -25,6 +26,7 @@ namespace
 	const Vector2 initHpUIPos   = { kScreenMiddlePos.x - 300, kScreenMiddlePos.y + 300 };
 	const std::string kInitMapDataPass = "Data/MapData/Stage1.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
+	const std::string kBackGroundTile  = "WaterBackWallTile.png";
 }
 
 void SceneGame::MapChangeUpdate()
@@ -52,6 +54,7 @@ SceneGame::SceneGame() :
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kInitMapDataPass);
 	m_backGround = std::make_shared<ImageObject>      (*m_camera, Vector2::Zero(), kBackGroundPass);
+	m_backGoundTile = std::make_shared<TileImage>     (kBackGroundTile);
 
 	// ‚»‚à‚»‚àŽQÆ‚ÅŽæ‚ç‚È‚«‚á‚¢‚¢‚¶‚å‚ñ
 	m_player->Init(m_map);
@@ -162,6 +165,7 @@ void SceneGame::NormalUpdate()
 void SceneGame::Draw() const
 {
 	m_backGround->Draw();
+	m_backGoundTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth, Game::kScreenHeight));
 	m_map->Draw();
 	m_objectCont->Draw();
 	m_player->Draw();

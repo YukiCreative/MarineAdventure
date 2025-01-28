@@ -56,8 +56,10 @@ void ObjectsController::AvoidOverlappingEnemies()
 		for (auto& secondEnemy : enemyList)
 		{
 			// 自分とは衝突させない
+			// この文がなくてもバグらないが、計算量は減る
 			if (firstEnemy == secondEnemy) continue;
 
+			// 距離を測って、一定距離以上近づいたら、離す
 			Vector2 rerativeVec = firstEnemy->GetPos() - secondEnemy->GetPos();
 			float rerativeLength = rerativeVec.SqrMagnitude();
 			if (rerativeLength > kEnemyOverlapThreshold) continue;
