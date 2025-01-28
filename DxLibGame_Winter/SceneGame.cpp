@@ -144,6 +144,7 @@ void SceneGame::NormalUpdate()
 		SceneStackWithFadeOut("Pause", 30);
 		return;
 	}
+#if _DEBUG
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		//SceneChangeWithFadeOut("Clear");
@@ -151,6 +152,7 @@ void SceneGame::NormalUpdate()
 		//ChangeMapWithFadeOut("Data/MapData/TestMapGroundStage.fmf", Vector2(-100, 0));
 		return;
 	}
+#endif
 }
 
 void SceneGame::Draw() const

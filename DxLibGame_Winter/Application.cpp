@@ -96,10 +96,12 @@ void Application::Run()
 		timeInstance.Update();
 
 		int playSpeed = 1;
+#if _DEBUG
 		if (Input::GetInstance().IsPressed("Srow_Debug"))
 		{
 			playSpeed = 5;
 		}
+#endif
 
 		// ‚±‚Ìif‚ÍƒXƒ[‚Ìˆ—
 		if (!(Time::FrameCount() % playSpeed))

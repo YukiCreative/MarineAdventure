@@ -584,9 +584,9 @@ void Player::Draw() const
 
 	for (const auto& overlap : m_overlaps)
 	{
-		DrawLine(screenPos.x, screenPos.y, screenPos.x + overlap.x * 5, screenPos.y + overlap.y * 5, 0x8fffff);
+		DrawLine(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(screenPos.x + overlap.x * 5), static_cast<int>(screenPos.y + overlap.y * 5), 0x8fffff);
 	}
-	DrawLine(screenPos.x, screenPos.y, screenPos.x + m_velocity.x, screenPos.y + m_velocity.y, 0xff8fff);
+	DrawLine(static_cast<int>(screenPos.x), static_cast<int>(screenPos.y), static_cast<int>(screenPos.x + m_velocity.x * 5), static_cast<int>(screenPos.y + m_velocity.y * 5), 0xff8fff);
 #endif
 }
 
