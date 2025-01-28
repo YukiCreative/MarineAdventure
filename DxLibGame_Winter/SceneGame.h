@@ -22,7 +22,7 @@ private:
 	std::shared_ptr<ObjectsController> m_objectCont;
 	std::shared_ptr<ImageObject> m_backGround;
 	std::shared_ptr<HitPoints> m_hpUI;
-	std::shared_ptr<TileImage> m_backGoundTile;
+	std::shared_ptr<TileImage> m_waterBackTile;
 
 	// マップ切り替え処理関連
 	std::string m_nextMapPath;

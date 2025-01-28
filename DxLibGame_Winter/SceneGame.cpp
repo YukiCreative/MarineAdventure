@@ -54,7 +54,7 @@ SceneGame::SceneGame() :
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kInitMapDataPass);
 	m_backGround = std::make_shared<ImageObject>      (*m_camera, Vector2::Zero(), kBackGroundPass);
-	m_backGoundTile = std::make_shared<TileImage>     (kBackGroundTile);
+	m_waterBackTile = std::make_shared<TileImage>     (kBackGroundTile);
 
 	// ‚»‚à‚»‚àŽQÆ‚ÅŽæ‚ç‚È‚«‚á‚¢‚¢‚¶‚å‚ñ
 	m_player->Init(m_map);
@@ -165,7 +165,7 @@ void SceneGame::NormalUpdate()
 void SceneGame::Draw() const
 {
 	m_backGround->Draw();
-	m_backGoundTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth, Game::kScreenHeight));
+	m_waterBackTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth, Game::kScreenHeight));
 	m_map->Draw();
 	m_objectCont->Draw();
 	m_player->Draw();

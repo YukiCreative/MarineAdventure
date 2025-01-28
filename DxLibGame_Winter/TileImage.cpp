@@ -14,9 +14,10 @@ void TileImage::Draw(const Vector2& leftTop, const Vector2& rightBottom) const
 	int imageSizeX = m_graphSize.x * m_exRate;
 	int imageSizeY = m_graphSize.x * m_exRate;
 
+	const Vector2 drawRect = rightBottom - leftTop;
 	// ‰æ‘œ‚Ì‘å‚«‚³‚Æ•`‰æ”ÍˆÍ‚©‚çŒJ‚è•Ô‚µ‰ñ”‚ğŠ„‚èo‚µ‚Ä‚Ô‚ñ‰ñ‚µ‚ÄI‚í‚è
-	const int widthLoopNum  = (rightBottom.x - leftTop.x) / imageSizeX + 1;
-	const int heightLoopNum = (rightBottom.y - leftTop.y) / imageSizeY + 1;
+	const int widthLoopNum  = (drawRect.x) / imageSizeX;
+	const int heightLoopNum = (drawRect.y) / imageSizeY;
 
 	for (int y = 0; y < heightLoopNum; ++y)
 	{
