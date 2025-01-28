@@ -91,7 +91,7 @@ void HarmFish::Attacked()
 void HarmFish::Damage()
 {
 	// 0になったらDeath
-	if (m_hp.Value() == 0)
+	if (m_hp.IsDead())
 	{
 		ChangeState(&HarmFish::Death);
 		return;
@@ -145,7 +145,7 @@ void HarmFish::HitToPlayer()
 		if (m_playerRef.CheckState(PlayerState::kAttack) || m_playerRef.CheckState(PlayerState::kStrongAttack))
 		{
 			// ここでHPを減らす
-			m_hp.Decrease(1);
+			m_hp -= 1;
 #if _DEBUG
 			printf("HP%dになたよ", m_hp.Value());
 #endif
@@ -204,7 +204,7 @@ HarmFish::HarmFish(ObjectsController& cont, Player& player, Camera& camera, cons
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f);
 	m_physics->UseConstantForce(false);
 	m_collider = std::make_shared<CircleCollider>(m_pos, kColRadius);
-	m_hp.Increase(kInitHp);
+	m_hp += kInitHp;
 
 	// アニメーションの初期化
 	m_idleAnim   = std::make_shared<Animation>();

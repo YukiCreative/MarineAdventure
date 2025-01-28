@@ -9,8 +9,11 @@ namespace
 	const std::string kEmptyHeartFile   = "HeartEmpty.png";
 	constexpr     int kOneImageSize     = 32;
 	constexpr     int kPlaySpeed        =  3;
+	constexpr     int kNormalPlaySpeed  = 20;
+	constexpr   float kHeartExRate      = 1.5f;
 
-	const     Vector2 kHeartShiftingOffset = { 80, 0 };
+	const  Vector2 kHeartShiftingOffset = { 80, 0 };
+	const  Vector2 kDrawBoxSize         = { 500, 50 };
 }
 
 void HitPointHeart::Normal()
@@ -31,6 +34,7 @@ void HitPointHeart::Damage()
 }
 
 HitPointHeart::HitPointHeart(const Vector2& initPos) :
+	GameObject(initPos),
 	m_state(&HitPointHeart::Normal),
 	m_isFull(true)
 {
@@ -39,13 +43,18 @@ HitPointHeart::HitPointHeart(const Vector2& initPos) :
 	m_damageAnim = std::make_shared<Animation>();
 
 	m_emptyAnim ->Init(kEmptyHeartFile,   kOneImageSize, kPlaySpeed);
-	m_fullAnim  ->Init(kFullHertIdleFile, kOneImageSize, kPlaySpeed);
+	m_fullAnim  ->Init(kFullHertIdleFile, kOneImageSize, kNormalPlaySpeed);
 	m_damageAnim->Init(kHeartDamageFile,  kOneImageSize, kPlaySpeed);
+
+	m_emptyAnim->SetExRate(kHeartExRate);
+	m_fullAnim->SetExRate(kHeartExRate);
+	m_damageAnim->SetExRate(kHeartExRate);
+
+	m_nowAnim = m_fullAnim;
 }
 
 void HitPointHeart::Update()
 {
-	m_nowAnim->Update();
 	(this->*m_state)();
 }
 
@@ -65,7 +74,9 @@ void HitPointHeart::OnDamage()
 
 void HitPointHeart::OnRecovery()
 {
+	m_nowAnim->ResetLoopCount();
 	m_nowAnim = m_fullAnim;
+	m_state = &HitPointHeart::Normal;
 	m_isFull = true;
 }
 
@@ -94,6 +105,13 @@ void HitPoints::Update()
 
 void HitPoints::Draw() const
 {
+	// Œã‚ë‚Ì˜g
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+	DrawBox(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y - kDrawBoxSize.y),
+		static_cast<int>(m_pos.x + kDrawBoxSize.x), static_cast<int>(m_pos.y + kDrawBoxSize.y),
+		0xffffff, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 	for (const auto& heart : m_hearts)
 	{
 		heart->Draw();
@@ -119,7 +137,7 @@ void HitPoints::OnRecovery(const int recoverAmount)
 {
 	int damage = recoverAmount;
 	// *‹t‡*‚ÉŒ©‚Ä‚¢‚­
-	for (auto i = m_hearts.rbegin(); i == m_hearts.rend(); ++i)
+	for (auto i = m_hearts.rbegin(); i != m_hearts.rend(); ++i)
 	{
 		// ‚«‚à
 		if ((*i)->IsFull()) continue;

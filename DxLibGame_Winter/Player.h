@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <list>
+#include "HitPoint.h"
 
 // プロトタイプ宣言
 class Physics;
@@ -12,6 +13,7 @@ class Camera;
 class Input;
 class MapSystem;
 class Animation;
+class HitPoints;
 
 enum class PlayerState
 {
@@ -45,6 +47,7 @@ private:
 
 	std::weak_ptr<MapSystem> m_map;
 	Camera& m_camera;
+	HitPoints& m_hpUI;
 
 	using StateFunc_t = void(Player::*)(Input& input, Vector2& axis);
 	// 今のプレイヤーの状態
@@ -54,7 +57,7 @@ private:
 	// 現在の状態が何フレーム持続しているか　とかに使います
 	int m_stateFrameCount;
 	// 体力
-	int m_hp;
+	HitPoint m_hp;
 	// 今フレームの移動量が記録される
 	Vector2 m_velocity;
 	// このフレームに接触した当たり判定で、どれだけめり込んだかが記録される
@@ -93,11 +96,12 @@ private:
 	// 落下していたら、落下アニメーションに変える関数
 	void ChangeFallAnim();
 	void PlayWalkSound();
+	void ChangeRotation();
 public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	Player(Camera& camera, Vector2 spawnPos);
+	Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI);
 	~Player();
 
 	// コンストラクタでは取得しきれないものを取得
@@ -133,6 +137,7 @@ public:
 	void Stop();
 	// 攻撃時の振る舞い
 	void OnAttack();
+	void OnRecovery(const int recoverAmount = 1);
 
 	Vector2 GetVel() const { return m_velocity; }
 	// 指定した座標に瞬間移動

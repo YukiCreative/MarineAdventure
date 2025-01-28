@@ -10,8 +10,8 @@ class HarmFish;
 class ObjectsController;
 class ImageObject;
 class ScreenFade;
+class HitPoints;
 
-// プロトタイプ開発を共にするシーン
 class SceneGame : public Scene
 {
 private:
@@ -20,6 +20,7 @@ private:
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<ObjectsController> m_objectCont;
 	std::shared_ptr<ImageObject> m_backGround;
+	std::shared_ptr<HitPoints> m_hpUI;
 
 	// マップ切り替え処理関連
 	std::string m_nextMapPath;

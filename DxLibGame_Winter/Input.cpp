@@ -13,6 +13,8 @@ namespace
     constexpr int kPadR      = PAD_INPUT_6;
     constexpr int kPadSelect = PAD_INPUT_7;
     constexpr int kPadStart  = PAD_INPUT_8;
+    constexpr int kPadLStick = PAD_INPUT_9;
+    constexpr int kPadRStick = PAD_INPUT_10;
     constexpr int kPadUp     = PAD_INPUT_UP;
     constexpr int kPadDown   = PAD_INPUT_DOWN;
     constexpr int kPadRight  = PAD_INPUT_RIGHT;
@@ -80,6 +82,11 @@ Input::Input() :
     {
         {PeripheralType::kKeyboard, KEY_INPUT_Z},
         {PeripheralType::kPad, kPadA},
+    };
+    m_inputEvent["RecoverPlayerHp_Debug"] =
+    {
+        {PeripheralType::kKeyboard, KEY_INPUT_H},
+        {PeripheralType::kPad, kPadRStick},
     };
 }
 

@@ -15,6 +15,7 @@
 #include "SceneGame.h"
 #include "SoundManager.h"
 #include "Sound.h"
+#include "HPUI.h"
 
 namespace
 {
@@ -94,7 +95,7 @@ void Player::Normal(Input& input, Vector2& axis)
 		return;
 	}
 	// 速度に応じて向きを変える
-	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
+	ChangeRotation();
 }
 
 // 移動してます
@@ -129,7 +130,7 @@ void Player::Move(Input& input, Vector2& axis)
 	// 現在の移動方向によってモーションを変える
 	ChangeDirection(axis);
 	// 速度に応じて向きを変える
-	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
+	ChangeRotation();
 }
 
 // 早いです。
@@ -164,7 +165,7 @@ void Player::Dash(Input& input, Vector2& axis)
 	// モーションが変わるのはこちらも同じ
 	ChangeDirection(axis);
 	// 速度に応じて向きを変える
-	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
+	ChangeRotation();
 }
 
 void Player::Attack(Input& input, Vector2& axis)
@@ -222,8 +223,6 @@ void Player::Attacked(Input& input, Vector2& axis)
 		SetStateNormal();
 		return;
 	}
-	// 速度に応じて向きを変える
-	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
 }
 
 void Player::GNormal(Input& input, Vector2& axis)
@@ -473,14 +472,21 @@ void Player::PlayWalkSound()
 	SoundManager::GetInstance().Play(GetRand(1) ? kWalkSound1 : kWalkSound2);
 }
 
-Player::Player(Camera& camera, Vector2 spawnPos) :
+void Player::ChangeRotation()
+{
+	// 速度に応じて向きを変える
+	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
+}
+
+Player::Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI) :
 	GameObject(spawnPos),
 	m_state(&Player::Normal),
 	m_stateText("N"),
 	m_stateFrameCount(0),
 	m_hp(kMaxHp),
 	m_camera(camera),
-	m_isLeft(false)
+	m_isLeft(false),
+	m_hpUI(hpUI)
 {
 	ImageStore& imageStore = ImageStore::GetInstance();
 	m_physics  = std::make_shared<Physics>(1.0f, 1.0f),
@@ -566,6 +572,11 @@ void Player::Update()
 	m_pos += m_velocity;
 
 	m_nowAnim->Update();
+
+	if (input.IsTrigger("RecoverPlayerHp_Debug"))
+	{
+		OnRecovery();
+	}
 }
 
 void Player::AnimationUpdate()
@@ -630,18 +641,20 @@ void Player::OnDamage(int damage)
 	// こんなのでいいんでしょうか
 	m_hp -= damage;
 #if _DEBUG
-	printf("Playerの体力%d\n", m_hp);
+	printf("Playerの体力%d\n", m_hp.Value());
 #endif
-	if (m_hp > 0)
+	if (m_hp.IsDead())
 	{
-		m_stateText = "Damage";
-		SoundManager::GetInstance().Play(kStunSound);
-		ChangeState(&Player::Damage);
+		m_stateText = "Death";
+		m_hpUI.OnRecovery();
+		ChangeState(&Player::Death);
 	}
 	else
 	{
-		m_stateText = "Death";
-		ChangeState(&Player::Death);
+		m_stateText = "Damage";
+		m_hpUI.OnDamage();
+		SoundManager::GetInstance().Play(kStunSound);
+		ChangeState(&Player::Damage);
 	}
 
 	ChangeAnimation(m_damageAnim);
@@ -666,6 +679,16 @@ void Player::OnAttack()
 	m_stateText = "やったぜ。";
 	ChangeAnimation(m_idleAnim);
 	return;
+}
+
+void Player::OnRecovery(const int recoverAmount)
+{
+	m_hp += recoverAmount;
+	if (m_hp.Value() > kMaxHitPoint)
+	{
+		m_hp = kMaxHitPoint;
+	}
+	m_hpUI.OnRecovery(recoverAmount);
 }
 
 bool Player::IsGround()

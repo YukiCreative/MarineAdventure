@@ -36,14 +36,19 @@ public:
 		return HitPoint(m_value - right.m_value);
 	}
 
-	void Increase(const HitPoint& value)
+	void operator+=(const HitPoint& value)
 	{
 		// ‚±‚Ì‘‚«•û•|‚¢‚ñ‚¾‚¯‚Ç
 		*this = *this + value;
 	}
 
-	void Decrease(const HitPoint& value)
+	void operator-=(const HitPoint& value)
 	{
 		*this = *this - value;
+	}
+
+	bool IsDead() const
+	{
+		return m_value <= 0;
 	}
 };

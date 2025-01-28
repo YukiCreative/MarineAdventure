@@ -62,7 +62,7 @@ void Boss::Idle()
 		if (CheckIsPlayerAttackState())
 		{
 			// ここまで来たらダメージ
-			m_hp.Decrease(1);
+			m_hp -= 1;
 			// 状態遷移
 			ChangeState(&Boss::Damage);
 			// プレイヤーに「攻撃した」と教える
@@ -97,7 +97,7 @@ void Boss::Damage()
 {
 	++m_stateFrameCount;
 	// 食らいモーション
-	if (m_hp.Value() <= 0)
+	if (m_hp.IsDead())
 	{
 		ChangeState(&Boss::Death);
 	}

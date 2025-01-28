@@ -20,7 +20,9 @@
 namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	const Vector2 initPlayerPos(80 * (3 - 8), 80 * (35 - 5));
+	//                                    Å´PlatinumÇÃX  Å´ÅVY
+	const Vector2 initPlayerPos = { 80 * (3 - 8), 80 * (35 - 5) };
+	const Vector2 initHpUIPos   = { kScreenMiddlePos.x - 300, kScreenMiddlePos.y + 300 };
 	const std::string kInitMapDataPass = "Data/MapData/Stage1.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
 }
@@ -45,11 +47,13 @@ SceneGame::SceneGame() :
 	m_playerTransportPos(),
 	m_isMapChanging(false)
 {
-	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos);
+	m_hpUI       = std::make_shared<HitPoints>        (initHpUIPos);
+	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos, *m_hpUI);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kInitMapDataPass);
 	m_backGround = std::make_shared<ImageObject>      (*m_camera, Vector2::Zero(), kBackGroundPass);
 
+	// ÇªÇ‡ÇªÇ‡éQè∆Ç≈éÊÇÁÇ»Ç´Ç·Ç¢Ç¢Ç∂ÇÂÇÒ
 	m_player->Init(m_map);
 
 	m_camera->SetFollowObject(m_player);
@@ -128,7 +132,7 @@ void SceneGame::NormalUpdate()
 	++m_frameCount;
 	m_camera->Update();
 	m_fade.Update();
-
+	m_hpUI->Update();
 	m_map->Update();
 	m_player->Update();
 	m_objectCont->Update();
@@ -161,6 +165,7 @@ void SceneGame::Draw() const
 	m_map->Draw();
 	m_objectCont->Draw();
 	m_player->Draw();
+	m_hpUI->Draw();
 	m_fade.Draw();
 
 #if _DEBUG
