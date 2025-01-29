@@ -9,8 +9,8 @@
 // ‚Ç‚ñ‚ÈƒŒƒCƒ„[‚ª‚Ç‚ñ‚È‡”Ô‚Å‚ ‚é‚©
 enum class MapLayerAttribute
 {
-	Environment,
-	kBackImage,
+	kEnvironment,
+	kBackDecoration,
 	kMapChip,
 	kObjects,
 	kAttributeNum,

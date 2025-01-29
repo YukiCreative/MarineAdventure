@@ -26,7 +26,8 @@ private:
 	Vector2 m_movePos;
 	// ‰æ‘œ
 	std::shared_ptr<Image> m_chipImage;
-	std::shared_ptr<Image> m_backImage;
+	std::shared_ptr<Image> m_backDecorationImage;
+	std::shared_ptr<Image> m_backGroundImage;
 	// ©•ª‚ª…’†‚Ì‚¾‚¯ˆê”Ôã‚Éd‚Ë‚Ä•`‰æ‚³‚ê‚é
 	std::shared_ptr<Animation> m_marineAnimation;
 	// “–‚½‚è”»’è

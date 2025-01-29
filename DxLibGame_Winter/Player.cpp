@@ -384,7 +384,7 @@ bool Player::CheckEnvironmentChanged()
 	// もう一回当たり判定する
 	// すべてのマップチップが対象
 	const auto& allMapChips = m_map.lock()->GetAllMapChips();
-	std::list<MapConstants::Environment> hitEnvironments;
+	std::list<MapConstants::kEnvironment> hitEnvironments;
 	for (const auto& chip : allMapChips)
 	{
 		// 移動なし当たり判定
@@ -552,18 +552,18 @@ void Player::Update()
 	if (CheckEnvironmentChanged())
 	{
 		// 地上→水中
-		if (m_physics->CheckState(MapConstants::Environment::kGround))
+		if (m_physics->CheckState(MapConstants::kEnvironment::kGround))
 		{
 			// いろいろやってんなあ
 			m_physics->IsGrounded(false);
-			m_physics->ChangeState(MapConstants::Environment::kWater);
+			m_physics->ChangeState(MapConstants::kEnvironment::kWater);
 			SetStateNormal();
 			SoundManager::GetInstance().Play(kIntoWaterSound);
 		}
 		// 水中→地上
 		else
 		{
-			m_physics->ChangeState(MapConstants::Environment::kGround);
+			m_physics->ChangeState(MapConstants::kEnvironment::kGround);
 			m_physics->UseConstantForce(true);
 			if (CheckState(PlayerState::kDash)) { m_physics->AddForce(kWaterJumpForce); }
 			SetStateJump();
@@ -702,5 +702,5 @@ void Player::OnRecovery(const int recoverAmount)
 
 bool Player::IsGround()
 {
-	return m_physics->CheckState(MapConstants::Environment::kGround);
+	return m_physics->CheckState(MapConstants::kEnvironment::kGround);
 }

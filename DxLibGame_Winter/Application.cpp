@@ -64,6 +64,7 @@ bool Application::Init()
 	// フルスクリーンでなく、ウィンドウモードで開くようにする
 	// こういった関数はウィンドウが開く前(DXLib_Init()の前)に処理しておく必要がある
 	ChangeWindowMode(Game::kDefaultWindowMode);
+	SetWindowText("MarineAdventure");
 
 	// 画面のサイズを変更する
 	// 第三引数は色に使う情報量(ビット)

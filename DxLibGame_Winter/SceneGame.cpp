@@ -26,7 +26,7 @@ namespace
 	const Vector2 initHpUIPos   = { kScreenMiddlePos.x - 300, kScreenMiddlePos.y + 300 };
 	const std::string kInitMapDataPass = "Data/MapData/Stage1.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
-	const std::string kBackGroundTile  = "GameoverPlayer.png";
+	const std::string kBackGroundTile  = "WaterBackWallTile.png";
 }
 
 void SceneGame::MapChangeUpdate()
@@ -53,7 +53,6 @@ SceneGame::SceneGame() :
 	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos, *m_hpUI);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kInitMapDataPass);
-	m_backGround = std::make_shared<ImageObject>      (*m_camera, Vector2::Zero(), kBackGroundPass);
 	m_waterBackTile = std::make_shared<TileImage>     (kBackGroundTile);
 
 	// そもそも参照で取らなきゃいいじょん
@@ -62,7 +61,6 @@ SceneGame::SceneGame() :
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_camera->Move(initPlayerPos);
-	m_backGround->ExpandGtaph(2.0f);
 }
 
 SceneGame::~SceneGame()
@@ -140,10 +138,6 @@ void SceneGame::NormalUpdate()
 	m_player->Update();
 	m_objectCont->Update();
 
-	// カメラの移動量を取得したい
-	m_backGround->Move(m_camera->GetVel());
-	m_backGround->Update();
-
 	if (input.IsTrigger("Pause"))
 	{
 		// ここでフェードパネルの色変えたらいいんじゃね
@@ -164,8 +158,7 @@ void SceneGame::NormalUpdate()
 
 void SceneGame::Draw() const
 {
-	m_backGround->Draw();
-	m_waterBackTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth - 129, Game::kScreenHeight));
+	m_waterBackTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth, Game::kScreenHeight));
 	m_map->Draw();
 	m_objectCont->Draw();
 	m_player->Draw();

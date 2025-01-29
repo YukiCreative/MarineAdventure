@@ -34,7 +34,7 @@ private:
 	// 関数ポインタ使うか
 	using UpdateState_t = Vector2(Physics::*)();
 	UpdateState_t m_updateState;
-	std::array<UpdateState_t, static_cast<int>(MapConstants::Environment::kEnvNum)> m_stateArray =
+	std::array<UpdateState_t, static_cast<int>(MapConstants::kEnvironment::kEnvNum)> m_stateArray =
 	{
 		&Physics::WaterUpdate,
 		&Physics::GroundUpdate,
@@ -70,9 +70,9 @@ public:
 	void UseConstantForce(bool value) { m_useConstantForce = value; }
 
 	// 与えられた列挙に対応した状態かどうかを返す
-	bool CheckState(const MapConstants::Environment&) const;
-	void ChangeState(const MapConstants::Environment&);
+	bool CheckState(const MapConstants::kEnvironment&) const;
+	void ChangeState(const MapConstants::kEnvironment&);
 	void InvertState();
-	MapConstants::Environment GetNowEnvironment() const;
+	MapConstants::kEnvironment GetNowEnvironment() const;
 	void IsGrounded(const bool& value) { m_isGrounded = value; }
 };

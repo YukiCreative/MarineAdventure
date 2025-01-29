@@ -36,7 +36,7 @@ void MapDataStore::LoadMapData(const std::string& path)
 	// エディタの警告を黙らせるためだと推測
 	assert(strId == "FMF_" && "ファイル形式が不明です");
 	assert(m_fmfHeader.bitCount == kBitCount && "ビットカウントは8しか対応できませぬ");
-	assert(m_fmfHeader.layerCount == kLayerCount && "レイヤーは4層になりました");
+	assert(m_fmfHeader.layerCount == kLayerCount && "レイヤーは5層になりました");
 
 	// 一つのレイヤーのバイト(=チップ)数を取得
 	int layerDataSize = m_fmfHeader.mapWidth * m_fmfHeader.mapHeight * (m_fmfHeader.bitCount / 8);
@@ -70,20 +70,24 @@ MapChipData MapDataStore::GetMapData(const Vector2Int& mapPos) const
 	{
 		// 何も画像を入れない->透明
 		result.graphHandle = -1;
-		result.backGraphHandle = -1;
+		result.decorationGraphHandle = -1;
+		result.backGroundHandle = -1;
 		// 何もスポーンしない
 		result.objKind = ObjectKind::kEmpty;
 		// 一応水で
-		result.environment = MapConstants::Environment::kWater;
+		result.environment = MapConstants::kEnvironment::kWater;
 	}
 	else
 	{
 		const int chipIndex = mapPos.y * m_fmfHeader.mapWidth + mapPos.x;
-		const int graphNum = static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kMapChip)][chipIndex]);
+		const int graphNum  = static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kMapChip)][chipIndex]);
 		// 環境
-		result.environment = static_cast<MapConstants::Environment>((*m_mapData)[static_cast<int>(MapLayerAttribute::Environment)][chipIndex]);
+		result.environment           = static_cast<MapConstants::kEnvironment>((*m_mapData)[static_cast<int>(MapLayerAttribute::kEnvironment)][chipIndex]);
+		// 出現するオブジェクト
+		result.objKind               = static_cast<ObjectKind>((*m_mapData)[static_cast<int>(MapLayerAttribute::kObjects)][chipIndex]);
 		// 背景画像
-		result.backGraphHandle = imgStore.GetBackGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kBackImage)][chipIndex]));
+		result.decorationGraphHandle = imgStore.GetDecoGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kBackDecoration)][chipIndex]));
+		result.backGroundHandle      = imgStore.GetBackGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kEnvironment)][chipIndex]));
 		if (graphNum != kGraphInvisible)
 		{
 			result.graphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kMapChip)][chipIndex]));
@@ -96,8 +100,6 @@ MapChipData MapDataStore::GetMapData(const Vector2Int& mapPos) const
 			// bool値でも持たせようかな
 			result.graphHandle = -1;
 		}
-		// 出現するオブジェクト
-		result.objKind = static_cast<ObjectKind>((*m_mapData)[static_cast<int>(MapLayerAttribute::kObjects)][chipIndex]);
 	}
 	return result;
 }

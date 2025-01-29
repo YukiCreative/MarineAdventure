@@ -148,7 +148,7 @@ Boss::Boss(ObjectsController& cont, Player& player, Camera& camera, const Vector
 	m_headCol = std::make_shared<CircleCollider>(m_pos, kCircleColRadius);
 	m_bodyCol = std::make_shared<BoxCollider>(m_pos, kBodyWidth, kBodyHeight, kBodyOffset);
 
-	m_physics->ChangeState(MapConstants::Environment::kWater);
+	m_physics->ChangeState(MapConstants::kEnvironment::kWater);
 	m_physics->UseConstantForce(false);
 
 	m_hp = kMaxHitPoint;

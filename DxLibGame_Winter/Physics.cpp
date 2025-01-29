@@ -119,12 +119,12 @@ void Physics::AddForce(Vector2 force)
 	m_addForce += force;
 }
 
-bool Physics::CheckState(const MapConstants::Environment& env) const
+bool Physics::CheckState(const MapConstants::kEnvironment& env) const
 {
 	return m_stateArray[static_cast<int>(env)] == m_updateState;
 }
 
-void Physics::ChangeState(const MapConstants::Environment& env)
+void Physics::ChangeState(const MapConstants::kEnvironment& env)
 {
 	m_updateState = m_stateArray[static_cast<int>(env)];
 }
@@ -133,7 +133,7 @@ void Physics::InvertState()
 {
 	// ó‘Ô‚Í’nã‚Æ…’†‚Ì“ñ‚Â‚µ‚©‚È‚¢‚Æ‚·‚é
 	// d—l’Ç‰Á‚ÍŠæ’£‚ê
-	if (CheckState(MapConstants::Environment::kGround))
+	if (CheckState(MapConstants::kEnvironment::kGround))
 	{
 		m_updateState = &Physics::WaterUpdate;
 	}
@@ -143,14 +143,14 @@ void Physics::InvertState()
 	}
 }
 
-MapConstants::Environment Physics::GetNowEnvironment() const
+MapConstants::kEnvironment Physics::GetNowEnvironment() const
 {
 	if (m_updateState == &Physics::GroundUpdate)
 	{
-		return MapConstants::Environment::kGround;
+		return MapConstants::kEnvironment::kGround;
 	}
 	else
 	{
-		return MapConstants::Environment::kWater;
+		return MapConstants::kEnvironment::kWater;
 	}
 }

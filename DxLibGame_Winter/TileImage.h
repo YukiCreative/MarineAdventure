@@ -3,7 +3,7 @@
 #include <string>
 
 // 特定の画像を並べて出したいときに使う
-// と思ったけどできなかったのであきらめる
+// 水中の壁はできたが、空ができない
 class TileImage
 {
 private:

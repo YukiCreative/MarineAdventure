@@ -24,7 +24,8 @@ void kMapChip::ResetMapData()
 	m_mapChipData = m_system.GetMapChipData(m_mapPos);
 	// 画像
 	m_chipImage->SetGraph(m_mapChipData.graphHandle);
-	m_backImage->SetGraph(m_mapChipData.backGraphHandle);
+	m_backDecorationImage->SetGraph(m_mapChipData.decorationGraphHandle);
+	m_backGroundImage->SetGraph(m_mapChipData.backGroundHandle);
 
 	// もしこの位置のオブジェクトが出せるなら出す
 	if (m_objectsController.CanSpawnObject(m_mapPos))
@@ -98,13 +99,15 @@ kMapChip::kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPo
 	m_mapPos(initMapPos),
 	m_system(system)
 {
-	m_collider        = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
-	m_chipImage       = std::make_shared<Image>      (-1);
-	m_backImage       = std::make_shared<Image>      (-1);
-	m_marineAnimation = std::make_shared<Animation>  ();
+	m_collider            = std::make_shared<BoxCollider>(m_pos, MapConstants::kChipSize, MapConstants::kChipSize);
+	m_chipImage           = std::make_shared<Image>      (-1);
+	m_backDecorationImage = std::make_shared<Image>      (-1);
+	m_backGroundImage     = std::make_shared<Image>      (-1);
+	m_marineAnimation     = std::make_shared<Animation>  ();
 
 	m_chipImage->SetExRate(MapConstants::kExRate);
-	m_backImage->SetExRate(MapConstants::kExRate);
+	m_backDecorationImage->SetExRate(MapConstants::kExRate);
+	m_backGroundImage->SetExRate(2.5f);
 	m_marineAnimation->Init(kMarineAnimPath, 32, 30);
 	m_marineAnimation->SetExRate(kMarineExRate);
 	m_marineAnimation->SetBlendMode(DX_BLENDMODE_ALPHA, 128);
@@ -136,9 +139,10 @@ void kMapChip::Update()
 void kMapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
-	m_backImage->Draw(drawPos);
+	m_backGroundImage    ->Draw(drawPos);
+	m_backDecorationImage->Draw(drawPos);
 
-	if (m_mapChipData.environment == MapConstants::Environment::kWater)
+	if (m_mapChipData.environment == MapConstants::kEnvironment::kWater)
 	{
 		m_marineAnimation->Draw(drawPos);
 	}

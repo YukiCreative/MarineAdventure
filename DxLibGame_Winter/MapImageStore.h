@@ -3,7 +3,9 @@
 
 namespace
 {
-	constexpr int kImageNum = 256;
+	constexpr int kImageNum = 16 * 16;
+	constexpr int kDecorationNum = 4 * 4;
+	constexpr int kBackGroundNum = 2;
 }
 
 /// <summary>
@@ -15,17 +17,18 @@ private:
 	MapImageStore();
 	MapImageStore(const MapImageStore&) = delete;
 	void operator=(const MapImageStore&) = delete;
-	/// <summary>
-	/// マップチップのハンドルを集める
-	/// </summary>
-	std::array<int, kImageNum> m_imageArray = {};
+
 	/// <summary>
 	/// マップチップの元
 	/// </summary>
 	int m_sourceHandle;
 	// 背景装飾用
-	int m_backSourceHandle;
-	std::array<int, 4 * 4> m_backImageArray;
+	int m_decorationSourceHandle;
+	int m_backGroundSourceHandle;
+
+	std::array<int, kImageNum> m_imageArray;
+	std::array<int, kDecorationNum> m_decoImageArray;
+	std::array<int, kBackGroundNum> m_backImageArray;
 public:
 
 	/// <summary>
@@ -40,6 +43,7 @@ public:
 	/// <param name="id">マップの通し番号をまとめた列挙体</param>
 	/// <returns>該当するチップの画像のハンドル</returns>
 	int GetGraph(int id) const;
+	int GetDecoGraph(int id) const;
 	int GetBackGraph(int id) const;
 };
 

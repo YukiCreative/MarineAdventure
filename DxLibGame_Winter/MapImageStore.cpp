@@ -6,15 +6,20 @@
 namespace
 {
 	constexpr int kChipSize      = 16;
+	constexpr int kBackChipSize  = 32;
 	// ŒJ‚è•Ô‚µˆ—‚µ‚Ä‚Ù‚µ‚¢”‚ğ’è”‚Å‘‚«‚Ü‚·
 	constexpr int kWidthChipNum  = 16;
 	constexpr int kHeightChipNum = 16;
 
-	constexpr int kBackImageWidth  = 4;
-	constexpr int kBackImageHeight = 4;
+	constexpr int kDecoImageWidth  = 4;
+	constexpr int kDecoImageHeight = 4;
 
-	const std::string kMapImagePath  = "MapChip.png";
-	const std::string kBackImagePath = "BackImageMapParts.png";
+	constexpr int kBackPartsWidth  = 2;
+	constexpr int kBackPartsHeight = 1;
+
+	const std::string kMapImagePath   = "MapChip.png";
+	const std::string kDecoImagePath  = "BackImageMapParts.png";
+	const std::string kBackGroundPath = "MapBackGround.png";
 }
 
 MapImageStore::MapImageStore()
@@ -36,15 +41,28 @@ MapImageStore::MapImageStore()
 	}
 
 	// ã‚Æ‚Ù‚Ú“¯‚¶
-	m_backSourceHandle = img.GetGraph(kBackImagePath);
-	assert(m_sourceHandle != -1);
-	for (int y = 0; y < kBackImageHeight; ++y)
+	m_decorationSourceHandle = img.GetGraph(kDecoImagePath);
+	assert(m_decorationSourceHandle != -1);
+	for (int y = 0; y < kDecoImageHeight; ++y)
 	{
-		for (int x = 0; x < kBackImageWidth; ++x)
+		for (int x = 0; x < kDecoImageWidth; ++x)
 		{
-			int index = kBackImageWidth * y + x;
+			int index = kDecoImageWidth * y + x;
+			m_decoImageArray[index] =
+				DerivationGraph(kChipSize * x, kChipSize * y, kChipSize, kChipSize, m_decorationSourceHandle);
+		}
+	}
+
+	// ã‚Æ‚Ù‚Ú‚Ù‚Ú“¯‚¶
+	m_backGroundSourceHandle = img.GetGraph(kBackGroundPath);
+	assert(m_backGroundSourceHandle != -1);
+	for (int y = 0; y < kBackPartsHeight; ++y)
+	{
+		for (int x = 0; x < kBackPartsWidth; ++x)
+		{
+			int index = kBackPartsWidth * y + x;
 			m_backImageArray[index] =
-				DerivationGraph(kChipSize * x, kChipSize * y, kChipSize, kChipSize, m_backSourceHandle);
+				DerivationGraph(kBackChipSize * x, kBackChipSize * y, kBackChipSize, kBackChipSize, m_backGroundSourceHandle);
 		}
 	}
 }
@@ -58,6 +76,11 @@ MapImageStore& MapImageStore::GetInstance()
 int MapImageStore::GetGraph(int id) const
 {
 	return m_imageArray[id];
+}
+
+int MapImageStore::GetDecoGraph(int id) const
+{
+	return m_decoImageArray[id];
 }
 
 int MapImageStore::GetBackGraph(int id) const
