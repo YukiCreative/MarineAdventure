@@ -49,7 +49,7 @@ void MapSystem::Draw() const
 	}
 }
 
-void MapSystem::BackDraw() const
+void MapSystem::DrawBackGround() const
 {
 	for (auto& chip : m_mapChips)
 	{

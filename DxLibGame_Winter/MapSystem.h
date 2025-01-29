@@ -48,7 +48,7 @@ public:
 	/// マップチップを描画
 	/// </summary>
 	void Draw() const;
-	void BackDraw() const;
+	void DrawBackGround() const;
 	/// <summary>
 	/// マップチップを見せる
 	/// </summary>

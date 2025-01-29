@@ -162,7 +162,7 @@ void SceneGame::NormalUpdate()
 void SceneGame::Draw() const
 {
 	m_waterBackTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth, Game::kScreenHeight));
-	m_map->BackDraw();
+	m_map->DrawBackGround();
 	m_objectCont->DrawBehindMapObject();
 	m_map->Draw();
 	m_objectCont->DrawFrontMapObject();
