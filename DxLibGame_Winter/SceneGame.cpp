@@ -26,7 +26,7 @@ namespace
 	const Vector2 initHpUIPos   = { kScreenMiddlePos.x - 300, kScreenMiddlePos.y + 300 };
 	const std::string kInitMapDataPass = "Data/MapData/Stage1.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
-	const std::string kBackGroundTile  = "WaterBackWallTile.png";
+	const std::string kBackGroundTile  = "GameoverPlayer.png";
 }
 
 void SceneGame::MapChangeUpdate()
@@ -165,7 +165,7 @@ void SceneGame::NormalUpdate()
 void SceneGame::Draw() const
 {
 	m_backGround->Draw();
-	m_waterBackTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth, Game::kScreenHeight));
+	m_waterBackTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth - 129, Game::kScreenHeight));
 	m_map->Draw();
 	m_objectCont->Draw();
 	m_player->Draw();

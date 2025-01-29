@@ -11,20 +11,28 @@ TileImage::TileImage(const std::string& fileName) :
 
 void TileImage::Draw(const Vector2& leftTop, const Vector2& rightBottom) const
 {
-	int imageSizeX = m_graphSize.x * m_exRate;
-	int imageSizeY = m_graphSize.x * m_exRate;
+	const int imageSizeX = m_graphSize.x * m_exRate;
+	const int imageSizeY = m_graphSize.x * m_exRate;
 
 	const Vector2 drawRect = rightBottom - leftTop;
 	// ‰æ‘œ‚Ì‘å‚«‚³‚Æ•`‰æ”ÍˆÍ‚©‚çŒJ‚è•Ô‚µ‰ñ”‚ğŠ„‚èo‚µ‚Ä‚Ô‚ñ‰ñ‚µ‚ÄI‚í‚è
-	const int widthLoopNum  = (drawRect.x) / imageSizeX;
-	const int heightLoopNum = (drawRect.y) / imageSizeY;
+	const int widthLoopNum   = (drawRect.x) / imageSizeX;
+	const int heightLoopNum  = (drawRect.y) / imageSizeY;
+	const int widthImageGap  = static_cast<int>(drawRect.x) % m_graphSize.x;
+	const int heightImageGap = static_cast<int>(drawRect.y) % m_graphSize.y;
 
 	for (int y = 0; y < heightLoopNum; ++y)
 	{
 		for (int x = 0; x < widthLoopNum; ++x)
 		{
-			DrawRotaGraph(x * imageSizeX, y * imageSizeY, static_cast<double>(m_exRate), 0.0, m_handle, true);
+			DrawRotaGraph(imageSizeX * 0.5f + leftTop.x + x * imageSizeX, imageSizeY * 0.5f + leftTop.y + y * imageSizeY, static_cast<double>(m_exRate), 0.0, m_handle, true);
 		}
+
+		if (widthImageGap == 0) continue;
+		// —]‚Á‚½•”•ª‚ğ•`‰æ
+		SetDrawBlendMode(DX_BLENDMODE_ADD, 100);
+		DrawRectRotaGraph(widthImageGap + imageSizeX * widthLoopNum, imageSizeY * 0.5f + leftTop.y + y * imageSizeY, 0, 0, widthImageGap, imageSizeY, m_exRate, 0.0, m_handle, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 }
 
