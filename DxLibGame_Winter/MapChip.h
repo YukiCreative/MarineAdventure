@@ -17,7 +17,7 @@ class Animation;
 /// マップチップ一個分の画像を担当する
 /// MapSystemがこれを固定配列で持つ
 /// </summary>
-class kMapChip : public GameObject
+class MapChip : public GameObject
 {
 private:
 	// 自分が今マップのどのチップを担当しているかを記憶
@@ -34,8 +34,6 @@ private:
 	std::shared_ptr<BoxCollider> m_collider;
 	// カメラさん
 	Camera& m_camera;
-	// 敵を呼び出す
-	ObjectsController& m_objectsController;
 	MapSystem& m_system;
 	MapChipData m_mapChipData;
 	/// <summary>
@@ -49,7 +47,7 @@ private:
 public:
 	// 引数がすんごい
 	// いろいろやらせすぎかも
-	kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system);
+	MapChip(Camera& camera, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system);
 
 	/// <summary>
 	/// 更新処理

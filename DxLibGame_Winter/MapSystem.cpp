@@ -10,13 +10,10 @@
 #include <DxLib.h>
 #include <unordered_map>
 
-MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string path) :
-	m_cont(cont)
+MapSystem::MapSystem(Camera& camera, std::string path)
 {
 	// マップデータを初期化
 	m_mapData = std::make_shared<MapDataStore>(path.c_str());
-
-	m_cont.ResetObjectSpawnStatus(*this);
 
 	// マップチップのメモリ確保
 	// マップの初期位置を設定
@@ -25,7 +22,7 @@ MapSystem::MapSystem(Camera& camera, ObjectsController& cont, std::string path) 
 		for (int x = 0; x < MapConstants::kWidthChipNum; ++x)
 		{
 			auto& chip = m_mapChips[MapConstants::kWidthChipNum * y + x];
-			chip = std::make_shared<kMapChip>(camera, cont,
+			chip = std::make_shared<MapChip>(camera,
 				Vector2(MapConstants::kChipSize * x - Game::kScreenWidth * 0.5f,
 						MapConstants::kChipSize * y - Game::kScreenHeight * 0.5f),
 				Vector2Int(x,y), *this);
@@ -101,11 +98,11 @@ Vector2Int MapSystem::GetMapSize() const
 	return m_mapData->GetMapSize();
 }
 
-void MapSystem::ChangeMapData(const std::string& path)
+void MapSystem::ChangeMapData(const std::string& path, ObjectsController& cont)
 {
 	m_mapData->LoadMapData(path);
 
-	m_cont.ResetObjectSpawnStatus(*this);
+	cont.ResetObjectSpawnStatus(*this);
 
 	// マップチップを再読み込み
 	// 別の関数に切り離してもいいかも

@@ -6,7 +6,6 @@
 namespace
 {
 	constexpr int kChipSize      = 16;
-	constexpr int kBackChipSize  = 32;
 	// ŒJ‚è•Ô‚µˆ—‚µ‚Ä‚Ù‚µ‚¢”‚ğ’è”‚Å‘‚«‚Ü‚·
 	constexpr int kWidthChipNum  = 16;
 	constexpr int kHeightChipNum = 16;
@@ -62,7 +61,7 @@ MapImageStore::MapImageStore()
 		{
 			int index = kBackPartsWidth * y + x;
 			m_backImageArray[index] =
-				DerivationGraph(kBackChipSize * x, kBackChipSize * y, kBackChipSize, kBackChipSize, m_backGroundSourceHandle);
+				DerivationGraph(kChipSize * x, kChipSize * y, kChipSize, kChipSize, m_backGroundSourceHandle);
 		}
 	}
 }

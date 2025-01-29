@@ -8,7 +8,7 @@
 
 namespace
 {
-	constexpr int kLayerCount = 4;
+	constexpr int kLayerCount = 5;
 	constexpr int kBitCount = 8;
 	constexpr int kGraphInvisible = 0;
 }
@@ -87,7 +87,7 @@ MapChipData MapDataStore::GetMapData(const Vector2Int& mapPos) const
 		result.objKind               = static_cast<ObjectKind>((*m_mapData)[static_cast<int>(MapLayerAttribute::kObjects)][chipIndex]);
 		// ”wŒi‰æ‘œ
 		result.decorationGraphHandle = imgStore.GetDecoGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kBackDecoration)][chipIndex]));
-		result.backGroundHandle      = imgStore.GetBackGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kEnvironment)][chipIndex]));
+		result.backGroundHandle      = imgStore.GetBackGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kBackGround)][chipIndex]));
 		if (graphNum != kGraphInvisible)
 		{
 			result.graphHandle = imgStore.GetGraph(static_cast<int>((*m_mapData)[static_cast<int>(MapLayerAttribute::kMapChip)][chipIndex]));

@@ -49,5 +49,9 @@ public:
 	void Entry() override;
 
 	void Draw() const override;
+
+	// ObjectsControllerをそのまま返してしまう
+	// 適当にSceneControllerのCurrentSceneからダウンキャストしてちょ
+	ObjectsController& GetObjectsController() { return *m_objectCont; }
 };
 

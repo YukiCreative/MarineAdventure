@@ -8,7 +8,7 @@ namespace
 	const std::string  kFile = "SmallCoin.png";
 	const Vector2Int   kSize = { 16, 16 };
 	constexpr int kPlaySpeed = 5;
-	constexpr int kGetThreshold;
+	//constexpr int kGetThreshold;
 }
 
 SmallCoin::SmallCoin(Player& player, Camera& camera, const Vector2& initPos) :
@@ -26,7 +26,7 @@ void SmallCoin::Update()
 
 	Vector2 rerativeToPlayer = m_pos - m_player.GetPos();
 	// ƒvƒŒƒCƒ„[‚ª‹ß‚Ã‚¢‚½‚çæ“¾‚Å‚«‚é
-	if (rerativeToPlayer.SqrMagnitude() )
+	//if (rerativeToPlayer.SqrMagnitude() )
 }
 
 void SmallCoin::Draw() const

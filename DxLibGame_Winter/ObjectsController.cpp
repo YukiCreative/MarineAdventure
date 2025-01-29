@@ -165,6 +165,12 @@ void ObjectsController::SpawnObject(std::shared_ptr<GameObject> objectInstance)
 	m_objects.push_back(objectInstance);
 }
 
+std::shared_ptr<GameEffect> ObjectsController::SpawnEffect(const std::string& path, const Vector2Int& oneImageSize, const int playSpeed, const Vector2& spawnPos, const Vector2& offset)
+{
+	m_objects.emplace_back(std::make_shared<GameEffect>(path, oneImageSize, playSpeed, spawnPos, offset));
+	return std::dynamic_pointer_cast<GameEffect>(m_objects.back());
+}
+
 void ObjectsController::ClearObjects()
 {
 	m_objects.clear();

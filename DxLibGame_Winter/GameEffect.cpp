@@ -21,6 +21,12 @@ void GameEffect::Update()
 		m_pos = m_followGameObject.lock()->GetPos();
 	}
 	m_animation->Update();
+
+	if (m_isLoop) return;
+	if (m_animation->LoopCount())
+	{
+		m_isDeleted = true;
+	}
 }
 
 void GameEffect::Draw() const

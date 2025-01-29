@@ -55,15 +55,15 @@ SceneGame::SceneGame() :
 	m_hpUI       = std::make_shared<HitPoints>        (initHpUIPos);
 	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos, *m_hpUI);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
-	m_map        = std::make_shared<MapSystem>        (*m_camera, *m_objectCont, kInitMapDataPass);
+	m_map        = std::make_shared<MapSystem>        (*m_camera, kInitMapDataPass);
 	m_waterBackTile = std::make_shared<TileImage>     (kBackGroundTile);
 
 	// そもそも参照で取らなきゃいいじょん
 	m_player->Init(m_map);
-
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_camera->Move(initPlayerPos);
+	m_objectCont->ResetObjectSpawnStatus(*m_map);
 }
 
 SceneGame::~SceneGame()
@@ -98,14 +98,14 @@ void SceneGame::ChangeMapWithFadeOut(const std::string& path, const Vector2& pla
 
 void SceneGame::ChangeMap(const std::string& path)
 {
-	m_map->ChangeMapData(path);
+	m_map->ChangeMapData(path, *m_objectCont);
 	m_camera->SetMapSize(m_map->GetMapSize());
 }
 
 void SceneGame::ChangeMap(const std::string& path, const Vector2& playerTransferPos)
 {
 	// 別のfmfファイルを読み込めばいいんやな
-	m_map->ChangeMapData(path);
+	m_map->ChangeMapData(path, *m_objectCont);
 	// 新しいマップのカメラの制限を把握
 	m_camera->SetMapSize(m_map->GetMapSize());
 	// プレイヤーとカメラの位置を変更

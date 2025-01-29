@@ -6,6 +6,7 @@
 #include <memory>
 #include <unordered_map>
 #include <vector>
+#include <string>
 
 class HarmFish;
 class Player;
@@ -86,6 +87,9 @@ public:
 	/// インスタンス渡してもいいよ
 	/// </summary>
 	void SpawnObject(std::shared_ptr<GameObject> objectInstance);
+	// 引数に指定した画像でアニメーションをするオブジェクトを生成する
+	// 最後まで流れたら消える　てか引数多い
+	std::shared_ptr<GameEffect> SpawnEffect(const std::string& path, const Vector2Int& oneImageSize, const int playSpeed, const Vector2& spawnPos, const Vector2& offset = Vector2::Zero());
 	
 	void ClearObjects();
 

@@ -8,12 +8,12 @@
 #include "MapDataStore.h"
 #include "ObjectKind.h"
 
-class kMapChip;
+class MapChip;
 class Player;
 class ObjectsController;
 
-using MapArray_t = std::array<std::shared_ptr<kMapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;
-using MapList_t  = std::list <std::shared_ptr<kMapChip>>;
+using MapArray_t = std::array<std::shared_ptr<MapChip>, MapConstants::kWidthChipNum* MapConstants::kHeightChipNum>;
+using MapList_t  = std::list <std::shared_ptr<MapChip>>;
 
 /// <summary>
 /// マップチップを並べる、
@@ -30,15 +30,13 @@ private:
 	// 今マップのデータをMapSystemが持つようにしようか考え中
 	std::shared_ptr<MapDataStore> m_mapData;
 
-	ObjectsController& m_cont;
-
 	/// <summary>
 	/// マップチップの表示位置をずらす
 	/// </summary>
 	/// <param name="moveValue">現在の位置からどれだけ移動させるか</param>
 	void MoveMap(Vector2 moveValue);
 public:
-	MapSystem(Camera& camera, ObjectsController& cont, std::string path);
+	MapSystem(Camera& camera, std::string path);
 
 	/// <summary>
 	/// 現在の描画場所に応じて表示するマップチップを判断
@@ -65,7 +63,7 @@ public:
 	Vector2Int GetMapSize() const;
 
 	// 読み取りなおす
-	void ChangeMapData(const std::string& path);
+	void ChangeMapData(const std::string& path, ObjectsController& cont);
 
 	// DataStoreの橋渡し
 	// 何も悪いことしてないよ

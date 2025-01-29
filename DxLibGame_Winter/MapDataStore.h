@@ -10,6 +10,7 @@
 enum class MapLayerAttribute
 {
 	kEnvironment,
+	kBackGround,
 	kBackDecoration,
 	kMapChip,
 	kObjects,

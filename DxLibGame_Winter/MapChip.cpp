@@ -1,15 +1,17 @@
-#include "MapChip.h"
-#include <DxLib.h>
-#include "game.h"
+#include "Animation.h"
 #include "BoxCollider.h"
 #include "Camera.h"
-#include "MapConstants.h"
-#include "ObjectsController.h"
-#include "MapSystem.h"
-#include "Player.h"
-#include "MapImageStore.h"
+#include "game.h"
 #include "Image.h"
-#include "Animation.h"
+#include "MapChip.h"
+#include "MapConstants.h"
+#include "MapImageStore.h"
+#include "MapSystem.h"
+#include "ObjectsController.h"
+#include "Player.h"
+#include "SceneController.h"
+#include "SceneGame.h"
+#include <DxLib.h>
 
 namespace
 {
@@ -18,7 +20,7 @@ namespace
 	constexpr float kMarineExRate = MapConstants::kChipSize / kMarineAnimImageSize;
 }
 
-void kMapChip::ResetMapData()
+void MapChip::ResetMapData()
 {
 	// マップデータに問い合わせてマップ情報をもらう
 	m_mapChipData = m_system.GetMapChipData(m_mapPos);
@@ -27,10 +29,12 @@ void kMapChip::ResetMapData()
 	m_backDecorationImage->SetGraph(m_mapChipData.decorationGraphHandle);
 	m_backGroundImage->SetGraph(m_mapChipData.backGroundHandle);
 
+	// おえ
+	ObjectsController& objCont = std::static_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene())->GetObjectsController();
 	// もしこの位置のオブジェクトが出せるなら出す
-	if (m_objectsController.CanSpawnObject(m_mapPos))
+	if (objCont.CanSpawnObject(m_mapPos))
 	{
-		m_objectsController.SpawnObject(m_mapChipData.objKind, m_pos, m_mapPos);
+		objCont.SpawnObject(m_mapChipData.objKind, m_pos, m_mapPos);
 	}
 
 	// 線分の当たり判定を設定する
@@ -41,7 +45,7 @@ void kMapChip::ResetMapData()
 	m_collider->SetIsLineValid(LineDir::Right,  !m_system.GetMapChipCollidable(Vector2Int(m_mapPos.x + 1, m_mapPos.y))); // 右
 }
 
-bool kMapChip::LoopScreen()
+bool MapChip::LoopScreen()
 {
 	// 自分の座標が特定の範囲外に出てたら
 	// 反対側に瞬間移動
@@ -50,7 +54,7 @@ bool kMapChip::LoopScreen()
 	return CheckLoopUpAndLeft() || CheckLoopDownAndRight(); // Checkとか名前付いてるけどがっつりメンバ変数いじってます。ごめんなさい。
 }
 
-bool kMapChip::CheckLoopUpAndLeft()
+bool MapChip::CheckLoopUpAndLeft()
 {
 	// スクリーン座標を計算
 	Vector2 screenPos = m_camera.Capture(m_pos);
@@ -72,7 +76,7 @@ bool kMapChip::CheckLoopUpAndLeft()
 	return isLoop;
 }
 
-bool kMapChip::CheckLoopDownAndRight()
+bool MapChip::CheckLoopDownAndRight()
 {
 	// スクリーン座標を計算
 	Vector2 screenPos = m_camera.Capture(m_pos);
@@ -92,10 +96,9 @@ bool kMapChip::CheckLoopDownAndRight()
 	return isLoop;
 }
 
-kMapChip::kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
+MapChip::MapChip(Camera& camera, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
 	GameObject(initPos),
 	m_camera(camera),
-	m_objectsController(cont),
 	m_mapPos(initMapPos),
 	m_system(system)
 {
@@ -107,7 +110,7 @@ kMapChip::kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPo
 
 	m_chipImage->SetExRate(MapConstants::kExRate);
 	m_backDecorationImage->SetExRate(MapConstants::kExRate);
-	m_backGroundImage->SetExRate(2.5f);
+	m_backGroundImage->SetExRate(MapConstants::kExRate);
 	m_marineAnimation->Init(kMarineAnimPath, 32, 30);
 	m_marineAnimation->SetExRate(kMarineExRate);
 	m_marineAnimation->SetBlendMode(DX_BLENDMODE_ALPHA, 128);
@@ -115,7 +118,7 @@ kMapChip::kMapChip(Camera& camera, ObjectsController& cont, const Vector2 initPo
 	ResetMapData();
 }
 
-void kMapChip::Update()
+void MapChip::Update()
 {
 	// 処理の順序は移動→ループ判定
 	m_pos += m_movePos;
@@ -136,7 +139,7 @@ void kMapChip::Update()
 	m_marineAnimation->Update();
 }
 
-void kMapChip::Draw() const
+void MapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	m_backDecorationImage->Draw(drawPos);
@@ -156,24 +159,24 @@ void kMapChip::Draw() const
 #endif
 }
 
-void kMapChip::BackDraw() const
+void MapChip::BackDraw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
 	m_backGroundImage->Draw(drawPos);
 }
 
-bool kMapChip::CanCollide() const
+bool MapChip::CanCollide() const
 {
 	// これ変えたいな
 	return m_chipImage->GraphHandle() != -1;
 }
 
-MapChipData kMapChip::GetMapChipData() const
+MapChipData MapChip::GetMapChipData() const
 {
 	return m_mapChipData;
 }
 
-void kMapChip::ChangeGraph_Debug()
+void MapChip::ChangeGraph_Debug()
 {
 	m_chipImage->SetGraph(MapImageStore::GetInstance().GetGraph(158));
 }

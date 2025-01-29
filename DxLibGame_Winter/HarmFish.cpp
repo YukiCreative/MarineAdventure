@@ -11,6 +11,7 @@
 #include "SoundManager.h"
 #include "SceneController.h"
 #include "Scene.h"
+#include "ObjectsController.h"
 
 namespace
 {

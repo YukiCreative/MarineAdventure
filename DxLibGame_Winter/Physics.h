@@ -5,7 +5,7 @@
 #include <array>
 #include <list>
 
-class kMapChip;
+class MapChip;
 
 /// <summary>
 /// •¨—‹““®‚ğ‚Â‚©‚³‚Ç‚é

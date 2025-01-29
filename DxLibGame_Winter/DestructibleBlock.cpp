@@ -70,8 +70,8 @@ DestructibleBlock::DestructibleBlock(Camera& camera, Player& player, const Vecto
 
 void DestructibleBlock::Update()
 {
-	(this->*m_state)();
 	m_nowAnim->Update();
+	(this->*m_state)();
 }
 
 void DestructibleBlock::Draw() const
