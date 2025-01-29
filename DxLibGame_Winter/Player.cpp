@@ -32,6 +32,8 @@ namespace
 	constexpr float  kAttackFrame = 60.0f;
 	constexpr float  kInvincibleFrame = 90.0f;
 	constexpr float  kAttackedRigidFrame = 30.0f;
+	constexpr int    kDeathRigidFrame = 120; // 死後硬直
+	constexpr int    kDeathDisappearFrame = 60; // 爆散
 	constexpr float  kStrongAttackForce = 20.0f;
 	constexpr float  kBounceFactor = 1.2f;
 	constexpr int    kMoveThreshold = 10000;
@@ -52,9 +54,11 @@ namespace
 	const std::string kAttackAnimPath    = "PlayerAttack.png";
 	const std::string kWalkAnimPath      = "PlayerDash.png";
 	const std::string kDashAnimPath      = "PlayerDash.png";
+	const std::string kDeathAnimPath     = "PlayerDisappear.png";
 	constexpr int     kAnimPlaySpeed     = 3;
 	constexpr int     kDashAnimSpeed     = 1;
 	const Vector2Int  kPlayerGraphSize   = { 32, 32 };
+	const Vector2Int  kDeathGraphSize    = { 96, 96 };
 	constexpr float   kPlayerGraphExRate = 80.0f / 32.0f;
 
 	// 音のファイル
@@ -211,7 +215,14 @@ void Player::Death(Input& input, Vector2& axis)
 {
 	// 死亡モーション
 	// 終わったら別のシーンへ
-	GameOver();
+	if (m_stateFrameCount > kDeathRigidFrame)
+	{
+		m_nowAnim = m_deathAnim;
+	}
+	if (m_stateFrameCount > kDeathRigidFrame + kDeathDisappearFrame)
+	{
+		GameOver();
+	}
 }
 
 void Player::Attacked(Input& input, Vector2& axis)
@@ -505,6 +516,7 @@ Player::Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI) :
 	m_attackAnim = std::make_shared<Animation>();
 	m_walkAnim   = std::make_shared<Animation>();
 	m_dashAnim   = std::make_shared<Animation>();
+	m_deathAnim  = std::make_shared<Animation>();
 
 	m_idleAnim  ->Init(kIdleAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
 	m_jumpAnim  ->Init(kJumpAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
@@ -513,6 +525,7 @@ Player::Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI) :
 	m_attackAnim->Init(kAttackAnimPath, kPlayerGraphSize, kAnimPlaySpeed);
 	m_walkAnim  ->Init(kWalkAnimPath,   kPlayerGraphSize, kAnimPlaySpeed);
 	m_dashAnim  ->Init(kDashAnimPath,   kPlayerGraphSize, kDashAnimSpeed);
+	m_deathAnim ->Init(kDeathAnimPath,  kDeathGraphSize,  10);
 
 	m_idleAnim  ->SetExRate(kPlayerGraphExRate);
 	m_jumpAnim  ->SetExRate(kPlayerGraphExRate);
@@ -521,6 +534,7 @@ Player::Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI) :
 	m_attackAnim->SetExRate(kPlayerGraphExRate);
 	m_walkAnim  ->SetExRate(kPlayerGraphExRate);
 	m_dashAnim  ->SetExRate(kPlayerGraphExRate);
+	m_deathAnim ->SetExRate(kPlayerGraphExRate);
 
 	m_nowAnim = m_idleAnim;
 }
@@ -579,6 +593,10 @@ void Player::Update()
 	if (input.IsTrigger("RecoverPlayerHp_Debug"))
 	{
 		OnRecovery();
+	}
+	if (input.IsTrigger("DamagePlayer_Debug"))
+	{
+		OnDamage();
 	}
 #endif
 }
@@ -655,7 +673,7 @@ void Player::OnDamage(int damage)
 	if (m_hp.IsDead())
 	{
 		m_stateText = "Death";
-		m_hpUI.OnRecovery();
+		m_hpUI.OnDamage();
 		ChangeState(&Player::Death);
 	}
 	else

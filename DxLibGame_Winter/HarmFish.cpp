@@ -38,6 +38,8 @@ namespace
 
 void HarmFish::Idle()
 {
+	if (m_playerRef.CheckState(PlayerState::kDeath)) return;
+
 	// 当たり判定
 	HitToPlayer();
 	ChangeDirection();
@@ -116,6 +118,8 @@ void HarmFish::Death()
 
 int HarmFish::ScoreChasePoint()
 {
+	if (m_playerRef.CheckState(PlayerState::kDeath)) return -100;
+
 	float rerativeLength = (m_playerRef.GetPos() - m_pos).SqrMagnitude();
 	// 段階的に実装するしかないか…？
 	// ブレークポイントを置きたいので改行してる

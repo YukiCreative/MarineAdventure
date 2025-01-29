@@ -88,6 +88,11 @@ Input::Input() :
         {PeripheralType::kKeyboard, KEY_INPUT_H},
         {PeripheralType::kPad, kPadRStick},
     };
+    m_inputEvent["DamagePlayer_Debug"] =
+    {
+        {PeripheralType::kKeyboard, KEY_INPUT_D},
+        {PeripheralType::kPad, kPadLStick},
+    };
 }
 
 Input& Input::GetInstance()

@@ -41,7 +41,7 @@ void Cloud::Update()
 {
 	// ƒJƒƒ‰‚ðŽQÆ‚·‚é‚ªA­‚µ“®‚­
 	const Vector2 cameraVel = m_camera.GetVel();
-	m_pos += cameraVel * 0.1f;
+	m_pos += cameraVel * 0.5f;
 	m_anim->Update();
 }
 
