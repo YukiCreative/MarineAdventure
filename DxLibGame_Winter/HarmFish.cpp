@@ -9,6 +9,8 @@
 #include "MapConstants.h"
 #include <algorithm>
 #include "SoundManager.h"
+#include "SceneController.h"
+#include "Scene.h"
 
 namespace
 {

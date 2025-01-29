@@ -23,6 +23,8 @@ private:
 
 	using SceneFactory_t = std::shared_ptr<Scene> (*)();
 	std::unordered_map<std::string, SceneFactory_t> m_factoryMap;
+
+	int m_hitStopCount;
 public:
 	static SceneController& GetInstance();
 
@@ -41,4 +43,5 @@ public:
 
 	// ¡Às’†‚ÌƒV[ƒ“‚ğ•Ô‚·
 	std::shared_ptr<Scene> CurrentScene() { return m_scenes.back(); }
+	void HitStop(const int frame);
 };

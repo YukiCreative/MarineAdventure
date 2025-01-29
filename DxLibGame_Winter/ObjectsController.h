@@ -75,7 +75,8 @@ public:
 	ObjectsController(Camera& camera, Player& player);
 
 	void Update();
-	void Draw();
+	void DrawFrontMapObject() const;
+	void DrawBehindMapObject() const;
 
 	/// <summary>
 	/// í—Ş‚ÆˆÊ’u‚ğw’è‚µ‚Ä‚­‚ê‚ê‚Î‚±‚¿‚ç‚Å¶¬‚¢‚½‚µ‚Ü‚·

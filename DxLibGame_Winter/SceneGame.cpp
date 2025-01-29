@@ -40,6 +40,9 @@ void SceneGame::MapChangeUpdate()
 	m_objectCont->ClearObjects();
 	ChangeMap(m_nextMapPath, m_playerTransportPos);
 	m_fade.Fade(60, 0);
+	// ƒJƒƒ‰“®‚©‚µ‚Ä˜g‚ÉŽû‚ß‚é
+	// ê—p‚ÌŠÖ”‚ð—pˆÓ‚µ‚½‚Ù‚¤‚ª‚¢‚¢‚¯‚Ç‚Ë
+	m_camera->Move(Vector2(1, 1));
 	m_isMapChanging = false;
 }
 
@@ -159,8 +162,10 @@ void SceneGame::NormalUpdate()
 void SceneGame::Draw() const
 {
 	m_waterBackTile->Draw(Vector2(0,0), Vector2(Game::kScreenWidth, Game::kScreenHeight));
+	m_map->BackDraw();
+	m_objectCont->DrawBehindMapObject();
 	m_map->Draw();
-	m_objectCont->Draw();
+	m_objectCont->DrawFrontMapObject();
 	m_player->Draw();
 	m_hpUI->Draw();
 	m_fade.Draw();

@@ -41,11 +41,19 @@ void MapSystem::Update()
 	}
 }
 
-void MapSystem::Draw()
+void MapSystem::Draw() const
 {
 	for (auto& chip : m_mapChips)
 	{
 		chip->Draw();
+	}
+}
+
+void MapSystem::BackDraw() const
+{
+	for (auto& chip : m_mapChips)
+	{
+		chip->BackDraw();
 	}
 }
 

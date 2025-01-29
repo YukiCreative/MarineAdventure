@@ -130,10 +130,24 @@ void ObjectsController::Update()
 	}
 }
 
-void ObjectsController::Draw()
+void ObjectsController::DrawBehindMapObject() const
 {
 	for (auto& object : m_objects)
 	{
+		// これはオブジェクト側にboolを返す関数を作ったほうがいい
+		if (object->DrawPriority() == DrawPriority::kFront) continue;
+
+		object->Draw();
+	}
+}
+
+void ObjectsController::DrawFrontMapObject() const
+{
+	for (auto& object : m_objects)
+	{
+		// これはオブジェクト側にboolを返す関数を作ったほうがいい
+		if (object->DrawPriority() == DrawPriority::kBehind) continue;
+
 		object->Draw();
 	}
 }

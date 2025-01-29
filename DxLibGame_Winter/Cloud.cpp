@@ -16,7 +16,7 @@ namespace
 }
 
 Cloud::Cloud(Camera& camera, const Vector2& initPos, const CloudKind kind):
-	GameObject(initPos),
+	GameObject(initPos, DrawPriority::kBehind),
 	m_camera(camera)
 {
 	m_anim = std::make_shared<Animation>();
@@ -39,7 +39,8 @@ Cloud::Cloud(Camera& camera, const Vector2& initPos, const CloudKind kind):
 
 void Cloud::Update()
 {
-	// カメラを参照するが、少し動く
+	// カメラを参照して、少し動く
+	// 遠くにあるイメージ
 	const Vector2 cameraVel = m_camera.GetVel();
 	m_pos += cameraVel * 0.5f;
 	m_anim->Update();
@@ -48,6 +49,5 @@ void Cloud::Update()
 void Cloud::Draw() const
 {
 	const Vector2 drawPos = m_camera.Capture(m_pos);
-	// ここが特殊で、カメラを介さない
 	m_anim->Draw(drawPos);
 }

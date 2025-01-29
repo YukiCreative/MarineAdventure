@@ -139,7 +139,6 @@ void kMapChip::Update()
 void kMapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
-	m_backGroundImage    ->Draw(drawPos);
 	m_backDecorationImage->Draw(drawPos);
 
 	if (m_mapChipData.environment == MapConstants::kEnvironment::kWater)
@@ -155,6 +154,12 @@ void kMapChip::Draw() const
 
 	m_collider->DrawColliderRange_Debug(m_camera.DrawOffset());
 #endif
+}
+
+void kMapChip::BackDraw() const
+{
+	Vector2 drawPos = m_camera.Capture(m_pos);
+	m_backGroundImage->Draw(drawPos);
 }
 
 bool kMapChip::CanCollide() const

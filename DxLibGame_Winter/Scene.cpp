@@ -13,7 +13,14 @@ Scene::Scene() :
 
 void Scene::Update()
 {
+	// ‰æ–Ê‚ð—h‚ç‚·
+	if (m_shakeCount > 0)
+	{
+		m_camera->Move(Vector2(GetRand(5), GetRand(5)));
+	}
+
 	(this->*m_update)();
+	--m_shakeCount;
 }
 
 void Scene::Leave()

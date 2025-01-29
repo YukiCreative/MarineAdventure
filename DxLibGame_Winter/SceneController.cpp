@@ -1,15 +1,16 @@
-#include "SceneController.h"
-#include "Scene.h"
-#include <memory>
-#include "SceneTitle.h"
-#include "SceneGame.h"
-#include "SceneGameover.h"
 #include "ColliderTestScene.h"
-#include "ScenePause.h"
+#include "Scene.h"
+#include "SceneController.h"
+#include "SceneGame.h"
 #include "SceneGameClear.h"
+#include "SceneGameover.h"
+#include "ScenePause.h"
+#include "SceneTitle.h"
 #include <cassert>
+#include <memory>
 
-SceneController::SceneController()
+SceneController::SceneController() :
+	m_hitStopCount(0)
 {
 	m_factoryMap["Title"]    = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneTitle>       ());};
 	m_factoryMap["Game"]     = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGame>        ());};
@@ -30,6 +31,11 @@ SceneController& SceneController::GetInstance()
 // Sceneの関数をそのまま実行
 void SceneController::Update()
 {
+	--m_hitStopCount;
+
+	// ヒットストップがかかっていなければ
+	if (m_hitStopCount > 0) return;
+
 	// 一番上のシーンだけ実行
 	m_scenes.back()->Update();
 }
@@ -92,4 +98,9 @@ void SceneController::RemoveSceme()
 #if _DEBUG
 	printf("現在のシーン数：%d\n", static_cast<int>(m_scenes.size()));
 #endif
+}
+
+void SceneController::HitStop(const int frame)
+{
+	m_hitStopCount = frame;
 }

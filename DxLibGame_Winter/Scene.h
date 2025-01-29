@@ -24,6 +24,7 @@ protected:
 	ScreenFade& m_fade;
 	// 01/14 カメラを義務化
 	std::shared_ptr<Camera> m_camera;
+	int m_shakeCount;
 	/// <summary>
 	/// 更新処理
 	/// </summary>
@@ -55,4 +56,5 @@ public:
 	virtual void Leave();
 
 	std::shared_ptr<Camera> GetCamera() { return m_camera; }
+	void ScreenShake(const int frame) { m_shakeCount = frame; }
 };

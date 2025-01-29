@@ -19,18 +19,19 @@ namespace
 	const Vector2 kDoorAppearanceOffset(0, -32);
 
 	// ç¿ïW
-	const Vector2 kTutoToMap1(500, 0);
+	//                                    Å´PlatinumÇÃX  Å´ÅVY
+	const Vector2 kStage1ToStage2 = { 80 * (2 - 8), 80 * (8 - 5) };
 }
 
 Door::PathMap_t Door::s_paths =
 {
-	{MapKind::kFish, "Data/MapData/TestMapData32x16.fmf"},
+	{MapKind::kFish, "Data/MapData/Stage2.fmf"},
 	{MapKind::kPipe, "Data/MapData/TestMapGroundStage.fmf"}
 };
 
 Door::DoorMap_t Door::s_doors =
 {
-	{DoorKind::kTutoToMap1, DoorStatus(Door::s_paths[MapKind::kFish], kTutoToMap1)}
+	{DoorKind::kTutoToMap1, DoorStatus(Door::s_paths[MapKind::kFish], kStage1ToStage2)}
 };
 
 bool Door::CheckInDoor()

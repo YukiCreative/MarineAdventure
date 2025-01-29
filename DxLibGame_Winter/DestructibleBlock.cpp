@@ -5,6 +5,7 @@
 #include "DestructibleBlock.h"
 #include "Player.h"
 #include "SoundManager.h"
+#include "SceneController.h"
 #include <string>
 
 namespace

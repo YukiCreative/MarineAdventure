@@ -2,6 +2,13 @@
 #include "Vector2.h"
 #include "ObjectAttribute.h"
 
+// マップチップの裏に描画される奴と、後に描画される奴を作りたかった
+enum class DrawPriority
+{
+	kBehind,
+	kFront
+};
+
 /// <summary>
 /// 座標を持つ
 /// カメラの追尾に使ったり
@@ -16,10 +23,11 @@ protected:
 	Vector2Int m_mapPos;
 	bool m_isDeleted;
 	ObjectAttribute m_att = ObjectAttribute::kOther;
+	DrawPriority m_drawP;
 public:
-	GameObject() : m_pos(), m_isDeleted(false), m_mapPos() {}
-	GameObject(const Vector2& pos) : m_pos(pos), m_isDeleted(false), m_mapPos() {}
-	GameObject(const Vector2& pos, const Vector2Int& mapPos) : m_pos(pos), m_isDeleted(false), m_mapPos(mapPos) {}
+	GameObject() : m_pos(), m_isDeleted(false), m_mapPos(), m_drawP(DrawPriority::kFront) {}
+	GameObject(const Vector2& pos, const DrawPriority drawP = DrawPriority::kFront) : m_pos(pos), m_isDeleted(false), m_mapPos(), m_drawP(drawP) {}
+	GameObject(const Vector2& pos, const Vector2Int& mapPos, const DrawPriority drawP = DrawPriority::kFront) : m_pos(pos), m_isDeleted(false), m_mapPos(mapPos), m_drawP(drawP) {}
 
 	virtual void Update() = 0;
 	virtual void Draw() const = 0;
@@ -39,4 +47,5 @@ public:
 
 	void Tere(const Vector2& pos) { m_pos = pos; }
 	ObjectAttribute Attribute() const { return m_att; }
+	DrawPriority DrawPriority() const { return m_drawP; }
 };

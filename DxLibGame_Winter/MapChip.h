@@ -62,6 +62,8 @@ public:
 	/// ‚±‚ê‚ğ•`‰æ
 	/// </summary>
 	void Draw() const override;
+	// ¡‚Ì‚Æ‚±‚ë”wŒi(‹ó)‚Ì‚İ‚ğ•`‰æ
+	void BackDraw() const;
 
 	/// <summary>
 	/// MapSystem‚©‚çw¦‚ğó‚¯‚é
