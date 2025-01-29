@@ -12,6 +12,7 @@
 #include <cassert>
 #include <vector>
 #include "ObjectAttribute.h"
+#include "Cloud.h"
 
 namespace
 {
@@ -24,6 +25,8 @@ namespace
 		{ObjectKind::kHarmFish, Game::kFrameRate * 60},
 		{ObjectKind::kBoss,  0},
 		{ObjectKind::kDestructibleBlock, Game::kFrameRate * 60},
+		{ObjectKind::kCloud1, 0},
+		{ObjectKind::kCloud2, 0},
 		{ObjectKind::kDoor1, 0},
 		{ObjectKind::kDoor2, 0},
 		{ObjectKind::kDoor3, 0},
@@ -79,9 +82,12 @@ ObjectsController::ObjectsController(Camera& camera, Player& player) :
 {
 	// mapÇÃê›íË
 	// functionÇ¡ÇƒÇ∑Ç∞Å[
+	// Ç≈Ç‡Ç»Ç∞Å[
 	m_factoryMap[ObjectKind::kHarmFish] = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<HarmFish>(*this, m_playerRef, m_cameraRef, spawnPos, baseMapPos); };
 	m_factoryMap[ObjectKind::kBoss]     = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Boss>    (*this, m_playerRef, m_cameraRef, spawnPos, baseMapPos); };
 	m_factoryMap[ObjectKind::kDestructibleBlock] = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<DestructibleBlock>(m_cameraRef, m_playerRef, spawnPos, baseMapPos); };
+	m_factoryMap[ObjectKind::kCloud1]   = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Cloud>   (m_cameraRef, spawnPos, CloudKind::k1); };
+	m_factoryMap[ObjectKind::kCloud2]   = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Cloud>   (m_cameraRef, spawnPos, CloudKind::k2); };
 	m_factoryMap[ObjectKind::kDoor1]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor1)); };
 	m_factoryMap[ObjectKind::kDoor2]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor2)); };
 	m_factoryMap[ObjectKind::kDoor3]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor3)); };
@@ -126,9 +132,9 @@ void ObjectsController::Update()
 
 void ObjectsController::Draw()
 {
-	for (auto& enemy : m_objects)
+	for (auto& object : m_objects)
 	{
-		enemy->Draw();
+		object->Draw();
 	}
 }
 

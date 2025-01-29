@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="DestructibleBlock.cpp" />
     <ClCompile Include="HPUI.cpp" />
     <ClCompile Include="ImageObject.cpp" />
@@ -198,6 +199,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Cloud.h" />
     <ClInclude Include="DestructibleBlock.h" />
     <ClInclude Include="ImageObject.h" />
     <ClInclude Include="Boss.h" />
