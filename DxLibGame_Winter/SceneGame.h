@@ -41,6 +41,7 @@ public:
 	SceneGame();
 	~SceneGame();
 
+	void Init() override;
 	void GameClear();
 	void GameOver();
 

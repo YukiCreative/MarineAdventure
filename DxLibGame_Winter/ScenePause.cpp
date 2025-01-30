@@ -22,7 +22,12 @@ namespace
 	constexpr int kDefaultMusicVolume = 255;
 }
 
-ScenePause::ScenePause()
+ScenePause::~ScenePause()
+{
+	Music::GetInstance().SetVolume(kDefaultMusicVolume);
+}
+
+void ScenePause::Init()
 {
 	m_back = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBackGroundPath);
 
@@ -30,22 +35,17 @@ ScenePause::ScenePause()
 	m_buttonSystem = std::make_shared<ButtonSystem>();
 
 	std::shared_ptr<ButtonReturnToTitle> returnTitleButton = std::make_shared<ButtonReturnToTitle>(kPosButtonReturnToTitle);
-	std::shared_ptr<ButtonReturnToGame>  returnGameButton  = std::make_shared<ButtonReturnToGame> (kPosButtonReturnToGame,  *this);
+	std::shared_ptr<ButtonReturnToGame>  returnGameButton = std::make_shared<ButtonReturnToGame>(kPosButtonReturnToGame, *this);
 
-	returnGameButton ->SetDownButton(returnTitleButton);
-	returnGameButton ->SetUpButton  (returnTitleButton);
-	returnTitleButton->SetUpButton  (returnGameButton);
+	returnGameButton->SetDownButton(returnTitleButton);
+	returnGameButton->SetUpButton(returnTitleButton);
+	returnTitleButton->SetUpButton(returnGameButton);
 	returnTitleButton->SetDownButton(returnGameButton);
 
 	m_buttonSystem->AddButton(returnTitleButton);
 	m_buttonSystem->AddButton(returnGameButton);
 
 	m_buttonSystem->SetButtonFocus(returnGameButton);
-}
-
-ScenePause::~ScenePause()
-{
-	Music::GetInstance().SetVolume(kDefaultMusicVolume);
 }
 
 void ScenePause::Entry()

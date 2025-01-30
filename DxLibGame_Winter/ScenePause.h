@@ -17,8 +17,9 @@ private:
 	std::shared_ptr<ImageObject> m_back;
 	std::shared_ptr<ButtonSystem> m_buttonSystem;
 public:
-	ScenePause();
 	~ScenePause();
+
+	void Init() override;
 
 	void Entry() override;
 

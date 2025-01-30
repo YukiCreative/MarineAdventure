@@ -10,10 +10,12 @@
 #include <DxLib.h>
 #include <unordered_map>
 
-MapSystem::MapSystem(Camera& camera, std::string path)
+void MapSystem::InitMap(Camera& camera, std::string path, ObjectsController& cont)
 {
 	// マップデータを初期化
 	m_mapData = std::make_shared<MapDataStore>(path.c_str());
+
+	cont.ResetObjectSpawnStatus(*this);
 
 	// マップチップのメモリ確保
 	// マップの初期位置を設定
@@ -24,8 +26,8 @@ MapSystem::MapSystem(Camera& camera, std::string path)
 			auto& chip = m_mapChips[MapConstants::kWidthChipNum * y + x];
 			chip = std::make_shared<MapChip>(camera,
 				Vector2(MapConstants::kChipSize * x - Game::kScreenWidth * 0.5f,
-						MapConstants::kChipSize * y - Game::kScreenHeight * 0.5f),
-				Vector2Int(x,y), *this);
+					MapConstants::kChipSize * y - Game::kScreenHeight * 0.5f),
+				Vector2Int(x, y), *this);
 		}
 	}
 }

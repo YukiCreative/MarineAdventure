@@ -6,7 +6,8 @@
 Scene::Scene() :
 	m_fade(ScreenFade::Getinstance()),
 	m_fadedNextScene(""),
-	m_update(&Scene::NormalUpdate)
+	m_update(&Scene::NormalUpdate),
+	m_shakeCount(0)
 {
 	m_camera = std::make_shared<Camera>();
 }
@@ -20,6 +21,17 @@ void Scene::Update()
 	}
 
 	(this->*m_update)();
+	--m_shakeCount;
+}
+
+void Scene::HitStopUpdate()
+{
+	// ‰æ–Ê‚ð—h‚ç‚·
+	if (m_shakeCount > 0)
+	{
+		m_camera->Move(Vector2(GetRand(5), GetRand(5)));
+	}
+	m_camera->Update();
 	--m_shakeCount;
 }
 

@@ -58,5 +58,7 @@ public:
 	void SetFollowObject(std::weak_ptr<GameObject> obj) { m_refObj = obj; }
 	void ResetFollowObject() { m_refObj.reset(); };
 	Vector2 GetVel() { return m_velocity; }
+	// マップ端判定を流すことでマップにカメラを収める
+	void FitMap();
 };
 

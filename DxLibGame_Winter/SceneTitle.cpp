@@ -43,10 +43,10 @@ void SceneTitle::ButtonInit()
 	m_buttonSystem->SetButtonFocus(buttonGameStart);
 }
 
-SceneTitle::SceneTitle()
+void SceneTitle::Init()
 {
 	m_backGround = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBGPath);
-	m_titleLogo  = std::make_shared<ImageObject>(*m_camera, kInitTitleLogoPos, kLogoPath);
+	m_titleLogo = std::make_shared<ImageObject>(*m_camera, kInitTitleLogoPos, kLogoPath);
 
 	ButtonInit();
 }

@@ -13,7 +13,7 @@ private:
 
 	void NormalUpdate() override;
 public:
-	SceneGameClear();
+	void Init() override;
 
 	void Draw() const override;
 

@@ -34,10 +34,15 @@ void SceneController::Update()
 	--m_hitStopCount;
 
 	// ヒットストップがかかっていなければ
-	if (m_hitStopCount > 0) return;
-
-	// 一番上のシーンだけ実行
-	m_scenes.back()->Update();
+	if (m_hitStopCount > 0)
+	{
+		m_scenes.back()->HitStopUpdate();
+	}
+	else
+	{
+		// 一番上のシーンだけ実行
+		m_scenes.back()->Update();
+	}
 }
 
 void SceneController::Draw()
@@ -54,6 +59,7 @@ void SceneController::ChangeScene(std::string sceneId)
 	m_scenes.back()->Leave();
 	// 関数を実行
 	m_scenes.back() = m_factoryMap.at(sceneId)();
+	m_scenes.back()->Init();
 	m_scenes.back()->Entry();
 
 #if _DEBUG
@@ -79,6 +85,7 @@ void SceneController::StackScene(std::string addSceneId)
 	if (m_scenes.size()) m_scenes.back()->Leave();
 
 	m_scenes.push_back(m_factoryMap.at(addSceneId)());
+	m_scenes.back()->Init();
 	m_scenes.back()->Entry();
 
 #if _DEBUG

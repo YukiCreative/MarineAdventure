@@ -25,7 +25,7 @@ void SceneGameClear::NormalUpdate()
 	}
 }
 
-SceneGameClear::SceneGameClear()
+void SceneGameClear::Init()
 {
 	m_back = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kImagePath);
 }

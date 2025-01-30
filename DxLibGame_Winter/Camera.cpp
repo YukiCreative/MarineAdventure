@@ -19,9 +19,6 @@ void Camera::Update()
 		// スピードが早いほどカメラの追尾から逃れ、画面端に位置する
 		m_velocity = Vector2::LerpValue(m_pos, m_refObj.lock()->GetPos(), 0.1f);
 	}
-	// Move分を消費
-	m_velocity += m_moveAmount;
-	m_moveAmount = Vector2::Zero();
 	// カメラのposから見えている画面端のX.Yをだして、それがマップの範囲を超えている時、
 	// その向きにカメラが移動しなくなる
 	// でもカメラにマップの参照を持たせたくない
@@ -59,6 +56,10 @@ void Camera::Update()
 		}
 	}
 
+	// Move分を消費
+	m_velocity += m_moveAmount;
+	m_moveAmount = Vector2::Zero();
+
 	// 最後に運動
 	m_pos += m_velocity;
 
@@ -70,4 +71,9 @@ void Camera::Update()
 Vector2 Camera::Capture(const Vector2& objPos) const
 {
 	return objPos - m_drawOffset;
+}
+
+void Camera::FitMap()
+{
+	Move(Vector2(1, 1));
 }

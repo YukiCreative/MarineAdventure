@@ -5,6 +5,7 @@
 
 class CircleCollider;
 class Animation;
+class Scene;
 
 class HarmFish : public Enemy
 {
@@ -20,6 +21,8 @@ private:
 	std::shared_ptr<Animation> m_chaseAnim;
 	std::shared_ptr<Animation> m_damageAnim;
 	std::shared_ptr<Animation> m_deathAnim;
+
+	std::shared_ptr<Scene> m_scene;
 
 	// ステート
 	using StateFunc_t = void (HarmFish::*)();

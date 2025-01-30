@@ -36,6 +36,8 @@ protected:
 	void SceneRemoveWithFadeOut(                                const int& toralFrame = 60, const float& percent = 100.0f);
 public:
 	Scene();
+	// コンストラクタはクソ
+	virtual void Init() = 0;
 	/// <summary>
 	/// 明示的にデストラクタをvirtualにしないといけないと聞いて
 	/// </summary>
@@ -43,6 +45,9 @@ public:
 	// SceneControllerが回す関数
 	// 内部の状態にNormalとFadeがある
 	void Update();
+	// これはUpdateの状態にしたほうがいいかも
+	// カメラのシェイクのみ働く状態
+	void HitStopUpdate();
 	/// <summary>
 	/// 描画
 	/// </summary>

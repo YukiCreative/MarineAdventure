@@ -17,7 +17,7 @@ private:
 
 	void ButtonInit();
 public:
-	SceneTitle();
+	void Init() override;
 
 	void Entry() override;
 	void NormalUpdate() override;

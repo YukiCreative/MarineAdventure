@@ -1,4 +1,4 @@
-#include "Coin.h"
+#include "SmallCoin.h"
 #include "Camera.h"
 #include "Player.h"
 #include "Animation.h"
@@ -32,6 +32,7 @@ void SmallCoin::Update()
 	// ƒvƒŒƒCƒ„[‚ª‹ß‚Ã‚¢‚½‚çŽæ“¾‚Å‚«‚é
 	if (rerativeToPlayer.SqrMagnitude() > kGetThreshold)
 	{
+		m_player.OnRecovery();
 	}
 }
 

@@ -36,6 +36,8 @@ private:
 public:
 	SceneGameover();
 
+	void Init() override;
+
 	void Entry() override;
 	void NormalUpdate() override;
 	void Draw() const override;

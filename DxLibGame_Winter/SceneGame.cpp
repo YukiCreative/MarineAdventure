@@ -40,9 +40,8 @@ void SceneGame::MapChangeUpdate()
 	m_objectCont->ClearObjects();
 	ChangeMap(m_nextMapPath, m_playerTransportPos);
 	m_fade.Fade(60, 0);
-	// ƒJƒƒ‰“®‚©‚µ‚Ä˜g‚ÉŽû‚ß‚é
-	// ê—p‚ÌŠÖ”‚ð—pˆÓ‚µ‚½‚Ù‚¤‚ª‚¢‚¢‚¯‚Ç‚Ë
-	m_camera->Move(Vector2(1, 1));
+	// ˜g‚ÉŽû‚ß‚é
+	m_camera->FitMap();
 	m_isMapChanging = false;
 }
 
@@ -52,11 +51,21 @@ SceneGame::SceneGame() :
 	m_playerTransportPos(),
 	m_isMapChanging(false)
 {
-	m_hpUI       = std::make_shared<HitPoints>        (initHpUIPos);
-	m_player     = std::make_shared<Player>           (*m_camera, initPlayerPos, *m_hpUI);
+}
+
+SceneGame::~SceneGame()
+{
+}
+
+void SceneGame::Init()
+{
+	m_hpUI = std::make_shared<HitPoints>(initHpUIPos);
+	m_player = std::make_shared<Player>(*m_camera, initPlayerPos, *m_hpUI);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
-	m_map        = std::make_shared<MapSystem>        (*m_camera, kInitMapDataPass);
-	m_waterBackTile = std::make_shared<TileImage>     (kBackGroundTile);
+	m_map = std::make_shared<MapSystem>();
+	m_waterBackTile = std::make_shared<TileImage>(kBackGroundTile);
+
+	m_map->InitMap(*m_camera, kInitMapDataPass, *m_objectCont);
 
 	// ‚»‚à‚»‚àŽQÆ‚ÅŽæ‚ç‚È‚«‚á‚¢‚¢‚¶‚å‚ñ
 	m_player->Init(m_map);
@@ -64,10 +73,7 @@ SceneGame::SceneGame() :
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_camera->Move(initPlayerPos);
 	m_objectCont->ResetObjectSpawnStatus(*m_map);
-}
-
-SceneGame::~SceneGame()
-{
+	m_camera->FitMap();
 }
 
 void SceneGame::GameClear()

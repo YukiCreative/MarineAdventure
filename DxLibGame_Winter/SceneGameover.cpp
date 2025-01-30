@@ -148,6 +148,10 @@ SceneGameover::SceneGameover() :
 	m_stateFrameCount(0),
 	m_state(&SceneGameover::PlayerFadeIn)
 {
+}
+
+void SceneGameover::Init()
+{
 	m_backGround = std::make_shared<ImageObject>(*m_camera, kScreenMiddlePoint, kBackGroundImageFile);
 	m_playerDeadSprite = std::make_shared<ImageObject>(*m_camera, kPlayerInitPos, kPlayerFile);
 	m_gameoverText = std::make_shared<ImageObject>(*m_camera, kTextInitPos, kGameoverTextFile);

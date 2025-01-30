@@ -36,8 +36,9 @@ private:
 	/// <param name="moveValue">現在の位置からどれだけ移動させるか</param>
 	void MoveMap(Vector2 moveValue);
 public:
-	MapSystem(Camera& camera, std::string path);
 
+	// やっぱりInitは必要
+	void InitMap(Camera& camera, std::string path, ObjectsController& cont);
 	/// <summary>
 	/// 現在の描画場所に応じて表示するマップチップを判断
 	/// </summary>

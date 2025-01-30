@@ -34,6 +34,8 @@ public:
 	ColliderTestScene();
 	~ColliderTestScene();
 
+	void Init() override {}
+
 	void Entry() override {}
 	virtual void NormalUpdate() override;
 	virtual void Draw() const override;
