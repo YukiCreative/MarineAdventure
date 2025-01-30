@@ -27,13 +27,14 @@ private:
 	std::string m_nextMapPath;
 	Vector2 m_playerTransportPos;
 	bool m_isMapChanging;
+	int m_stopFrame;
 
 	void ChangeMap(const std::string& path);
 	void ChangeMap(const std::string& path, const Vector2& playerTransferPos);
 
 	// マップが変わるまで待つ状態
 	void MapChangeUpdate();
-
+	void HitStopUpdate();
 protected:
 	void NormalUpdate() override;
 
@@ -54,5 +55,7 @@ public:
 	// ObjectsControllerをそのまま返してしまう
 	// 適当にSceneControllerのCurrentSceneからダウンキャストしてちょ
 	ObjectsController& GetObjectsController() { return *m_objectCont; }
+
+	void HitStop(const int frame);
 };
 

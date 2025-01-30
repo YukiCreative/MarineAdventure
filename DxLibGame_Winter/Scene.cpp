@@ -19,9 +19,9 @@ void Scene::Update()
 	{
 		m_camera->Move(Vector2(GetRand(5), GetRand(5)));
 	}
+	--m_shakeCount;
 
 	(this->*m_update)();
-	--m_shakeCount;
 }
 
 void Scene::HitStopUpdate()

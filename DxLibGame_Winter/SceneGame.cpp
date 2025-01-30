@@ -45,11 +45,19 @@ void SceneGame::MapChangeUpdate()
 	m_isMapChanging = false;
 }
 
+void SceneGame::HitStopUpdate()
+{
+	// ゲームの更新は行わないが、カメラと、マップチップの更新はしたい
+	m_camera->Update();
+	m_map->Update();
+}
+
 SceneGame::SceneGame() :
 	m_frameCount(0),
 	m_nextMapPath(),
 	m_playerTransportPos(),
-	m_isMapChanging(false)
+	m_isMapChanging(false),
+	m_stopFrame(0)
 {
 }
 
@@ -130,6 +138,13 @@ void SceneGame::Entry()
 
 void SceneGame::NormalUpdate()
 {
+	// フラグで申し訳ない
+	if (m_stopFrame > 0)
+	{
+		HitStopUpdate();
+		--m_stopFrame;
+		return;
+	}
 	// マップ遷移中ならそっちの処理をする
 	if (m_isMapChanging)
 	{
@@ -182,4 +197,9 @@ void SceneGame::Draw() const
 	DrawFormatString(0, 75, 0x999999, "deltaTime:%f", Time::DeltaTime());
 	DrawFormatString(0, 90, 0x999999, "Cameraのワールド座標:x,%f y,%f", m_camera->GetPos().x, m_camera->GetPos().y);
 #endif
+}
+
+void SceneGame::HitStop(const int frame)
+{
+	m_stopFrame = frame;
 }

@@ -10,7 +10,7 @@
 #include <algorithm>
 #include "SoundManager.h"
 #include "SceneController.h"
-#include "Scene.h"
+#include "SceneGame.h"
 #include "ObjectsController.h"
 
 namespace
@@ -166,8 +166,8 @@ void HarmFish::HitToPlayer()
 			m_physics->Stop();
 			m_playerRef.Stop();
 			m_physics->AddForce(collision.overlap.GetNormalize() * 10);
-			SceneController::GetInstance().HitStop(30);
 			m_scene->ScreenShake(30);
+			m_scene->HitStop(30);
 		}
 		else
 		{
@@ -178,8 +178,8 @@ void HarmFish::HitToPlayer()
 			m_playerRef.Stop();
 			m_physics->Stop();
 			m_playerRef.AddForce(-collision.overlap.GetNormalize() * 5);
-			SceneController::GetInstance().HitStop(30);
 			m_scene->ScreenShake(30);
+			m_scene->HitStop(30);
 		}
 	}
 }
@@ -218,7 +218,7 @@ HarmFish::HarmFish(ObjectsController& cont, Player& player, Camera& camera, cons
 	m_physics->UseConstantForce(false);
 	m_collider = std::make_shared<CircleCollider>(m_pos, kColRadius);
 	m_hp += kInitHp;
-	m_scene = SceneController::GetInstance().CurrentScene();
+	m_scene = std::static_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
 
 	// アニメーションの初期化
 	m_idleAnim   = std::make_shared<Animation>();

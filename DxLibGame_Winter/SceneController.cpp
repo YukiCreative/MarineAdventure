@@ -9,8 +9,7 @@
 #include <cassert>
 #include <memory>
 
-SceneController::SceneController() :
-	m_hitStopCount(0)
+SceneController::SceneController()
 {
 	m_factoryMap["Title"]    = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneTitle>       ());};
 	m_factoryMap["Game"]     = [](){return static_cast<std::shared_ptr<Scene>>(std::make_shared<SceneGame>        ());};
@@ -31,18 +30,8 @@ SceneController& SceneController::GetInstance()
 // Sceneの関数をそのまま実行
 void SceneController::Update()
 {
-	--m_hitStopCount;
-
-	// ヒットストップがかかっていなければ
-	if (m_hitStopCount > 0)
-	{
-		m_scenes.back()->HitStopUpdate();
-	}
-	else
-	{
-		// 一番上のシーンだけ実行
-		m_scenes.back()->Update();
-	}
+	// 一番上のシーンだけ実行
+	m_scenes.back()->Update();
 }
 
 void SceneController::Draw()
@@ -105,9 +94,4 @@ void SceneController::RemoveSceme()
 #if _DEBUG
 	printf("現在のシーン数：%d\n", static_cast<int>(m_scenes.size()));
 #endif
-}
-
-void SceneController::HitStop(const int frame)
-{
-	m_hitStopCount = frame;
 }
