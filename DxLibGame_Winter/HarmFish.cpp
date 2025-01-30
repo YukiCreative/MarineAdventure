@@ -1,17 +1,20 @@
-#include "HarmFish.h"
-#include <DxLib.h>
+#include "Animation.h"
+#include "BoxCollider.h"
 #include "Camera.h"
-#include <memory>
+#include "CircleCollider.h"
+#include "HarmFish.h"
+#include "MapChip.h"
+#include "MapConstants.h"
+#include "MapSystem.h"
+#include "ObjectsController.h"
 #include "Physics.h"
 #include "Player.h"
-#include "CircleCollider.h"
-#include "Animation.h"
-#include "MapConstants.h"
-#include <algorithm>
-#include "SoundManager.h"
 #include "SceneController.h"
 #include "SceneGame.h"
-#include "ObjectsController.h"
+#include "SoundManager.h"
+#include <algorithm>
+#include <DxLib.h>
+#include <memory>
 
 namespace
 {
@@ -186,6 +189,15 @@ void HarmFish::HitToPlayer()
 
 void HarmFish::HitToMap()
 {
+	// ƒ}ƒbƒv‚­‚ê
+	MapSystem& map = m_scene->GetMap();
+	for (const auto& chip : map.GetCollidableMapChips())
+	{
+		CollisionStatus collision = m_collider->CheckHit(chip->GetCollider());
+		if (!collision.isCollide) continue;
+
+		m_pos += collision.overlap;
+	}
 }
 
 void HarmFish::ChangeDirection()
@@ -244,6 +256,7 @@ void HarmFish::Update()
 	// ó‘Ô‚É‰ž‚¶‚½ˆ—‚ð
 	(this->*m_state)();
 
+	HitToMap();
 	m_pos += m_physics->Update();
 	m_nowAnim->Update();
 
