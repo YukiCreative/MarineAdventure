@@ -36,3 +36,8 @@ void GameEffect::Draw() const
 	Vector2 drawPos = camera.lock()->Capture(m_pos + m_offset);
 	m_animation->Draw(drawPos);
 }
+
+void GameEffect::SetExRate(const float value)
+{
+	m_animation->SetExRate(value);
+}

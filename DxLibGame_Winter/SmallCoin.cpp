@@ -1,21 +1,24 @@
-#include "SmallCoin.h"
-#include "Camera.h"
-#include "Player.h"
 #include "Animation.h"
+#include "Camera.h"
+#include "GameEffect.h"
+#include "ObjectsController.h"
+#include "Player.h"
 #include "SceneController.h"
 #include "SceneGame.h"
-#include "ObjectsController.h"
+#include "SmallCoin.h"
+#include "SoundManager.h"
 
 namespace
 {
 	const std::string  kFile = "SmallCoin.png";
 	const Vector2Int   kSize = { 16, 16 };
 	constexpr int kPlaySpeed = 5;
-	constexpr int kGetThreshold = 1000;
-
+	constexpr float kExRate = 3.0f;
 	const std::string kEffectFile = "CoinEffect.png";
 	const Vector2Int kEffectImageSize = { 32, 32 };
+	const std::string kGetSound = "コイン獲得音.mp3";
 
+	constexpr int kGetThreshold = 5000;
 }
 
 SmallCoin::SmallCoin(Player& player, Camera& camera, const Vector2& initPos, ObjectsController& cont) :
@@ -26,9 +29,7 @@ SmallCoin::SmallCoin(Player& player, Camera& camera, const Vector2& initPos, Obj
 {
 	m_anim = std::make_shared<Animation>();
 	m_anim->Init(kFile, kSize, kPlaySpeed);
-
-	// キャッシュすとこ
-	m_scene = SceneController::GetInstance().CurrentScene();
+	m_anim->SetExRate(kExRate);
 }
 
 void SmallCoin::Update()
@@ -37,11 +38,14 @@ void SmallCoin::Update()
 
 	Vector2 rerativeToPlayer = m_pos - m_player.GetPos();
 	// プレイヤーが近づいたら取得できる
-	if (rerativeToPlayer.SqrMagnitude() > kGetThreshold)
+	if (rerativeToPlayer.SqrMagnitude() < kGetThreshold)
 	{
 		// エフェクト出す
-		m_cont.SpawnEffect(kEffectFile, kEffectImageSize, kPlaySpeed, m_pos);
+		auto effect = m_cont.SpawnEffect(kEffectFile, kEffectImageSize, kPlaySpeed, m_pos);
+		effect->SetExRate(kExRate);
 		m_player.OnRecovery();
+		SoundManager::GetInstance().Play(kGetSound);
+		m_isDeleted = true;
 	}
 }
 

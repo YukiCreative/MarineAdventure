@@ -11,18 +11,6 @@ void Camera::Tracking()
 	// オブジェクトがカメラの中心から一定値離れたら追尾したい
 	// その際、少し先を描画する
 	m_velocity = Vector2::LerpValue(m_pos, targetPos, m_lerpStrength);
-
-	if (abs((m_pos - targetPos).x) > Game::kScreenHalfWidth ||
-		abs((m_pos - targetPos).y) > Game::kScreenHalfHeight)
-	{
-		m_lerpStrength = 1.0f;
-	}
-	else
-	{
-		m_lerpStrength -= 0.01f;
-	}
-
-	m_lerpStrength = std::clamp(m_lerpStrength, 0.1f, 1.0f);
 }
 
 void Camera::Limiting()
