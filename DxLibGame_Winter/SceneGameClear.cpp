@@ -21,11 +21,13 @@ void SceneGameClear::NormalUpdate()
 	m_back->Update();
 	m_fade.Update();
 
+#if _DEBUG
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
 		SceneChangeWithFadeOut("Title");
 		return;
 	}
+#endif
 }
 
 void SceneGameClear::Init()

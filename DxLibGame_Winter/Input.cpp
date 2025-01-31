@@ -71,7 +71,7 @@ Input::Input() :
     m_inputEvent["Jump"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_SPACE},
-        {PeripheralType::kPad, kPadY},
+        {PeripheralType::kPad, kPadA},
     };
     m_inputEvent["Pause"] =
     {

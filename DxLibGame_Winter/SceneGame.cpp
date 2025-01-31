@@ -22,7 +22,7 @@ namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 	//                                    Å´PlatinumÇÃX  Å´ÅVY
-	const Vector2 initPlayerPos = { 80 * (3 - 8), 80 * (35 - 5) };
+	const Vector2 initPlayerPos = { 80 * (10 - 8), 80 * (35 - 5) };
 	const Vector2 initHpUIPos   = { kScreenMiddlePos.x - 300, kScreenMiddlePos.y + 300 };
 	const std::string kInitMapDataPass = "Data/MapData/Stage1.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";

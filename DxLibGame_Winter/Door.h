@@ -7,14 +7,16 @@
 
 enum class DoorKind
 {
-	kTutoToMap1,
+	kStage1ToStage2,
+	kStage2ToStage3,
 	Max,
 };
 
 enum class MapKind
 {
-	kFish,
-	kPipe,
+	kStage2,
+	kStage3,
+	kStageBonus,
 	kMax
 };
 

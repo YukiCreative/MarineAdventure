@@ -142,13 +142,13 @@ void MapChip::Update()
 void MapChip::Draw() const
 {
 	Vector2 drawPos = m_camera.Capture(m_pos);
-	m_backDecorationImage->Draw(drawPos);
+
 
 	if (m_mapChipData.environment == MapConstants::kEnvironment::kWater)
 	{
 		m_marineAnimation->Draw(drawPos);
 	}
-
+	m_backDecorationImage->Draw(drawPos);
 	m_chipImage->Draw(drawPos);
 
 #if _DEBUG

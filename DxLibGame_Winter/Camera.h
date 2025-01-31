@@ -13,6 +13,7 @@ class Camera
 {
 private:
 	Vector2 m_pos;
+	float m_lerpStrength;
 	// マップのチップ数を知っておきたい
 	Vector2Int m_mapSize;
 	Vector2 m_drawOffset;
@@ -24,10 +25,13 @@ private:
 	/// 参照するゲームオブジェクト
 	/// </summary>
 	std::weak_ptr<GameObject> m_refObj;
+
+	void Tracking();
+	void Limiting();
 public:
-	Camera() = default;
+	Camera();
 	// カメラの初期位置だけ入れられるようにする
-	Camera(Vector2 initPos) : m_pos(initPos) {}
+	Camera(Vector2 initPos);
 
 	/// <summary>
 	/// カメラの更新
@@ -60,5 +64,8 @@ public:
 	Vector2 GetVel() { return m_velocity; }
 	// マップ端判定を流すことでマップにカメラを収める
 	void FitMap();
+	// 遅れてついてくる強度を変える
+	// 推奨0~1.5
+	void SetLerpStrength(const float value) { m_lerpStrength = value; }
 };
 

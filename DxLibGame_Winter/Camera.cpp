@@ -1,24 +1,32 @@
 #include "Camera.h"
+#include <algorithm>
 #include "MapConstants.h"
 
-namespace
+void Camera::Tracking()
 {
-	constexpr int kScreenHalfWidth = Game::kScreenWidth / 2;
-	constexpr int kScreenHalfHeight = Game::kScreenHeight / 2;
+	// 追尾する対象があれば
+	if (m_refObj.expired()) return;
+
+	Vector2 targetPos = m_refObj.lock()->GetPos();
+	// オブジェクトがカメラの中心から一定値離れたら追尾したい
+	// その際、少し先を描画する
+	m_velocity = Vector2::LerpValue(m_pos, targetPos, m_lerpStrength);
+
+	if (abs((m_pos - targetPos).x) > Game::kScreenHalfWidth ||
+		abs((m_pos - targetPos).y) > Game::kScreenHalfHeight)
+	{
+		m_lerpStrength = 1.0f;
+	}
+	else
+	{
+		m_lerpStrength -= 0.01f;
+	}
+
+	m_lerpStrength = std::clamp(m_lerpStrength, 0.1f, 1.0f);
 }
 
-void Camera::Update()
+void Camera::Limiting()
 {
-	// 移動量リセ
-	m_velocity = Vector2::Zero();
-	// 追尾する対象があれば
-	if (!m_refObj.expired())
-	{
-		// オブジェクトがカメラの中心から一定値離れたら追尾したい
-		// その際、ゆっくりじんわり追尾する
-		// スピードが早いほどカメラの追尾から逃れ、画面端に位置する
-		m_velocity = Vector2::LerpValue(m_pos, m_refObj.lock()->GetPos(), 0.1f);
-	}
 	// カメラのposから見えている画面端のX.Yをだして、それがマップの範囲を超えている時、
 	// その向きにカメラが移動しなくなる
 	// でもカメラにマップの参照を持たせたくない
@@ -38,7 +46,7 @@ void Camera::Update()
 			m_velocity.y = 0;
 		}
 	}
-	// 画面端s
+	// 画面端
 	if (m_pos.x >= MapConstants::kChipSize * (m_mapSize.x - MapConstants::kWidthChipNum))
 	{
 		if (m_velocity.x > 0)
@@ -55,17 +63,43 @@ void Camera::Update()
 			m_velocity.y = 0;
 		}
 	}
+}
 
-	// Move分を消費
-	m_velocity += m_moveAmount;
-	m_moveAmount = Vector2::Zero();
+Camera::Camera() :
+	m_lerpStrength(0.1f)
+{
+}
+
+Camera::Camera(Vector2 initPos) :
+	m_pos(initPos),
+	m_lerpStrength(0.1f)
+{
+}
+
+void Camera::Update()
+{
+	// 移動量リセ
+	m_velocity = Vector2::Zero();
+
+	// もしMoveされてたらMove分を消費
+	// そしてオブジェクトへの追尾をしない
+	if (m_moveAmount.SqrMagnitude() != 0)
+	{
+		m_velocity += m_moveAmount;
+		m_moveAmount = Vector2::Zero();
+	}
+	else
+	{
+		Tracking();
+		Limiting();
+	}
 
 	// 最後に運動
 	m_pos += m_velocity;
 
 	// drawOffsetを作る
-	m_drawOffset.x = m_pos.x - kScreenHalfWidth;
-	m_drawOffset.y = m_pos.y - kScreenHalfHeight;
+	m_drawOffset.x = m_pos.x - Game::kScreenHalfWidth;
+	m_drawOffset.y = m_pos.y - Game::kScreenHalfHeight;
 }
 
 Vector2 Camera::Capture(const Vector2& objPos) const

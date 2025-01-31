@@ -13,6 +13,7 @@
 #include <vector>
 #include "ObjectAttribute.h"
 #include "Cloud.h"
+#include "SmallCoin.h"
 
 namespace
 {
@@ -88,6 +89,7 @@ ObjectsController::ObjectsController(Camera& camera, Player& player) :
 	m_factoryMap[ObjectKind::kDestructibleBlock] = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<DestructibleBlock>(m_cameraRef, m_playerRef, spawnPos, baseMapPos); };
 	m_factoryMap[ObjectKind::kCloud1]   = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Cloud>   (m_cameraRef, spawnPos, CloudKind::k1); };
 	m_factoryMap[ObjectKind::kCloud2]   = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Cloud>   (m_cameraRef, spawnPos, CloudKind::k2); };
+	m_factoryMap[ObjectKind::kCoin]     = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<SmallCoin>(m_cameraRef, m_cameraRef, spawnPos, *this); };
 	m_factoryMap[ObjectKind::kDoor1]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor1)); };
 	m_factoryMap[ObjectKind::kDoor2]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor2)); };
 	m_factoryMap[ObjectKind::kDoor3]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Door>    (m_playerRef, m_cameraRef, spawnPos, static_cast<int>(ObjectKind::kDoor3)); };

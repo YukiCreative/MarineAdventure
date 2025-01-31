@@ -198,6 +198,7 @@ void HarmFish::HitToMap()
 		if (!collision.isCollide) continue;
 
 		m_pos += collision.overlap;
+		m_physics->AddForce(collision.overlap);
 	}
 
 	for (const auto& chip : map.GetAllMapChips())

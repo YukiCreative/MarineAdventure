@@ -21,17 +21,19 @@ namespace
 	// ç¿ïW
 	//                                    Å´PlatinumÇÃX  Å´ÅVY
 	const Vector2 kStage1ToStage2 = { 80 * (2 - 8), 80 * (8 - 5) };
+	const Vector2 kStage2ToStage3 = { 80 * (2 - 8), 80 * (5- 5) };
 }
 
 Door::PathMap_t Door::s_paths =
 {
-	{MapKind::kFish, "Data/MapData/Stage2.fmf"},
-	{MapKind::kPipe, "Data/MapData/TestMapGroundStage.fmf"}
+	{MapKind::kStage2, "Data/MapData/Stage2.fmf"},
+	{MapKind::kStage3, "Data/MapData/Stage3.fmf"}
 };
 
 Door::DoorMap_t Door::s_doors =
 {
-	{DoorKind::kTutoToMap1, DoorStatus(Door::s_paths[MapKind::kFish], kStage1ToStage2)}
+	{DoorKind::kStage1ToStage2, DoorStatus(Door::s_paths[MapKind::kStage2], kStage1ToStage2)},
+	{DoorKind::kStage2ToStage3, DoorStatus(Door::s_paths[MapKind::kStage3], kStage2ToStage3)}
 };
 
 bool Door::CheckInDoor()

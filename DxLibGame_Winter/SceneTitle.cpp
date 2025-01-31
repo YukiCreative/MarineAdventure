@@ -112,6 +112,7 @@ void SceneTitle::Draw() const
 void SceneTitle::GameStart()
 {
 	m_nowAnim = m_playerAttackAnim;
+	m_fade.SetColor(0x000000);
 	m_fade.Fade(60, 100);
 	m_state = &SceneTitle::StartAnim;
 }

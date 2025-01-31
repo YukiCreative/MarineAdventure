@@ -28,6 +28,8 @@ private:
 
 	std::shared_ptr<Animation> m_nowAnim;
 	std::shared_ptr<Animation> m_idleAnim;
+	std::shared_ptr<Animation> m_attackAnim;
+	std::shared_ptr<Animation> m_damageAnim;
 	// “ª‚ÉH‚ç‚¢”»’èA
 	// ‘Ì‚Í–³“G
 	std::shared_ptr<CircleCollider> m_headCol;
@@ -35,6 +37,9 @@ private:
 
 	void GameClear();
 
+	void HitToPlayer();
+	// UŒ‚«‚Ì‚È‚¢Õ“Ë(?)
+	void HitToPlayerSafety();
 	bool CheckIsPlayerAttackState();
 	void ChangeState(StateFunc_t nextState);
 public:

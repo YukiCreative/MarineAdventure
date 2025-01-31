@@ -680,10 +680,10 @@ void Player::OnDamage(int damage)
 	{
 		m_stateText = "Damage";
 		m_hpUI.OnDamage();
-		SoundManager::GetInstance().Play(kStunSound);
 		ChangeState(&Player::Damage);
 	}
 
+	SoundManager::GetInstance().Play(kStunSound);
 	ChangeAnimation(m_damageAnim);
 }
 
@@ -704,7 +704,6 @@ void Player::OnAttack()
 	Input& input = Input::GetInstance();
 	Vector2 axis = input.GetInputAxis();
 	m_stateText = "Ç‚Ç¡ÇΩÇ∫ÅB";
-	ChangeAnimation(m_idleAnim);
 	return;
 }
 
