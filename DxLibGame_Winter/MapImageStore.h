@@ -3,10 +3,21 @@
 
 namespace
 {
-	constexpr int kImageNum = 16 * 16;
-	constexpr int kDecorationNum = 4 * 4;
-	constexpr int kBackGroundNum = 2;
-}
+	constexpr int kChipSize = 16;
+	// 繰り返し処理してほしい数を定数で書きます
+	constexpr int kWidthChipNum = 16;
+	constexpr int kHeightChipNum = 16;
+
+	constexpr int kDecoImageWidth = 4;
+	constexpr int kDecoImageHeight = 4;
+
+	constexpr int kBackPartsWidth = 2;
+	constexpr int kBackPartsHeight = 2;
+
+	constexpr int kImageNum      = kWidthChipNum * kHeightChipNum;
+	constexpr int kDecorationNum = kDecoImageWidth * kDecoImageHeight;
+	constexpr int kBackGroundNum = kBackPartsWidth * kBackPartsHeight;
+};
 
 /// <summary>
 /// マップチップの画像を一括で読み込んで管理するシングルトンクラス

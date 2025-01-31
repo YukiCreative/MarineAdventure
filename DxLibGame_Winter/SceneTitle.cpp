@@ -1,4 +1,5 @@
 #include "ButtonGameStart.h"
+#include "Animation.h"
 #include "ButtonQuitGame.h"
 #include "ButtonSystem.h"
 #include "Camera.h"
@@ -23,6 +24,12 @@ namespace
 	const Vector2 kInitQuitButtonPos(kInitStartButtonPos.x, kInitStartButtonPos.y + kButtonYOffset);
 	const std::string kBGPath   = "Marine.jpg";
 	const std::string kLogoPath = "Logo.png";
+	const std::string kPlayerIdleAnim = "PlayerIdle.png";
+	const std::string kPlayerAttackAnim = "PlayerAttack.png";
+	const Vector2Int kPlayerSize = { 32, 32 };
+	constexpr int kPlaySpeed = 10;
+	constexpr int kAttackPlaySpeed = 3;
+	const Vector2 kPlayerPos = {200, 600};
 }
 
 void SceneTitle::ButtonInit()
@@ -43,10 +50,41 @@ void SceneTitle::ButtonInit()
 	m_buttonSystem->SetButtonFocus(buttonGameStart);
 }
 
+void SceneTitle::Normal()
+{
+	m_camera->Update();
+	m_buttonSystem->Update();
+	m_nowAnim->Update();
+	m_fade.Update();
+}
+
+void SceneTitle::StartAnim()
+{
+	m_nowAnim->Update();
+	m_fade.Update();
+
+	if (m_fade.IsFading()) return;
+
+	SceneController::GetInstance().ChangeScene("Game");
+}
+
 void SceneTitle::Init()
 {
+	m_state = &SceneTitle::Normal;
+
 	m_backGround = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kBGPath);
 	m_titleLogo = std::make_shared<ImageObject>(*m_camera, kInitTitleLogoPos, kLogoPath);
+	m_playerIdleAnim = std::make_shared<Animation>();
+	m_playerAttackAnim = std::make_shared<Animation>();
+
+	// ‚à‚¤ƒV[ƒ“‚ªÀ•WŽ‚Á‚Ä‚¢‚¢‚æ
+	m_playerIdleAnim->Init(kPlayerIdleAnim, kPlayerSize, kPlaySpeed);
+	m_playerAttackAnim->Init(kPlayerAttackAnim, kPlayerSize, kAttackPlaySpeed);
+
+	m_playerIdleAnim->SetExRate(8);
+	m_playerAttackAnim->SetExRate(8);
+
+	m_nowAnim = m_playerIdleAnim;
 
 	ButtonInit();
 }
@@ -59,9 +97,7 @@ void SceneTitle::Entry()
 
 void SceneTitle::NormalUpdate()
 {
-	m_camera->Update();
-	m_buttonSystem->Update();
-	m_fade.Update();
+	(this->*m_state)();
 }
 
 void SceneTitle::Draw() const
@@ -69,10 +105,13 @@ void SceneTitle::Draw() const
 	m_backGround->Draw();
 	m_titleLogo->Draw();
 	m_buttonSystem->Draw();
+	m_nowAnim->Draw(kPlayerPos);
 	m_fade.Draw();
 }
 
 void SceneTitle::GameStart()
 {
-	SceneChangeWithFadeOut("Game");
+	m_nowAnim = m_playerAttackAnim;
+	m_fade.Fade(60, 100);
+	m_state = &SceneTitle::StartAnim;
 }

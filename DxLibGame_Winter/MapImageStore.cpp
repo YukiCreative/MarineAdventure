@@ -5,17 +5,6 @@
 
 namespace
 {
-	constexpr int kChipSize      = 16;
-	// ŒJ‚è•Ô‚µˆ—‚µ‚Ä‚Ù‚µ‚¢”‚ğ’è”‚Å‘‚«‚Ü‚·
-	constexpr int kWidthChipNum  = 16;
-	constexpr int kHeightChipNum = 16;
-
-	constexpr int kDecoImageWidth  = 4;
-	constexpr int kDecoImageHeight = 4;
-
-	constexpr int kBackPartsWidth  = 2;
-	constexpr int kBackPartsHeight = 1;
-
 	const std::string kMapImagePath   = "MapChip.png";
 	const std::string kDecoImagePath  = "BackImageMapParts.png";
 	const std::string kBackGroundPath = "MapBackGround.png";

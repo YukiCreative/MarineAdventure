@@ -17,7 +17,7 @@ void Scene::Update()
 	// ‰æ–Ê‚ð—h‚ç‚·
 	if (m_shakeCount > 0)
 	{
-		m_camera->Move(Vector2(GetRand(5), GetRand(5)));
+		m_camera->Move(Vector2(GetRand(10) - 5, GetRand(10) - 5));
 	}
 	--m_shakeCount;
 

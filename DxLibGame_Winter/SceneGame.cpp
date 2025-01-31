@@ -171,8 +171,8 @@ void SceneGame::NormalUpdate()
 #if _DEBUG
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		//SceneChangeWithFadeOut("Clear");
-		SceneChangeWithFadeOut("Gameover");
+		SceneChangeWithFadeOut("Clear");
+		//SceneChangeWithFadeOut("Gameover");
 		//ChangeMapWithFadeOut("Data/MapData/TestMapGroundStage.fmf", Vector2(-100, 0));
 		return;
 	}
