@@ -191,12 +191,45 @@ void HarmFish::HitToMap()
 {
 	// マップくれ
 	MapSystem& map = m_scene->GetMap();
+	std::list<MapConstants::kEnvironment> hitEnvironments;
 	for (const auto& chip : map.GetCollidableMapChips())
 	{
 		CollisionStatus collision = m_collider->CheckHit(chip->GetCollider());
 		if (!collision.isCollide) continue;
 
 		m_pos += collision.overlap;
+	}
+
+	for (const auto& chip : map.GetAllMapChips())
+	{
+		// 移動なし当たり判定
+		// 多少軽い
+		CollisionStatus col = m_collider->CheckHit(chip->GetCollider());
+		if (!col.isCollide) continue;
+
+		// Environmentを記憶
+		hitEnvironments.push_back(chip->GetMapChipData().environment);
+	}
+	// マップ外の場合は今の状態から変わらない
+	if (hitEnvironments.empty()) return;
+
+	// 自分の物理状態が一つもなかったらtrue
+	bool envChanged = true;
+	for (const auto& env : hitEnvironments)
+	{
+		envChanged &= !m_physics->CheckState(env);
+	}
+	if (envChanged)
+	{
+		if (m_physics->CheckState(MapConstants::kEnvironment::kWater))
+		{
+			m_physics->UseConstantForce(true);
+		}
+		else
+		{
+			m_physics->UseConstantForce(false);
+		}
+		m_physics->InvertState();
 	}
 }
 
@@ -236,11 +269,11 @@ HarmFish::HarmFish(ObjectsController& cont, Player& player, Camera& camera, cons
 	m_idleAnim   = std::make_shared<Animation>();
 	m_chaseAnim  = std::make_shared<Animation>();
 	m_damageAnim = std::make_shared<Animation>();
-	//m_deathAnim  = std::make_shared<Animation>();
+	//m_deathAnim = std::make_shared<Animation>();
 
 	m_idleAnim  ->Init(kIdleAnimFile,   kImageSize, kIdleAnimPlaySpeed);
 	m_chaseAnim ->Init(kChaseAnimFile,  kImageSize, kIdleAnimPlaySpeed);
-	m_damageAnim->Init(kDamageAnimFile, kImageSize, kIdleAnimPlaySpeed);
+	m_damageAnim->Init(kDamageAnimFile, kImageSize, 5);
 
 	m_idleAnim  ->SetExRate(kGraphExpandRate);
 	m_chaseAnim ->SetExRate(kGraphExpandRate);

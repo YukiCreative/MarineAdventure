@@ -193,6 +193,7 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundStore.cpp" />
     <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="Statistics.cpp" />
     <ClCompile Include="TileImage.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="VolumeLoader.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundStore.h" />
     <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="Statistics.h" />
     <ClInclude Include="TileImage.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
