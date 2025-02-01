@@ -29,12 +29,10 @@ void MapChip::ResetMapData()
 	m_backDecorationImage->SetGraph(m_mapChipData.decorationGraphHandle);
 	m_backGroundImage->SetGraph(m_mapChipData.backGroundHandle);
 
-	// おえ
-	ObjectsController& objCont = std::static_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene())->GetObjectsController();
 	// もしこの位置のオブジェクトが出せるなら出す
-	if (objCont.CanSpawnObject(m_mapPos))
+	if (m_objCont.lock()->CanSpawnObject(m_mapPos))
 	{
-		objCont.SpawnObject(m_mapChipData.objKind, m_pos, m_mapPos);
+		m_objCont.lock()->SpawnObject(m_mapChipData.objKind, m_pos, m_mapPos);
 	}
 
 	// 線分の当たり判定を設定する
@@ -107,6 +105,7 @@ MapChip::MapChip(Camera& camera, const Vector2 initPos, const Vector2Int initMap
 	m_backDecorationImage = std::make_shared<Image>      (-1);
 	m_backGroundImage     = std::make_shared<Image>      (-1);
 	m_marineAnimation     = std::make_shared<Animation>  ();
+	m_objCont = std::static_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene())->GetObjectsController();
 
 	m_chipImage->SetExRate(MapConstants::kExRate);
 	m_backDecorationImage->SetExRate(MapConstants::kExRate);

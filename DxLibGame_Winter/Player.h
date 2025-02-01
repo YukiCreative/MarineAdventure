@@ -14,6 +14,7 @@ class Input;
 class MapSystem;
 class Animation;
 class HitPoints;
+class ObjectsController;
 
 enum class PlayerState
 {
@@ -32,7 +33,7 @@ enum class PlayerState
 class Player : public GameObject
 {
 private:
-	// コンポーネント
+	// コンポジション
 	std::shared_ptr<Physics> m_physics;
 	std::shared_ptr<CircleCollider> m_collider;
 
@@ -48,6 +49,7 @@ private:
 
 	std::weak_ptr<MapSystem> m_map;
 	Camera& m_camera;
+	std::weak_ptr<ObjectsController> m_objCont;
 	HitPoints& m_hpUI;
 
 	using StateFunc_t = void(Player::*)(Input& input, Vector2& axis);
@@ -106,7 +108,7 @@ public:
 	~Player();
 
 	// コンストラクタでは取得しきれないものを取得
-	void Init(std::weak_ptr<MapSystem> map) { m_map = map; }
+	void Init(std::weak_ptr<MapSystem> map, std::weak_ptr<ObjectsController> objCont);
 
 	/// <summary>
 	/// 入力をとって移動したり何したり

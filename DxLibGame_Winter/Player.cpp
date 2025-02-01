@@ -1,21 +1,23 @@
-#include "Player.h"
-#include <DxLib.h>
-#include "Input.h"
-#include "Physics.h"
-#include "game.h"
-#include "MapSystem.h"
-#include "CircleCollider.h"
-#include "BoxCollider.h"
-#include "MapChip.h"
-#include "Camera.h"
-#include <cassert>
-#include "SceneController.h"
 #include "Animation.h"
-#include "ImageStore.h"
-#include "SceneGame.h"
-#include "SoundManager.h"
-#include "Sound.h"
+#include "BoxCollider.h"
+#include "Camera.h"
+#include "CircleCollider.h"
+#include "game.h"
+#include "GameEffect.h"
 #include "HPUI.h"
+#include "ImageStore.h"
+#include "Input.h"
+#include "MapChip.h"
+#include "MapSystem.h"
+#include "ObjectsController.h"
+#include "Physics.h"
+#include "Player.h"
+#include "SceneController.h"
+#include "SceneGame.h"
+#include "Sound.h"
+#include "SoundManager.h"
+#include <cassert>
+#include <DxLib.h>
 
 namespace
 {
@@ -70,6 +72,11 @@ namespace
 	const std::string kWalkSound2      = "スライム的な_2.mp3";
 	constexpr     int kWalkSoundSpan   = 20;
 	constexpr     int kDashSoundSpan   = 10;
+
+	// エフェクト
+	// こんなに必要な変数が多いならクラス化した方がいい気がする
+	const std::string kDashEffectFile = "PlayerDashEffect.png";
+	const Vector2Int kDashEffectImageSize = { 32, 32 };
 }
 
 void Player::GameOver()
@@ -288,6 +295,9 @@ void Player::GMove(Input& input, Vector2& axis)
 	{
 		m_stateText = "GD";
 		ChangeState(&Player::GDash);
+		auto effect = m_objCont.lock()->SpawnEffect(kDashEffectFile, kDashEffectImageSize, kAnimPlaySpeed, m_pos);
+		// 元データが左向きなんですよ
+		effect->ReverceX(!m_isLeft);
 		ChangeAnimation(m_dashAnim);
 		return;
 	}
@@ -541,6 +551,12 @@ Player::Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI) :
 
 Player::~Player()
 {
+}
+
+void Player::Init(std::weak_ptr<MapSystem> map, std::weak_ptr<ObjectsController> objCont)
+{
+	m_map = map;
+	m_objCont = objCont;
 }
 
 void Player::Update()

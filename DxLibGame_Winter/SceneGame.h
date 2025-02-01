@@ -53,7 +53,7 @@ public:
 
 	// ObjectsControllerをそのまま返してしまう
 	// 適当にSceneControllerのCurrentSceneからダウンキャストしてちょ
-	ObjectsController& GetObjectsController() { return *m_objectCont; }
+	std::weak_ptr<ObjectsController> GetObjectsController() { return m_objectCont; }
 
 	void HitStop(const int frame);
 	// コードが汚くなってきたぜ

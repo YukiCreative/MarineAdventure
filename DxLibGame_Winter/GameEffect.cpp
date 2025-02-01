@@ -7,10 +7,13 @@
 GameEffect::GameEffect(const std::string& filename, const Vector2Int& oneImageSize, const int& playSpeed, const Vector2& initPos, const Vector2& offset) :
 	GameObject(initPos),
 	m_isLoop(false),
-	m_offset()
+	m_offset(),
+	m_exRate(1.0f),
+	m_reverseX(false)
 {
 	m_animation = std::make_shared<Animation>();
 	m_animation->Init(filename, oneImageSize, playSpeed);
+	m_camera = SceneController::GetInstance().CurrentScene()->GetCamera();
 }
 
 void GameEffect::Update()
@@ -32,12 +35,16 @@ void GameEffect::Update()
 void GameEffect::Draw() const
 {
 	// ’·‚¢‚È‚ 
-	std::weak_ptr<Camera> camera = SceneController::GetInstance().CurrentScene()->GetCamera();
-	Vector2 drawPos = camera.lock()->Capture(m_pos + m_offset);
+	Vector2 drawPos = m_camera.lock()->Capture(m_pos + m_offset);
 	m_animation->Draw(drawPos);
 }
 
 void GameEffect::SetExRate(const float value)
 {
 	m_animation->SetExRate(value);
+}
+
+void GameEffect::ReverceX(const bool value)
+{
+	m_animation->ReverceX(value);
 }

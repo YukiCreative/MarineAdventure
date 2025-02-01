@@ -35,6 +35,7 @@ private:
 	// カメラさん
 	Camera& m_camera;
 	MapSystem& m_system;
+	std::weak_ptr<ObjectsController> m_objCont;
 	MapChipData m_mapChipData;
 	/// <summary>
 	/// 自分が画面外に出ているかをチェックして、

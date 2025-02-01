@@ -75,7 +75,7 @@ void SceneGame::Init()
 	m_map->InitMap(*m_camera, kInitMapDataPass, *m_objectCont);
 
 	// ‚»‚à‚»‚àŽQÆ‚ÅŽæ‚ç‚È‚«‚á‚¢‚¢‚¶‚å‚ñ
-	m_player->Init(m_map);
+	m_player->Init(m_map, m_objectCont);
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
 	m_camera->Move(initPlayerPos);
