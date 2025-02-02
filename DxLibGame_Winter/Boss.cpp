@@ -28,6 +28,10 @@ namespace
 	const Vector2 kBodyOffset = { 0, 0 };
 	constexpr int kDamageStateCount = 120;
 	constexpr int kAttackedStateCount = 30;
+	// 攻撃までの時間の基礎時間
+	constexpr int kAttackInterval = 5;
+	// 振れ幅
+	constexpr int kAttackTimeVariation = 2;
 }
 
 void Boss::Idle()
@@ -35,8 +39,30 @@ void Boss::Idle()
 	++m_stateFrameCount;
 	// 通常状態
 	// アニメーション
+	if (m_stateFrameCount > Game::kFrameRate * m_attackInterval)
+	{
+		ChangeState(&Boss::Charge);
+	}
 
 	HitToPlayer();
+}
+
+void Boss::Charge()
+{
+	// 震える
+	m_pos += static_cast<float>(GetRand(10) - 5);
+	HitToPlayer();
+}
+
+void Boss::Attack()
+{
+	// この時は先端に当たったらスタンしたい
+	// Attack時のプレイヤーの位置に向かって突進
+}
+
+void Boss::Stun()
+{
+	// ここで食らったらダメージ
 }
 
 void Boss::Attacked()
@@ -166,6 +192,11 @@ void Boss::ChangeState(StateFunc_t nextState)
 {
 	m_stateFrameCount = 0;
 	m_state = nextState;
+}
+
+void Boss::SetAttackInterval()
+{
+	m_attackInterval = GetRand(kAttackInterval + kAttackTimeVariation) - kAttackTimeVariation;
 }
 
 Boss::Boss(ObjectsController& cont, Player& player, Camera& camera, const Vector2& initPos, const Vector2Int& baseMapPos) :

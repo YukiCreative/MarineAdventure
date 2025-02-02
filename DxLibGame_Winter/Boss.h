@@ -16,11 +16,15 @@ class Boss : public Enemy
 {
 private:
 	int m_stateFrameCount;
+	int m_attackInterval;
 
 	using StateFunc_t = void (Boss::*)();
 	StateFunc_t m_state;
 
 	void Idle();
+	void Charge();
+	void Attack();
+	void Stun();
 	// プレイヤーがダメージを負った後、情けをかけるフェーズ
 	void Attacked();
 	void Damage();
@@ -42,6 +46,7 @@ private:
 	void HitToPlayerSafety();
 	bool CheckIsPlayerAttackState();
 	void ChangeState(StateFunc_t nextState);
+	void SetAttackInterval();
 public:
 	Boss(ObjectsController& cont, Player& player, Camera& camera, const Vector2& initPos, const Vector2Int& baseMappPos);
 

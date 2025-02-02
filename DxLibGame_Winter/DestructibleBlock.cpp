@@ -13,9 +13,9 @@ namespace
 	constexpr int kBlockWidth = 80;
 	constexpr int kBlockHeight = 80;
 	constexpr int kBreakingAnimSize = 32;
-	constexpr float kBreakImageExRate = static_cast<float>(kBlockWidth) / kBreakingAnimSize;
+	constexpr float kBreakImageExRate = 4.0f;
 	const std::string kNormalAnimFile = "Block(32x32).png";
-	const std::string kBleakingAnimFile = "BlockBreaking.png";
+	const std::string kBleakingAnimFile = "BlockBreaking2.png";
 	const std::string kBreakingSound = "BreakBlock.wav";
 }
 
