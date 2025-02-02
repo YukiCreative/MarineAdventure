@@ -294,8 +294,12 @@ void HarmFish::Update()
 	m_pos += m_physics->Update();
 	m_nowAnim->Update();
 
-	// Updateの結果、画面外に出たら死亡
-	// 01/20仕様変更。画面外に出ても大丈夫になりました
+	// 画面外に出たらストップ
+	// 画面外にはマップチップが無く、壁を貫通する恐れがある
+	if (CheckScreenOut())
+	{
+		m_physics->Stop();
+	}
 }
 
 void HarmFish::Draw() const

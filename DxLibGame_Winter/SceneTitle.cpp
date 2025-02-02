@@ -30,6 +30,7 @@ namespace
 	constexpr int kPlaySpeed = 10;
 	constexpr int kAttackPlaySpeed = 3;
 	const Vector2 kPlayerPos = {200, 600};
+	const std::string kMusicFile = "Data/Music/Kira_Kira_Cotton_Candy_2.mp3";
 }
 
 void SceneTitle::ButtonInit()
@@ -91,7 +92,7 @@ void SceneTitle::Init()
 
 void SceneTitle::Entry()
 {
-	Music::GetInstance().Play("Data/Music/’‹‰º‚ª‚è‹C•ª.mp3");
+	Music::GetInstance().Play(kMusicFile);
 	m_fade.Fade(60, 0);
 }
 

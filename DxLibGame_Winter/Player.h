@@ -79,6 +79,7 @@ private:
 	void StrongAttack(Input& input, Vector2& axis);
 	void Damage(Input& input, Vector2& axis);
 	void Death(Input& input, Vector2& axis);
+	void DisAppear(Input& input, Vector2& axis);
 	// 敵にダメージを与えた後の硬直
 	void Attacked(Input& input, Vector2& axis);
 	// 地上ステート

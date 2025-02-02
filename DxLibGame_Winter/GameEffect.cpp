@@ -7,7 +7,7 @@
 GameEffect::GameEffect(const std::string& filename, const Vector2Int& oneImageSize, const int& playSpeed, const Vector2& initPos, const Vector2& offset) :
 	GameObject(initPos),
 	m_isLoop(false),
-	m_offset(),
+	m_offset(offset),
 	m_exRate(1.0f),
 	m_reverseX(false)
 {

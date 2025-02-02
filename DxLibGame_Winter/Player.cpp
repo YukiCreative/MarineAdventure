@@ -70,6 +70,7 @@ namespace
 	const std::string kAttackSound     = "レトロアクション.mp3";
 	const std::string kWalkSound1      = "スライム的な.mp3";
 	const std::string kWalkSound2      = "スライム的な_2.mp3";
+	const std::string kDeathSound      = "自機ロスト音.mp3";
 	constexpr     int kWalkSoundSpan   = 20;
 	constexpr     int kDashSoundSpan   = 10;
 
@@ -77,6 +78,8 @@ namespace
 	// こんなに必要な変数が多いならクラス化した方がいい気がする
 	const std::string kDashEffectFile = "PlayerDashEffect.png";
 	const Vector2Int kDashEffectImageSize = { 32, 32 };
+	const Vector2 kLeftDashEffectOffset = { -20, 16 };
+	const Vector2 kRightDashEffectOffset = { 20, 16 };
 }
 
 void Player::GameOver()
@@ -225,8 +228,14 @@ void Player::Death(Input& input, Vector2& axis)
 	if (m_stateFrameCount > kDeathRigidFrame)
 	{
 		m_nowAnim = m_deathAnim;
+		SoundManager::GetInstance().Play(kDeathSound);
+		ChangeState(&Player::DisAppear);
 	}
-	if (m_stateFrameCount > kDeathRigidFrame + kDeathDisappearFrame)
+}
+
+void Player::DisAppear(Input& input, Vector2& axis)
+{
+	if (m_stateFrameCount > kDeathDisappearFrame)
 	{
 		GameOver();
 	}
@@ -270,6 +279,8 @@ void Player::GNormal(Input& input, Vector2& axis)
 
 void Player::GMove(Input& input, Vector2& axis)
 {
+	// キャラの向きを変える
+	ChangeDirection(axis);
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
@@ -295,16 +306,16 @@ void Player::GMove(Input& input, Vector2& axis)
 	{
 		m_stateText = "GD";
 		ChangeState(&Player::GDash);
-		auto effect = m_objCont.lock()->SpawnEffect(kDashEffectFile, kDashEffectImageSize, kAnimPlaySpeed, m_pos);
+		Vector2 effectOffset = m_isLeft ? kRightDashEffectOffset : kLeftDashEffectOffset;
+		auto effect = m_objCont.lock()->SpawnEffect(kDashEffectFile, kDashEffectImageSize, kAnimPlaySpeed, m_pos, effectOffset);
 		// 元データが左向きなんですよ
 		effect->ReverceX(!m_isLeft);
+		effect->SetExRate(2.0f);
 		ChangeAnimation(m_dashAnim);
 		return;
 	}
 	// こいつ動くぞ
 	m_physics->AddForce(axis.x * kMoveForceFactor);
-	// キャラの向きを変える
-	ChangeDirection(axis);
 	// 一定時間ごとに足音を鳴らす
 	if (!(m_stateFrameCount % kWalkSoundSpan)) PlayWalkSound();
 }
