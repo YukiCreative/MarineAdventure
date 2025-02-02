@@ -32,6 +32,10 @@ namespace
 	constexpr int kAttackInterval = 5;
 	// 振れ幅
 	constexpr int kAttackTimeVariation = 2;
+	constexpr int kChargeTime = 120;
+	constexpr int kAttackTime = 120;
+	const Vector2 kRightHomePosition = { 80 * (15 - 8), 80 * (122 - 5) };
+	const Vector2 kLeftHomePosition = { 80 * (3 - 8), 80 * (122 - 5) };
 }
 
 void Boss::Idle()
@@ -51,6 +55,12 @@ void Boss::Charge()
 {
 	// 震える
 	m_pos += static_cast<float>(GetRand(10) - 5);
+	if (m_stateFrameCount > kChargeTime)
+	{
+		// プレイヤーの方向に突っ込む(とりあえず)
+		m_physics->AddForce((m_playerRef.GetPos() - m_pos).GetNormalize() * 5);
+		ChangeState(&Boss::Attack);
+	}
 	HitToPlayer();
 }
 
@@ -58,6 +68,14 @@ void Boss::Attack()
 {
 	// この時は先端に当たったらスタンしたい
 	// Attack時のプレイヤーの位置に向かって突進
+	// 一定時間たったら元に戻る
+	if (m_stateFrameCount > kAttackTime)
+	{
+		// 定位置に戻りたい
+		// 右側にいたら右に、左側にいたら左に
+
+		ChangeState(&Boss::Idle);
+	}
 }
 
 void Boss::Stun()

@@ -4,7 +4,26 @@
 class Statistics
 {
 private:
-public:
+	Statistics();
+	Statistics(const Statistics&) = delete;
+	void operator=(const Statistics&) = delete;
 
+	int m_getCoinNum;
+	int m_breakBlockNum;
+	int m_killedEnemyNum;
+	int m_playTime;
+
+	// タイムスコアを計算
+	int ScoreTime() const;
+public:
+	static Statistics& GetInstance();
+
+	// それぞれのクラスから呼ぶ
+	void GotCoin();
+	void KilledEnemy();
+	void BrokenBlock();
+
+	// 今の統計からスコアだす
+	int Score() const;
 };
 
