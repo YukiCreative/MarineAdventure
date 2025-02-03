@@ -22,8 +22,11 @@ private:
 	};
 
 	std::shared_ptr<Text> m_coinScoreText;
+	int m_coinTextWidth;
 	std::shared_ptr<Text> m_enemyScoreText;
+	int m_enemyTextWidth;
 	std::shared_ptr<Text> m_blockScoreText;
+	int m_blockTextWidth;
 
 	std::shared_ptr<ImageObject> m_back;
 	std::shared_ptr<ImageObject> m_clearText;
@@ -45,6 +48,8 @@ private:
 	void AppearScoreNum();
 	void AppearButton();
 public:
+	~SceneGameClear();
+
 	void Init() override;
 
 	void Draw() const override;
