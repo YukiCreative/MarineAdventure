@@ -1,13 +1,13 @@
+#include "ButtonReturnToTitle.h"
+#include "ButtonSystem.h"
+#include "Camera.h"	
+#include "game.h"
+#include "ImageObject.h"
+#include "Input.h"
 #include "SceneGameClear.h"
 #include "ScreenFade.h"
-#include "ImageObject.h"
-#include "Camera.h"	
-#include "Input.h"
-#include "game.h"
-#include "ButtonSystem.h"
-#include "ButtonReturnToTitle.h"
-#include <cassert>
 #include "Statistics.h"
+#include <cassert>
 
 namespace
 {
@@ -16,6 +16,8 @@ namespace
 	const std::string kFontPath = "BroadWay";
 	constexpr int kFontSize = 100;
 	constexpr int kFontThick = -1;
+	const Vector2 kClearTextPos = { 0, -200 };
+	const Vector2 kTextShiftOffset = { 100, 0 };
 	const Vector2 kCoinScoreInitPos = { 680, 500 };
 	const Vector2 kEnemyScoreInitPos = {};
 	const Vector2 kBlockScoreInitPos = {};
@@ -79,7 +81,7 @@ void SceneGameClear::AppearButton()
 void SceneGameClear::Init()
 {
 	m_back = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kImagePath);
-	m_clearText = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kTextPath);
+	m_clearText = std::make_shared<ImageObject>(*m_camera, kClearTextPos, kTextPath);
 
 	// É{É^ÉìÇÃê›íË
 	m_buttonSystem = std::make_shared<ButtonSystem>();
