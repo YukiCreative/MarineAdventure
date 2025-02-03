@@ -1,6 +1,7 @@
 #include "DoorStageClear.h"
 #include "SceneController.h"
 #include "SceneGame.h"
+#include "Statistics.h"
 #include <cassert>
 
 namespace
@@ -13,7 +14,7 @@ namespace
 
 void DoorGameClear::Entry()
 {
-	// Ç±ÇÃä÷êîÇ¢ÇÁÇÒÇ‚ÇÒ
+	Statistics::GetInstance().StopTimer();
 }
 
 void DoorGameClear::In()

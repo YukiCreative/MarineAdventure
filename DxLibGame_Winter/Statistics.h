@@ -29,6 +29,9 @@ public:
 	void StopTimer();
 
 	// 今の統計からスコアだす
+	int ScoreCoin() const;
+	int ScoreEnemy() const;
+	int ScoreBlock() const;
 	int Score() const;
 };
 

@@ -1,5 +1,6 @@
 #include "Statistics.h"
 #include "Time.h"
+#include "game.h"
 
 namespace
 {
@@ -10,16 +11,18 @@ namespace
     constexpr int kFastTimeScoreMult = 3;
     constexpr int kMiddleTimeScoreMult = 2;
     constexpr int kLateTimeScoreMult = 1;
-    constexpr int kFastTime = 120;
-    constexpr int kMiddleTime = 180;
-    constexpr int kLateTime = 240;
+    constexpr int kFastTime = 180 * Game::kFrameRate;
+    constexpr int kMiddleTime = 240 * Game::kFrameRate;
+    constexpr int kLateTime = 300 * Game::kFrameRate;
 }
 
 Statistics::Statistics() :
     m_breakBlockNum(0),
     m_getCoinNum(0),
     m_killedEnemyNum(0),
-    m_playTime(0)
+    m_playTime(0),
+    m_startTime(0),
+    m_finishTime(0)
 {
 }
 
@@ -71,4 +74,19 @@ void Statistics::StopTimer()
 {
     m_finishTime = Time::GetInstance().FrameCount();
     m_playTime = m_finishTime - m_startTime;
+}
+
+int Statistics::ScoreCoin() const
+{
+    return m_getCoinNum * kCoinScoreMult;
+}
+
+int Statistics::ScoreEnemy() const
+{
+    return m_killedEnemyNum* kEnemyScoreMult;
+}
+
+int Statistics::ScoreBlock() const
+{
+    return m_breakBlockNum * kBlockScoreMult;
 }

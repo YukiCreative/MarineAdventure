@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include <memory>
+#include "Vector2.h"
 
 class ScreenFade;
 class ImageObject;
@@ -10,13 +11,23 @@ class ButtonSystem;
 class SceneGameClear : public Scene
 {
 private:
+	struct Text
+	{
+		Vector2 pos;
+		std::string text;
+		int fontHandle;
+
+		Text(const Vector2& initPos, const std::string& setText, const int handle) :
+			pos(initPos), text(setText), fontHandle(handle){ }
+	};
+
+	std::shared_ptr<Text> m_coinScoreText;
+	std::shared_ptr<Text> m_enemyScoreText;
+	std::shared_ptr<Text> m_blockScoreText;
+
 	std::shared_ptr<ImageObject> m_back;
 	std::shared_ptr<ImageObject> m_clearText;
 	std::shared_ptr<ButtonSystem> m_buttonSystem;
-
-	// •¶š‘‚­ƒNƒ‰ƒX‚É‚µ‚½‚Ù‚¤‚ª‚¢‚¢‚¯‚Ç‚µ‚È‚¢
-	// ‚È‚º‚È‚çŠÔ‚ª‚È‚¢‚©‚ç
-	int m_fontHandle;
 
 	void NormalUpdate() override;
 

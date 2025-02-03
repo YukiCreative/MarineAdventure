@@ -14,6 +14,7 @@
 #include "SceneGameover.h"
 #include "ScenePause.h"
 #include "ScreenFade.h"
+#include "Statistics.h"
 #include "TileImage.h"
 #include "Time.h"
 #include <DxLib.h>
@@ -82,6 +83,8 @@ void SceneGame::Init()
 	m_camera->Move(initPlayerPos);
 	m_objectCont->ResetObjectSpawnStatus(*m_map);
 	m_camera->FitMap();
+
+	Statistics::GetInstance().StartTimer();
 }
 
 void SceneGame::GameClear()
