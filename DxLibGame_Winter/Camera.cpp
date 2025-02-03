@@ -98,4 +98,25 @@ Vector2 Camera::Capture(const Vector2& objPos) const
 void Camera::FitMap()
 {
 	Move(Vector2(1, 1));
+	if (m_pos.x <= 0)
+	{
+		m_pos.x = 0;
+		m_velocity.x = 0;
+	}
+	if (m_pos.y <= 0)
+	{
+		m_pos.y = 0;
+		m_velocity.y = 0;
+	}
+	// ‰æ–Ê’[
+	if (m_pos.x >= MapConstants::kChipSize * (m_mapSize.x - MapConstants::kWidthChipNum))
+	{
+		m_pos.x = MapConstants::kChipSize * (m_mapSize.x - MapConstants::kWidthChipNum);
+		m_velocity.x = 0;
+	}
+	if (m_pos.y >= MapConstants::kChipSize * (m_mapSize.y - MapConstants::kHeightChipNum))
+	{
+		m_pos.y = MapConstants::kChipSize * (m_mapSize.y - MapConstants::kHeightChipNum);
+		m_velocity.y = 0;
+	}
 }

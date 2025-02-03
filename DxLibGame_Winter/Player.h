@@ -101,6 +101,8 @@ private:
 	void ChangeFallAnim();
 	void PlayWalkSound();
 	void ChangeRotation();
+	bool CheckOutOfScreen();
+	void InstantDeath();
 public:
 	/// <summary>
 	/// ‰Šú‰»

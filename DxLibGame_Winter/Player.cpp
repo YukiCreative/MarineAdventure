@@ -214,7 +214,17 @@ void Player::Damage(Input& input, Vector2& axis)
 	// 一定時間無敵
 	if (m_stateFrameCount >= kInvincibleFrame)
 	{
-		SetStateNormal();
+		if (m_physics->CheckState(MapConstants::kEnvironment::kWater))
+		{
+			SetStateNormal();
+		}
+		else
+		{
+			m_nowAnim = m_idleAnim;
+			ChangeState(&Player::GNormal);
+			m_physics->UseConstantForce(true);
+		}
+
 		return;
 	}
 	// 01/14　動けるように
@@ -224,7 +234,6 @@ void Player::Damage(Input& input, Vector2& axis)
 void Player::Death(Input& input, Vector2& axis)
 {
 	// 死亡モーション
-	// 終わったら別のシーンへ
 	if (m_stateFrameCount > kDeathRigidFrame)
 	{
 		m_nowAnim = m_deathAnim;
@@ -235,6 +244,7 @@ void Player::Death(Input& input, Vector2& axis)
 
 void Player::DisAppear(Input& input, Vector2& axis)
 {
+	// 終わったら別のシーンへ
 	if (m_stateFrameCount > kDeathDisappearFrame)
 	{
 		GameOver();
@@ -430,7 +440,7 @@ bool Player::CheckEnvironmentChanged()
 	// マップ外の場合は今の状態から変わらない
 	if (hitEnvironments.empty()) return false;
 
-	// 自分の物理状態が一つもなかったらtrue
+	// 自分が水中にいる場合、
 	bool result = true;
 	for (const auto& env : hitEnvironments)
 	{
@@ -513,6 +523,24 @@ void Player::ChangeRotation()
 {
 	// 速度に応じて向きを変える
 	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
+}
+
+bool Player::CheckOutOfScreen()
+{
+	Vector2 screenPos = m_camera.Capture(m_pos);
+
+	if (screenPos.x < 0                   + kColliderRaduis) return true;
+	if (screenPos.x > Game::kScreenWidth  + kColliderRaduis) return true;
+	if (screenPos.y < 0                   + kColliderRaduis) return true;
+	if (screenPos.y > Game::kScreenHeight + kColliderRaduis) return true;
+
+	return false;
+}
+
+void Player::InstantDeath()
+{
+	m_hpUI.OnDamage(5);
+	ChangeState(&Player::Death);
 }
 
 Player::Player(Camera& camera, Vector2 spawnPos, HitPoints& hpUI) :
@@ -600,6 +628,8 @@ void Player::Update()
 			m_physics->ChangeState(MapConstants::kEnvironment::kWater);
 			SetStateNormal();
 			SoundManager::GetInstance().Play(kIntoWaterSound);
+			// 水の衝撃でスピードが落ちる感じ
+			m_physics->AddForce(-m_velocity * 0.5f);
 		}
 		// 水中→地上
 		else
@@ -616,6 +646,11 @@ void Player::Update()
 	m_pos += m_velocity;
 
 	m_nowAnim->Update();
+
+	if (CheckOutOfScreen())
+	{
+		InstantDeath();
+	}
 #if _DEBUG
 	if (input.IsTrigger("RecoverPlayerHp_Debug"))
 	{

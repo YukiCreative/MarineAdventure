@@ -13,7 +13,7 @@ namespace
 	constexpr   float kHeartExRate      = 1.5f;
 
 	const  Vector2 kHeartShiftingOffset = { 80, 0 };
-	const  Vector2 kDrawBoxSize         = { 500, 50 };
+	const  Vector2 kDrawBoxSize         = { 480, 50 };
 }
 
 void HitPointHeart::Normal()

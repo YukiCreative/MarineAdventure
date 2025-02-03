@@ -9,6 +9,8 @@ enum class DoorKind
 {
 	kStage1ToStage2,
 	kStage2ToStage3,
+	kBonusStage,
+	kStageClear,
 	Max,
 };
 
@@ -43,11 +45,17 @@ private:
 	using  DoorMap_t = std::unordered_map<DoorKind, DoorStatus>;
 	static DoorMap_t s_doors;
 
+	using EntryFunction_t = void (Door::*)();
+	// クラス化したい人生だった
+	using EntryFunctionMap_t = std::unordered_map<DoorKind, EntryFunction_t>;
+	static EntryFunctionMap_t s_entryFunctions;
+
 	// 自分はどのドアなのか
 	DoorKind m_myKind;
 
 	std::shared_ptr<Image> m_image;
 	std::shared_ptr<CircleCollider> m_collider;
+
 	Camera& m_camera;
 	Player& m_player;
 

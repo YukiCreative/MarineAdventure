@@ -12,6 +12,8 @@ private:
 	int m_breakBlockNum;
 	int m_killedEnemyNum;
 	int m_playTime;
+	int m_startTime;
+	int m_finishTime;
 
 	// タイムスコアを計算
 	int ScoreTime() const;
@@ -22,6 +24,9 @@ public:
 	void GotCoin();
 	void KilledEnemy();
 	void BrokenBlock();
+
+	void StartTimer();
+	void StopTimer();
 
 	// 今の統計からスコアだす
 	int Score() const;

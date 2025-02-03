@@ -1,4 +1,5 @@
 #include "Statistics.h"
+#include "Time.h"
 
 namespace
 {
@@ -12,6 +13,14 @@ namespace
     constexpr int kFastTime = 120;
     constexpr int kMiddleTime = 180;
     constexpr int kLateTime = 240;
+}
+
+Statistics::Statistics() :
+    m_breakBlockNum(0),
+    m_getCoinNum(0),
+    m_killedEnemyNum(0),
+    m_playTime(0)
+{
 }
 
 int Statistics::Score() const
@@ -51,4 +60,15 @@ void Statistics::KilledEnemy()
 void Statistics::BrokenBlock()
 {
     ++m_breakBlockNum;
+}
+
+void Statistics::StartTimer()
+{
+    m_startTime = Time::GetInstance().FrameCount();
+}
+
+void Statistics::StopTimer()
+{
+    m_finishTime = Time::GetInstance().FrameCount();
+    m_playTime = m_finishTime - m_startTime;
 }

@@ -19,9 +19,9 @@ namespace
 	const Vector2 kDoorAppearanceOffset(0, -32);
 
 	// À•W
-	//                                    «Platinum‚ÌX  «VY
+	//                                      «Platinum‚ÌX  «VY
 	const Vector2 kStage1ToStage2 = { 80 * (2 - 8), 80 * (8 - 5) };
-	const Vector2 kStage2ToStage3 = { 80 * (2 - 8), 80 * (5- 5) };
+	const Vector2 kStage2ToStage3 = { 80 * (4 - 8), 80 * (125- 5) };
 }
 
 Door::PathMap_t Door::s_paths =

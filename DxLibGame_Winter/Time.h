@@ -28,6 +28,7 @@ public:
 	void Update();
 
 	// これらの関数をどうしてもstaticにしてみたい
+	// なんでStaticにしたし
 	static float FPS();
 	static float DeltaTime();
 	// プログラムが始まってからのフレーム
