@@ -5,29 +5,6 @@
 #include "Vector2.h"
 #include <memory>
 
-enum class DoorKind
-{
-	kStage1ToStage2,
-	kStage2ToStage3,
-	kBonusStage,
-	kStageClear,
-	Max,
-};
-
-enum class MapKind
-{
-	kStage2,
-	kStage3,
-	kStageBonus,
-	kMax
-};
-
-struct DoorStatus
-{
-	const std::string path;
-	const Vector2 appearPos;
-};
-
 // プロトタイプ宣言ってどこに書けばいいんだろう
 class Image;
 class Camera;
@@ -38,33 +15,22 @@ class Player;
 class Door : public GameObject
 {
 private:
-	using  PathMap_t = std::unordered_map<MapKind, std::string>;
-	static PathMap_t s_paths;
-
-	// 仕方がないので特定の番号で行先と出現場所のセットを返す作りにする
-	using  DoorMap_t = std::unordered_map<DoorKind, DoorStatus>;
-	static DoorMap_t s_doors;
-
-	using EntryFunction_t = void (Door::*)();
-	// クラス化したい人生だった
-	using EntryFunctionMap_t = std::unordered_map<DoorKind, EntryFunction_t>;
-	static EntryFunctionMap_t s_entryFunctions;
-
-	// 自分はどのドアなのか
-	DoorKind m_myKind;
-
 	std::shared_ptr<Image> m_image;
 	std::shared_ptr<CircleCollider> m_collider;
+
+	std::string m_path;
+	Vector2 m_nextPlayerPos;
 
 	Camera& m_camera;
 	Player& m_player;
 
-	bool CheckInDoor();
-	void In() const;
-public:
-	/// <param name="mapPartsNum">Pratinumで設定する</param>
-	Door(Player& player, Camera& camera, const Vector2& initPos, const int& mapPartsNum);
+	bool CheckInDoor() const;
+	void In();
+protected:
+	Door(Player& player, Camera& camera, const Vector2& initPos, const std::string& path, const Vector2& nextPlayerPos);
 
+	virtual void Entry() = 0;
+public:
 	void Update() override;
 	void Draw() const override;
 };
