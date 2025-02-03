@@ -7,6 +7,7 @@
 #include "SoundManager.h"
 #include "SceneController.h"
 #include <string>
+#include "Statistics.h"
 
 namespace
 {
@@ -46,6 +47,7 @@ void DestructibleBlock::Breaking()
 	if (m_nowAnim->LoopCount())
 	{
 		m_isDeleted = true;
+		Statistics::GetInstance().BrokenBlock();
 	}
 }
 

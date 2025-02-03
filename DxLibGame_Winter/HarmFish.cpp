@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <DxLib.h>
 #include <memory>
+#include "Statistics.h"
 
 namespace
 {
@@ -118,6 +119,7 @@ void HarmFish::Death()
 	{
 		// è¡Ç¶ÇÈ
 		m_isDeleted = true;
+		Statistics::GetInstance().KilledEnemy();
 		return;
 	}
 }

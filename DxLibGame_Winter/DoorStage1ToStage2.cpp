@@ -1,4 +1,7 @@
 #include "DoorStage1ToStage2.h"
+#include "SceneGame.h"
+#include "SceneController.h"
+#include <cassert>
 
 namespace
 {
@@ -9,6 +12,17 @@ namespace
 void DoorStage1ToStage2::Entry()
 {
 	// これは何もしない
+}
+
+void DoorStage1ToStage2::In()
+{
+	// ゲームシーンに指示を出す
+	std::shared_ptr<SceneGame> gameScene = std::dynamic_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
+	assert(gameScene && "ダウンキャストに失敗");
+
+	Entry();
+
+	gameScene->ChangeMapWithFadeOut(m_path, m_nextPlayerPos);
 }
 
 DoorStage1ToStage2::DoorStage1ToStage2(Player& player, Camera& camera, const Vector2& initPos) :

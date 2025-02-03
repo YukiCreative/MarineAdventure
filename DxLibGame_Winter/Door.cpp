@@ -31,17 +31,6 @@ bool Door::CheckInDoor() const
 	return true;
 }
 
-void Door::In()
-{
-	// ゲームシーンに指示を出す
-	std::shared_ptr<SceneGame> gameScene = std::dynamic_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
-	assert(gameScene && "ダウンキャストに失敗");
-
-	Entry();
-
-	gameScene->ChangeMapWithFadeOut(m_path, m_nextPlayerPos);
-}
-
 Door::Door(Player& player, Camera& camera, const Vector2& initPos, const std::string& path, const Vector2& nextPlayerPos) :
 	GameObject(initPos),
 	m_camera(camera),

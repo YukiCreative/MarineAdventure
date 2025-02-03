@@ -6,11 +6,16 @@
 #include "game.h"
 #include "ButtonSystem.h"
 #include "ButtonReturnToTitle.h"
+#include <cassert>
+#include "Statistics.h"
 
 namespace
 {
 	const std::string kImagePath = "Marine.jpg";
 	const std::string kTextPath = "Clear.png";
+	const std::string kFontPath = "BroadWay";
+	constexpr int kFontSize = 100;
+	constexpr int kFontThick = -1;
 }
 
 void SceneGameClear::NormalUpdate()
@@ -30,6 +35,39 @@ void SceneGameClear::NormalUpdate()
 #endif
 }
 
+void SceneGameClear::ChangeState(State_t nextState)
+{
+
+}
+
+void SceneGameClear::AppearGameClearText()
+{
+}
+
+void SceneGameClear::AppearGetCoinNum()
+{
+}
+
+void SceneGameClear::AppearKillEnemyNum()
+{
+}
+
+void SceneGameClear::AppearBreakBlockNum()
+{
+}
+
+void SceneGameClear::AppearTimeBonusNum()
+{
+}
+
+void SceneGameClear::AppearScoreNum()
+{
+}
+
+void SceneGameClear::AppearButton()
+{
+}
+
 void SceneGameClear::Init()
 {
 	m_back = std::make_shared<ImageObject>(*m_camera, Vector2::Zero(), kImagePath);
@@ -40,12 +78,19 @@ void SceneGameClear::Init()
 	std::shared_ptr<ButtonReturnToTitle> button = std::make_shared<ButtonReturnToTitle>(Vector2(0,0));
 	m_buttonSystem->AddButton(button);
 	m_buttonSystem->SetButtonFocus(button);
+
+	// •¶Žš‚ÌÝ’è
+	m_fontHandle = CreateFontToHandle(kFontPath.c_str(), kFontSize, kFontThick);
+	assert(m_fontHandle != -1 && "ƒtƒHƒ“ƒg‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s");
 }
 
 void SceneGameClear::Draw() const
 {
 	m_back->Draw();
 	m_clearText->Draw();
+
+	DrawFormatStringToHandle(Game::kScreenHalfWidth, Game::kScreenHalfHeight, 0xffffff, m_fontHandle, "Score:%d", Statistics::GetInstance().Score());
+
 	m_fade.Draw();
 }
 

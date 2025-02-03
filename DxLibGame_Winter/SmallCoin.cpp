@@ -7,6 +7,7 @@
 #include "SceneGame.h"
 #include "SmallCoin.h"
 #include "SoundManager.h"
+#include "Statistics.h"
 
 namespace
 {
@@ -46,6 +47,7 @@ void SmallCoin::Update()
 		m_player.OnRecovery();
 		SoundManager::GetInstance().Play(kGetSound);
 		m_isDeleted = true;
+		Statistics::GetInstance().GotCoin();
 	}
 }
 
