@@ -5,8 +5,8 @@
 namespace
 {
     // åWêîÇÃñΩñºÇ¡ÇƒÇ«ÇÍÇ™Ç¢Ç¢ÇÒÇæÇÎÇ§
-    constexpr int kCoinScoreMult = 500;
-    constexpr int kEnemyScoreMult = 300;
+    constexpr int kCoinScoreMult = 300;
+    constexpr int kEnemyScoreMult = 500;
     constexpr int kBlockScoreMult = 200;
     constexpr int kFastTimeScoreMult = 3;
     constexpr int kMiddleTimeScoreMult = 2;
@@ -20,13 +20,13 @@ Statistics::Statistics() :
     m_breakBlockNum(0),
     m_getCoinNum(0),
     m_killedEnemyNum(0),
-    m_playTime(0),
+    m_clearTime(0),
     m_startTime(0),
     m_finishTime(0)
 {
 }
 
-int Statistics::Score() const
+int Statistics::ScoreTotal() const
 {
     int coinScore = m_getCoinNum * kCoinScoreMult;
     int blockScore = m_breakBlockNum * kBlockScoreMult;
@@ -37,10 +37,35 @@ int Statistics::Score() const
     return (coinScore + blockScore + enemyScore) * timeScore;
 }
 
+const int Statistics::ClearTimeMinutes() const
+{
+    return m_clearTime / Game::kFrameRate / 60;
+}
+
+const int Statistics::ClearTimeSeconds() const
+{
+    return m_clearTime / Game::kFrameRate % 60;
+}
+
+const int Statistics::GetCoinScoreMult()
+{
+    return kCoinScoreMult;
+}
+
+const int Statistics::GetBlockScoreMult()
+{
+    return kBlockScoreMult;
+}
+
+const int Statistics::GetEnemyScoreMult()
+{
+    return kEnemyScoreMult;
+}
+
 int Statistics::ScoreTime() const
 {
-    if (m_playTime <= kFastTime) return kFastTimeScoreMult;
-    if (m_playTime <= kMiddleTime) return kMiddleTimeScoreMult;
+    if (m_clearTime <= kFastTime) return kFastTimeScoreMult;
+    if (m_clearTime <= kMiddleTime) return kMiddleTimeScoreMult;
     return kLateTimeScoreMult;
 }
 
@@ -73,7 +98,7 @@ void Statistics::StartTimer()
 void Statistics::StopTimer()
 {
     m_finishTime = Time::GetInstance().FrameCount();
-    m_playTime = m_finishTime - m_startTime;
+    m_clearTime = m_finishTime - m_startTime;
 }
 
 int Statistics::ScoreCoin() const

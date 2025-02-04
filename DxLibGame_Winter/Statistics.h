@@ -11,12 +11,9 @@ private:
 	int m_getCoinNum;
 	int m_breakBlockNum;
 	int m_killedEnemyNum;
-	int m_playTime;
+	int m_clearTime;
 	int m_startTime;
 	int m_finishTime;
-
-	// タイムスコアを計算
-	int ScoreTime() const;
 public:
 	static Statistics& GetInstance();
 
@@ -32,6 +29,20 @@ public:
 	int ScoreCoin() const;
 	int ScoreEnemy() const;
 	int ScoreBlock() const;
-	int Score() const;
+	int ScoreTime() const;
+	int ScoreTotal() const;
+
+	// ただメンバを返したい
+	const int GetCoinNum()     const { return m_getCoinNum;     }
+	const int BreakBlockNum()  const { return m_breakBlockNum;  }
+	const int KilledEnemyNum() const { return m_killedEnemyNum; }
+	// フレームを返す
+	const int ClearTime()      const { return m_clearTime;      }
+	const int ClearTimeMinutes() const;
+	const int ClearTimeSeconds() const;
+
+	const int GetCoinScoreMult();
+	const int GetBlockScoreMult();
+	const int GetEnemyScoreMult();
 };
 

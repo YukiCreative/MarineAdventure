@@ -26,8 +26,10 @@ namespace
 	constexpr int   kMaxHp = 5;
 	// Axis‚ª‚Å‚©‚·‚¬‚é‚ñ‚¾‚æ
 	constexpr float  kMoveForceFactor = 0.0002f;
+	constexpr float  kGroundMoveForceFactor = 0.0005f;
 	constexpr float  kJumpingMoveForceFactor = 0.0001f;
 	constexpr float  kDashForceFactor = 0.0003f;
+	constexpr float  kGroundDashForceFactor = 0.001f;
 	constexpr float  kStrongAttackMoveFactor = 0.0001f;
 	constexpr float  kDuringDamageMoveFactor = 0.0001f;
 
@@ -187,9 +189,19 @@ void Player::Attack(Input& input, Vector2& axis)
 	// ˆê’èŽžŠÔŒo‚Á‚½‚çNormal‚Ö
 	if (m_stateFrameCount >= kAttackFrame)
 	{
-		SetStateNormal();
-		ChangeAnimation(m_idleAnim);
-		return;
+		// ’nã‚È‚çAir‚É‚·‚é
+		if (m_physics->CheckState(MapConstants::kEnvironment::kGround))
+		{
+			ChangeState(&Player::Air);
+			ChangeAnimation(m_jumpAnim);
+			m_physics->UseConstantForce(true);
+			return;
+		}
+		else
+		{
+			SetStateNormal();
+			return;
+		}
 	}
 	// ˆÚ“®‚ª‚Å‚«‚é
 	m_physics->AddForce(axis * kMoveForceFactor);
@@ -325,7 +337,7 @@ void Player::GMove(Input& input, Vector2& axis)
 		return;
 	}
 	// ‚±‚¢‚Â“®‚­‚¼
-	m_physics->AddForce(axis.x * kMoveForceFactor);
+	m_physics->AddForce(Vector2(axis.x * kGroundMoveForceFactor, 0.0f));
 	// ˆê’èŽžŠÔ‚²‚Æ‚É‘«‰¹‚ð–Â‚ç‚·
 	if (!(m_stateFrameCount % kWalkSoundSpan)) PlayWalkSound();
 }
@@ -364,7 +376,7 @@ void Player::GDash(Input& input, Vector2& axis)
 		return;
 	}
 	// ‘‚­“®‚¯‚é
-	m_physics->AddForce(axis.x * kDashForceFactor);
+	m_physics->AddForce(Vector2(axis.x * kGroundDashForceFactor, 0.0f));
 	// ƒLƒƒƒ‰‚ÌŒü‚«‚ð•Ï‚¦‚é
 	ChangeDirection(axis);
 	// ˆê’èŽžŠÔ‚²‚Æ‚É‘«‰¹‚ð–Â‚ç‚·
@@ -394,6 +406,11 @@ void Player::Air(Input& input, Vector2& axis)
 	m_physics->AddForce(sideAxis * kJumpingMoveForceFactor);
 	ChangeDirection(axis);
 	ChangeFallAnim();
+
+	if (CheckOutOfScreen())
+	{
+		InstantDeath();
+	}
 }
 
 void Player::SetStateNormal()
@@ -637,7 +654,11 @@ void Player::Update()
 			m_physics->ChangeState(MapConstants::kEnvironment::kGround);
 			m_physics->UseConstantForce(true);
 			if (CheckState(PlayerState::kDash)) { m_physics->AddForce(kWaterJumpForce); }
-			SetStateJump();
+			// ‚à‚µUŒ‚ó‘Ô‚È‚çAŒp‘±‚·‚é
+			if (!CheckState(PlayerState::kAttack) && !CheckState(PlayerState::kStrongAttack))
+			{
+				SetStateJump();
+			}
 			SoundManager::GetInstance().Play(kOutOfWaterSound);
 		}
 	}
@@ -646,11 +667,6 @@ void Player::Update()
 	m_pos += m_velocity;
 
 	m_nowAnim->Update();
-
-	if (CheckOutOfScreen())
-	{
-		InstantDeath();
-	}
 #if _DEBUG
 	if (input.IsTrigger("RecoverPlayerHp_Debug"))
 	{

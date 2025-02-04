@@ -14,7 +14,6 @@ namespace
 
 void DoorGameClear::Entry()
 {
-	Statistics::GetInstance().StopTimer();
 }
 
 void DoorGameClear::In()

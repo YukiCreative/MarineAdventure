@@ -10,7 +10,7 @@ namespace
 	Vector2 kFloatForce = Vector2(0.0f, -0.52f);
 	// ‹ó‹C’ïR
 	constexpr float kAirResistance = 0.0005f;
-	constexpr float kGroundResistance = 0.05f;
+	constexpr float kGroundResistance = 0.2f;
 	// …‚Ì’ïR
 	constexpr float kWaterResistance = 0.03f;
 }

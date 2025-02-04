@@ -252,6 +252,9 @@
     <ClCompile Include="DoorStageClear.cpp">
       <Filter>ソース ファイル\GameObject\Door</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonReturnToTitleFromClearScene.cpp">
+      <Filter>ソース ファイル\UI\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -454,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="DoorStageClear.h">
       <Filter>ヘッダー ファイル\GameObject\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonReturnToTitleFromClearScene.h">
+      <Filter>ヘッダー ファイル\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

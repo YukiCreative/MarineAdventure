@@ -89,6 +89,7 @@ void SceneGame::Init()
 
 void SceneGame::GameClear()
 {
+	Statistics::GetInstance().StopTimer();
 	SceneChangeWithFadeOut("Clear");
 }
 
@@ -175,7 +176,7 @@ void SceneGame::NormalUpdate()
 #if _DEBUG
 	if (input.IsTrigger("ChangeScene_Debug"))
 	{
-		SceneChangeWithFadeOut("Clear");
+		GameClear();
 		//SceneChangeWithFadeOut("Gameover");
 		//ChangeMapWithFadeOut("Data/MapData/TestMapGroundStage.fmf", Vector2(-100, 0));
 		return;
