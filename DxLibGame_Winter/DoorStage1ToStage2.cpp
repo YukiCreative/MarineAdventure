@@ -11,7 +11,7 @@ namespace
 
 void DoorStage1ToStage2::Entry()
 {
-	// ‚±‚ê‚Í‰½‚à‚µ‚È‚¢
+	
 }
 
 void DoorStage1ToStage2::In()
@@ -22,7 +22,7 @@ void DoorStage1ToStage2::In()
 
 	Entry();
 
-	gameScene->ChangeMapWithFadeOut(m_path, m_nextPlayerPos);
+	gameScene->ChangeMapWithFadeOut(Stages::kStage2, m_path, m_nextPlayerPos);
 }
 
 DoorStage1ToStage2::DoorStage1ToStage2(Player& player, Camera& camera, const Vector2& initPos) :

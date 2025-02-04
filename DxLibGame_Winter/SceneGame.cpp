@@ -18,18 +18,24 @@
 #include "TileImage.h"
 #include "Time.h"
 #include <DxLib.h>
+#include <cassert>
 
 namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
 	//                                    ↓PlatinumのX  ↓〃Y
-	const Vector2 initPlayerPos = { 80 * (5 - 8), 80 * (35 - 5) };
-	//const Vector2 initPlayerPos = { 80 * (12 - 8), 80 * (70 - 5) };
+	const Vector2 Stage1PlayerInitPos = { 80 * (3 - 8), 80 * (35 - 5) };
+	const Vector2 Stage2PlayerInitPos = { 80 * (3 - 8), 80 * (8 - 5) };
+	const Vector2 Stage3PlayerInitPos = { 80 * (6 - 8), 80 * (125 - 5) };
 	const Vector2 initHpUIPos   = { kScreenMiddlePos.x - 256, kScreenMiddlePos.y + 300 };
-	const std::string kInitMapDataPass = "Data/MapData/Stage1.fmf";
+	const std::string kStage1Pass = "Data/MapData/Stage1.fmf";
+	const std::string kStage2Pass = "Data/MapData/Stage2.fmf";
+	const std::string kStage3Pass = "Data/MapData/Stage3.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
 	const std::string kBackGroundTile  = "WaterBackWallTile.png";
 }
+
+Stages SceneGame::s_nowStage = Stages::kStage1;
 
 void SceneGame::MapChangeUpdate()
 {
@@ -70,39 +76,60 @@ SceneGame::~SceneGame()
 void SceneGame::Init()
 {
 	m_hpUI = std::make_shared<HitPoints>(initHpUIPos);
-	m_player = std::make_shared<Player>(*m_camera, initPlayerPos, *m_hpUI);
+	m_player = std::make_shared<Player>(*m_camera, Vector2::Zero(), *m_hpUI);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map = std::make_shared<MapSystem>();
 
-	m_map->InitMap(*m_camera, kInitMapDataPass, *m_objectCont);
+	// 今の進行度に応じて読み込むマップを変える
+	// switchでいいでしょう
+	switch (s_nowStage)
+	{
+	case Stages::kStage1:
+		m_map->InitMap(*m_camera, kStage1Pass, *m_objectCont);
+		m_player->Teleportation(Stage1PlayerInitPos);
+		m_camera->Move(Stage1PlayerInitPos);
+		break;
+	case Stages::kStage2:
+		m_map->InitMap(*m_camera, kStage2Pass, *m_objectCont);
+		m_player->Teleportation(Stage2PlayerInitPos);
+		m_camera->Move(Stage2PlayerInitPos);
+		break;
+	case Stages::kStage3:
+		m_map->InitMap(*m_camera, kStage3Pass, *m_objectCont);
+		m_player->Teleportation(Stage3PlayerInitPos);
+		m_camera->Move(Stage3PlayerInitPos);
+		break;
+	default:
+		assert(false && "よくわからんステージが読み込まれた");
+		break;
+	}
 
 	// そもそも参照で取らなきゃいいじょん
 	m_player->Init(m_map, m_objectCont);
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
-	m_camera->Move(initPlayerPos);
 	m_objectCont->ResetObjectSpawnStatus(*m_map);
 	m_camera->FitMap();
-
-	Statistics::GetInstance().StartTimer();
 }
 
 void SceneGame::GameClear()
 {
-	Statistics::GetInstance().StopTimer();
 	SceneChangeWithFadeOut("Clear");
 }
 
 void SceneGame::GameOver()
 {
+	Statistics::GetInstance().ResetNowStageScore();
 	// ここでポーズを開いた(フェードの色が変わっている)想定をしないといけないのが不服
 	m_fade.SetColor(0x000000);
 	SceneChangeWithFadeOut("Gameover", 120);
 }
 
-void SceneGame::ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos)
+void SceneGame::ChangeMapWithFadeOut(const Stages stage, const std::string& path, const Vector2& playerTransferPos)
 {
+	Statistics::GetInstance().SaveScore();
 	// 与えられた情報を覚えておく
+	s_nowStage = stage;
 	m_nextMapPath = path;
 	m_playerTransportPos = playerTransferPos;
 
@@ -142,6 +169,8 @@ void SceneGame::Entry()
 
 void SceneGame::NormalUpdate()
 {
+	Statistics::GetInstance().IncreaseTimer();
+
 	// フラグで申し訳ない
 	if (m_stopFrame > 0)
 	{

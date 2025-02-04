@@ -6,7 +6,7 @@
 namespace
 {
 	const std::string kMapPath = "Data/MapData/Stage3.fmf";
-	const Vector2 kNextPlayerPos = { 80 * (4 - 8), 80 * (125 - 5) };
+	const Vector2 kNextPlayerPos = { 80 * (6 - 8), 80 * (125 - 5) };
 }
 
 void DoorStage2ToStage3::Entry()
@@ -22,7 +22,7 @@ void DoorStage2ToStage3::In()
 
 	Entry();
 
-	gameScene->ChangeMapWithFadeOut(m_path, m_nextPlayerPos);
+	gameScene->ChangeMapWithFadeOut(Stages::kStage3, m_path, m_nextPlayerPos);
 }
 
 DoorStage2ToStage3::DoorStage2ToStage3(Player& player, Camera& camera, const Vector2& initPos) :

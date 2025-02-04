@@ -49,6 +49,9 @@ private:
 
 	void ChangeState(State_t nextState);
 
+	// 演出をスキップ
+	void Skip();
+
 	// 演出を関数単位で分ける
 	void AppearGameClearText();
 	void AppearGetCoinNum();

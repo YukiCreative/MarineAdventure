@@ -546,10 +546,11 @@ bool Player::CheckOutOfScreen()
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 
-	if (screenPos.x < 0                   + kColliderRaduis) return true;
-	if (screenPos.x > Game::kScreenWidth  + kColliderRaduis) return true;
-	if (screenPos.y < 0                   + kColliderRaduis) return true;
-	if (screenPos.y > Game::kScreenHeight + kColliderRaduis) return true;
+	// —‰º‚µ‚½‚Æ‚«‚Ì‚½‚ß‚Éì‚Á‚½‚Ì‚ÅA‘å•ª—]—T‚ğ‚½‚¹‚é
+	if (screenPos.x < 0                   - 1280) return true;
+	if (screenPos.x > Game::kScreenWidth  + 1280) return true;
+	if (screenPos.y < 0                   - 1280) return true;
+	if (screenPos.y > Game::kScreenHeight + 1280) return true;
 
 	return false;
 }

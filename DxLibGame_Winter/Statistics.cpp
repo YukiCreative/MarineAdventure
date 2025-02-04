@@ -21,8 +21,9 @@ Statistics::Statistics() :
     m_getCoinNum(0),
     m_killedEnemyNum(0),
     m_clearTime(0),
-    m_startTime(0),
-    m_finishTime(0)
+    m_tempBreakBlockNum(0),
+    m_tempGetCoinNum(0),
+    m_tempKilledEnemyNum(0)
 {
 }
 
@@ -62,6 +63,21 @@ const int Statistics::GetEnemyScoreMult()
     return kEnemyScoreMult;
 }
 
+void Statistics::SaveScore()
+{
+    m_getCoinNum += m_tempGetCoinNum;
+    m_killedEnemyNum += m_tempKilledEnemyNum;
+    m_breakBlockNum += m_tempBreakBlockNum;
+    ResetNowStageScore();
+}
+
+void Statistics::ResetNowStageScore()
+{
+    m_tempGetCoinNum = 0;
+    m_tempKilledEnemyNum = 0;
+    m_tempBreakBlockNum = 0;
+}
+
 int Statistics::ScoreTime() const
 {
     if (m_clearTime <= kFastTime) return kFastTimeScoreMult;
@@ -77,28 +93,22 @@ Statistics& Statistics::GetInstance()
 
 void Statistics::GotCoin()
 {
-    ++m_getCoinNum;
+    ++m_tempGetCoinNum;
 }
 
 void Statistics::KilledEnemy()
 {
-    ++m_killedEnemyNum;
+    ++m_tempKilledEnemyNum;
 }
 
 void Statistics::BrokenBlock()
 {
-    ++m_breakBlockNum;
+    ++m_tempBreakBlockNum;
 }
 
-void Statistics::StartTimer()
+void Statistics::IncreaseTimer()
 {
-    m_startTime = Time::GetInstance().FrameCount();
-}
-
-void Statistics::StopTimer()
-{
-    m_finishTime = Time::GetInstance().FrameCount();
-    m_clearTime = m_finishTime - m_startTime;
+    ++m_clearTime;
 }
 
 int Statistics::ScoreCoin() const

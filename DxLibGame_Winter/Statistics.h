@@ -11,9 +11,14 @@ private:
 	int m_getCoinNum;
 	int m_breakBlockNum;
 	int m_killedEnemyNum;
+
+	// 今のステージで稼いだ点数
+	// 死んだときは戻す
+	int m_tempGetCoinNum;
+	int m_tempBreakBlockNum;
+	int m_tempKilledEnemyNum;
+
 	int m_clearTime;
-	int m_startTime;
-	int m_finishTime;
 public:
 	static Statistics& GetInstance();
 
@@ -22,8 +27,8 @@ public:
 	void KilledEnemy();
 	void BrokenBlock();
 
-	void StartTimer();
-	void StopTimer();
+	// ゲーム中に呼び出す
+	void IncreaseTimer();
 
 	// 今の統計からスコアだす
 	int ScoreCoin() const;
@@ -44,5 +49,9 @@ public:
 	const int GetCoinScoreMult();
 	const int GetBlockScoreMult();
 	const int GetEnemyScoreMult();
+
+	// 今回のステージのスコアを保存する
+	void SaveScore();
+	void ResetNowStageScore();
 };
 

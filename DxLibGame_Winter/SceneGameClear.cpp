@@ -58,17 +58,34 @@ void SceneGameClear::ChangeState(State_t nextState)
 	m_stateFrameCount = 0;
 }
 
+void SceneGameClear::Skip()
+{
+	m_clearText->Tere({ 0, -200 });
+	m_coinScoreText->pos = kCoinTextTargetPos;
+	m_lerpCoinScore = Statistics::GetInstance().ScoreCoin();
+	m_enemyScoreText->pos = kEnemyTextTargetPos;
+	m_lerpEnemyScore = Statistics::GetInstance().ScoreEnemy();
+	m_blockScoreText->pos = kBlockTextTargetPos;
+	m_lerpBlockScore = Statistics::GetInstance().ScoreBlock();
+	m_totalScoreText->pos = kTotalTextTargetPos;
+	m_lerpTimeScore = Statistics::GetInstance().ScoreTime();
+	m_button->ChangeTransparency(255);
+	ChangeState(&SceneGameClear::NormalState);
+}
+
 void SceneGameClear::AppearGameClearText()
 {
 	m_clearText->Move(kClearTextMoveSpeed);
 	if (m_stateFrameCount > kClearTextAppearFrame)
 	{
 		ChangeState(&SceneGameClear::AppearGetCoinNum);
+		return;
 	}
 	if (Input::GetInstance().IsTrigger("Submit"))
 	{
-		m_clearText->Tere({0, -200});
-		ChangeState(&SceneGameClear::AppearGetCoinNum);
+		// スキップ
+		Skip();
+		return;
 	}
 }
 
@@ -83,9 +100,12 @@ void SceneGameClear::AppearGetCoinNum()
 		// キャッシュしたほうがメモリ効率はいいがメンバが増える
 		m_lerpCoinScore = Statistics::GetInstance().ScoreCoin();
 		ChangeState(&SceneGameClear::AppearKillEnemyNum);
+		return;
 	}
 	if (Input::GetInstance().IsTrigger("Submit"))
 	{
+		Skip();
+		return;
 	}
 }
 
@@ -98,6 +118,12 @@ void SceneGameClear::AppearKillEnemyNum()
 	{
 		m_lerpEnemyScore = Statistics::GetInstance().ScoreEnemy();
 		ChangeState(&SceneGameClear::AppearBreakBlockNum);
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		Skip();
+		return;
 	}
 }
 
@@ -109,6 +135,12 @@ void SceneGameClear::AppearBreakBlockNum()
 	{
 		m_lerpBlockScore = Statistics::GetInstance().ScoreBlock();
 		ChangeState(&SceneGameClear::AppearTimeBonusNum);
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		Skip();
+		return;
 	}
 }
 
@@ -120,6 +152,12 @@ void SceneGameClear::AppearTimeBonusNum()
 	{
 		m_lerpTimeScore = Statistics::GetInstance().ScoreTime();
 		ChangeState(&SceneGameClear::AppearScoreNum);
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		Skip();
+		return;
 	}
 }
 
@@ -131,16 +169,29 @@ void SceneGameClear::AppearScoreNum()
 	{
 		m_lerpTotalScore = Statistics::GetInstance().ScoreTotal();
 		ChangeState(&SceneGameClear::AppearButton);
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		Skip();
+		return;
 	}
 }
 
 void SceneGameClear::AppearButton()
 {
 	// kScoreAppearFrameで透明度が255になってほしい
-	m_button->ChangeTransparency(/*255 / kScoreAppearFrame * m_stateFrameCount*/255);
+	int param = static_cast<int>(255.0f / kScoreAppearFrame * m_stateFrameCount);
+	m_button->ChangeTransparency(param);
 	if (m_stateFrameCount > kScoreAppearFrame)
 	{
 		ChangeState(&SceneGameClear::NormalState);
+		return;
+	}
+	if (Input::GetInstance().IsTrigger("Submit"))
+	{
+		Skip();
+		return;
 	}
 }
 

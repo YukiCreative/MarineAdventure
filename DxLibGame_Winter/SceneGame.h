@@ -13,9 +13,20 @@ class ScreenFade;
 class HitPoints;
 class TileImage;
 
+enum class Stages
+{
+	kStage1,
+	kStage2,
+	kStage3
+};
+
 class SceneGame : public Scene
 {
 private:
+	// 今のステージ
+	// コンティニューで使う
+	static Stages s_nowStage;
+
 	int m_frameCount;
 	std::shared_ptr<MapSystem> m_map;
 	std::shared_ptr<Player> m_player;
@@ -45,7 +56,7 @@ public:
 	void GameClear();
 	void GameOver();
 
-	void ChangeMapWithFadeOut(const std::string& path, const Vector2& playerTransferPos);
+	void ChangeMapWithFadeOut(const Stages stage, const std::string& path, const Vector2& playerTransferPos);
 
 	void Entry() override;
 

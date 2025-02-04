@@ -4,6 +4,7 @@
 #include "SceneController.h"
 #include "SceneGameClear.h"
 #include <cassert>
+#include <algorithm>
 
 namespace
 {
@@ -65,5 +66,6 @@ void ButtonReturnToTitleFromClearScene::Draw() const
 
 void ButtonReturnToTitleFromClearScene::ChangeTransparency(const int param)
 {
-	m_image->SetImageBlendPal(param);
+	int clampedParam = std::clamp(param, 0, 255);
+	m_image->SetImageBlendPal(clampedParam);
 }
