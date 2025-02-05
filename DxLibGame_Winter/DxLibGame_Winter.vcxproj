@@ -147,6 +147,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="ButtonReturnToTitleFromClearScene.cpp" />
     <ClCompile Include="Cloud.cpp" />
+    <ClCompile Include="CoinUI.cpp" />
     <ClCompile Include="DoorStage1ToStage2.cpp" />
     <ClCompile Include="DoorStage2ToStage3.cpp" />
     <ClCompile Include="DoorStageClear.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="ButtonReturnToTitleFromClearScene.h" />
     <ClInclude Include="Cloud.h" />
+    <ClInclude Include="CoinUI.h" />
     <ClInclude Include="DoorStage1ToStage2.h" />
     <ClInclude Include="DoorStage2ToStage3.h" />
     <ClInclude Include="DoorStageClear.h" />

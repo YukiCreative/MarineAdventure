@@ -20,6 +20,7 @@
 #include "Time.h"
 #include <cassert>
 #include <DxLib.h>
+#include "CoinUI.h"
 
 namespace
 {
@@ -28,7 +29,8 @@ namespace
 	const Vector2 Stage1PlayerInitPos = { 80 * (3 - 8), 80 * (35 - 5) };
 	const Vector2 Stage2PlayerInitPos = { 80 * (3 - 8), 80 * (8 - 5) };
 	const Vector2 Stage3PlayerInitPos = { 80 * (6 - 8), 80 * (125 - 5) };
-	const Vector2 initHpUIPos   = { kScreenMiddlePos.x - 256, kScreenMiddlePos.y + 300 };
+	const Vector2 kInitHpUIPos   = { kScreenMiddlePos.x - 256, kScreenMiddlePos.y + 300 };
+	const Vector2 kCoinUIInitPos = { 50, 50 };
 	const std::string kStage1Pass = "Data/MapData/Stage1.fmf";
 	const std::string kStage2Pass = "Data/MapData/Stage2.fmf";
 	const std::string kStage3Pass = "Data/MapData/Stage3.fmf";
@@ -80,7 +82,8 @@ SceneGame::~SceneGame()
 
 void SceneGame::Init()
 {
-	m_hpUI = std::make_shared<HitPoints>(initHpUIPos);
+	m_hpUI = std::make_shared<HitPoints>(kInitHpUIPos);
+	m_coinUI = std::make_shared<CoinUI>(kCoinUIInitPos);
 	m_player = std::make_shared<Player>(*m_camera, Vector2::Zero(), *m_hpUI);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map = std::make_shared<MapSystem>();
@@ -203,6 +206,7 @@ void SceneGame::NormalUpdate()
 	m_camera->Update();
 	m_fade.Update();
 	m_hpUI->Update();
+	m_coinUI->Update();
 	m_map->Update();
 	m_player->Update();
 	m_objectCont->Update();
@@ -234,6 +238,7 @@ void SceneGame::Draw() const
 	m_objectCont->DrawFrontMapObject();
 	m_player->Draw();
 	m_hpUI->Draw();
+	m_coinUI->Draw();
 	m_fade.Draw();
 
 #if _DEBUG

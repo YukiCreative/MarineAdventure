@@ -22,6 +22,9 @@ void DoorGameClear::In()
 	std::shared_ptr<SceneGame> gameScene = std::dynamic_pointer_cast<SceneGame>(SceneController::GetInstance().CurrentScene());
 	assert(gameScene && "ダウンキャストに失敗");
 
+	// いつもChangeMapでやっているスコアの確定処理をこちらで行う
+	Statistics::GetInstance().SaveScore();
+
 	gameScene->GameClear();
 }
 

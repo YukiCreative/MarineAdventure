@@ -41,6 +41,7 @@ public:
 	const int GetCoinNum()     const { return m_getCoinNum;     }
 	const int BreakBlockNum()  const { return m_breakBlockNum;  }
 	const int KilledEnemyNum() const { return m_killedEnemyNum; }
+	const int GetCoinNowStageNum() const { return m_tempGetCoinNum; };
 	// ƒtƒŒ[ƒ€‚ğ•Ô‚·
 	const int ClearTime()      const { return m_clearTime;      }
 	const int ClearTimeMinutes() const;

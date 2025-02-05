@@ -62,15 +62,19 @@ void SceneGameClear::ChangeState(State_t nextState)
 
 void SceneGameClear::Skip()
 {
+	Statistics& stats = Statistics::GetInstance();
+
 	m_clearText->Tere({ 0, -200 });
 	m_coinScoreText->pos = kCoinTextTargetPos;
-	m_lerpCoinScore = static_cast<float>(Statistics::GetInstance().ScoreCoin());
+	m_lerpCoinScore = static_cast<float>(stats.ScoreCoin());
 	m_enemyScoreText->pos = kEnemyTextTargetPos;
-	m_lerpEnemyScore = static_cast<float>(Statistics::GetInstance().ScoreEnemy());
+	m_lerpEnemyScore = static_cast<float>(stats.ScoreEnemy());
 	m_blockScoreText->pos = kBlockTextTargetPos;
-	m_lerpBlockScore = static_cast<float>(Statistics::GetInstance().ScoreBlock());
+	m_lerpBlockScore = static_cast<float>(stats.ScoreBlock());
+	m_timeScoreText->pos = kTimeTextTargetPos;
+	m_lerpTimeScore = static_cast<float>(stats.ScoreTime());
 	m_totalScoreText->pos = kTotalTextTargetPos;
-	m_lerpTimeScore = static_cast<float>(Statistics::GetInstance().ScoreTime());
+	m_lerpTotalScore = static_cast<float>(stats.ScoreTotal());
 	m_button->ChangeTransparency(255);
 	ChangeState(&SceneGameClear::NormalState);
 }
