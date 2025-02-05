@@ -62,13 +62,13 @@ void SceneGameClear::Skip()
 {
 	m_clearText->Tere({ 0, -200 });
 	m_coinScoreText->pos = kCoinTextTargetPos;
-	m_lerpCoinScore = static_cast<float>(Statistics::GetInstance().ScoreCoin());
+	m_lerpCoinScore = Statistics::GetInstance().ScoreCoin();
 	m_enemyScoreText->pos = kEnemyTextTargetPos;
-	m_lerpEnemyScore = static_cast<float>(Statistics::GetInstance().ScoreEnemy());
+	m_lerpEnemyScore = Statistics::GetInstance().ScoreEnemy();
 	m_blockScoreText->pos = kBlockTextTargetPos;
-	m_lerpBlockScore = static_cast<float>(Statistics::GetInstance().ScoreBlock());
+	m_lerpBlockScore = Statistics::GetInstance().ScoreBlock();
 	m_totalScoreText->pos = kTotalTextTargetPos;
-	m_lerpTimeScore = static_cast<float>(Statistics::GetInstance().ScoreTime());
+	m_lerpTimeScore = Statistics::GetInstance().ScoreTime();
 	m_button->ChangeTransparency(255);
 	ChangeState(&SceneGameClear::NormalState);
 }
@@ -98,7 +98,7 @@ void SceneGameClear::AppearGetCoinNum()
 	if (m_stateFrameCount > kScoreAppearFrame)
 	{
 		// キャッシュしたほうがメモリ効率はいいがメンバが増える
-		m_lerpCoinScore = static_cast<float>(Statistics::GetInstance().ScoreCoin());
+		m_lerpCoinScore = Statistics::GetInstance().ScoreCoin();
 		ChangeState(&SceneGameClear::AppearKillEnemyNum);
 		return;
 	}
@@ -116,7 +116,7 @@ void SceneGameClear::AppearKillEnemyNum()
 	m_lerpEnemyScore = std::lerp(m_lerpEnemyScore, static_cast<float>(Statistics::GetInstance().ScoreEnemy()), 0.05f);
 	if (m_stateFrameCount > kScoreAppearFrame)
 	{
-		m_lerpEnemyScore = static_cast<float>(Statistics::GetInstance().ScoreEnemy());
+		m_lerpEnemyScore = Statistics::GetInstance().ScoreEnemy();
 		ChangeState(&SceneGameClear::AppearBreakBlockNum);
 		return;
 	}
@@ -133,7 +133,7 @@ void SceneGameClear::AppearBreakBlockNum()
 	m_lerpBlockScore = std::lerp(m_lerpBlockScore, static_cast<float>(Statistics::GetInstance().ScoreBlock()), 0.05f);
 	if (m_stateFrameCount > kScoreAppearFrame)
 	{
-		m_lerpBlockScore = static_cast<float>(Statistics::GetInstance().ScoreBlock());
+		m_lerpBlockScore = Statistics::GetInstance().ScoreBlock();
 		ChangeState(&SceneGameClear::AppearTimeBonusNum);
 		return;
 	}
@@ -150,7 +150,7 @@ void SceneGameClear::AppearTimeBonusNum()
 	m_lerpTimeScore = std::lerp(m_lerpTimeScore, static_cast<float>(Statistics::GetInstance().ScoreTime()), 0.05f);
 	if (m_stateFrameCount > kScoreAppearFrame)
 	{
-		m_lerpTimeScore = static_cast<float>(Statistics::GetInstance().ScoreTime());
+		m_lerpTimeScore = Statistics::GetInstance().ScoreTime();
 		ChangeState(&SceneGameClear::AppearScoreNum);
 		return;
 	}
@@ -167,7 +167,7 @@ void SceneGameClear::AppearScoreNum()
 	m_lerpTotalScore = std::lerp(m_lerpTotalScore, static_cast<float>(Statistics::GetInstance().ScoreTotal()), 0.05f);
 	if (m_stateFrameCount > kScoreAppearFrame)
 	{
-		m_lerpTotalScore = static_cast<float>(Statistics::GetInstance().ScoreTotal());
+		m_lerpTotalScore = Statistics::GetInstance().ScoreTotal();
 		ChangeState(&SceneGameClear::AppearButton);
 		return;
 	}
