@@ -1,22 +1,23 @@
 #include "Boss.h"
 #include "Camera.h"
+#include "Cloud.h"
 #include "DestructibleBlock.h"
 #include "Door.h"
+#include "DoorStage1ToStage2.h"
+#include "DoorStage2ToStage3.h"
+#include "DoorStageClear.h"
 #include "Enemy.h"
 #include "GameEffect.h"
 #include "HarmFish.h"
 #include "MapSystem.h"
+#include "ObjectAttribute.h"
 #include "ObjectKind.h"
 #include "ObjectsController.h"
 #include "Player.h"
+#include "SeaUrchin.h"
+#include "SmallCoin.h"
 #include <cassert>
 #include <vector>
-#include "ObjectAttribute.h"
-#include "Cloud.h"
-#include "SmallCoin.h"
-#include "DoorStage1ToStage2.h"
-#include "DoorStage2ToStage3.h"
-#include "DoorStageClear.h"
 
 namespace
 {
@@ -32,6 +33,7 @@ namespace
 		{ObjectKind::kCloud1, 0},
 		{ObjectKind::kCloud2, 0},
 		{ObjectKind::kCoin, Game::kFrameRate * 300},
+		{ObjectKind::kSeaUrchin, 0},
 		{ObjectKind::kDoor1, 0},
 		{ObjectKind::kDoor2, 0},
 		{ObjectKind::kDoor3, 0},
@@ -94,6 +96,7 @@ ObjectsController::ObjectsController(Camera& camera, Player& player) :
 	m_factoryMap[ObjectKind::kCloud1]   = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Cloud>   (m_cameraRef, spawnPos, CloudKind::k1); };
 	m_factoryMap[ObjectKind::kCloud2]   = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<Cloud>   (m_cameraRef, spawnPos, CloudKind::k2); };
 	m_factoryMap[ObjectKind::kCoin]     = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<SmallCoin>(m_playerRef, m_cameraRef, spawnPos, *this); };
+	m_factoryMap[ObjectKind::kSeaUrchin] = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<SeaUrchin>(*this, spawnPos, m_cameraRef, m_playerRef, baseMapPos); };
 	m_factoryMap[ObjectKind::kDoor1]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<DoorStage1ToStage2>(m_playerRef, m_cameraRef, spawnPos); };
 	m_factoryMap[ObjectKind::kDoor2]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<DoorStage2ToStage3>(m_playerRef, m_cameraRef, spawnPos); };
 	m_factoryMap[ObjectKind::kDoor3]    = [&](const Vector2& spawnPos, const Vector2Int& baseMapPos) {return std::make_shared<DoorGameClear>(m_playerRef, m_cameraRef, spawnPos); };

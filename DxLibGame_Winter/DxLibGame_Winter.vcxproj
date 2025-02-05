@@ -150,6 +150,7 @@
     <ClCompile Include="DoorStage1ToStage2.cpp" />
     <ClCompile Include="DoorStage2ToStage3.cpp" />
     <ClCompile Include="DoorStageClear.cpp" />
+    <ClCompile Include="SeaUrchin.cpp" />
     <ClCompile Include="SmallCoin.cpp" />
     <ClCompile Include="DestructibleBlock.cpp" />
     <ClCompile Include="HPUI.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="DoorStage2ToStage3.h" />
     <ClInclude Include="DoorStageClear.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SeaUrchin.h" />
     <ClInclude Include="SmallCoin.h" />
     <ClInclude Include="DestructibleBlock.h" />
     <ClInclude Include="ImageObject.h" />

@@ -255,6 +255,9 @@
     <ClCompile Include="ButtonReturnToTitleFromClearScene.cpp">
       <Filter>ソース ファイル\UI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="SeaUrchin.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SeaUrchin.h">
+      <Filter>ヘッダー ファイル\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
