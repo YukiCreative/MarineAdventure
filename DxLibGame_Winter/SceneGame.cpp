@@ -14,11 +14,12 @@
 #include "SceneGameover.h"
 #include "ScenePause.h"
 #include "ScreenFade.h"
+#include "SoundManager.h"
 #include "Statistics.h"
 #include "TileImage.h"
 #include "Time.h"
-#include <DxLib.h>
 #include <cassert>
+#include <DxLib.h>
 
 namespace
 {
@@ -33,6 +34,10 @@ namespace
 	const std::string kStage3Pass = "Data/MapData/Stage3.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
 	const std::string kBackGroundTile  = "WaterBackWallTile.png";
+
+	const std::string kPausesound = "場面転換時の効果音.mp3";
+	const std::string kNormalStageBGM = "Data/Music/たぬきちの冒険.wav";
+	const std::string kStage3BGM = "Data/Music/踊る、宇宙の中で(Dancing,at_Universe).mp3";
 }
 
 Stages SceneGame::s_nowStage = Stages::kStage1;
@@ -150,13 +155,19 @@ void SceneGame::ChangeMap(const std::string& path)
 
 void SceneGame::ChangeMap(const std::string& path, const Vector2& playerTransferPos)
 {
+	// ここですまんがBGMを変えさせてもらう
+	if (path == kStage3Pass)
+	{
+		Music::GetInstance().Play(kStage3BGM);
+	}
+
+	// プレイヤーとカメラの位置を変更
+	m_player->Teleportation(playerTransferPos);
+	m_camera->Teleport(playerTransferPos);
 	// 別のfmfファイルを読み込めばいいんやな
 	m_map->ChangeMapData(path, *m_objectCont);
 	// 新しいマップのカメラの制限を把握
 	m_camera->SetMapSize(m_map->GetMapSize());
-	// プレイヤーとカメラの位置を変更
-	m_player->Teleportation(playerTransferPos);
-	m_camera->Teleport(playerTransferPos);
 }
 
 void SceneGame::Entry()
@@ -164,7 +175,7 @@ void SceneGame::Entry()
 	// 主にフェード
 	m_fade.Fade(60, 0);
 
-	Music::GetInstance().Play("Data/Music/たぬきちの冒険.wav");
+	Music::GetInstance().Play(kNormalStageBGM);
 	Music::GetInstance().SetVolume(255);
 }
 
@@ -200,6 +211,7 @@ void SceneGame::NormalUpdate()
 	{
 		// ここでフェードパネルの色変えたらいいんじゃね
 		m_fade.SetColor(0xffffff);
+		SoundManager::GetInstance().Play(kPausesound);
 		SceneStackWithFadeOut("Pause", 30);
 		return;
 	}

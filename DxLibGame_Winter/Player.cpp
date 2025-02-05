@@ -753,7 +753,6 @@ void Player::OnDamage(int damage)
 	if (CheckState(PlayerState::kDeath)) return;
 	if (CheckState(PlayerState::kDisappear)) return;
 
-	// ‚±‚ñ‚È‚Ì‚Å‚¢‚¢‚ñ‚Å‚µ‚å‚¤‚©
 	m_hp -= damage;
 #if _DEBUG
 	printf("Player‚Ì‘Ì—Í%d\n", m_hp.Value());

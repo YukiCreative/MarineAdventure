@@ -7,6 +7,7 @@
 #include "SceneGameClear.h"
 #include "ScreenFade.h"
 #include "Statistics.h"
+#include "Music.h"
 #include <cassert>
 
 namespace
@@ -41,6 +42,7 @@ namespace
 	constexpr int kClearTextAppearFrame = 60;
 	constexpr int kScoreAppearFrame = 90;
 	const Vector2 kButtonPos = { 1000, 600 };
+	const std::string kBGM = "Data/Music/ê∞ìVÉLÉÉÉìÉv.mp3";
 }
 
 void SceneGameClear::NormalUpdate()
@@ -277,6 +279,7 @@ void SceneGameClear::Draw() const
 
 void SceneGameClear::Entry()
 {
+	Music::GetInstance().Play(kBGM);
 	m_fade.Fade(60, 0);
 }
 

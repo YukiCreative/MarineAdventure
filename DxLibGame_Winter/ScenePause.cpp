@@ -11,6 +11,7 @@
 #include "ButtonReturnToGame.h"
 #include "Music.h"
 #include "Statistics.h"
+#include "SoundManager.h"
 
 namespace 
 {
@@ -18,6 +19,8 @@ namespace
 	const Vector2 kPosButtonReturnToTitle = kScrrenMiddlePoint + Vector2(0, 90);
 	const Vector2 kPosButtonReturnToGame = (kScrrenMiddlePoint + Vector2(0, -90));
 	const std::string kBackGroundPath = "Marine.jpg";
+
+	const std::string kReturnGameSound = "èÍñ ì]ä∑éûÇÃå¯â âπ_3.mp3";
 
 	constexpr int kPauseMusicVolume = 200;
 	constexpr int kDefaultMusicVolume = 255;
@@ -84,5 +87,6 @@ void ScenePause::ReturnToTitle()
 
 void ScenePause::ReturnToGame()
 {
+	SoundManager::GetInstance().Play(kReturnGameSound);
 	SceneRemoveWithFadeOut();
 }

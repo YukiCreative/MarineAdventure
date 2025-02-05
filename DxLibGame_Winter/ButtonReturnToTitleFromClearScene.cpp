@@ -3,6 +3,7 @@
 #include "Image.h"
 #include "SceneController.h"
 #include "SceneGameClear.h"
+#include "SoundManager.h"
 #include <cassert>
 #include <algorithm>
 
@@ -10,6 +11,8 @@ namespace
 {
 	const std::string kFocusedImageFile = "ButtonReturnToTitle_Clear.png";
 	const std::string kNoFocusedImageFile = "ButtonReturnToTitle_Clear_NoF.png";
+
+	const std::string kPushedSound = "システム決定音_6.mp3";
 
 	// これかけるといい感じの周期になるんです
 	constexpr float kCycleFactor = 0.05f;
@@ -56,6 +59,8 @@ void ButtonReturnToTitleFromClearScene::OnPressed()
 {
 	std::shared_ptr<SceneGameClear> clearScene = std::dynamic_pointer_cast<SceneGameClear>(SceneController::GetInstance().CurrentScene());
 	assert(clearScene && "ダウンキャストに失敗した");
+
+	SoundManager::GetInstance().Play(kPushedSound);
 	clearScene->ReturnToTitle();
 }
 
