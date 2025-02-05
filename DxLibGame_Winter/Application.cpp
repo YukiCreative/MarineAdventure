@@ -7,6 +7,7 @@
 #include "SoundManager.h"
 #include "SoundStore.h"
 #include "Music.h"
+#include "resource.h"
 
 #if _DEBUG
 namespace
@@ -65,6 +66,9 @@ bool Application::Init()
 	// こういった関数はウィンドウが開く前(DXLib_Init()の前)に処理しておく必要がある
 	ChangeWindowMode(Game::kDefaultWindowMode);
 	SetWindowText("MarineAdventure");
+
+	// アイコン
+	SetWindowIconID(IDI_ICON1);
 
 	// 画面のサイズを変更する
 	// 第三引数は色に使う情報量(ビット)
