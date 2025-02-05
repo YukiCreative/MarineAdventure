@@ -78,6 +78,17 @@ void Statistics::ResetNowStageScore()
     m_tempBreakBlockNum = 0;
 }
 
+void Statistics::ResetAllScore()
+{
+    m_getCoinNum = 0;
+    m_killedEnemyNum = 0;
+    m_breakBlockNum = 0;
+    m_tempGetCoinNum = 0;
+    m_tempKilledEnemyNum = 0;
+    m_tempBreakBlockNum = 0;
+    m_clearTime = 0;
+}
+
 int Statistics::ScoreTime() const
 {
     if (m_clearTime <= kFastTime) return kFastTimeScoreMult;

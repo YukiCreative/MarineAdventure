@@ -52,6 +52,10 @@ public:
 
 	// 今回のステージのスコアを保存する
 	void SaveScore();
+	// 今回のステージのスコアを破棄する
 	void ResetNowStageScore();
+	// スコアをリセット
+	// タイトルに戻った時に流す
+	void ResetAllScore();
 };
 

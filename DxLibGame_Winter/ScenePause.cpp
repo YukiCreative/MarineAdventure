@@ -10,6 +10,7 @@
 #include "ButtonReturnToTitle.h"
 #include "ButtonReturnToGame.h"
 #include "Music.h"
+#include "Statistics.h"
 
 namespace 
 {
@@ -76,6 +77,7 @@ void ScenePause::Draw() const
 
 void ScenePause::ReturnToTitle()
 {
+	Statistics::GetInstance().ResetNowStageScore();
 	m_fade.SetColor(0x000000);
 	SceneResumeWithFadeOut("Title");
 }

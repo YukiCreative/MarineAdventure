@@ -10,6 +10,7 @@
 #include "SceneGame.h"
 #include "SceneTitle.h"
 #include "ScreenFade.h"
+#include "Statistics.h"
 #include <cassert>
 #include <DxLib.h>
 #include <memory>
@@ -91,6 +92,7 @@ void SceneTitle::Init()
 
 	// タイトル画面から始めるゲームはステージ1からにする
 	SceneGame::ResetStageProgress();
+	Statistics::GetInstance().ResetAllScore();
 }
 
 void SceneTitle::Entry()

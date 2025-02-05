@@ -119,6 +119,7 @@ void SceneGame::GameClear()
 
 void SceneGame::GameOver()
 {
+	// 今ステージのスコアは無効
 	Statistics::GetInstance().ResetNowStageScore();
 	// ここでポーズを開いた(フェードの色が変わっている)想定をしないといけないのが不服
 	m_fade.SetColor(0x000000);
@@ -228,6 +229,8 @@ void SceneGame::Draw() const
 	DrawFormatString(0, 60, 0x999999, "%fFPS", Time::FPS());
 	DrawFormatString(0, 75, 0x999999, "deltaTime:%f", Time::DeltaTime());
 	DrawFormatString(0, 90, 0x999999, "Cameraのワールド座標:x,%f y,%f", m_camera->GetPos().x, m_camera->GetPos().y);
+
+	DrawFormatString(0, 105, 0xffffff, "コインの数%d", Statistics::GetInstance().GetCoinNum());
 #endif
 }
 
