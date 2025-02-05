@@ -1,6 +1,13 @@
 #include "Camera.h"
 #include <algorithm>
 #include "MapConstants.h"
+#include "game.h"
+
+namespace
+{
+	constexpr float kLerpMax = 1.0f;
+	constexpr float kLerpMin = 0.1f;
+}
 
 void Camera::Tracking()
 {
@@ -8,8 +15,20 @@ void Camera::Tracking()
 	if (m_refObj.expired()) return;
 
 	Vector2 targetPos = m_refObj.lock()->GetPos();
-	// オブジェクトがカメラの中心から一定値離れたら追尾したい
-	// その際、少し先を描画する
+	// オブジェクトをlerpでじんわり追尾する
+	// カメラから逃れないようにいい感じに追尾する
+	Vector2 rerativeVec = m_pos - targetPos;
+	const float klerpThreshold = Game::kScreenHalfHeight * 0.5f;
+	if (rerativeVec.SqrMagnitude() > klerpThreshold * klerpThreshold)
+	{
+		m_lerpStrength += 0.01f;
+	}
+	else
+	{
+		m_lerpStrength -= 0.01f;
+	}
+	// 冗長だな
+	m_lerpStrength = std::clamp(m_lerpStrength, kLerpMin, kLerpMax);
 	m_velocity = Vector2::LerpValue(m_pos, targetPos, m_lerpStrength);
 }
 

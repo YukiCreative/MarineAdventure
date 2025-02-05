@@ -24,7 +24,8 @@ enum class PlayerState
 	kAttack,
 	kStrongAttack,
 	kDamage,
-	kDeath
+	kDeath,
+	kDisappear
 };
 
 /// <summary>
@@ -101,7 +102,7 @@ private:
 	void ChangeFallAnim();
 	void PlayWalkSound();
 	void ChangeRotation();
-	bool CheckOutOfScreen();
+	bool CheckFallOffTheStage();
 	void InstantDeath();
 public:
 	/// <summary>

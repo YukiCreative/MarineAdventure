@@ -3,11 +3,14 @@
 #include "SceneController.h"
 #include "SceneGameover.h"
 #include "Application.h"
+#include "SoundManager.h"
 
 namespace
 {
 	const std::string kImagePath = "ButtonQuitGame_Gameover.png";
 	const std::string kNoFImagePath = "ButtonQuitGame_Gameover_NoF.png";
+
+	const std::string kPushedSound = "システム決定音_11_3.mp3";
 
 	constexpr float kBaseExRate = 1.0f;
 	constexpr float kFocusedExRate = 1.5f;
@@ -52,6 +55,7 @@ void ButtonQuitGameFromGameover::OnDisfocused()
 void ButtonQuitGameFromGameover::OnPressed()
 {
 	// ゲームを止める
+	SoundManager::GetInstance().Play(kPushedSound);
 	Application::GetInstance().Quit();
 }
 

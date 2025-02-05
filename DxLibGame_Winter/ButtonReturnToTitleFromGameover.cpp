@@ -2,11 +2,14 @@
 #include "SceneController.h"
 #include "SceneGameover.h"
 #include "Image.h"
+#include "SoundManager.h"
 
 namespace
 {
 	const std::string kImagePath = "ButtonReturnToTitle_Gameover.png";
 	const std::string kNoFImagePath = "ButtonReturnToTitle_Gameover_NoF.png";
+
+	const std::string kPushedSound = "システム決定音_11_3.mp3";
 
 	constexpr float kBaseExRate    = 1.0f;
 	constexpr float kFocusedExRate = 1.5f;
@@ -51,6 +54,7 @@ void ButtonReturnToTitleFromGameover::OnDisfocused()
 
 void ButtonReturnToTitleFromGameover::OnPressed()
 {
+	SoundManager::GetInstance().Play(kPushedSound);
 	// タイトルに戻る
 	// な が い
 	std::static_pointer_cast<SceneGameover>(SceneController::GetInstance().CurrentScene())->ReturnToTitle();

@@ -16,6 +16,7 @@
 #include "SceneGame.h"
 #include "Sound.h"
 #include "SoundManager.h"
+#include "Music.h"
 #include <cassert>
 #include <DxLib.h>
 
@@ -73,6 +74,7 @@ namespace
 	const std::string kWalkSound1      = "スライム的な.mp3";
 	const std::string kWalkSound2      = "スライム的な_2.mp3";
 	const std::string kDeathSound      = "自機ロスト音.mp3";
+	const std::string kFallSound       = "落下・物を投げる音_2.mp3";
 	constexpr     int kWalkSoundSpan   = 20;
 	constexpr     int kDashSoundSpan   = 10;
 
@@ -407,8 +409,9 @@ void Player::Air(Input& input, Vector2& axis)
 	ChangeDirection(axis);
 	ChangeFallAnim();
 
-	if (CheckOutOfScreen())
+	if (CheckFallOffTheStage())
 	{
+		SoundManager::GetInstance().Play(kFallSound);
 		InstantDeath();
 	}
 }
@@ -542,14 +545,11 @@ void Player::ChangeRotation()
 	m_nowAnim->SetRotate(m_physics->GetVel().Angle() + 90);
 }
 
-bool Player::CheckOutOfScreen()
+bool Player::CheckFallOffTheStage()
 {
 	Vector2 screenPos = m_camera.Capture(m_pos);
 
-	// 落下したときのために作ったので、大分余裕を持たせる
-	if (screenPos.x < 0                   - 1280) return true;
-	if (screenPos.x > Game::kScreenWidth  + 1280) return true;
-	if (screenPos.y < 0                   - 1280) return true;
+	// 落下した
 	if (screenPos.y > Game::kScreenHeight + 1280) return true;
 
 	return false;
@@ -557,6 +557,9 @@ bool Player::CheckOutOfScreen()
 
 void Player::InstantDeath()
 {
+	// BGM止めたらそれっぽいかな
+	Music::GetInstance().Stop();
+	m_hp = 0;
 	m_hpUI.OnDamage(5);
 	ChangeState(&Player::Death);
 }
@@ -733,6 +736,9 @@ bool Player::CheckState(PlayerState stateID) const
 	case PlayerState::kDeath:
 		return m_state == &Player::Death;
 		break;
+	case PlayerState::kDisappear:
+		return m_state == &Player::DisAppear;
+		break;
 	default:
 		return false;
 		break;
@@ -743,6 +749,9 @@ void Player::OnDamage(int damage)
 {
 	// ダメージ状態なら食らわない
 	if (CheckState(PlayerState::kDamage)) return;
+	// 死んでいればなおさら
+	if (CheckState(PlayerState::kDeath)) return;
+	if (CheckState(PlayerState::kDisappear)) return;
 
 	// こんなのでいいんでしょうか
 	m_hp -= damage;
