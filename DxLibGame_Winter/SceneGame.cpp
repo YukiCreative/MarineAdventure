@@ -235,3 +235,8 @@ void SceneGame::HitStop(const int frame)
 {
 	m_stopFrame = frame;
 }
+
+void SceneGame::ResetStageProgress()
+{
+	s_nowStage = Stages::kStage1;
+}

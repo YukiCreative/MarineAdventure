@@ -88,6 +88,9 @@ void SceneTitle::Init()
 	m_nowAnim = m_playerIdleAnim;
 
 	ButtonInit();
+
+	// タイトル画面から始めるゲームはステージ1からにする
+	SceneGame::ResetStageProgress();
 }
 
 void SceneTitle::Entry()

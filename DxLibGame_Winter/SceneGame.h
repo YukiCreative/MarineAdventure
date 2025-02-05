@@ -69,5 +69,6 @@ public:
 	void HitStop(const int frame);
 	// ƒR[ƒh‚ª‰˜‚­‚È‚Á‚Ä‚«‚½‚º
 	MapSystem& GetMap() { return *m_map; }
+	static void ResetStageProgress();
 };
 
