@@ -1,7 +1,7 @@
 #include "Input.h"
+#include <cassert>
 #include <DxLib.h>
 #include <string>
-#include <cassert>
 
 namespace
 {
@@ -31,12 +31,12 @@ Input::Input() :
     m_inputEvent["Dash"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_LSHIFT},
-        {PeripheralType::kPad, kPadB},
+        {PeripheralType::kPad, kPadA},
     };
     m_inputEvent["Attack"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_Z},
-        {PeripheralType::kPad, kPadA},
+        {PeripheralType::kPad, kPadB},
     };
     m_inputEvent["Up"] =
     {
@@ -71,7 +71,7 @@ Input::Input() :
     m_inputEvent["Jump"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_SPACE},
-        {PeripheralType::kPad, kPadA},
+        {PeripheralType::kPad, kPadB},
     };
     m_inputEvent["Pause"] =
     {
@@ -81,7 +81,7 @@ Input::Input() :
     m_inputEvent["Submit"] =
     {
         {PeripheralType::kKeyboard, KEY_INPUT_Z},
-        {PeripheralType::kPad, kPadA},
+        {PeripheralType::kPad, kPadB},
     };
     m_inputEvent["RecoverPlayerHp_Debug"] =
     {

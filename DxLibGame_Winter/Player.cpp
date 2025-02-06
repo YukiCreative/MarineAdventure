@@ -27,10 +27,10 @@ namespace
 	constexpr int   kMaxHp = 5;
 	// Axisがでかすぎるんだよ
 	constexpr float  kMoveForceFactor = 0.0002f;
-	constexpr float  kGroundMoveForceFactor = 0.0005f;
+	constexpr float  kGroundMoveForceFactor = 0.00075f;
 	constexpr float  kJumpingMoveForceFactor = 0.0001f;
 	constexpr float  kDashForceFactor = 0.0003f;
-	constexpr float  kGroundDashForceFactor = 0.001f;
+	constexpr float  kGroundDashForceFactor = 0.0015f;
 	constexpr float  kStrongAttackMoveFactor = 0.0001f;
 	constexpr float  kDuringDamageMoveFactor = 0.0001f;
 
@@ -44,9 +44,9 @@ namespace
 	constexpr int    kMoveThreshold = 10000;
 	constexpr int	 kGroundMoveThreshold = 100;
 
-	const Vector2    kJumpForce      = { 0.0f, -15.0f };
+	const Vector2    kJumpForce      = { 0.0f, -17.0f };
 	const Vector2    kWaterJumpForce = { 0.0f, -7.0f  };
-	const Vector2    kDashJumpForce  = { 0.0f, -20.0f };
+	const Vector2    kDashJumpForce  = { 0.0f, -22.0f };
 	constexpr float  kFallThreshold  = 2.0f;
 	// 着地できる地面の角度(法線)
 	constexpr int kLandingThresholdMin = 45;

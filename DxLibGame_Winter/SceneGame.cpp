@@ -171,6 +171,7 @@ void SceneGame::ChangeMap(const std::string& path, const Vector2& playerTransfer
 	m_map->ChangeMapData(path, *m_objectCont);
 	// 新しいマップのカメラの制限を把握
 	m_camera->SetMapSize(m_map->GetMapSize());
+	m_camera->FitMap();
 }
 
 void SceneGame::Entry()

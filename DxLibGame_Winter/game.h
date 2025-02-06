@@ -17,5 +17,5 @@ namespace Game
 	constexpr int kScreenHalfWidth = Game::kScreenWidth >> 1;
 	constexpr int kScreenHalfHeight = Game::kScreenHeight >> 1;
 
-	constexpr bool kDefaultWindowMode = true;
+	constexpr bool kDefaultWindowMode = false;
 }
