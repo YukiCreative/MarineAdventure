@@ -18,7 +18,7 @@ namespace
 	const Vector2 kTextOffset = { 50, -10 };
 	const std::string kFontPath = "Data/Font/07にくまるフォント.otf";
 	const std::string kFontName = "07にくまるフォント";
-	constexpr int kFonttSize = 30;
+	constexpr int kFontSize = 30;
 	constexpr int kThickness = -1;
 }
 
@@ -32,7 +32,7 @@ CoinUI::CoinUI(const Vector2& initPos) :
 
 	AddFontResourceExA(kFontPath.c_str(), FR_PRIVATE, NULL);
 
-	m_fontHandle = CreateFontToHandle(kFontName.c_str(), kFonttSize, kThickness);
+	m_fontHandle = CreateFontToHandle(kFontName.c_str(), kFontSize, kThickness);
 }
 
 CoinUI::~CoinUI()

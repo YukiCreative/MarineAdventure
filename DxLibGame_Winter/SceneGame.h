@@ -12,6 +12,7 @@ class ImageObject;
 class ScreenFade;
 class HitPoints;
 class CoinUI;
+class TimeUI;
 
 enum class Stages
 {
@@ -33,6 +34,7 @@ private:
 	std::shared_ptr<ObjectsController> m_objectCont;
 	std::shared_ptr<HitPoints> m_hpUI;
 	std::shared_ptr<CoinUI> m_coinUI;
+	std::shared_ptr<TimeUI> m_timeUI;
 
 	// マップ切り替え処理関連
 	std::string m_nextMapPath;

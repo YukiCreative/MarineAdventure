@@ -447,7 +447,7 @@ bool Player::CheckEnvironmentChanged()
 	// すべてのマップチップが対象
 	const auto& allMapChips = m_map.lock()->GetAllMapChips();
 	// 自分の中心が入っているチップの環境を見る
-	MapConstants::kEnvironment hitEnvironments;
+	MapConstants::kEnvironment hitEnvironments = MapConstants::kEnvironment::kOutOfMap;
 	for (const auto& chip : allMapChips)
 	{
 		// 移動なし当たり判定
@@ -462,6 +462,9 @@ bool Player::CheckEnvironmentChanged()
 		hitEnvironments = chip->GetMapChipData().environment;
 		break;
 	}
+
+	// マップ外の場合
+	if (hitEnvironments == MapConstants::kEnvironment::kOutOfMap) return false;
 
 	// 今の状態と違ったら
 	if (m_physics->CheckState(hitEnvironments)) return false;
@@ -648,7 +651,10 @@ void Player::Update()
 			m_physics->IsGrounded(false);
 			m_physics->ChangeState(MapConstants::kEnvironment::kWater);
 			SetStateNormal();
-			SoundManager::GetInstance().Play(kIntoWaterSound);
+			if (abs(m_velocity.y) > 5)
+			{
+				SoundManager::GetInstance().Play(kIntoWaterSound);
+			}
 			// 水の衝撃でスピードが落ちる感じ
 			m_physics->AddForce(-m_velocity * 0.5f);
 		}
@@ -663,7 +669,10 @@ void Player::Update()
 			{
 				SetStateJump();
 			}
-			SoundManager::GetInstance().Play(kOutOfWaterSound);
+			if (abs(m_velocity.y) > 5)
+			{
+				SoundManager::GetInstance().Play(kOutOfWaterSound);
+			}
 		}
 	}
 

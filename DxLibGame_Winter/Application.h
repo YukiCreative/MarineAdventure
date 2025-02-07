@@ -21,6 +21,5 @@ public:
 
 	// ‚±‚Á‚¿‚ªƒQ[ƒ€‚ğI‚¦‚é‚Ìˆ—
 	// Terminate‚Æ•´‚ç‚í‚µ‚­‚ÄŒä–Æ
-	void Quit() { m_isRunning = false; };
+	void Quit() { m_isRunning = false; }
 };
-

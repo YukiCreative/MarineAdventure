@@ -112,14 +112,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(DXLIB_DIR)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>DxLib_h</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXLIB_DIR)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>DxLib_h</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(DXLIB_DIR)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>DxLib_h</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -139,7 +139,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DXLIB_DIR)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>DxLib_h</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -151,6 +151,7 @@
     <ClCompile Include="DoorStage1ToStage2.cpp" />
     <ClCompile Include="DoorStage2ToStage3.cpp" />
     <ClCompile Include="DoorStageClear.cpp" />
+    <ClCompile Include="ScoreUI.cpp" />
     <ClCompile Include="SeaUrchin.cpp" />
     <ClCompile Include="SmallCoin.cpp" />
     <ClCompile Include="DestructibleBlock.cpp" />
@@ -200,8 +201,10 @@
     <ClCompile Include="SoundStore.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="Statistics.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="TileImage.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="TimeUI.cpp" />
     <ClCompile Include="VolumeLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +217,7 @@
     <ClInclude Include="DoorStage2ToStage3.h" />
     <ClInclude Include="DoorStageClear.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ScoreUI.h" />
     <ClInclude Include="SeaUrchin.h" />
     <ClInclude Include="SmallCoin.h" />
     <ClInclude Include="DestructibleBlock.h" />
@@ -272,8 +276,10 @@
     <ClInclude Include="SoundStore.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="Statistics.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="TileImage.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="TimeUI.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="VolumeLoader.h" />
   </ItemGroup>

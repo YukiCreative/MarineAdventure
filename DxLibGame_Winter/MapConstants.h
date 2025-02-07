@@ -20,6 +20,7 @@ namespace MapConstants
 	{
 		kWater,
 		kGround,
+		kOutOfMap,
 		kEnvNum,
 	};
 }
