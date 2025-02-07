@@ -446,27 +446,27 @@ bool Player::CheckEnvironmentChanged()
 	// もう一回当たり判定する
 	// すべてのマップチップが対象
 	const auto& allMapChips = m_map.lock()->GetAllMapChips();
-	std::list<MapConstants::kEnvironment> hitEnvironments;
+	// 自分の中心が入っているチップの環境を見る
+	MapConstants::kEnvironment hitEnvironments;
 	for (const auto& chip : allMapChips)
 	{
 		// 移動なし当たり判定
 		// 多少軽い
 		CollisionStatus col = m_collider->CheckHit(chip->GetCollider());
+		// 当たっているかどうか
 		if (!col.isCollide) continue;
+		// 中心が入っているかどうか
+		if (col.overlap != Vector2::Zero()) continue;
 
 		// Environmentを記憶
-		hitEnvironments.push_back(chip->GetMapChipData().environment);
+		hitEnvironments = chip->GetMapChipData().environment;
+		break;
 	}
-	// マップ外の場合は今の状態から変わらない
-	if (hitEnvironments.empty()) return false;
 
-	// 自分が水中にいる場合、
-	bool result = true;
-	for (const auto& env : hitEnvironments)
-	{
-		result &= !m_physics->CheckState(env);
-	}
-	return result;
+	// 今の状態と違ったら
+	if (m_physics->CheckState(hitEnvironments)) return false;
+
+	return true;
 }
 
 void Player::CollideToMapChips()

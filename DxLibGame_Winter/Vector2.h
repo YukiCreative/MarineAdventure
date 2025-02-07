@@ -49,6 +49,12 @@ public:
 		return (x == right.x && y == right.y);
 	}
 
+	bool operator==(const Vector2& right) const
+	{
+		// X‚ÆY‚Ç‚¿‚ç‚à“¯‚¶’l‚È‚çtrue‚ğ•Ô‚·
+		return (x == right.x && y == right.y);
+	}
+
 	/// <summary>
 	/// ¶•Ó‚ÉA‰E•Ó‚ğ‘«‚µZ‚µ‚½‚à‚Ì‚ğ‘ã“ü
 	/// </summary>
