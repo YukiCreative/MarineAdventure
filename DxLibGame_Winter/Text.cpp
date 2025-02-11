@@ -13,5 +13,5 @@ Text::Text(const std::string& initText) :
 
 void Text::Draw(const Vector2& drawPos)
 {
-	DrawFormatStringToHandle(drawPos.x, drawPos.y, m_color, );
+	//DrawFormatStringToHandle(drawPos.x, drawPos.y, m_color, );
 }
