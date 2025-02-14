@@ -3,7 +3,7 @@
 #include <string>
 
 /// <summary>
-/// Data/Imageの中の画像ファイルを全読み込みしてみようかな
+/// Data/Imageの中の画像ファイルを全読み込みする
 /// </summary>
 class ImageStore
 {

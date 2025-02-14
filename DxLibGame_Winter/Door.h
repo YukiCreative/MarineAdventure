@@ -5,7 +5,7 @@
 #include "Vector2.h"
 #include <memory>
 
-// プロトタイプ宣言ってどこに書けばいいんだろう
+// プロトタイプ宣言
 class Image;
 class Camera;
 class CircleCollider;

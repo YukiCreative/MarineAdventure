@@ -40,7 +40,7 @@ namespace
 	constexpr float   kGraphExpandRate   = MapConstants::kChipSize / kImageOneSize;
 
 	// 音
-	const std::string kDamageSound = "レトロアクション_3.mp3";
+	const std::string kDamageSound = "DamageSound.mp3";
 }
 
 void HarmFish::Idle()
@@ -59,7 +59,6 @@ void HarmFish::Idle()
 	ChasePointValidation();
 	if (m_chasePoint == kChaseScoreMax)
 	{
-		// これがどんな状態でも一つの関数でできたらいいのだが…
 		m_state   = &HarmFish::Chase;
 		m_nowAnim = m_chaseAnim;
 		return;
@@ -261,7 +260,6 @@ HarmFish::HarmFish(ObjectsController& cont, Player& player, Camera& camera, cons
 	m_stateFrameCount(0),
 	m_chasePoint(0)
 {
-	// 生焼けになるけど大丈夫かな
 	m_physics = std::make_shared<Physics>(1.0f, 1.0f);
 	m_physics->UseConstantForce(false);
 	m_collider = std::make_shared<CircleCollider>(m_pos, kColRadius);

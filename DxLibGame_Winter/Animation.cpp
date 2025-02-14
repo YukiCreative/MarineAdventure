@@ -35,7 +35,6 @@ void Animation::Init(const std::string& fileName, const Vector2Int& oneImageSize
 		graph = DerivationGraph(x * oneImageSize.x, 0, oneImageSize.x, oneImageSize.y, m_sourceHandle);
 		++x;
 	}
-	// ‚±‚ñ‚È‚ñ‚Å‚¢‚¢‚â
 	m_allAnimNum = static_cast<int>(m_frameHandle.size());
 	// ‘S‘ÌƒtƒŒ[ƒ€
 	m_allFrame = m_oneAnimTime * m_allAnimNum;

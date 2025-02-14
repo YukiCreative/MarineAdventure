@@ -10,7 +10,7 @@ namespace
 	const std::string kImagePath = "ButtonQuitGame_Gameover.png";
 	const std::string kNoFImagePath = "ButtonQuitGame_Gameover_NoF.png";
 
-	const std::string kPushedSound = "ƒVƒXƒeƒ€Œˆ’è‰¹_11_3.mp3";
+	const std::string kPushedSound = "ButtonGameover_SubmitSound.mp3";
 
 	constexpr float kBaseExRate = 1.0f;
 	constexpr float kFocusedExRate = 1.5f;

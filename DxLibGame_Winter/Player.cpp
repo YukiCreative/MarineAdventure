@@ -68,13 +68,15 @@ namespace
 
 	// 音のファイル
 	const std::string kIntoWaterSound  = "IntoTheWater.wav";
-	const std::string kOutOfWaterSound = "水音　バシャ.mp3";
+	const std::string kOutOfWaterSound = "OutOfWaterSound.mp3";
 	const std::string kStunSound       = "Stun.wav";
-	const std::string kAttackSound     = "レトロアクション.mp3";
-	const std::string kWalkSound1      = "スライム的な.mp3";
-	const std::string kWalkSound2      = "スライム的な_2.mp3";
-	const std::string kDeathSound      = "自機ロスト音.mp3";
-	const std::string kFallSound       = "落下・物を投げる音_2.mp3";
+	const std::string kAttackSound     = "AttackSound.mp3";
+	const std::string kWalkSound1      = "WalkSound1.mp3";
+	const std::string kWalkSound2      = "WalkSound2.mp3";
+	const std::string kDeathSound      = "DeathSound.mp3";
+	const std::string kFallSound       = "FallSound.mp3";
+	const std::string kJumpSound       = "JumpSound.mp3";
+	const std::string kDashJumpSound   = "DashJumpSound.mp3";
 	constexpr     int kWalkSoundSpan   = 20;
 	constexpr     int kDashSoundSpan   = 10;
 
@@ -281,7 +283,7 @@ void Player::GNormal(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
-		SoundManager::GetInstance().Play("ファニージャンプ_2.mp3");
+		SoundManager::GetInstance().Play(kJumpSound);
 		SetStateJump();
 		return;
 	}
@@ -308,7 +310,7 @@ void Player::GMove(Input& input, Vector2& axis)
 	if (input.IsTrigger("Jump"))
 	{
 		m_physics->AddForce(kJumpForce);
-		SoundManager::GetInstance().Play("ファニージャンプ_2.mp3");
+		SoundManager::GetInstance().Play(kJumpSound);
 		SetStateJump();
 		return;
 	}
@@ -366,7 +368,7 @@ void Player::GDash(Input& input, Vector2& axis)
 	{
 		// ダッシュジャンプはちょっと高く飛びたい
 		m_physics->AddForce(kDashJumpForce);
-		SoundManager::GetInstance().Play("ファニージャンプ_3.mp3");
+		SoundManager::GetInstance().Play(kDashJumpSound);
 		SetStateJump();
 		return;
 	}

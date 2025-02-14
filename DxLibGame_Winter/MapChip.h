@@ -43,8 +43,14 @@ private:
 	/// </summary>
 	/// <returns>true:âÊñ äOîªíËÇí Ç¡ÇΩ false:âÊñ ì‡Ç≈ÇµÇΩ</returns>
 	bool LoopScreen();
-	bool CheckLoopUpAndLeft();
-	bool CheckLoopDownAndRight();
+	bool CheckLoopUp(const Vector2& screenPos) const;
+	bool CheckLoopDown(const Vector2& screenPos) const;
+	bool CheckLoopRight(const Vector2& screenPos) const;
+	bool CheckLoopLeft(const Vector2& screenPos) const;
+	void SetLoopPosUp();
+	void SetLoopPosDown();
+	void SetLoopPosRight();
+	void SetLoopPosLeft();
 public:
 	// à¯êîÇ™Ç∑ÇÒÇ≤Ç¢
 	// Ç¢ÇÎÇ¢ÇÎÇ‚ÇÁÇπÇ∑Ç¨Ç©Ç‡

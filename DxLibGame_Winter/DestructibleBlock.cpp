@@ -60,7 +60,7 @@ DestructibleBlock::DestructibleBlock(Camera& camera, Player& player, const Vecto
 	m_col = std::make_shared<BoxCollider>(m_pos, static_cast<float>(kBlockWidth), static_cast<float>(kBlockHeight));
 
 	m_normalAnim = std::make_shared<Animation>();
-	// ‚±‚ê‚¾‚¯Init‚È‚Ì‰½‚Æ‚©‚µ‚ë
+	// ‚±‚ê‚¾‚¯Init‚È‚ÌŽ¸”s‚µ‚½
 	m_normalAnim->Init(kNormalAnimFile, Vector2Int(kBlockWidth, kBlockHeight), 1);
 
 	m_breakingAnim = std::make_shared<Animation>();

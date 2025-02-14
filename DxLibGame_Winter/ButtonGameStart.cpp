@@ -9,7 +9,7 @@ namespace
 {
 	const std::string kImagePath          = "ButtonStartGame.png";
 	const std::string kNoFocusedImagePath = "ButtonStartGame_NoFocused.png";
-	const std::string kStartSound = "ƒLƒ‰ƒLƒ‰Œø‰Ê‰¹.mp3";
+	const std::string kStartSound = "GameStartButton_SumitSound.mp3";
 	constexpr float kBaseButtonExpand = 1.0f;
 	// Base + Plus = MaxExRate
 	constexpr float kPlusExpandPoint = 0.5f;

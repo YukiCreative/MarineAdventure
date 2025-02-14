@@ -11,7 +11,7 @@ namespace
 	constexpr int kCursorMoveInterval = 20;
 	constexpr int kAxisDirThreshold = 45;
 
-	const std::string kSerectSound = "ÉZÉåÉNÉgâπ_2_3.mp3";
+	const std::string kSerectSound = "ButtonSelectSound.mp3";
 }
 
 void ButtonSystem::MoveFocus(Vector2 inputAxis)

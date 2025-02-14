@@ -17,7 +17,7 @@ namespace
 	constexpr float kExRate = 3.0f;
 	const std::string kEffectFile = "CoinEffect.png";
 	const Vector2Int kEffectImageSize = { 32, 32 };
-	const std::string kGetSound = "ƒRƒCƒ“Šl“¾‰¹.mp3";
+	const std::string kGetSound = "GetCoinSound.mp3";
 
 	constexpr int kGetThreshold = 5000;
 }

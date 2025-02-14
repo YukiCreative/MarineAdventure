@@ -31,7 +31,7 @@ namespace
 	constexpr int kPlaySpeed = 10;
 	constexpr int kAttackPlaySpeed = 3;
 	const Vector2 kPlayerPos = {200, 600};
-	const std::string kMusicFile = "Data/Music/Kira_Kira_Cotton_Candy_2.mp3";
+	const std::string kMusicFile = "Data/Music/Title.mp3";
 }
 
 void SceneTitle::ButtonInit()

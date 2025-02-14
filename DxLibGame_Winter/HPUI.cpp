@@ -60,7 +60,7 @@ void HitPointHeart::Update()
 
 void HitPointHeart::Draw() const
 {
-	// UI‚È‚Ì‚ÅƒJƒƒ‰‚Í‚¢‚ç‚È‚¢‚©‚È
+	// UI‚È‚Ì‚ÅƒJƒƒ‰‚Í‚¢‚ç‚È‚¢‚Æ”»’f
 	m_nowAnim->Draw(m_pos);
 }
 
@@ -139,7 +139,6 @@ void HitPoints::OnRecovery(const int recoverAmount)
 	// *‹t‡*‚ÉŒ©‚Ä‚¢‚­
 	for (auto i = m_hearts.rbegin(); i != m_hearts.rend(); ++i)
 	{
-		// ‚«‚à
 		if ((*i)->IsFull()) continue;
 
 		(*i)->OnRecovery();

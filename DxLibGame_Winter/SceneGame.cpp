@@ -26,7 +26,7 @@
 namespace
 {
 	const Vector2 kScreenMiddlePos(Game::kScreenHalfWidth, Game::kScreenHalfHeight);
-	//                                    ↓PlatinumのX  ↓〃Y
+	//                                          ↓PlatinumのX  ↓〃Y
 	const Vector2 Stage1PlayerInitPos = { 80 * (3 - 8), 80 * (35 - 5) };
 	const Vector2 Stage2PlayerInitPos = { 80 * (3 - 8), 80 * (8 - 5) };
 	const Vector2 Stage3PlayerInitPos = { 80 * (6 - 8), 80 * (125 - 5) };
@@ -39,9 +39,9 @@ namespace
 	const std::string kBackGroundPass  = "Marine.jpg";
 	const std::string kBackGroundTile  = "WaterBackWallTile.png";
 
-	const std::string kPausesound = "場面転換時の効果音.mp3";
-	const std::string kNormalStageBGM = "Data/Music/たぬきちの冒険.wav";
-	const std::string kStage3BGM = "Data/Music/踊る、宇宙の中で(Dancing,at_Universe).mp3";
+	const std::string kPausesound = "Pause.mp3";
+	const std::string kNormalStageBGM = "Data/Music/NormalStage.wav";
+	const std::string kStage3BGM = "Data/Music/Stage3.mp3";
 }
 
 Stages SceneGame::s_nowStage = Stages::kStage1;
@@ -115,7 +115,7 @@ void SceneGame::Init()
 		break;
 	}
 
-	// そもそも参照で取らなきゃいいじょん
+	// そもそも参照で取らなきゃよかった
 	m_player->Init(m_map, m_objectCont);
 	m_camera->SetFollowObject(m_player);
 	m_camera->SetMapSize(m_map->GetMapSize());
@@ -149,7 +149,7 @@ void SceneGame::ChangeMapWithFadeOut(const Stages stage, const std::string& path
 	m_player->Stop();
 
 	// 自分はフェード待ち状態へ移行
-	// フラグ管理はほんとはしたくないよ？
+	// フラグ管理はほんとはしたくなかった
 	m_isMapChanging = true;
 }
 
@@ -161,7 +161,8 @@ void SceneGame::ChangeMap(const std::string& path)
 
 void SceneGame::ChangeMap(const std::string& path, const Vector2& playerTransferPos)
 {
-	// ここですまんがBGMを変えさせてもらう
+	// BGMを変える
+	// 場所がよくないのは分かっている
 	if (path == kStage3Pass)
 	{
 		Music::GetInstance().Play(kStage3BGM);
@@ -170,7 +171,7 @@ void SceneGame::ChangeMap(const std::string& path, const Vector2& playerTransfer
 	// プレイヤーとカメラの位置を変更
 	m_player->Teleportation(playerTransferPos);
 	m_camera->Teleport(playerTransferPos);
-	// 別のfmfファイルを読み込めばいいんやな
+	// 別のfmfファイルを読み込む
 	m_map->ChangeMapData(path, *m_objectCont);
 	// 新しいマップのカメラの制限を把握
 	m_camera->SetMapSize(m_map->GetMapSize());
@@ -217,7 +218,7 @@ void SceneGame::NormalUpdate()
 
 	if (input.IsTrigger("Pause"))
 	{
-		// ここでフェードパネルの色変えたらいいんじゃね
+		// ここでフェードパネルの色変える
 		m_fade.SetColor(0xffffff);
 		SoundManager::GetInstance().Play(kPausesound);
 		SceneStackWithFadeOut("Pause", 30);

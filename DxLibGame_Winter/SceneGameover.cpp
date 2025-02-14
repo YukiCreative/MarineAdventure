@@ -20,6 +20,7 @@ namespace
 	const std::string kBackGroundImageFile = "GAMEOVER_Test.jpg";
 	const std::string kPlayerFile = "GameoverPlayer.png";
 	const std::string kGameoverTextFile = "GameoverText.png";
+	const std::string kGameOverBGM = "Data/Music/Gameover.mp3";
 	const Vector2 kTextInitPos(Game::kScreenHalfWidth, -100);
 	const Vector2 kPlayerInitPos(Game::kScreenHalfWidth, 480);
 
@@ -165,7 +166,7 @@ void SceneGameover::Init()
 
 void SceneGameover::Entry()
 {
-	Music::GetInstance().Play("Data/Music/ç~ÇËÇµÇ´ÇÈÅAîí.mp3");
+	Music::GetInstance().Play(kGameOverBGM);
 	m_fade.Fade(60, 0);
 }
 

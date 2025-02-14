@@ -12,7 +12,7 @@ namespace
 	const std::string kFocusedImageFile = "ButtonReturnToTitle_Clear.png";
 	const std::string kNoFocusedImageFile = "ButtonReturnToTitle_Clear_NoF.png";
 
-	const std::string kPushedSound = "ƒVƒXƒeƒ€Œˆ’è‰¹_6.mp3";
+	const std::string kPushedSound = "ClearSceneButton_SubmitSound.mp3";
 
 	// ‚±‚ê‚©‚¯‚é‚Æ‚¢‚¢Š´‚¶‚ÌŽüŠú‚É‚È‚é‚ñ‚Å‚·
 	constexpr float kCycleFactor = 0.05f;

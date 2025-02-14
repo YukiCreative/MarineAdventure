@@ -27,7 +27,6 @@ void SoundManager::Update()
 
 void SoundManager::RemoveFinishedSounds()
 {
-	// ‚±‚ê‚Å‚¦‚¦‚â‚ñ
 	SoundList_t playingSounds;
 	for (const auto& sound : m_sounds)
 	{

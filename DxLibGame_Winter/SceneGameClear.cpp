@@ -42,7 +42,7 @@ namespace
 	constexpr int kClearTextAppearFrame = 60;
 	constexpr int kScoreAppearFrame = 90;
 	const Vector2 kButtonPos = { 1000, 600 };
-	const std::string kBGM = "Data/Music/°“VƒLƒƒƒ“ƒv.mp3";
+	const std::string kBGM = "Data/Music/Clear.mp3";
 }
 
 void SceneGameClear::NormalUpdate()

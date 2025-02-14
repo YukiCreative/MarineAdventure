@@ -1,7 +1,6 @@
 #pragma once
 #include <algorithm>
 
-// ‘Ì—Í‚ªint‚È‚Ì‚ª‚İ‚¶‚ß‚È‚Ì‚Å
 struct HitPoint
 {
 private:
@@ -38,7 +37,6 @@ public:
 
 	void operator+=(const HitPoint& value)
 	{
-		// ‚±‚Ì‘‚«•û•|‚¢‚ñ‚¾‚¯‚Ç
 		*this = *this + value;
 	}
 

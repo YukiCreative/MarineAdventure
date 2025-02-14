@@ -48,50 +48,81 @@ bool MapChip::LoopScreen()
 	// 自分の座標が特定の範囲外に出てたら
 	// 反対側に瞬間移動
 	// 上と左方向が優先(でないと1フレームのうちに反復横跳びする)
-	// 短絡評価によって実装している
-	return CheckLoopUpAndLeft() || CheckLoopDownAndRight(); // Checkとか名前付いてるけどがっつりメンバ変数いじってます。ごめんなさい。
-}
 
-bool MapChip::CheckLoopUpAndLeft()
-{
-	// スクリーン座標を計算
 	Vector2 screenPos = m_camera.Capture(m_pos);
-	// 画面外判定
 	bool isLoop = false;
-	if (screenPos.x <= -MapConstants::kChipOffset) // 左から右へ
+
+	if (CheckLoopUp(screenPos))
 	{
-		// ループの式ってこんなのになるんだ
-		m_pos.x += Game::kScreenWidth + MapConstants::kChipOffset * 2;
-		m_mapPos.x += MapConstants::kWidthChipNum;
+		SetLoopPosUp();
 		isLoop = true;
 	}
-	if (screenPos.y <= -MapConstants::kChipOffset) // 上から下へ
+	else if (CheckLoopDown(screenPos))
 	{
-		m_pos.y += Game::kScreenHeight + MapConstants::kChipOffset * 2;
-		m_mapPos.y += MapConstants::kHeightChipNum;
+		SetLoopPosDown();
 		isLoop = true;
 	}
+
+	if (CheckLoopLeft(screenPos))
+	{
+		SetLoopPosLeft();
+		isLoop = true;
+	}
+	else if (CheckLoopRight(screenPos))
+	{
+		SetLoopPosRight();
+		isLoop = true;
+	}
+
 	return isLoop;
 }
 
-bool MapChip::CheckLoopDownAndRight()
+bool MapChip::CheckLoopUp(const Vector2& screenPos) const
 {
-	// スクリーン座標を計算
-	Vector2 screenPos = m_camera.Capture(m_pos);
-	bool isLoop = false;
-	if (screenPos.y >= Game::kScreenHeight + MapConstants::kChipOffset) // 下から上へ
-	{
-		m_pos.y -= Game::kScreenHeight + MapConstants::kChipOffset * 2;
-		m_mapPos.y -= MapConstants::kHeightChipNum;
-		isLoop = true;
-	}
-	if (screenPos.x >= Game::kScreenWidth + MapConstants::kChipOffset) // 右端から左端へ
-	{
-		m_pos.x -= Game::kScreenWidth + MapConstants::kChipOffset * 2;
-		m_mapPos.x -= MapConstants::kWidthChipNum;
-		isLoop = true;
-	}
-	return isLoop;
+	return screenPos.y <= -MapConstants::kChipOffset;
+}
+
+bool MapChip::CheckLoopDown(const Vector2& screenPos) const
+{
+	return screenPos.y >= Game::kScreenHeight + MapConstants::kChipOffset;
+}
+
+bool MapChip::CheckLoopRight(const Vector2& screenPos) const
+{
+	return screenPos.x >= Game::kScreenWidth + MapConstants::kChipOffset;
+}
+
+bool MapChip::CheckLoopLeft(const Vector2& screenPos) const
+{
+	return screenPos.x <= -MapConstants::kChipOffset;
+}
+
+void MapChip::SetLoopPosUp()
+{
+	// 上から下へ
+	m_pos.y += Game::kScreenHeight + MapConstants::kChipOffset * 2;
+	m_mapPos.y += MapConstants::kHeightChipNum;
+}
+
+void MapChip::SetLoopPosDown()
+{
+	// 下から上へ
+	m_pos.y -= Game::kScreenHeight + MapConstants::kChipOffset * 2;
+	m_mapPos.y -= MapConstants::kHeightChipNum;
+}
+
+void MapChip::SetLoopPosRight()
+{
+	// 右端から左端へ
+	m_pos.x -= Game::kScreenWidth + MapConstants::kChipOffset * 2;
+	m_mapPos.x -= MapConstants::kWidthChipNum;
+}
+
+void MapChip::SetLoopPosLeft()
+{
+	// 左から右へ
+	m_pos.x += Game::kScreenWidth + MapConstants::kChipOffset * 2;
+	m_mapPos.x += MapConstants::kWidthChipNum;
 }
 
 MapChip::MapChip(Camera& camera, const Vector2 initPos, const Vector2Int initMapPos, MapSystem& system) :
@@ -128,7 +159,7 @@ void MapChip::Update()
 		ResetMapData();
 		//printf("ループ！！");
 #if _DEBUG
-		printf("MapPos:x=%d,y=%d\n", m_mapPos.x, m_mapPos.y);
+		//printf("MapPos:x=%d,y=%d\n", m_mapPos.x, m_mapPos.y);
 #endif
 	}
 

@@ -20,7 +20,7 @@ namespace
 	const Vector2 kPosButtonReturnToGame = (kScrrenMiddlePoint + Vector2(0, -90));
 	const std::string kBackGroundPath = "Marine.jpg";
 
-	const std::string kReturnGameSound = "ê–Ê“]Š·‚ÌŒø‰Ê‰¹_3.mp3";
+	const std::string kReturnGameSound = "EndPause.mp3";
 
 	constexpr int kPauseMusicVolume = 200;
 	constexpr int kDefaultMusicVolume = 255;
