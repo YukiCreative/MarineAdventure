@@ -22,6 +22,7 @@
 #include <DxLib.h>
 #include "CoinUI.h"
 #include "TimeUI.h"
+#include "Image.h"
 
 namespace
 {
@@ -33,11 +34,14 @@ namespace
 	const Vector2 kInitHpUIPos   = { kScreenMiddlePos.x - 256, kScreenMiddlePos.y + 300 };
 	const Vector2 kCoinUIInitPos = { 50, 50 };
 	const Vector2 kTimeUIInitPos = { 275, 50 };
+	const Vector2 kHowToPlayPos = { Game::kScreenWidth - 100, 100 };
+	constexpr float kHowToPlayExRate = 0.5f;
 	const std::string kStage1Pass = "Data/MapData/Stage1.fmf";
 	const std::string kStage2Pass = "Data/MapData/Stage2.fmf";
 	const std::string kStage3Pass = "Data/MapData/Stage3.fmf";
 	const std::string kBackGroundPass  = "Marine.jpg";
 	const std::string kBackGroundTile  = "WaterBackWallTile.png";
+	const std::string kHowToPlayFile = "HowToPlay.png";
 
 	const std::string kPausesound = "Pause.mp3";
 	const std::string kNormalStageBGM = "Data/Music/NormalStage.wav";
@@ -90,6 +94,8 @@ void SceneGame::Init()
 	m_player = std::make_shared<Player>(*m_camera, Vector2::Zero(), *m_hpUI);
 	m_objectCont = std::make_shared<ObjectsController>(*m_camera, *m_player);
 	m_map = std::make_shared<MapSystem>();
+	m_imageHowToPlay = std::make_shared<Image>(kHowToPlayFile);
+	m_imageHowToPlay->SetExRate(kHowToPlayExRate);
 
 	// 今の進行度に応じて読み込むマップを変える
 	// switch
@@ -245,6 +251,7 @@ void SceneGame::Draw() const
 	m_hpUI->Draw();
 	m_coinUI->Draw();
 	m_timeUI->Draw();
+	m_imageHowToPlay->Draw(kHowToPlayPos);
 	m_fade.Draw();
 
 #if _DEBUG

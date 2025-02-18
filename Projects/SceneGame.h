@@ -13,6 +13,7 @@ class ScreenFade;
 class HitPoints;
 class CoinUI;
 class TimeUI;
+class Image;
 
 enum class Stages
 {
@@ -35,6 +36,7 @@ private:
 	std::shared_ptr<HitPoints> m_hpUI;
 	std::shared_ptr<CoinUI> m_coinUI;
 	std::shared_ptr<TimeUI> m_timeUI;
+	std::shared_ptr<Image> m_imageHowToPlay;
 
 	// マップ切り替え処理関連
 	std::string m_nextMapPath;
